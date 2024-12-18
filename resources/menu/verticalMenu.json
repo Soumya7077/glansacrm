@@ -7,34 +7,16 @@
       "slug": "dashboard"
     },
     {
-      "url": "/",
-      "name": "User Creation",
+      "url": "/user",
+      "name": "User Master List",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "User Creation"
     },
     {
-      "url": "/user",
-      "name": "User List",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "User List"
-    },
-    {
-      "url": "/",
-      "name": "Job Post",
+      "url": "/joblist",
+      "name": "Job Master List",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Job Post"
-    },
-    {
-      "url": "/",
-      "name": "Jobs",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Jobs"
-    },
-    {
-      "url": "/joblist",
-      "name": "Job List",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Job List"
     },
     {
       "url": "/",
