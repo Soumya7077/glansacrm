@@ -17,18 +17,18 @@ use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\users\UserController;
 
 // Main Page Route
-Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
-Route::get('/user', [UserController::class, 'index']);
-Route::get('/userForm', [UserController::class, 'userform']);
+Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard');
+Route::get('/user', [UserController::class, 'index'])->name('User Creation');
+Route::get('/userForm', [UserController::class, 'userform'])->name('');
 
 
-Route::get('/joblist', [JobsController::class, 'joblist'])->name('joblist');
+Route::get('/joblist', [JobsController::class, 'joblist'])->name('Job List');
 Route::get('/jobpost', [JobsController::class, 'jobpost'])->name('jobpost');
 Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('applicantsapply');
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('smapplicantslist');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('assigninguser');
 
-Route::get('/employerlist', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer');
 Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');

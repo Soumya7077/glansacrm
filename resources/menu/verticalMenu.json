@@ -25,7 +25,7 @@
       "url": "/joblist",
       "name": "Job Master List",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Job Post"
+      "slug": "Job List"
     },
     {
       "url": "/assigninguser",
