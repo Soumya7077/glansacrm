@@ -34,6 +34,7 @@ Route::get('/employer', [EmployerController::class, 'employerForm'])->name('empl
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
 Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('formatdetails');
 Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('formattedapplicantslist');
+Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
 
 
 
