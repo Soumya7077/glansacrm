@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Applicants\ApplicantsApplyController;
 use App\Http\Controllers\AssigningUser\AssigningUserController;
+use App\Http\Controllers\Documents\DocumentsController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Enquiry\EnquiryController;
 use App\Http\Controllers\FormattedDetails\FormatController;
@@ -35,6 +36,7 @@ Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
 Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('formatdetails');
 Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('Formatted Applicants List');
 Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
+Route::get('/documents', [DocumentsController::class, 'documents'])->name('Documents');
 
 
 
