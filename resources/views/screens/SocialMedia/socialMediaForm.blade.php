@@ -1,13 +1,13 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Add Users')
+@section('title', 'Social Media Form')
 
 @section('content')
 
 <div class="col-xxl">
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="mb-0">Add User</h5>
+            <h5 class="mb-0">Social Media Form</h5>
         </div>
         <div class="card-body">
             <form>
@@ -15,8 +15,13 @@
                     <div class="col-md-6">
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="basic-default-fullname"
-                                placeholder="User Name" />
-                            <label for="basic-default-fullname">User Name</label>
+                                placeholder="Name" />
+                            <label for="basic-default-fullname">Applicant Name</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="number" class="form-control" id="basic-default-fullname"
+                                placeholder="Phone Number" />
+                            <label for="basic-default-fullname">Phone Number</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
                             <select id="defaultSelect" class="form-select">
@@ -54,6 +59,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection
