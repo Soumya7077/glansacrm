@@ -18,17 +18,16 @@
                             <label for="basic-default-fullname">Applicant Name</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="number" class="form-control" id="basic-default-fullname"
-                                placeholder="Phone Number" />
-                            <label for="basic-default-fullname">Phone Number</label>
+                            <input type="text" class="form-control" id="basic-default-fullname"
+                                placeholder="Job Applied" />
+                            <label for="basic-default-fullname">Job Applied</label>
                         </div>
                         <div class="mb-4">
                             <div class="input-group input-group-merge">
                                 <div class="form-floating form-floating-outline">
-                                    <input type="text" id="basic-default-email" class="form-control"
-                                        placeholder="user.name" aria-label="john.doe"
-                                        aria-describedby="basic-default-email2" />
-                                    <label for="basic-default-email">Email</label>
+                                    <input type="text" class="form-control" id="basic-default-fullname"
+                                        placeholder="Key Skills" />
+                                    <label for="basic-default-fullname">Key Skills</label>
                                 </div>
                             </div>
                         </div>
@@ -54,11 +53,6 @@
                                 placeholder="Highest Qualification" />
                             <label for="basic-default-fullname">Highest Qualification</label>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                        <input type="file" class="form-control" id="resume" required />
-                        <label for="resume">Resume</label>
-                    </div>
-                        
                     </div>
                 </div>
 
