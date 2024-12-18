@@ -2,11 +2,11 @@
 @section('title', 'Jobs - Job List')
 
 @section('content')
-<h4><span class="text-muted fw-light">Jobs /</span> Job List</h4>
+<h4><span class="text-muted fw-light">Home /</span> Job List</h4>
 <div class="container-fluid mt-3 px-0">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="mb-0">Job List</h2>
-        <a class="btn btn-success btn-sm" href="/jobpost">Add New Job</a>
+        <h3 class="mb-0">Job List</h3>
+        <a class="btn btn-primary btn-sm" href="/jobpost">Add New Job</a>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm">

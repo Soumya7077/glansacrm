@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Applicants\ApplicantsApplyController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Enquiry\EnquiryController;
 use App\Http\Controllers\Jobs\JobsController;
@@ -19,8 +20,11 @@ Route::get('/userForm', [UserController::class, 'userform']);
 
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('joblist');
 Route::get('/jobpost', [JobsController::class, 'jobpost'])->name('jobpost');
+Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('applicantsapply');
+Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('smapplicantslist');
 
-Route::get('/employer', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 
 
