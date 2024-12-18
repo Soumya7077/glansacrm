@@ -2,7 +2,7 @@
 @section('title', 'Jobs - Job Post')
 
 @section('content')
-<h4><span class="text-muted fw-light">Jobs /</span> Job Post</h4>
+<h4><span class="text-muted fw-light">Home /</span> Job Post</h4>
 
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
