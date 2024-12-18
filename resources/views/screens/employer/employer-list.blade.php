@@ -9,7 +9,7 @@
     <a class="btn btn-primary btn-sm" href="/employer">Add New Employer</a>
   </div>
   <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover shadow-sm text-sm">
+    <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
         <tr>
           <th>Sr No</th>

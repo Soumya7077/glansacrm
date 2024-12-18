@@ -12,7 +12,7 @@
 <div class="card">
   <h5 class="card-header">User Master List</h5>
   <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover shadow-sm text-sm">
+    <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
         <tr>
           <th>S No.</th>
@@ -29,13 +29,8 @@
           <td>albert@gmail.com</td>
           <td>Recruiter</td>
           <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-pencil-outline me-1"></i> Edit</a>
-                <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
-              </div>
-            </div>
+            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+            <a href="#" class="btn btn-danger btn-sm">Delete</a>
           </td>
         </tr>
         <tr class="text-center small">
@@ -44,13 +39,8 @@
           <td>barry@gmail.com</td>
           <td>Telecaller</td>
           <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-pencil-outline me-1"></i> Edit</a>
-                <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
-              </div>
-            </div>
+            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+            <a href="#" class="btn btn-danger btn-sm">Delete</a>
           </td>
         </tr>
         <tr class="text-center small">
@@ -59,13 +49,8 @@
           <td>trevor@gmail.com</td>
           <td>Recruiter</td>
           <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-pencil-outline me-1"></i> Edit</a>
-                <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
-              </div>
-            </div>
+            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+            <a href="#" class="btn btn-danger btn-sm">Delete</a>
           </td>
         </tr>
         <tr class="text-center small">
@@ -74,13 +59,8 @@
           <td>jerry@gmail.com</td>
           <td>Telecaller</td>
           <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-pencil-outline me-1"></i> Edit</a>
-                <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
-              </div>
-            </div>
+            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+            <a href="#" class="btn btn-danger btn-sm">Delete</a>
           </td>
         </tr>
       </tbody>
