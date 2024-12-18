@@ -18,13 +18,13 @@
     {
       "url": "/employerlist",
       "name": "Employer Master List",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-domain",
       "slug": "Employer"
     },
     {
       "url": "/joblist",
       "name": "Job Master List",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-account-tie",
       "slug": "Job List"
     },
     {
@@ -49,13 +49,13 @@
       "url": "/smapplicantslist",
       "name": "SM applicant's list",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "SM applicant's list"
+      "slug": "SM Applicants List"
     },
     {
       "url": "/applicantsapply",
       "name": "Applicant's Apply",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Applicant's Apply"
+      "slug": "Applicants Apply"
     },
     {
       "url": "/",
@@ -67,10 +67,10 @@
       "url": "/formattedapplicantslist",
       "name": "Formatted applicant list",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Formatted applicant list"
+      "slug": "Formatted Applicants List"
     },
     {
-      "url": "/",
+      "url": "/formattedapplicantstoemployer",
       "name": "Formatted Applicants to Employer",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Formatted Applicants to Employer"

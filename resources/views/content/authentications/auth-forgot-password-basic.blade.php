@@ -17,8 +17,8 @@
         <!-- Logo -->
         <div class="app-brand justify-content-center mt-5">
           <a href="{{url('/')}}" class="app-brand-link gap-2">
-            <span class="app-brand-logo demo">@include('_partials.macros',["height"=>20])</span>
-            <span class="app-brand-text demo text-heading fw-semibold">{{ config('variables.templateName') }}</span>
+            <img class="app-brand-logo demo" src="../../assets/img/Glansa Solutions.png" height="20" />
+            <span class="app-brand-text demo text-heading fw-semibold">Glansa HealthCare CRM</span>
           </a>
         </div>
         <!-- /Logo -->
@@ -33,7 +33,7 @@
             <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
           </form>
           <div class="text-center">
-            <a href="{{url('auth/login-basic')}}" class="d-flex align-items-center justify-content-center">
+            <a href="/" class="d-flex align-items-center justify-content-center">
               <i class="mdi mdi-chevron-left scaleX-n1-rtl mdi-24px"></i>
               Back to login
             </a>
@@ -41,9 +41,12 @@
         </div>
       </div>
       <!-- /Forgot Password -->
-      <img src="{{asset('assets/img/illustrations/tree-3.png')}}" alt="auth-tree" class="authentication-image-object-left d-none d-lg-block">
-      <img src="{{asset('assets/img/illustrations/auth-basic-mask-light.png')}}" class="authentication-image d-none d-lg-block" alt="triangle-bg">
-      <img src="{{asset('assets/img/illustrations/tree.png')}}" alt="auth-tree" class="authentication-image-object-right d-none d-lg-block">
+      <img src="{{asset('assets/img/illustrations/tree-3.png')}}" alt="auth-tree"
+        class="authentication-image-object-left d-none d-lg-block">
+      <img src="{{asset('assets/img/illustrations/auth-basic-mask-light.png')}}"
+        class="authentication-image d-none d-lg-block" alt="triangle-bg">
+      <img src="{{asset('assets/img/illustrations/tree.png')}}" alt="auth-tree"
+        class="authentication-image-object-right d-none d-lg-block">
     </div>
   </div>
 </div>
