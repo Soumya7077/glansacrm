@@ -1,51 +1,48 @@
 @extends('layouts/contentNavbarLayout')
-
-@section('title', 'Tables - Basic Tables')
+@section('title', 'Jobs - Job Post')
 
 @section('content')
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">Home /</span> Employer
-</h4>
+<h4><span class="text-muted fw-light">Employer /</span> Employer Form</h4>
 
-<div class="col-xl">
-  <div class="card mb-4">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <h5 class="mb-0">Employer Form</h5> <small class="text-muted float-end">Default label</small>
-    </div>
-    <div class="card-body">
-      <form>
-        <div class="form-floating form-floating-outline mb-4">
-          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
-          <label for="basic-default-fullname">Full Name</label>
-        </div>
-        <div class="form-floating form-floating-outline mb-4">
-          <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
-          <label for="basic-default-company">Company</label>
-        </div>
-        <div class="mb-4">
-          <div class="input-group input-group-merge">
-            <div class="form-floating form-floating-outline">
-              <input type="text" id="basic-default-email" class="form-control" placeholder="john.doe"
-                aria-label="john.doe" aria-describedby="basic-default-email2" />
-              <label for="basic-default-email">Email</label>
-            </div>
-            <span class="input-group-text" id="basic-default-email2">@example.com</span>
+<div class="card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Employer Form</h5> <small class="text-muted float-end">Fill in the details for the employer
+      post</small>
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="form-floating form-floating-outline mb-4">
+            <input type="text" class="form-control" id="job-title" placeholder="Organisation Name" required />
+            <label for="job-title">Organisation Name</label>
           </div>
-          <div class="form-text"> You can use letters, numbers & periods </div>
+          <div class="form-floating form-floating-outline mb-4">
+            <input type="text" class="form-control" id="organisation-name" placeholder="Phone Number" required />
+            <label for="organisation-name">Phone Number</label>
+          </div>
+
+
         </div>
-        <div class="form-floating form-floating-outline mb-4">
-          <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="658 799 8941" />
-          <label for="basic-default-phone">Phone No</label>
+        <div class="col-md-6">
+
+
+          <div class="form-floating form-floating-outline mb-4">
+            <input type="email" class="form-control" id="openings" placeholder="Email" required />
+            <label for="openings">Email</label>
+          </div>
+          <div class="form-floating form-floating-outline mb-4">
+            <input type="text" class="form-control" id="salary" placeholder="Location" />
+            <label for="salary">Location</label>
+          </div>
         </div>
-        <div class="form-floating form-floating-outline mb-4">
-          <textarea id="basic-default-message" class="form-control" placeholder="Hi, Do you have a moment to talk Joe?"
-            style="height: 60px;"></textarea>
-          <label for="basic-default-message">Message</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Send</button>
-      </form>
-    </div>
+
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
   </div>
 </div>
-
 
 @endsection

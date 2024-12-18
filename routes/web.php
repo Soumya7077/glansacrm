@@ -19,7 +19,8 @@ Route::get('/userForm', [UserController::class, 'userform']);
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('joblist');
 Route::get('/jobpost', [JobsController::class, 'jobpost'])->name('jobpost');
 
-Route::get('/employer', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 
 
