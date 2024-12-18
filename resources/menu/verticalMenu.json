@@ -40,13 +40,13 @@
       "slug": "Social Media Form"
     },
     {
-      "url": "/",
+      "url": "/smapplicantslist",
       "name": "SM applicant's list",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "SM applicant's list"
     },
     {
-      "url": "/",
+      "url": "/applicantsapply",
       "name": "Applicant's Apply",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Applicant's Apply"
