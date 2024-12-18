@@ -24,16 +24,17 @@ Route::get('/userForm', [UserController::class, 'userform'])->name('');
 
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('Job List');
 Route::get('/jobpost', [JobsController::class, 'jobpost'])->name('jobpost');
-Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('applicantsapply');
-Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('smapplicantslist');
-Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('assigninguser');
+Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('Applicants Apply');
+Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('SM Applicants List');
+Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
 Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer');
 Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
 Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('formatdetails');
-Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('formattedapplicantslist');
+Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('Formatted Applicants List');
+Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
 
 
 
