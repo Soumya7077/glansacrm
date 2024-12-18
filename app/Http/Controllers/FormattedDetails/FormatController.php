@@ -11,4 +11,8 @@ class FormatController extends Controller
     {
         return view('screens.FormattedDetails.formattedDetails');
     }
+    public function formattedapplicantslist()
+    {
+        return view('screens.FormattedDetails.formattedapplicantslist');
+    }
 }

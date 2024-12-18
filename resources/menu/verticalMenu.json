@@ -64,7 +64,7 @@
       "slug": "Formatted Details"
     },
     {
-      "url": "/",
+      "url": "/formattedapplicantslist",
       "name": "Formatted applicant list",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Formatted applicant list"
