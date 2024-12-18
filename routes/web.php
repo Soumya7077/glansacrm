@@ -24,7 +24,8 @@ Route::get('/jobpost', [JobsController::class, 'jobpost'])->name('jobpost');
 Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('applicantsapply');
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('smapplicantslist');
 
-Route::get('/employer', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 
 

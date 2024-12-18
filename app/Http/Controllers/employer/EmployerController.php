@@ -9,6 +9,11 @@ class EmployerController extends Controller
 {
   public function index()
   {
+    return view('screens.employer.employer-list');
+  }
+
+  public function employerForm()
+  {
     return view('screens.employer.employer-form');
   }
 }
