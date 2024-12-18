@@ -18,13 +18,13 @@
     {
       "url": "/employerlist",
       "name": "Employer Master List",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-domain",
       "slug": "Employer"
     },
     {
       "url": "/joblist",
       "name": "Job Master List",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-account-tie",
       "slug": "Job List"
     },
     {

@@ -9,7 +9,7 @@
 </div>
 
 <!-- Basic Bootstrap Table -->
-<div class="card">
+<div>
   <h5 class="card-header">User Master List</h5>
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
