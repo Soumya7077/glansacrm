@@ -11,52 +11,38 @@
         </div>
         <div class="card-body">
             <form>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="basic-default-name" placeholder="User Name" />
-                    </div>
+                <div class="form-floating form-floating-outline mb-4">
+                    <input type="text" class="form-control" id="basic-default-fullname" placeholder="User Name" />
+                    <label for="basic-default-fullname">Full Name</label>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-company">Role</label>
-                    <div class="col-sm-10">
-                        <select id="defaultSelect" class="form-select">
-                            <option hidden>Default select</option>
-                            <option value="1">Role 1</option>
-                            <option value="2">Role 2</option>
-                            <option value="3">Role 3</option>
-                        </select>
-                    </div>
+                <div class="form-floating form-floating-outline mb-4">
+                    <select id="defaultSelect" class="form-select">
+                        <option hidden>Default select</option>
+                        <option value="1">Role 1</option>
+                        <option value="2">Role 2</option>
+                        <option value="3">Role 3</option>
+                    </select> <label for="basic-default-company">Role</label>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-email">Email</label>
-                    <div class="col-sm-10">
-                        <div class="input-group input-group-merge">
-                            <input type="text" id="basic-default-email" class="form-control" placeholder="email"
+                <div class="mb-4">
+                    <div class="input-group input-group-merge">
+                        <div class="form-floating form-floating-outline">
+                            <input type="text" id="basic-default-email" class="form-control" placeholder="user.name"
                                 aria-label="john.doe" aria-describedby="basic-default-email2" />
+                            <label for="basic-default-email">Email</label>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="basic-default-password42">Password</label>
-                    <div class="col-sm-10">
-                        <div class="input-group input-group-merge">
-                            <input type="password" class="form-control" id="basic-default-password42"
-                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                aria-describedby="basic-default-password42" />
-                            <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
-                        </div>
+                <div class="input-group input-group-merge">
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="password" class="form-control" id="basic-default-password42"
+                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                            aria-describedby="basic-default-password42" />
+                        <label for="basic-default-phone">Password</label>
                     </div>
                 </div>
-                <div class="row justify-content-end">
-                    <div class="mb-1 mt-3">
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
-
-
     </div>
 </div>
 </div>
