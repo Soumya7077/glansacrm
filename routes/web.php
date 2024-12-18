@@ -4,6 +4,7 @@ use App\Http\Controllers\Applicants\ApplicantsApplyController;
 use App\Http\Controllers\AssigningUser\AssigningUserController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Enquiry\EnquiryController;
+use App\Http\Controllers\FormattedDetails\FormatController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\SmConttroller;
 use App\Http\Controllers\SocialMedia\SmController;
@@ -31,6 +32,7 @@ Route::get('/employerlist', [EmployerController::class, 'index'])->name('employe
 Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
+Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('formatdetails');
 
 
 
