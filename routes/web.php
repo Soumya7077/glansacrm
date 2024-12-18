@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\Applicants\ApplicantsApplyController;
+use App\Http\Controllers\AssigningUser\AssigningUserController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Enquiry\EnquiryController;
+use App\Http\Controllers\FormattedDetails\FormatController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\SmConttroller;
+use App\Http\Controllers\SocialMedia\SmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 
@@ -23,11 +26,13 @@ Route::get('/joblist', [JobsController::class, 'joblist'])->name('joblist');
 Route::get('/jobpost', [JobsController::class, 'jobpost'])->name('jobpost');
 Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('applicantsapply');
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('smapplicantslist');
+Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('assigninguser');
 
 Route::get('/employerlist', [EmployerController::class, 'index'])->name('employer');
 Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
-
+Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
+Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('formatdetails');
 
 
 

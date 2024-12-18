@@ -28,7 +28,7 @@
       "slug": "Job Post"
     },
     {
-      "url": "/",
+      "url": "/assigninguser",
       "name": "Assigning User",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Assigning User"

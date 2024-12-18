@@ -23,14 +23,7 @@
                                 placeholder="Phone Number" />
                             <label for="basic-default-fullname">Phone Number</label>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            <select id="defaultSelect" class="form-select">
-                                <option hidden>Default select</option>
-                                <option value="1">Role 1</option>
-                                <option value="2">Role 2</option>
-                                <option value="3">Role 3</option>
-                            </select> <label for="basic-default-company">Role</label>
-                        </div>
+                      
                     </div>
                     <div class="col-md-6">
                         <div class="mb-4">
@@ -43,13 +36,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="input-group input-group-merge">
-                            <div class="form-floating form-floating-outline mb-4">
-                                <input type="password" class="form-control" id="basic-default-password42"
-                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                    aria-describedby="basic-default-password42" />
-                                <label for="basic-default-phone">Password</label>
-                            </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <select id="defaultSelect" class="form-select">
+                                <option hidden>Interseted In</option>
+                                <option value="1">Role 1</option>
+                                <option value="2">Role 2</option>
+                                <option value="3">Role 3</option>
+                            </select> <label for="basic-default-company">Interested In</label>
                         </div>
                     </div>
                 </div>
