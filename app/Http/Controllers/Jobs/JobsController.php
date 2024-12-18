@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 
 class JobsController extends Controller
 {
-    public function index()
+    public function joblist()
     {
-        return view('content.Jobs.jobs');
+        return view('screens.Jobs.joblist');
+    }
+    public function jobpost()
+    {
+        return view('screens.Jobs.jobpost');
     }
 }
