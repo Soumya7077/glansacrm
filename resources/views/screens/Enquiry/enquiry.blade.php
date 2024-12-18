@@ -3,7 +3,7 @@
 @section('title', 'Vertical Layouts - Forms')
 
 @section('content')
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span>Enquiry Form</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Home/</span>Enquiry Form</h4>
 
 <div class="row">
   <div class="col-xl">
@@ -53,8 +53,12 @@
            <div class="row mb-3">
             <div class="col-md-6">
                 <div class="form-floating form-floating-outline">
-                  <input type="text" class="form-control" id="job-post" placeholder="Job Post" />
-                  <label for="job-post">Job Post</label>
+                    <select class="form-control" id="job-post">
+                        <option value="php">PHP</option>
+                        <option value="react">React</option>
+                        <option value="java">Java</option>
+                    </select>
+                    <label for="job-type">Job Post</label>
                 </div>
               </div>
             <div class="col-md-6">
@@ -81,10 +85,21 @@
               </div>
           </div>
 
-          <!-- Submit Button -->
-          <div class="text-end">
-            <button type="submit" class="btn btn-primary">Send</button>
+           <!-- Fourth Row -->
+           <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-floating form-floating-outline">
+                <input type="file" class="form-control" id="uploadResume" placeholder="Upload Resume" />
+                <label for="current-salary">Upload Resume</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
           </div>
+
+          <!-- Submit Button -->
+         
         </form>
       </div>
     </div>

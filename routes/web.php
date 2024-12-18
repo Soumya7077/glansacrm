@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Applicants\ApplicantsApplyController;
+use App\Http\Controllers\AssigningUser\AssigningUserController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Enquiry\EnquiryController;
 use App\Http\Controllers\Jobs\JobsController;
-use App\Http\Controllers\assigninguser\AssigningUserController;
+use App\Http\Controllers\SmConttroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
 
@@ -25,7 +26,8 @@ Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapp
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('smapplicantslist');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('assigninguser');
 
-Route::get('/employer', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('employer');
+Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 
 

@@ -11,9 +11,9 @@
 <!-- Basic Bootstrap Table -->
 <div class="card">
   <h5 class="card-header">User Master List</h5>
-  <div class="table-responsive text-nowrap">
-    <table class="table">
-      <thead>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover shadow-sm text-sm">
+      <thead class="table-dark text-center small">
         <tr>
           <th>S No.</th>
           <th>Name</th>
@@ -22,8 +22,8 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody class="table-border-bottom-0">
-        <tr>
+      <tbody>
+        <tr class="text-center small">
           <td>1</td>
           <td>Albert Cook</td>
           <td>albert@gmail.com</td>
@@ -38,7 +38,7 @@
             </div>
           </td>
         </tr>
-        <tr>
+        <tr class="text-center small">
           <td>2</td>
           <td>Barry Hunter</td>
           <td>barry@gmail.com</td>
@@ -53,7 +53,7 @@
             </div>
           </td>
         </tr>
-        <tr>
+        <tr class="text-center small">
           <td>3</td>
           <td>Trevor Baker</td>
           <td>trevor@gmail.com</td>
@@ -68,7 +68,7 @@
             </div>
           </td>
         </tr>
-        <tr>
+        <tr class="text-center small">
           <td>4</td>
           <td>Jerry Milton</td>
           <td>jerry@gmail.com</td>

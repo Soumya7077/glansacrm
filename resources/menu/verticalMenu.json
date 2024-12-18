@@ -16,6 +16,12 @@
       "slug": "User Creation"
     },
     {
+      "url": "/employerlist",
+      "name": "Employer Master List",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "Employer"
+    },
+    {
       "url": "/joblist",
       "name": "Job Master List",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
@@ -50,12 +56,6 @@
       "name": "Applicant's Apply",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Applicant's Apply"
-    },
-    {
-      "url": "/",
-      "name": "Employer",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Employer"
     },
     {
       "url": "/",
