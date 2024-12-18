@@ -14,9 +14,9 @@ use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\users\UserController;
 
 // Main Page Route
-Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
-Route::get('/user', [UserController::class, 'index']);
-Route::get('/userForm', [UserController::class, 'userform']);
+Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard');
+Route::get('/user', [UserController::class, 'index'])->name('User Creation');
+Route::get('/userForm', [UserController::class, 'userform'])->name('');
 
 
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('joblist');
@@ -39,4 +39,4 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 
 // Enquiry APIs
 
-Route::get('enquiry',[EnquiryController::class,'index']);
+Route::get('enquiry', [EnquiryController::class, 'index']);
