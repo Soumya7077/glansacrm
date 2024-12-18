@@ -6,6 +6,7 @@ use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Enquiry\EnquiryController;
 use App\Http\Controllers\FormattedDetails\FormatController;
 use App\Http\Controllers\Jobs\JobsController;
+use App\Http\Controllers\OfferLetter\OfferController;
 use App\Http\Controllers\SmConttroller;
 use App\Http\Controllers\SocialMedia\SmController;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,7 @@ Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
 Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('formatdetails');
 Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('Formatted Applicants List');
 Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
-
+Route::get('/offerletter', [OfferController::class, 'offer'])->name('Offer Letter');
 
 
 // authentication

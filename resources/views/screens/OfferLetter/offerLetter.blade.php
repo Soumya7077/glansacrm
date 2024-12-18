@@ -19,8 +19,8 @@
                             <label for="basic-default-fullname">Organisation Name</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="file" class="form-control" id="resume" required />
-                            <label for="resume">Resume</label>
+                            <input type="file" class="form-control" id="file" required />
+                            <label for="resume">File</label>
                         </div>
                     </div>
                     <div class="col-md-6">
