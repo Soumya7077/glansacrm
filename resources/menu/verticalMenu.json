@@ -36,7 +36,7 @@
     {
       "url": "/",
       "name": "Enquiry Form",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-frequently-asked-questions",
       "slug": "Enquiry Form"
     },
     {
