@@ -16,6 +16,57 @@
 
 @section('content')
 <div class="row gy-4">
+
+  <div class="row">
+    <div class="col-md-4 my-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card Title </h5>
+          <p class="card-text">This is a description for the first card.</p>
+          <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 my-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card Title </h5>
+          <p class="card-text">This is a description for the first card.</p>
+          <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 my-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card Title </h5>
+          <p class="card-text">This is a description for the first card.</p>
+          <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 my-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card Title </h5>
+          <p class="card-text">This is a description for the first card.</p>
+          <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 my-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card Title </h5>
+          <p class="card-text">This is a description for the first card.</p>
+          <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
   <!-- Congratulations card -->
   <div class="col-md-12 col-lg-4">
     <div class="card">
@@ -26,8 +77,10 @@
         <p class="mb-2 pb-1">78% of target 🚀</p>
         <a href="javascript:;" class="btn btn-sm btn-primary">View Sales</a>
       </div>
-      <img src="{{asset('assets/img/icons/misc/triangle-light.png')}}" class="scaleX-n1-rtl position-absolute bottom-0 end-0" width="166" alt="triangle background">
-      <img src="{{asset('assets/img/illustrations/trophy.png')}}" class="scaleX-n1-rtl position-absolute bottom-0 end-0 me-4 mb-4 pb-2" width="83" alt="view sales">
+      <img src="{{asset('assets/img/icons/misc/triangle-light.png')}}"
+        class="scaleX-n1-rtl position-absolute bottom-0 end-0" width="166" alt="triangle background">
+      <img src="{{asset('assets/img/illustrations/trophy.png')}}"
+        class="scaleX-n1-rtl position-absolute bottom-0 end-0 me-4 mb-4 pb-2" width="83" alt="view sales">
     </div>
   </div>
   <!--/ Congratulations card -->
@@ -39,7 +92,8 @@
         <div class="d-flex align-items-center justify-content-between">
           <h5 class="card-title m-0 me-2">Transactions</h5>
           <div class="dropdown">
-            <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
               <i class="mdi mdi-dots-vertical mdi-24px"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
@@ -118,7 +172,8 @@
         <div class="d-flex justify-content-between">
           <h5 class="mb-1">Weekly Overview</h5>
           <div class="dropdown">
-            <button class="btn p-0" type="button" id="weeklyOverviewDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn p-0" type="button" id="weeklyOverviewDropdown" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
               <i class="mdi mdi-dots-vertical mdi-24px"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="weeklyOverviewDropdown">
@@ -151,7 +206,8 @@
       <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="card-title m-0 me-2">Total Earning</h5>
         <div class="dropdown">
-          <button class="btn p-0" type="button" id="totalEarnings" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn p-0" type="button" id="totalEarnings" data-bs-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             <i class="mdi mdi-dots-vertical mdi-24px"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalEarnings">
@@ -185,7 +241,8 @@
               <div>
                 <h6 class="mb-2">$24,895.65</h6>
                 <div class="progress bg-label-primary" style="height: 4px;">
-                  <div class="progress-bar bg-primary" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-primary" style="width: 75%" role="progressbar" aria-valuenow="75"
+                    aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -202,7 +259,8 @@
               <div>
                 <h6 class="mb-2">$8,6500.20</h6>
                 <div class="progress bg-label-info" style="height: 4px;">
-                  <div class="progress-bar bg-info" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-info" style="width: 75%" role="progressbar" aria-valuenow="75"
+                    aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -219,7 +277,8 @@
               <div>
                 <h6 class="mb-2">$1,2450.80</h6>
                 <div class="progress bg-label-secondary" style="height: 4px;">
-                  <div class="progress-bar bg-secondary" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-secondary" style="width: 75%" role="progressbar" aria-valuenow="75"
+                    aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -256,7 +315,8 @@
               </div>
             </div>
             <div class="dropdown">
-              <button class="btn p-0" type="button" id="totalProfitID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn p-0" type="button" id="totalProfitID" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
                 <i class="mdi mdi-dots-vertical mdi-24px"></i>
               </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalProfitID">
@@ -287,7 +347,8 @@
               </div>
             </div>
             <div class="dropdown">
-              <button class="btn p-0" type="button" id="newProjectID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn p-0" type="button" id="newProjectID" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
                 <i class="mdi mdi-dots-vertical mdi-24px"></i>
               </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="newProjectID">
@@ -331,7 +392,8 @@
       <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="card-title m-0 me-2">Sales by Countries</h5>
         <div class="dropdown">
-          <button class="btn p-0" type="button" id="saleStatus" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn p-0" type="button" id="saleStatus" data-bs-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             <i class="mdi mdi-dots-vertical mdi-24px"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="saleStatus">
@@ -455,7 +517,8 @@
             <ul class="p-0 m-0">
               <li class="d-flex mb-4 align-items-center pb-2">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/payments/gumroad.png')}}" class="img-fluid" alt="gumroad" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/payments/gumroad.png')}}" class="img-fluid" alt="gumroad"
+                    height="30" width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -467,7 +530,8 @@
               </li>
               <li class="d-flex mb-4 align-items-center pb-2">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/payments/mastercard-2.png')}}" class="img-fluid" alt="mastercard" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/payments/mastercard-2.png')}}" class="img-fluid" alt="mastercard"
+                    height="30" width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -479,7 +543,8 @@
               </li>
               <li class="d-flex mb-4 align-items-center pb-2">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/payments/stripes.png')}}" class="img-fluid" alt="stripes" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/payments/stripes.png')}}" class="img-fluid" alt="stripes"
+                    height="30" width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -491,7 +556,8 @@
               </li>
               <li class="d-flex mb-4 align-items-center pb-2">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/payments/american-bank.png')}}" class="img-fluid" alt="american" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/payments/american-bank.png')}}" class="img-fluid" alt="american"
+                    height="30" width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -503,7 +569,8 @@
               </li>
               <li class="d-flex align-items-center">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/payments/citi.png')}}" class="img-fluid" alt="citi" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/payments/citi.png')}}" class="img-fluid" alt="citi" height="30"
+                    width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -525,7 +592,8 @@
             <ul class="p-0 m-0">
               <li class="d-flex mb-4 align-items-center pb-2">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/brands/google.png')}}" class="img-fluid" alt="google" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/brands/google.png')}}" class="img-fluid" alt="google" height="30"
+                    width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -537,7 +605,8 @@
               </li>
               <li class="d-flex mb-4 align-items-center pb-2">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/brands/github.png')}}" class="img-fluid" alt="github" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/brands/github.png')}}" class="img-fluid" alt="github" height="30"
+                    width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -549,7 +618,8 @@
               </li>
               <li class="d-flex mb-4 align-items-center pb-2">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/brands/slack.png')}}" class="img-fluid" alt="slack" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/brands/slack.png')}}" class="img-fluid" alt="slack" height="30"
+                    width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -561,7 +631,8 @@
               </li>
               <li class="d-flex mb-4 align-items-center pb-2">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/payments/digital-ocean.png')}}" class="img-fluid" alt="digital" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/payments/digital-ocean.png')}}" class="img-fluid" alt="digital"
+                    height="30" width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -573,7 +644,8 @@
               </li>
               <li class="d-flex align-items-center">
                 <div class="flex-shrink-0 me-3">
-                  <img src="{{asset('assets/img/icons/brands/aws.png')}}" class="img-fluid" alt="aws" height="30" width="30">
+                  <img src="{{asset('assets/img/icons/brands/aws.png')}}" class="img-fluid" alt="aws" height="30"
+                    width="30">
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
@@ -728,7 +800,8 @@
                 </div>
               </td>
               <td class="text-truncate">otho21@gmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-account-outline mdi-24px text-primary me-1"></i> Subscriber</td>
+              <td class="text-truncate"><i class="mdi mdi-account-outline mdi-24px text-primary me-1"></i> Subscriber
+              </td>
               <td class="text-truncate">23</td>
               <td class="text-truncate">23500$</td>
               <td><span class="badge bg-label-success rounded-pill">Active</span></td>
@@ -746,7 +819,8 @@
                 </div>
               </td>
               <td class="text-truncate">florencio.Little@hotmail.com</td>
-              <td class="text-truncate"><i class="mdi mdi-account-outline mdi-24px text-primary me-1"></i> Subscriber</td>
+              <td class="text-truncate"><i class="mdi mdi-account-outline mdi-24px text-primary me-1"></i> Subscriber
+              </td>
               <td class="text-truncate">33</td>
               <td class="text-truncate">20500$</td>
               <td><span class="badge bg-label-secondary rounded-pill">Inactive</span></td>
