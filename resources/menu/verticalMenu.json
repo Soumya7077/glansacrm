@@ -12,10 +12,19 @@
     {
       "url": "/user",
       "name": "User Master List",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-account-check",
       "slug": "User Creation"
     },
+<<<<<<< HEAD
     
+=======
+    {
+      "url": "/employer",
+      "name": "Add Employer",
+      "icon": "menu-icon tf-icons mdi mdi-city",
+      "slug": "Employer List"
+    },
+>>>>>>> 87007378d8a0861432fc74ae5bfcb8e73127efd0
     {
       "url": "/employerlist",
       "name": "Employer Master List",
@@ -43,49 +52,49 @@
     {
       "url": "/smform",
       "name": "Social Media Form",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-shape-plus",
       "slug": "socialmedia"
     },
     {
       "url": "/smapplicantslist",
       "name": "SM applicant's list",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
       "slug": "SM Applicants List"
     },
     {
       "url": "/applicantsapply",
       "name": "Applicant's Apply",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-briefcase-check",
       "slug": "Applicants Apply"
     },
     {
       "url": "/formatdetails",
-      "name": "Formatted Details",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "name": "Format Details",
+      "icon": "menu-icon tf-icons mdi mdi-account-box-outline",
       "slug": "Formatted Details"
     },
     {
       "url": "/formattedapplicantslist",
       "name": "Formatted applicant list",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
       "slug": "Formatted Applicants List"
     },
     {
       "url": "/formattedapplicantstoemployer",
       "name": "Formatted Applicants to Employer",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-email",
       "slug": "Formatted Applicants to Employer"
     },
     {
       "url": "/offerletter",
       "name": "Offer Letter",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-clipboard-text",
       "slug": "Offer Letter"
     },
     {
       "url": "/documents",
       "name": "Documents",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "icon": "menu-icon tf-icons mdi mdi-file-document",
       "slug": "Documents"
     },
     {
