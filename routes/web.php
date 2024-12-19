@@ -30,8 +30,8 @@ Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapp
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('SM Applicants List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
-Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer List');
-Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer');
+Route::get('/employer', [EmployerController::class, 'employerForm'])->name('Employer List');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
 Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('Formatted Details');
