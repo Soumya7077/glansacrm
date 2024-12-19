@@ -16,6 +16,12 @@
       "slug": "User Creation"
     },
     {
+      "url": "/employer",
+      "name": "Add Employer",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "Employer List"
+    },
+    {
       "url": "/employerlist",
       "name": "Employer Master List",
       "icon": "menu-icon tf-icons mdi mdi-domain",
@@ -86,12 +92,7 @@
       "name": "Documents",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Documents"
-    },
-    {
-      "url": "/employerlist",
-      "name": "Employer List",
-      "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Employer List"
     }
+   
   ]
 }
