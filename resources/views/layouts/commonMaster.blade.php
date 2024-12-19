@@ -23,6 +23,7 @@
 
   <!-- Include Scripts for customizer, helper, analytics, config -->
   @include('layouts/sections/scriptsIncludes')
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
