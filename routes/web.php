@@ -22,6 +22,7 @@ use App\Http\Controllers\users\UserController;
 Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard');
 Route::get('/user', [UserController::class, 'index'])->name('User Creation');
 Route::get('/userForm', [UserController::class, 'userform'])->name('');
+Route::get('getuser', [UserController::class, 'getuser'])->name('');
 
 
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('Job List');
@@ -49,4 +50,4 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 
 // Enquiry APIs
 
-Route::get('enquiry', [EnquiryController::class, 'index']);
+Route::get('enquiry', [EnquiryController::class, 'index'])->name('enquiry');
