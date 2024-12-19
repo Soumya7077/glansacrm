@@ -65,7 +65,7 @@
     },
     {
       "url": "/formatdetails",
-      "name": "Formatted Details",
+      "name": "Format Details",
       "icon": "menu-icon tf-icons mdi mdi-account-box-outline",
       "slug": "Formatted Details"
     },
