@@ -7,6 +7,12 @@
       "slug": "dashboard"
     },
     {
+      "url": "/jobs",
+      "name": "Jobs",
+      "icon": "menu-icon tf-icons mdi mdi-account-tie",
+      "slug": "Jobs"
+    },
+    {
       "menuHeader": "Master List"
     },
     {
