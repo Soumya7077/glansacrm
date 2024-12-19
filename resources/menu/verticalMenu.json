@@ -7,6 +7,12 @@
       "slug": "dashboard"
     },
     {
+      "url": "/jobs",
+      "name": "Jobs",
+      "icon": "menu-icon tf-icons mdi mdi-account-tie",
+      "slug": "Jobs"
+    },
+    {
       "menuHeader": "Master List"
     },
     {
@@ -15,16 +21,12 @@
       "icon": "menu-icon tf-icons mdi mdi-account-check",
       "slug": "User Creation"
     },
-<<<<<<< HEAD
-    
-=======
     {
       "url": "/employer",
       "name": "Add Employer",
       "icon": "menu-icon tf-icons mdi mdi-city",
       "slug": "Employer List"
     },
->>>>>>> 87007378d8a0861432fc74ae5bfcb8e73127efd0
     {
       "url": "/employerlist",
       "name": "Employer Master List",
