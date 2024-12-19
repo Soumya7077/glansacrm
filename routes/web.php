@@ -30,11 +30,11 @@ Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapp
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('SM Applicants List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
-Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer List');
 Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
-Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('formatdetails');
+Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('Formatted Details');
 Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('Formatted Applicants List');
 Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
 Route::get('/offerletter', [OfferController::class, 'offer'])->name('Offer Letter');
@@ -49,4 +49,4 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 
 // Enquiry APIs
 
-Route::get('enquiry', [EnquiryController::class, 'index']);
+Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form');
