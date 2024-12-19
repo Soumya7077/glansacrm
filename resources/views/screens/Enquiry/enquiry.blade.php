@@ -32,7 +32,7 @@
 
           <!-- Second Row -->
           <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
               <div class="input-group input-group-merge">
                 <div class="form-floating form-floating-outline">
                   <input type="text" class="form-control" id="email" placeholder="Email" />
@@ -50,7 +50,7 @@
 
           <!-- Third Row -->
           <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
                 <select class="form-control" id="job-post">
                   <option value="php">PHP</option>
@@ -70,7 +70,7 @@
 
           <!-- Fourth Row -->
           <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control" id="current-salary" placeholder="Current Salary" />
                 <label for="current-salary">Current Salary</label>
@@ -86,7 +86,7 @@
 
           <!-- Fourth Row -->
           <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
                 <input type="file" class="form-control" id="uploadResume" placeholder="Upload Resume" />
                 <label for="current-salary">Upload Resume</label>
