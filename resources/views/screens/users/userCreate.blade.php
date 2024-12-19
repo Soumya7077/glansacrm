@@ -19,11 +19,8 @@
                             <label for="basic-default-fullname">User Name</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <select id="defaultSelect" class="form-select">
-                                <option hidden>Default select</option>
-                                <option value="1">Role 1</option>
-                                <option value="2">Role 2</option>
-                                <option value="3">Role 3</option>
+                            <select id="roleSelect" class="form-select">
+                                
                             </select> <label for="basic-default-company">Role</label>
                         </div>
                     </div>

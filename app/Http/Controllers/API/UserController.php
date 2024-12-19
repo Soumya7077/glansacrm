@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\users;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserModel;
@@ -8,17 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-  public function index()
-  {
-    return view('screens.users.user');
-  }
-
-  public function userform()
-  {
-    return view('screens.users.userCreate');
-  }
-
-  public function getuser()
+public function getuser()
 {
   $users = UserModel::all();
   if($users->count() >0)
@@ -35,5 +25,4 @@ class UserController extends Controller
       ],404);
   }
 }
-
 }

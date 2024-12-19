@@ -20,29 +20,8 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="text-center small">
-          <td>1</td>
-          <td>Apollo</td>
-          <td>9876543180</td>
-          <td>appollo@gmail.com</td>
-          <td>Hyderabad</td>
-          <td>
-            <a href="#" class="btn btn-warning btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-          </td>
-        </tr>
-        <tr class="text-center small">
-          <td>2</td>
-          <td>Dr Reddy</td>
-          <td>9876543180</td>
-          <td>reddy@gmail.com</td>
-          <td>Mumbai</td>
-          <td>
-            <a href="#" class="btn btn-warning btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-          </td>
-        </tr>
+      <tbody id="empList">
+        
       </tbody>
     </table>
   </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Enquiry\EnquiryController;
 use App\Http\Controllers\FormattedDetails\FormatController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\OfferLetter\OfferController;
+use App\Http\Controllers\role;
 use App\Http\Controllers\SmConttroller;
 use App\Http\Controllers\SocialMedia\SmController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ use App\Http\Controllers\users\UserController;
 Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard');
 Route::get('/user', [UserController::class, 'index'])->name('User Creation');
 Route::get('/userForm', [UserController::class, 'userform'])->name('');
+// Route::get('/getuser', [UserController::class, 'getuser'])->name('user.getdata');
 
 
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('Job List');
@@ -51,3 +53,7 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 // Enquiry APIs
 
 Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form');
+
+
+// get Role
+Route::get('/roles', [role::class, 'index']);
