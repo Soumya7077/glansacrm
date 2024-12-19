@@ -20,9 +20,9 @@ use App\Http\Controllers\users\UserController;
 
 // Main Page Route
 Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard');
-Route::get('/user', [UserController::class, 'index'])->name('User Creation');
+// Route::get('/user', [UserController::class, 'index'])->name('User Creation');
 Route::get('/userForm', [UserController::class, 'userform'])->name('');
-Route::get('getuser', [UserController::class, 'getuser'])->name('');
+Route::get('/getuser', [UserController::class, 'getuser'])->name('');
 
 
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('Job List');
@@ -31,11 +31,11 @@ Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapp
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('SM Applicants List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
-Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer List');
 Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
-Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('formatdetails');
+Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('Formatted Details');
 Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('Formatted Applicants List');
 Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
 Route::get('/offerletter', [OfferController::class, 'offer'])->name('Offer Letter');
@@ -50,4 +50,4 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 
 // Enquiry APIs
 
-Route::get('enquiry', [EnquiryController::class, 'index'])->name('enquiry');
+Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form');

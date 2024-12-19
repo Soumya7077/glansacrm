@@ -34,16 +34,16 @@
       "slug": "Assigning User"
     },
     {
-      "url": "/",
+      "url": "/enquiry",
       "name": "Enquiry Form",
       "icon": "menu-icon tf-icons mdi mdi-frequently-asked-questions",
       "slug": "Enquiry Form"
     },
     {
-      "url": "/",
+      "url": "/smform",
       "name": "Social Media Form",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Social Media Form"
+      "slug": "socialmedia"
     },
     {
       "url": "/smapplicantslist",
@@ -58,7 +58,7 @@
       "slug": "Applicants Apply"
     },
     {
-      "url": "/",
+      "url": "/formatdetails",
       "name": "Formatted Details",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Formatted Details"
@@ -76,10 +76,10 @@
       "slug": "Formatted Applicants to Employer"
     },
     {
-      "url": "/",
-      "name": "Offer Letters",
+      "url": "/offerletter",
+      "name": "Offer Letter",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Offer Letters"
+      "slug": "Offer Letter"
     },
     {
       "url": "/documents",
@@ -88,7 +88,7 @@
       "slug": "Documents"
     },
     {
-      "url": "/",
+      "url": "/employerlist",
       "name": "Employer List",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Employer List"

@@ -22,51 +22,15 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        {{-- <tr class="text-center small">
-          <td>1</td>
-          <td>Albert Cook</td>
-          <td>albert@gmail.com</td>
-          <td>Recruiter</td>
-          <td>
-            <a href="#" class="btn btn-warning btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-          </td>
-        </tr>
-        <tr class="text-center small">
-          <td>2</td>
-          <td>Barry Hunter</td>
-          <td>barry@gmail.com</td>
-          <td>Telecaller</td>
-          <td>
-            <a href="#" class="btn btn-warning btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-          </td>
-        </tr>
-        <tr class="text-center small">
-          <td>3</td>
-          <td>Trevor Baker</td>
-          <td>trevor@gmail.com</td>
-          <td>Recruiter</td>
-          <td>
-            <a href="#" class="btn btn-warning btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-          </td>
-        </tr>
-        <tr class="text-center small">
-          <td>4</td>
-          <td>Jerry Milton</td>
-          <td>jerry@gmail.com</td>
-          <td>Telecaller</td>
-          <td>
-            <a href="#" class="btn btn-warning btn-sm">Edit</a>
-            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-          </td>
-        </tr> --}}
+      <tbody id="tbody">
+        
       </tbody>
     </table>
   </div>
 </div>
+
+
+@endsection
 
 
 @section('scripts')
@@ -76,12 +40,13 @@
     // Fetch data from the server
     function fetchUsers() {
       $.ajax({
-        url: 'http://127.0.0.1:8000/getuser',
+        url: 'http://localhost:8000/getuser',
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-          if (response.status == 200) {
-            console.log(response);
+          console.log(response);
+          if (response.status === 200) {
+
             const users = response.data;
             let userRows = '';
             users.forEach((user, index) => {
@@ -98,13 +63,13 @@
                 </tr>
               `;
             });
-            $('#userTable tbody').html(userRows);
+            $('#tbody').html(userRows);
           } else {
-            $('#userTable tbody').html('<tr><td colspan="5" class="text-center">No users found</td></tr>');
+            $('#tbody').html('<tr><td colspan="5" class="text-center">No users found</td></tr>');
           }
         },
         error: function() {
-          $('#userTable tbody').html('<tr><td colspan="5" class="text-center">Error fetching users</td></tr>');
+          $('#tbody').html('<tr><td colspan="5" class="text-center">Error fetching users</td></tr>');
         }
       });
     }
@@ -113,5 +78,4 @@
     fetchUsers();
   });
 </script>
-
 @endsection
