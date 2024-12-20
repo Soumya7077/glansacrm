@@ -40,7 +40,7 @@
           <td>1-2 years</td>
           <td>Day</td>
           <td>
-            <a href="#" class="btn btn-primary btn-sm">View</a>
+            <a href="/applicantlist" class="btn btn-primary btn-sm">View</a>
           </td>
         </tr>
         <tr class="text-center small">
@@ -56,7 +56,7 @@
           <td>3-5 years</td>
           <td>Night</td>
           <td>
-            <a href="#" class="btn btn-primary btn-sm">View</a>
+            <a href="/applicantlist" class="btn btn-primary btn-sm">View</a>
           </td>
         </tr>
         <tr class="text-center small">
@@ -72,7 +72,7 @@
           <td>1-2 years</td>
           <td>Day</td>
           <td>
-            <a href="#" class="btn btn-primary btn-sm">View</a>
+            <a href="/applicantlist" class="btn btn-primary btn-sm">View</a>
           </td>
         </tr>
         <tr class="text-center small">
@@ -88,7 +88,7 @@
           <td>3-5 years</td>
           <td>Night</td>
           <td>
-            <a href="#" class="btn btn-primary btn-sm">View</a>
+            <a href="/applicantlist" class="btn btn-primary btn-sm">View</a>
           </td>
         </tr>
       </tbody>

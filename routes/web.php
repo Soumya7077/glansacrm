@@ -9,6 +9,7 @@ use App\Http\Controllers\FormattedDetails\FormatController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\OfferLetter\OfferController;
 use App\Http\Controllers\role;
+use App\Http\Controllers\ScheduleInterview\ScheduleInterview;
 use App\Http\Controllers\SmConttroller;
 use App\Http\Controllers\SocialMedia\SmController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::get('/jobpost', [JobsController::class, 'jobpost'])->name('jobpost');
 Route::get('/jobs', [JobsController::class, 'jobs'])->name('Jobs');
 Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('Applicants Apply');
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('SM Applicants List');
+Route::get('/applicantlist', [ApplicantsApplyController::class, 'applicantlist'])->name('Applicant List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
 Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer List');
@@ -59,3 +61,6 @@ Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form'
 
 // get Role
 Route::get('/roles', [role::class, 'index']);
+
+Route::get('/schedule', [ScheduleInterview::class, 'scheduleInterview'])->name('Interview');
+

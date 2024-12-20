@@ -15,5 +15,9 @@ class ApplicantsApplyController extends Controller
     {
         return view('screens.Applicants.smapplicantslist');
     }
+    public function applicantlist()
+    {
+        return view('screens.Applicants.applicantlist');
+    }
 
 }
