@@ -45,21 +45,17 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    (function () {
-        'use strict';
-
-        const form = document.querySelector('#emailForm');
-
-        form.addEventListener('submit', function (event) {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
+    $(document).ready(function () {
+        $('#emailForm').on('submit', function (event) {
+            if (this.checkValidity() === false) {
+                event.preventDefault(); // Prevent form submission
+                event.stopPropagation(); // Stop event propagation
             }
-
-            form.classList.add('was-validated');
-        }, false);
-    })();
+            $(this).addClass('was-validated');
+        });
+    });
 </script>
 
 @endsection
