@@ -6,8 +6,13 @@
 <script src="{{ asset(mix('assets/vendor/libs/node-waves/node-waves.js')) }}"></script>
 <script src="{{ asset(mix('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')) }}"></script>
 <script src="{{ asset(mix('assets/vendor/js/menu.js')) }}"></script>
+<<<<<<< HEAD
 <!-- <script src="{{asset('assets/js/usersData.js')}}"></script> -->
 <!-- <script src="{{asset('assets/js/role.js')}}"></script> -->
+=======
+{{-- <script src="{{asset('assets/js/usersData.js')}}"></script>
+<script src="{{asset('assets/js/role.js')}}"></script> --}}
+>>>>>>> 66a00f5c1038e557fde54acfa2769dbe272c72de
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
