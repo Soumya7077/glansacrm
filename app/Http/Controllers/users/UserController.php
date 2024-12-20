@@ -4,6 +4,7 @@ namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserModel;
+use Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -105,6 +106,41 @@ public function show($id)
     }
 }
 
+public function update(Request $request, $id)
+    {
+        // Find the user by ID
+        $user = UserModel::find($id);
 
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
 
-}
+        // Update user details directly from the request
+        $user->Name = $request->input('username');
+        $user->Email = $request->input('email');
+        $user->RoleId = $request->input('role_id');
+
+        // If password is provided, hash it before saving
+        if ($request->has('password') && !empty($request->input('password'))) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        // Save the updated user information
+        $user->save();
+
+        return response()->json(['message' => 'User updated successfully', 'user' => $user], 200);
+    }
+
+    // Delete User
+
+    public function delete($id)
+    {
+      $user = UserModel::find($id);
+      if (!$user) {
+        return response()->json(['error' => 'User not found'], 404);
+        }
+        $user->delete();
+        return response()->json(['message' => 'User deleted successfully'], 200);
+        }
+    }
+

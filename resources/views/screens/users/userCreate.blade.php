@@ -92,42 +92,47 @@
 
 
 
-    // Post Data
-
     // Handle form submission
     $('#addUserForm').on('submit', function (e) {
-      e.preventDefault(); // Prevent the default form submission
+        e.preventDefault(); // Prevent the default form submission
 
-      // Collect form data
-      var formData = {
-      username: $('#fullname').val(),
-      role_id: $('#roleSelect').val(),
-      email: $('#email').val(),
-      password: $('#password').val()
-      };
+        // Collect form data
+        var formData = {
+            username: $('#fullname').val(),
+            role_id: $('#roleSelect').val(),
+            email: $('#email').val(),
+            password: $('#password').val()  // Password is optional
+        };
 
-      // Send AJAX POST request
-      $.ajax({
-      url: "/api/register", // Replace with your actual endpoint for adding users
-      type: 'POST',
-      dataType: 'json',
-      data: formData,
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token if needed
-      },
-      success: function (response) {
-        // Handle success response
-        console.log('User added successfully:', response);
-        alert('User added successfully!');
-        // Optionally reset the form
-        $('#addUserForm')[0].reset();
-      },
-      error: function (xhr, status, error) {
-        // Handle error response
-        console.error('Error adding user:', xhr.responseText);
-        alert('Error adding user: ' + xhr.responseText);
-      }
-      });
+        var userId = '{{ $user ? $user["id"] : "" }}'; // Get user ID for update
+
+        // Determine whether it's an update or add action
+        var url = userId ? '/api/update/' + userId : '/api/register';
+        var method = userId ? 'PUT' : 'POST';
+
+        // Send AJAX request
+        $.ajax({
+            url: url,  // API URL for add/update
+            type: method,  // POST for add, PUT for update
+            dataType: 'json',
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token if needed
+            },
+            success: function (response) {
+                var message = userId ? 'User updated successfully!' : 'User added successfully!';
+                console.log(message, response);
+                alert(message);
+                // Optionally reset the form or redirect
+                if (!userId) {
+                    $('#addUserForm')[0].reset(); // Reset form if new user added
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', xhr.responseText);
+                alert('Error: ' + xhr.responseText);
+            }
+        });
     });
     });
 
