@@ -2,9 +2,11 @@
 
 @php
 
-$user = request()->route('id') ? App\Models\UserModel::find(request()->route('id')) : null;
-  
+  $user = request()->route('id');
+
 @endphp
+
+<!-- @section('title', $user ? 'Edit User' : 'Add User') -->
 
 @section('title', 'Add Users')
 
@@ -21,7 +23,7 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" class="form-control" id="fullname" placeholder="User Name" value="{{ $user ? $user['Name'] : '' }}"   />
+              <input type="text" class="form-control" id="fullname" placeholder="User Name" />
               <label for="basic-default-fullname">User Name</label>
             </div>
             <div class="form-floating form-floating-outline mb-4">
@@ -34,7 +36,7 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
             <div class="mb-4">
               <div class="input-group input-group-merge">
                 <div class="form-floating form-floating-outline">
-                  <input type="email" id="email" class="form-control"  value="{{ $user ? $user['Email'] : '' }}" placeholder="user.name" aria-label="john.doe"
+                  <input type="text" id="email" class="form-control" placeholder="user.name" aria-label="john.doe"
                     aria-describedby="basic-default-email2" />
                   <label for="basic-default-email">Email</label>
                 </div>
@@ -42,7 +44,7 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
             </div>
             <div class="input-group input-group-merge">
               <div class="form-floating form-floating-outline mb-4">
-                <input type="password" class="form-control" id="password" value="{{ $user ? $user['Password'] : '' }}"
+                <input type="password" class="form-control" id="password"
                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                   aria-describedby="basic-default-password42" />
                 <label for="basic-default-phone">Password</label>
@@ -51,7 +53,7 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">{{ $user ? 'Update' : 'Add' }}</button>
+        <button type="submit" class="btn btn-primary">Add</button>
       </form>
     </div>
   </div>
@@ -79,10 +81,7 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
       // Loop through the data and append each role to the select element
       $.each(data.data, function (index, role) {
         console.log("Appending role: " + role.RoleName);  // Log role being appended
-        var isSelected = (role.id == '{{ $user ? $user['RoleId'] : '' }}') ? 'selected' : '';
-
-        // Append each role as an option
-        select.append('<option value="' + role.id + '" ' + isSelected + '>' + role.RoleName + '</option>');
+        select.append('<option value="' + role.id + '">' + role.RoleName + '</option>');
       });
       },
       error: function (xhr, status, error) {
@@ -133,7 +132,7 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
                 alert('Error: ' + xhr.responseText);
             }
         });
-    });    
+    });
     });
 
 
