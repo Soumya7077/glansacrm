@@ -22,9 +22,11 @@ use App\Http\Controllers\users\UserController;
 
 // Main Page Route
 Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard');
+
+// User APIs
 Route::get('/user', [UserController::class, 'index'])->name('User Creation');
-Route::get('/userForm', [UserController::class, 'userform'])->name('');
-// Route::get('/getuser', [UserController::class, 'getuser'])->name('user.getdata');
+Route::get('/userForm/{id?}', [UserController::class, 'userform'])->name('');
+
 
 
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('Job List');
@@ -35,8 +37,8 @@ Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicants
 Route::get('/applicantlist', [ApplicantsApplyController::class, 'applicantlist'])->name('Applicant List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
-Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer List');
-Route::get('/employer', [EmployerController::class, 'employerForm'])->name('employerform');
+Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer');
+Route::get('/employer', [EmployerController::class, 'employerForm'])->name('Employer Form');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
 Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('Formatted Details');
@@ -61,4 +63,3 @@ Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form'
 Route::get('/roles', [role::class, 'index']);
 
 Route::get('/schedule', [ScheduleInterview::class, 'scheduleInterview'])->name('Interview');
-
