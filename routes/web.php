@@ -9,6 +9,7 @@ use App\Http\Controllers\FormattedDetails\FormatController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\OfferLetter\OfferController;
 use App\Http\Controllers\role;
+use App\Http\Controllers\ScheduleInterview\ScheduleInterview;
 use App\Http\Controllers\SmConttroller;
 use App\Http\Controllers\SocialMedia\SmController;
 use Illuminate\Support\Facades\Route;
@@ -58,3 +59,6 @@ Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form'
 
 // get Role
 Route::get('/roles', [role::class, 'index']);
+
+Route::get('/schedule', [ScheduleInterview::class, 'scheduleInterview']);
+

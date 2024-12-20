@@ -37,7 +37,7 @@
                         <label for="status ">status </label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <textarea id="description" class="form-control" placeholder="Description" style="height: 100px;"
+                        <textarea id="description" class="form-control" placeholder="Description" style="height: 122px;"
                             required></textarea>
                         <label for="description">Description</label>
                     </div>
