@@ -31,6 +31,7 @@ Route::get('/jobpost', [JobsController::class, 'jobpost'])->name('jobpost');
 Route::get('/jobs', [JobsController::class, 'jobs'])->name('Jobs');
 Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('Applicants Apply');
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('SM Applicants List');
+Route::get('/applicantlist', [ApplicantsApplyController::class, 'applicantlist'])->name('Applicant List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
 Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer List');
