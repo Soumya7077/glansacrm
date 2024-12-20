@@ -1,9 +1,7 @@
 @extends('layouts/contentNavbarLayout')
 
 @php
-
   $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id')) : null;
-
 @endphp
 
 @section('title', 'Add Users')
@@ -16,19 +14,26 @@
       <h5 class="mb-0">{{ $user ? 'Edit User' : 'Add User' }}</h5>
     </div>
     <div class="card-body">
-      <form id="addUserForm">
+      <form id="addUserForm" novalidate>
         @csrf
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
               <input type="text" class="form-control" id="fullname" placeholder="User Name"
-                value="{{ $user ? $user['Name'] : '' }}" />
+                value="{{ $user ? $user['Name'] : '' }}" required />
               <label for="basic-default-fullname">User Name</label>
+              <div class="invalid-feedback">
+                Please provide a username.
+              </div>
             </div>
             <div class="form-floating form-floating-outline mb-4">
-              <select id="roleSelect" class="form-select">
-
-              </select> <label for="basic-default-company">Role</label>
+              <select id="roleSelect" class="form-select" required>
+                <option hidden>Select Role</option>
+              </select>
+              <label for="basic-default-company">Role</label>
+              <div class="invalid-feedback">
+                Please select a role.
+              </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -36,8 +41,11 @@
               <div class="input-group input-group-merge">
                 <div class="form-floating form-floating-outline">
                   <input type="email" id="email" class="form-control" value="{{ $user ? $user['Email'] : '' }}"
-                    placeholder="user.name" aria-label="john.doe" aria-describedby="basic-default-email2" />
+                    placeholder="user.name" aria-label="john.doe" aria-describedby="basic-default-email2" required />
                   <label for="basic-default-email">Email</label>
+                  <div class="invalid-feedback">
+                    Please provide a valid email.
+                  </div>
                 </div>
               </div>
             </div>
@@ -45,8 +53,11 @@
               <div class="form-floating form-floating-outline mb-4">
                 <input type="password" class="form-control" id="password" value="{{ $user ? $user['Password'] : '' }}"
                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                  aria-describedby="basic-default-password42" />
+                  aria-describedby="basic-default-password42" required />
                 <label for="basic-default-phone">Password</label>
+                <div class="invalid-feedback">
+                  Please provide a password.
+                </div>
               </div>
             </div>
           </div>
@@ -58,87 +69,70 @@
   </div>
 </div>
 
-
 @endsection
+
 @push('scripts')
   <script>
     $(document).ready(function () {
-    // Fetch roles from the API
     $.ajax({
-      url: "/roles",  // Make sure this URL is correct
+      url: "/roles",
       type: 'GET',
       dataType: 'json',
       success: function (data) {
-      console.log(data);  // Check the entire response
-
       var select = $('#roleSelect');
-      select.empty();  // Clear existing options
-
-      // Add default placeholder option
+      select.empty();
       select.append('<option hidden>Select Role</option>');
-
-      // Loop through the data and append each role to the select element
       $.each(data.data, function (index, role) {
-        console.log("Appending role: " + role.RoleName);  // Log role being appended
         var isSelected = (role.id == '{{ $user ? $user['RoleId'] : '' }}') ? 'selected' : '';
-
-        // Append each role as an option
         select.append('<option value="' + role.id + '" ' + isSelected + '>' + role.RoleName + '</option>');
       });
       },
       error: function (xhr, status, error) {
-      console.error('Error fetching roles: ' + error); // Log the error for debugging
+      console.error('Error fetching roles: ' + error);
       alert('Error fetching roles: ' + error);
       }
     });
-
-
-
-    // Handle form submission
     $('#addUserForm').on('submit', function (e) {
-      e.preventDefault(); // Prevent the default form submission
+      e.preventDefault();
+      if (this.checkValidity() === false) {
+      e.stopPropagation();
+      }
 
-      // Collect form data
+      $(this).addClass('was-validated');
+
+      if (this.checkValidity() === true) {
       var formData = {
-      username: $('#fullname').val(),
-      role_id: $('#roleSelect').val(),
-      email: $('#email').val(),
-      password: $('#password').val()  // Password is optional
+        username: $('#fullname').val(),
+        role_id: $('#roleSelect').val(),
+        email: $('#email').val(),
+        password: $('#password').val()
       };
 
-      var userId = '{{ $user ? $user["id"] : "" }}'; // Get user ID for update
+      var userId = '{{ $user ? $user["id"] : "" }}';
 
-      // Determine whether it's an update or add action
       var url = userId ? '/api/update/' + userId : '/api/register';
       var method = userId ? 'PUT' : 'POST';
-
-      // Send AJAX request
       $.ajax({
-      url: url,  // API URL for add/update
-      type: method,  // POST for add, PUT for update
-      dataType: 'json',
-      data: formData,
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token if needed
-      },
-      success: function (response) {
+        url: url,
+        type: method,
+        dataType: 'json',
+        data: formData,
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
         var message = userId ? 'User updated successfully!' : 'User added successfully!';
         console.log(message, response);
         alert(message);
-        window.location.href =
-        '/user'; // Redirect to users list after
-
-      },
-      error: function (xhr, status, error) {
+        window.location.href = '/user';
+        },
+        error: function (xhr, status, error) {
         console.error('Error:', xhr.responseText);
         alert('Error: ' + xhr.responseText);
-      }
+        }
       });
+      }
     });
     });
-
-
-
   </script>
-
 @endpush

@@ -27,10 +27,12 @@ Route::delete('/delete/{id}', [UserController::class, 'delete']);
 
 
 
-// Employer Api
+/**===================================Employer API Start=============================================== */
 
 Route::post('/createEmployer', [EmployerController::class, 'createEmployer']);
 Route::get('/getEmployer', [EmployerController::class, 'getAllEmployees']);
 Route::get('/getEmployer/{id}', [EmployerController::class, 'getEmployerById']);
 Route::put('/updateEmployer/{id}', [EmployerController::class, 'UpdateEmployer']);
 Route::delete('/deleteEmployer/{id}', [EmployerController::class, 'deleteEmployer']);
+
+/**===================================Employer API End=============================================== */
