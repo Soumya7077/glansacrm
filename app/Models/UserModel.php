@@ -19,4 +19,11 @@ class UserModel extends Model
         'ModifyOn',
         'ModifyBy'
         ];
+
+        // Disable default timestamps (created_at, updated_at)
+    public $timestamps = false;
+
+    // Use custom timestamp fields
+    const CREATED_AT = 'CreatedOn';
+    const UPDATED_AT = 'ModifyOn';
 }

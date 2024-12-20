@@ -21,9 +21,11 @@ use App\Http\Controllers\users\UserController;
 
 // Main Page Route
 Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard');
+
+// User APIs
 Route::get('/user', [UserController::class, 'index'])->name('User Creation');
-Route::get('/userForm', [UserController::class, 'userform'])->name('');
-// Route::get('/getuser', [UserController::class, 'getuser'])->name('user.getdata');
+Route::get('/userForm/{id?}', [UserController::class, 'userform'])->name('');
+
 
 
 Route::get('/joblist', [JobsController::class, 'joblist'])->name('Job List');
