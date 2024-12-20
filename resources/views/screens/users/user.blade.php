@@ -67,6 +67,7 @@
 
                             table.clear();
                             table.rows.add(tableBody.find('tr')).draw();
+                            
                         } else {
                             alert('No users found');
                         }

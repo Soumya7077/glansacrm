@@ -124,10 +124,9 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
                 var message = userId ? 'User updated successfully!' : 'User added successfully!';
                 console.log(message, response);
                 alert(message);
-                // Optionally reset the form or redirect
-                if (!userId) {
-                    $('#addUserForm')[0].reset(); // Reset form if new user added
-                }
+                window.location.href =
+                '/user'; // Redirect to users list after
+                
             },
             error: function (xhr, status, error) {
                 console.error('Error:', xhr.responseText);
