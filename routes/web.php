@@ -60,5 +60,5 @@ Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form'
 // get Role
 Route::get('/roles', [role::class, 'index']);
 
-Route::get('/schedule', [ScheduleInterview::class, 'scheduleInterview']);
+Route::get('/schedule', [ScheduleInterview::class, 'scheduleInterview'])->name('Interview');
 
