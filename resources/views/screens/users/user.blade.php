@@ -1,6 +1,4 @@
-
-@extends('layouts/contentNavbarLayout')
-
+@extends('layouts.contentNavbarLayout')
 
 @section('title', 'Users List')
 
@@ -25,15 +23,57 @@
         </tr>
       </thead>
       <tbody id="tbody">
-        
+
       </tbody>
     </table>
   </div>
 </div>
 
+@push('scripts')
+  <script>
+    $(document).ready(function () {
+    // Initialize DataTable
+    var table = $('#table').DataTable();
 
+    // Fetch user data using Ajax
+    $.ajax({
+      url: "/api/getuser",
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+      console.log(data, "here");
+
+      if (data.status === 200) {
+        var tableBody = $('#tbody');
+        tableBody.empty(); // Clear the existing table data
+
+        // Loop through the user data and add it to the table
+        $.each(data.data, function (index, user) {
+        var row = '<tr>';
+        row += '<td>' + (index + 1) + '</td>';
+        row += '<td>' + user.Name + '</td>';
+        row += '<td>' + user.Email + '</td>';
+        row += '<td>' + user.RoleId + '</td>';
+        row += '<td>';
+        row += '<button class="btn btn-info btn-sm">Edit</button>';
+        row += ' <button class="btn btn-danger btn-sm">Delete</button>';
+        row += '</td>';
+        row += '</tr>';
+        tableBody.append(row); // Append row to table body
+        });
+
+        table.clear();
+        table.rows.add(tableBody.find('tr')).draw();
+      } else {
+        alert('No users found');
+      }
+      },
+      error: function (xhr, status, error) {
+      console.log(xhr, status, error);
+      alert('Error fetching data: ' + error);
+      }
+    });
+    });
+  </script>
+@endpush
 @endsection
-<script>
-  
-</script>
-
