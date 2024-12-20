@@ -2,8 +2,8 @@
 
 @php
 
-$user = request()->route('id') ? App\Models\UserModel::find(request()->route('id')) : null;
-  
+  $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id')) : null;
+
 @endphp
 
 @section('title', 'Add Users')
@@ -21,7 +21,8 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" class="form-control" id="fullname" placeholder="User Name" value="{{ $user ? $user['Name'] : '' }}"   />
+              <input type="text" class="form-control" id="fullname" placeholder="User Name"
+                value="{{ $user ? $user['Name'] : '' }}" />
               <label for="basic-default-fullname">User Name</label>
             </div>
             <div class="form-floating form-floating-outline mb-4">
@@ -34,8 +35,8 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
             <div class="mb-4">
               <div class="input-group input-group-merge">
                 <div class="form-floating form-floating-outline">
-                  <input type="email" id="email" class="form-control"  value="{{ $user ? $user['Email'] : '' }}" placeholder="user.name" aria-label="john.doe"
-                    aria-describedby="basic-default-email2" />
+                  <input type="email" id="email" class="form-control" value="{{ $user ? $user['Email'] : '' }}"
+                    placeholder="user.name" aria-label="john.doe" aria-describedby="basic-default-email2" />
                   <label for="basic-default-email">Email</label>
                 </div>
               </div>
@@ -95,45 +96,45 @@ $user = request()->route('id') ? App\Models\UserModel::find(request()->route('id
 
     // Handle form submission
     $('#addUserForm').on('submit', function (e) {
-        e.preventDefault(); // Prevent the default form submission
+      e.preventDefault(); // Prevent the default form submission
 
-        // Collect form data
-        var formData = {
-            username: $('#fullname').val(),
-            role_id: $('#roleSelect').val(),
-            email: $('#email').val(),
-            password: $('#password').val()  // Password is optional
-        };
+      // Collect form data
+      var formData = {
+      username: $('#fullname').val(),
+      role_id: $('#roleSelect').val(),
+      email: $('#email').val(),
+      password: $('#password').val()  // Password is optional
+      };
 
-        var userId = '{{ $user ? $user["id"] : "" }}'; // Get user ID for update
+      var userId = '{{ $user ? $user["id"] : "" }}'; // Get user ID for update
 
-        // Determine whether it's an update or add action
-        var url = userId ? '/api/update/' + userId : '/api/register';
-        var method = userId ? 'PUT' : 'POST';
+      // Determine whether it's an update or add action
+      var url = userId ? '/api/update/' + userId : '/api/register';
+      var method = userId ? 'PUT' : 'POST';
 
-        // Send AJAX request
-        $.ajax({
-            url: url,  // API URL for add/update
-            type: method,  // POST for add, PUT for update
-            dataType: 'json',
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token if needed
-            },
-            success: function (response) {
-                var message = userId ? 'User updated successfully!' : 'User added successfully!';
-                console.log(message, response);
-                alert(message);
-                window.location.href =
-                '/user'; // Redirect to users list after
-                
-            },
-            error: function (xhr, status, error) {
-                console.error('Error:', xhr.responseText);
-                alert('Error: ' + xhr.responseText);
-            }
-        });
-    });    
+      // Send AJAX request
+      $.ajax({
+      url: url,  // API URL for add/update
+      type: method,  // POST for add, PUT for update
+      dataType: 'json',
+      data: formData,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token if needed
+      },
+      success: function (response) {
+        var message = userId ? 'User updated successfully!' : 'User added successfully!';
+        console.log(message, response);
+        alert(message);
+        window.location.href =
+        '/user'; // Redirect to users list after
+
+      },
+      error: function (xhr, status, error) {
+        console.error('Error:', xhr.responseText);
+        alert('Error: ' + xhr.responseText);
+      }
+      });
+    });
     });
 
 
