@@ -14,10 +14,21 @@ class UserController extends Controller
     return view('screens.users.user');
   }
 
-  public function userform()
+  public function userform($id = null)
   {
-    return view('screens.users.userCreate');
+    
+    if($id){
+      $user = UserModel::find($id);
+      if($user){
+        return view('screens.users.userCreate', compact('user'));
+      }else{
+        return view('screens.users.userCreate');
+      }
+    }else{
+      return view('screens.users.userCreate');
+    }
   }
+  
 
   public function getuser($id = null)
   {
