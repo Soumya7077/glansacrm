@@ -10,27 +10,34 @@
             assign a user</small>
     </div>
     <div class="card-body">
-        <form>
+        <form id="assignUserForm" novalidate>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
-                        <select class="form-control" id="recruiter">
+                        <select class="form-control" id="recruiter" required>
+                            <option value="" hidden>Select Recruiter</option>
                             <option value="1">Naveen</option>
-                            <option value="1">Soumya</option>
-                            <option value="1">Sourav</option>
+                            <option value="2">Soumya</option>
+                            <option value="3">Sourav</option>
                         </select>
-                        <label for="shift">Recruiter</label>
+                        <label for="recruiter">Recruiter</label>
+                        <div class="invalid-feedback">
+                            Please select a recruiter.
+                        </div>
                     </div>
-
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
-                        <select class="form-control" id="Job-Title">
+                        <select class="form-control" id="Job-Title" required>
+                            <option value="" hidden>Select Job Title</option>
                             <option value="1">React</option>
-                            <option value="1">PHP</option>
-                            <option value="1">Java</option>
+                            <option value="2">PHP</option>
+                            <option value="3">Java</option>
                         </select>
-                        <label for="shift">Job Title</label>
+                        <label for="Job-Title">Job Title</label>
+                        <div class="invalid-feedback">
+                            Please select a job title.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,3 +48,19 @@
 </div>
 
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#assignUserForm').on('submit', function (e) {
+                e.preventDefault();
+                if (!this.checkValidity()) {
+                    e.stopPropagation();
+                }
+
+                $(this).addClass('was-validated');
+            });
+        });
+    </script>
+
+@endpush

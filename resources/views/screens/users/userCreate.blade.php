@@ -28,13 +28,14 @@
             </div>
             <div class="form-floating form-floating-outline mb-4">
               <select id="roleSelect" class="form-select" required>
-                <option hidden>Select Role</option>
+                <option hidden value="">Select Role</option>
               </select>
               <label for="basic-default-company">Role</label>
               <div class="invalid-feedback">
                 Please select a role.
               </div>
             </div>
+
           </div>
           <div class="col-md-6">
             <div class="mb-4">
