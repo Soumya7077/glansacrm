@@ -11,7 +11,7 @@ class JobPostModel extends Model
     protected $table = 'job_post';
     protected $fillable = [
         'EmployerId',
-        'Titlle',
+        'Title',
         'Description',
         'CreatedOn',
         'CreatedBy',
