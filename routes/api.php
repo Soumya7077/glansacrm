@@ -27,6 +27,7 @@ Route::get('/getuser/{id?}', [UserController::class, 'getuser']);
 Route::post('/register', [UserController::class, 'store']);
 Route::put('/update/{id}', [UserController::class, 'update']);
 Route::delete('/delete/{id}', [UserController::class, 'delete']);
+Route::get('/getrecruiter', [UserController::class, 'getRecruiter']);
 
 /**===================================User API End=============================================== */
 

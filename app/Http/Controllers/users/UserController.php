@@ -4,6 +4,7 @@ namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserModel;
+use Exception;
 use Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -140,5 +141,36 @@ class UserController extends Controller
     }
     $user->delete();
     return response()->json(['message' => 'User deleted successfully'], 200);
+  }
+
+
+  // Get Recruiter List
+
+  public function getRecruiter()
+  {
+    try {
+      $recruiter = UserModel::where('RoleId', 2)->get();
+      if ($recruiter) {
+        return response()->json([
+          'status' => 'success',
+          'message' => 'Recruiter Fetch Successfully',
+          'data' => $recruiter
+        ], 200);
+      } else {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'No Recruiter Found Kindly Create One',
+          'data' => $recruiter
+        ], 400);
+      }
+
+
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500);
+    }
   }
 }
