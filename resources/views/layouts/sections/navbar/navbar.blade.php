@@ -22,7 +22,7 @@
         <span class="app-brand-logo demo">
         @include('_partials.macros', ["height" => 20])
         </span>
-        <span class="app-brand-text demo menu-text fw-semibold ms-1">Glansa HealthCare</span>
+        <span class="app-brand-text demo menu-text fw-semibold ms-1">{{config('variables.templateName')}}</span>
       </a>
       <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
         <i class="mdi menu-toggle-icon d-xl-block align-middle mdi-20px"></i>
@@ -53,12 +53,12 @@
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
           <!-- Place this tag where you want the button to render. -->
-          <li class="nav-item lh-1 me-3">
+          <!-- <li class="nav-item lh-1 me-3">
             <a class="github-button"
               href="https://github.com/themeselection/materio-bootstrap-html-laravel-admin-template-free"
               data-icon="octicon-star" data-size="large" data-show-count="true"
               aria-label="Star themeselection/materio-bootstrap-html-laravel-admin-template-free on GitHub">Star</a>
-          </li>
+          </li> -->
 
           <!-- User -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
