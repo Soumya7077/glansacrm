@@ -12,7 +12,6 @@ class JobPostModel extends Model
     protected $fillable = [
         'EmployerId',
         'Title',
-        'Organisation',
         'Description',
         'CreatedOn',
         'CreatedBy',

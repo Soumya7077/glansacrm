@@ -28,7 +28,6 @@ class JobsController extends Controller
       $jobPost = JobPostModel::create([
         'EmployerId' => $request->EmployerId,
         'Title' => $request->Title,
-        'Organisation' => $request->OrganisationName,
         'Description' => $request->Description,
         'CreatedOn' => now(),
         'CreatedBy' => $request->CreatedBy,

@@ -81,7 +81,6 @@
   $(document).ready(function () {
     var table = $('#table').DataTable();
 
-    // Fetch Employers
     function fetchEmployers() {
       $('#loading-spinner').show(); // Show the loading spinner
       $.ajax({

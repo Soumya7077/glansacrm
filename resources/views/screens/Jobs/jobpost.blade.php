@@ -20,10 +20,11 @@
                         <div class="invalid-feedback">Please enter a valid job title (at least 3 characters).</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="organisation-name" name="OrganisationName"
-                            placeholder="Organisation Name" required minlength="3" />
+                        <select class="form-control" id="organisation-name" name="EmployerId" required>
+                            <option value="" hidden>Select Organisation</option>
+                        </select>
                         <label for="organisation-name">Organisation Name</label>
-                        <div class="invalid-feedback">Please enter the organisation name (at least 3 characters).</div>
+                        <div class="invalid-feedback">Please select an organisation.</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="number" class="form-control" id="openings" name="Opening"
@@ -126,7 +127,6 @@
                     headers: {
                         "Content-Type": "application/json",
                         "Accept": "application/json",
-                        // "Authorization": `Bearer ${getAuthToken()}`, // Optional, if API requires auth token
                     },
                     body: JSON.stringify(formObject),
                 });
@@ -148,10 +148,38 @@
             }
         });
 
-        // // Example function to get auth token, modify as needed
-        // function getAuthToken() {
-        //     return localStorage.getItem("authToken") || ""; // Replace with your auth logic
-        // }
+        const organisationDropdown = document.getElementById('organisation-name');
+
+        function populateOrganisationDropdown() {
+            organisationDropdown.innerHTML = '<option value="" hidden>Loading...</option>';
+
+            $.ajax({
+                url: '/api/getEmployer', 
+                type: 'GET', 
+                dataType: 'json',
+                success: function (response) {
+                    organisationDropdown.innerHTML = '<option value="" hidden>Select Organisation</option>';
+
+                    if (response && response.status === 'success' && response.data?.length > 0) {
+                        response.data.forEach(employer => {
+                            const option = document.createElement('option');
+                            option.value = employer.id; // Employer ID
+                            option.textContent = employer.Name || 'N/A'; // Organisation Name
+                            organisationDropdown.appendChild(option);
+                        });
+                    } else {
+                        organisationDropdown.innerHTML = '<option value="" hidden>No organisations found</option>';
+                    }
+                },
+                error: function () {
+                    organisationDropdown.innerHTML = '<option value="" hidden>Failed to load data</option>';
+                    alert('Failed to fetch organisation data. Please try again later.');
+                },
+            });
+        }
+
+        populateOrganisationDropdown();
+
     });
 </script>
 
