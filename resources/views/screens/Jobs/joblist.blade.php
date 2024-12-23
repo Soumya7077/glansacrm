@@ -9,7 +9,9 @@
     <a class="btn btn-primary btn-sm" href="/jobpost">Add New Job</a>
   </div>
   <div id="loading-spinner" style="display: none;">
-    <span><h4 class="text-primary">Loading...</h4></span>
+    <span>
+      <h4 class="text-primary">Loading...</h4>
+    </span>
   </div>
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
@@ -40,12 +42,12 @@
   document.addEventListener("DOMContentLoaded", () => {
     var table = $('#table').DataTable();
     function fetchJobs() {
-      $('#loading-spinner').show(); 
+      $('#loading-spinner').show();
 
       $.ajax({
-        url: '/api/getJob', 
-        type: 'GET', 
-        dataType: 'json', 
+        url: '/api/getJob',
+        type: 'GET',
+        dataType: 'json',
         success: function (response) {
           $('#loading-spinner').hide(); // Hide loading spinner
           $('#table tbody').empty(); // Clear existing table rows
@@ -67,8 +69,12 @@
                                 <td>${job.Department || 'N/A'}</td>
                                 <td>${job.Experience || 'N/A'}</td>
                                 <td>${job.Shift || 'N/A'}</td>
-                                <td>
-                                    <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-sm">View</a>
+                                <td class="text-center">
+                                  <div class="d-inline-flex gap-2">
+                                    <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-xs">View</a>
+                                    <a href="/jobpost/${job.id}" class="btn btn-info btn-xs">Edit</a>
+                                    <buttton class="btn btn-danger btn-xs" data-id="${job.id}">Delete</button>
+                                  </div>
                                 </td>
                             </tr>
                         `;
@@ -91,6 +97,32 @@
     }
 
     fetchJobs();
+
+    $(document).on('click', '.btn-danger', function () {
+      const jobId = $(this).data('id'); // Get the job ID from the button
+
+      // Confirm with the user before deletion
+      if (confirm('Are you sure you want to delete this job?')) {
+        $.ajax({
+          url: `/api/deleteJob/${jobId}`, // API endpoint for deletion
+          type: 'DELETE',
+          success: function (response) {
+            // console.log(response,'ererge');
+            
+            if (response.Status === 'success') {
+              alert('Job deleted successfully');
+              fetchJobs(); // Re-fetch the job list after deletion
+            }else{
+              alert('Failed to delete');
+            } 
+          },
+          error: function () {
+            alert('Failed to delete the job. Please try again later.');
+          },
+        });
+      }
+    });
+
   });
 </script>
 
