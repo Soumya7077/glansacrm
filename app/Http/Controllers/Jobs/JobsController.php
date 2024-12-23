@@ -15,9 +15,18 @@ class JobsController extends Controller
   }
 
 
-  public function jobpost()
+  public function jobpost($id = null)
   {
-    return view('screens.Jobs.jobpost');
+    if ($id) {
+      $job = JobPostModel::find($id);
+      if ($job) {
+        return view('screens.Jobs.jobpost', compact('job'));
+      } else {
+        return view('screens.Jobs.jobpost');
+      }
+    } else {
+      return view('screens.Jobs.jobpost');
+    }
   }
 
   public function createJob(Request $request)
@@ -58,8 +67,6 @@ class JobsController extends Controller
       ], 500);
     }
   }
-
-
 
   // Get all Jobs list
 
@@ -171,10 +178,15 @@ class JobsController extends Controller
     try {
       $job = JobPostModel::find($id);
       if (!$job) {
-        return response()->json(['error' => 'Jons not found'], 404);
+        return response()->json(['error' => 'Jobs not found'], 404);
+      }else{
+        $job->delete();
+        return response()->json([
+          'Status'=> 'success',
+          'message'=> 'Job Deleted Successfully'
+        ],200);
       }
-      $job->delete();
-      return response()->json(['message' => 'Jobs deleted successfully'], 200);
+      
 
     } catch (Exception $e) {
       return response()->json([

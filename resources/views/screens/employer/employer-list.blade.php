@@ -6,8 +6,8 @@
 <div class="container-fluid mt-3 px-0">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="mb-0">Employer List</h2>
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBackdrop"
-      aria-controls="offcanvasBackdrop">+Add Employer</button>
+    <button class="btn btn-primary" id="clearForm" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">+Add Employer</button>
   </div>
   <h4 id="loading-spinner" class="text-primary" style="display:none;">Loading...</h4>
   <div class="table-responsive">
@@ -69,8 +69,7 @@
             </div>
           </div>
           <button type="submit" id="formSubmitButton" class="btn btn-primary mb-2 d-grid w-100">Add</button>
-          <button type="button" class="btn btn-outline-secondary d-grid w-100"
-            data-bs-dismiss="offcanvas">Cancel</button>
+          <button type="button" id="clearFormCancel" class="btn btn-outline-secondary d-grid w-100">Cancel</button>
         </form>
       </div>
     </div>
@@ -104,8 +103,8 @@
                   <td>${employer.Location || 'N/A'}</td>
                   <td class="text-center">
                     <div class="d-inline-flex gap-2">
-                      <button class="btn btn-sm btn-info edit-btn" data-id="${employer.id}">Edit</button>
-                      <button class="btn btn-sm btn-danger delete-btn" data-id="${employer.id}">Delete</button>
+                      <button class="btn btn-xs btn-info edit-btn" data-id="${employer.id}">Edit</button>
+                      <button class="btn btn-xs btn-danger delete-btn" data-id="${employer.id}">Delete</button>
                     </div>
                   </td>
                 </tr>`;
@@ -182,6 +181,16 @@
       $('#offcanvasBackdropLabel').text('Add Employer');
       $('#formSubmitButton').text('Add');
     }
+
+    $('#clearForm').on('click', function () {
+      $('#employerForm')[0].reset();
+      $('#employerForm').find('.is-invalid').removeClass('is-invalid');
+    });
+
+    $('#clearFormCancel').on('click', function () {
+      $('#employerForm')[0].reset();
+      $('#employerForm').find('.is-invalid').removeClass('is-invalid');
+    });
 
     // Handle Edit Button
     $(document).on('click', '.edit-btn', function () {
