@@ -107,8 +107,8 @@
         row += '<td>' + user.Email + '</td>';
         row += '<td>' + user.RoleId + '</td>';
         row += '<td>';
-        row += `<a href="/userForm/${user.id}" class="btn btn-info btn-sm">Edit</a>`;
-        // row += `<button type="button" class="btn btn-info btn-sm editButton" data-id="${user.id}">Edit</button>`;
+        // row += `<a href="/userForm/${user.id}" class="btn btn-info btn-sm">Edit</a>`;
+        row += `<button type="button" class="btn btn-info btn-sm editButton" data-id="${user.id}" >Edit</button>`;
         row += ` <button type="button" class="btn btn-danger btn-sm deleteButton" data-id="${user.id}">Delete</button>`;
         row += '</td>';
         row += '</tr>';
@@ -124,6 +124,12 @@
       alert('Error fetching data: ' + error);
       }
     });
+
+    $(document).on('click', '.editButton', function () {
+      $('#offcanvasBackdrop').offcanvas('show');
+    })
+
+
 
     $.ajax({
       url: "/roles",
