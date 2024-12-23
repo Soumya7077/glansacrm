@@ -14,44 +14,44 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="job-title" name="jobTitle" placeholder="Job Title"
+                        <input type="text" class="form-control" id="job-title" name="Title" placeholder="Job Title"
                             required minlength="3" />
                         <label for="job-title">Title</label>
                         <div class="invalid-feedback">Please enter a valid job title (at least 3 characters).</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="organisation-name" name="organisationName"
+                        <input type="text" class="form-control" id="organisation-name" name="OrganisationName"
                             placeholder="Organisation Name" required minlength="3" />
                         <label for="organisation-name">Organisation Name</label>
                         <div class="invalid-feedback">Please enter the organisation name (at least 3 characters).</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="number" class="form-control" id="openings" name="openings"
+                        <input type="number" class="form-control" id="openings" name="Opening"
                             placeholder="Number of Openings" required min="1" />
                         <label for="openings">Openings</label>
                         <div class="invalid-feedback">Please enter the number of openings (minimum 1).</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="salary" name="salary" placeholder="Salary" required
+                        <input type="text" class="form-control" id="salary" name="Salary" placeholder="Salary" required
                             pattern="^[0-9]+(\.[0-9]{1,2})?$" />
                         <label for="salary">Salary</label>
                         <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="job-location" name="jobLocation"
+                        <input type="text" class="form-control" id="job-location" name="Location"
                             placeholder="Job Location" required minlength="3" />
                         <label for="job-location">Location</label>
                         <div class="invalid-feedback">Please enter the job location (at least 3 characters).</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="education" name="education"
+                        <input type="text" class="form-control" id="education" name="Education"
                             placeholder="Education Requirement" required minlength="3" />
                         <label for="education">Education</label>
                         <div class="invalid-feedback">Please enter the education requirement (at least 3 characters).
                         </div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="key-skills" name="keySkills"
+                        <input type="text" class="form-control" id="key-skills" name="KeySkills"
                             placeholder="Key Skills" required minlength="3" />
                         <label for="key-skills">Key Skills</label>
                         <div class="invalid-feedback">Please enter the key skills (at least 3 characters).</div>
@@ -59,19 +59,19 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="department" name="department"
+                        <input type="text" class="form-control" id="department" name="Department"
                             placeholder="Department" required minlength="3" />
                         <label for="department">Department</label>
                         <div class="invalid-feedback">Please enter the department (at least 3 characters).</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="experience" name="experience"
+                        <input type="text" class="form-control" id="experience" name="Experience"
                             placeholder="Experience" required pattern="^[0-9]+(?:\.[0-9]{1,2})?$" />
                         <label for="experience">Experience</label>
                         <div class="invalid-feedback">Please enter valid experience in years (e.g., 2 or 2.5).</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <select class="form-control" id="shift" name="shift" required>
+                        <select class="form-control" id="shift" name="Shift" required>
                             <option value="" hidden>Select Shift</option>
                             <option value="Day">Day</option>
                             <option value="Night">Night</option>
@@ -90,7 +90,7 @@
                         <div class="invalid-feedback">Please select a job type.</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <textarea id="job-description" class="form-control" name="jobDescription"
+                        <textarea id="job-description" class="form-control" name="Description"
                             placeholder="Job Description" style="height: 122px;" required minlength="10"></textarea>
                         <label for="job-description">Description</label>
                         <div class="invalid-feedback">Please enter a job description (at least 10 characters).</div>
@@ -105,17 +105,55 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById('jobPostForm');
+        const form = document.getElementById("jobPostForm");
 
-        form.addEventListener('submit', (event) => {
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
             if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
+                form.classList.add("was-validated");
+                return;
             }
 
-            form.classList.add('was-validated');
+            // Collect form data
+            const formData = new FormData(form);
+            const formObject = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch("/api/createJob", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        // "Authorization": `Bearer ${getAuthToken()}`, // Optional, if API requires auth token
+                    },
+                    body: JSON.stringify(formObject),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert("Job posted successfully!");
+                    // Optionally, reset the form or redirect
+                    form.reset();
+                    form.classList.remove("was-validated");
+                } else {
+                    console.error("Error:", result.message);
+                    alert(`Failed to post job: ${result.message}`);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An unexpected error occurred.");
+            }
         });
+
+        // // Example function to get auth token, modify as needed
+        // function getAuthToken() {
+        //     return localStorage.getItem("authToken") || ""; // Replace with your auth logic
+        // }
     });
 </script>
+
 
 @endsection
