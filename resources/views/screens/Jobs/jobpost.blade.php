@@ -84,7 +84,7 @@
                             <option value="" hidden>Select Job Type</option>
                             <option value="full-time">Full-time</option>
                             <option value="part-time">Part-time</option>
-                            <option value="contract">Contract</option>
+                            <option value="contract">Contractual</option>
                         </select>
                         <label for="job-type">Job Type</label>
                         <div class="invalid-feedback">Please select a job type.</div>
