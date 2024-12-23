@@ -9,7 +9,7 @@
     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBackdrop"
       aria-controls="offcanvasBackdrop">+Add Employer</button>
   </div>
-  <div id="loading-spinner" class="text-primary" style="display:none;">Loading...</div>
+  <h4 id="loading-spinner" class="text-primary" style="display:none;">Loading...</h4>
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
@@ -37,7 +37,7 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <hr>
-      <div id="edit-loading" class="text-primary" style="display: none; padding:0px 25px;">Loading...</div>
+      <h4 id="edit-loading" class="text-primary" style="display: none; padding:0px 25px;">Loading...</h4>
       <div class="offcanvas-body mx-0 flex-grow-0">
         <form id="employerForm" class="needs-validation" novalidate>
           <div class="row">
@@ -81,7 +81,6 @@
   $(document).ready(function () {
     var table = $('#table').DataTable();
 
-    // Fetch Employers
     function fetchEmployers() {
       $('#loading-spinner').show(); // Show the loading spinner
       $.ajax({
