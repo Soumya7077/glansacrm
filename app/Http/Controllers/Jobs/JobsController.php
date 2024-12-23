@@ -22,7 +22,7 @@ class JobsController extends Controller
 
   public function createJob(Request $request)
   {
-    \Log::info('Incoming Request:', $request->all());
+    // \Log::info('Incoming Request:', $request->all());
     try {
       // Create the job post
       $jobPost = JobPostModel::create([
