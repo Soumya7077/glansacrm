@@ -41,7 +41,7 @@ class ApplicantsApplyController extends Controller
         ], 400);
       } else {
         $applicants = ApplicantModel::create([
-            'job'
+            // 'job'
           'Name' => $request->name,
           'Email' => $request->email,
           'Phone' => $request->phone,
