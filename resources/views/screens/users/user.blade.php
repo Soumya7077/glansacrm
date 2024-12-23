@@ -5,8 +5,7 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center py-3">
   <h3 class="mb-0">Users</h3>
-  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBackdrop"
-    aria-controls="offcanvasBackdrop"> Add User</button>
+  <button class="btn btn-primary addBtn" type="button"> Add User</button>
 </div>
 
 <div>
@@ -31,7 +30,7 @@
   <div class="mt-3">
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasBackdrop" aria-labelledby="offcanvasBackdropLabel">
       <div class="offcanvas-header">
-        <h5 id="offcanvasBackdropLabel" class="offcanvas-title">Add User</h5>
+        <h5 id="offcanvasBackdropLabel" class="offcanvas-title"></h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <hr>
@@ -80,7 +79,7 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100 mb-2">Add</button>
+          <button type="submit" class="btn btn-primary w-100 mb-2" id="userBtn"></button>
         </form>
         <button type="button" class="btn btn-outline-secondary d-grid w-100" data-bs-dismiss="offcanvas">Cancel</button>
       </div>
@@ -125,8 +124,19 @@
       }
     });
 
+
+
     $(document).on('click', '.editButton', function () {
       $('#offcanvasBackdrop').offcanvas('show');
+      $('.offcanvas-title').text('Update User');
+      $('#userBtn').text('Update');
+    });
+
+
+    $(document).on('click', '.addBtn', function () {
+      $('#offcanvasBackdrop').offcanvas('show');
+      $('.offcanvas-title').text('Add User');
+      $('#userBtn').text('Add');
     })
 
 

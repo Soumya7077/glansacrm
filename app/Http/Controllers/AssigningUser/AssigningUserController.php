@@ -16,6 +16,7 @@ class AssigningUserController extends Controller
 
 
   /** ==============================Assigning particular recruiter to a job=========================== */
+
   public function assignRecruiterToJob(Request $request)
   {
     try {
@@ -45,5 +46,11 @@ class AssigningUserController extends Controller
   }
 
   /** ==============================Assigning particular recruiter to a job=========================== */
+
+
+  public function getRecruiter()
+  {
+    
+  }
 
 }
