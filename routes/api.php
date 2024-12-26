@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssigningUser\AssigningUserController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\users\UserController;
@@ -55,3 +56,9 @@ Route::delete('/deleteJob/{id}', [JobsController::class, 'deleteJobs']);
 /**===================================Jobs API End=============================================== */
 
 
+/**==================================Assign recruiter to job======================================== */
+
+Route::get('/getassignedrecruiter', [AssigningUserController::class, 'getAssignedRecruiter']);
+Route::post('/assignrecruitertojob', [AssigningUserController::class, 'assignRecruiterToJob']);
+
+/**==================================Assign recruiter to job======================================== */
