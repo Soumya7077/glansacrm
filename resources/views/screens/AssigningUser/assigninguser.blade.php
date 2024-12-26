@@ -10,9 +10,6 @@
         data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Assigning User </button>
 </div>
 
-
-
-
 <div>
     <h5 class="card-header">User Master List</h5>
     <div class="table-responsive">
@@ -84,11 +81,9 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            $.ajax({
-                url: "/api/getrecruiter",
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
+            fetch("/api/getrecruiter")
+                .then(response => response.json())
+                .then(data => {
                     if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
                         const recruiterSelect = $('#recruiter');
                         recruiterSelect.empty();
@@ -100,18 +95,15 @@
                         $('#recruiter').append('<option value="" hidden>No recruiters available</option>');
                         console.warn('No recruiters found.');
                     }
-                },
-                error: function (xhr) {
-                    console.error('Error fetching recruiters:', xhr.responseText);
-                    alert('Error fetching recruiters: ' + xhr.responseText);
-                }
-            });
+                })
+                .catch(error => {
+                    console.error('Error fetching recruiters:', error);
+                    alert('Error fetching recruiters: ' + error);
+                });
 
-            $.ajax({
-                url: "/api/getJob",
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
+            fetch("/api/getJob")
+                .then(response => response.json())
+                .then(data => {
                     if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
                         const jobTitleSelect = $('#Job-Title');
                         jobTitleSelect.empty();
@@ -123,12 +115,11 @@
                         $('#Job-Title').append('<option value="" hidden>No job titles available</option>');
                         console.warn('No job titles found.');
                     }
-                },
-                error: function (xhr) {
-                    console.error('Error fetching job titles:', xhr.responseText);
-                    alert('Error fetching job titles: ' + xhr.responseText);
-                }
-            });
+                })
+                .catch(error => {
+                    console.error('Error fetching job titles:', error);
+                    alert('Error fetching job titles: ' + error);
+                });
 
             $('#assignUserForm').on('submit', function (e) {
                 e.preventDefault();
@@ -151,18 +142,37 @@
                 }
 
                 if (isValid) {
-                    alert("Form submitted successfully!");
+                    const formData = {
+                        recruiter_id: recruiter,
+                        job_title_id: jobTitle
+                    };
+
+                    fetch('/api/assignrecruitertojob', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === "success") {
+                                console.log('Success:', data);
+                            } else {
+                                console.error('Error:', data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                 }
             });
 
             $('#cancelButton').on('click', function () {
-                // Reset the form
                 $('#assignUserForm')[0].reset();
-
-                // Remove validation styles
                 $('#recruiter, #Job-Title').removeClass('is-valid is-invalid');
             });
-
         });
     </script>
 @endpush
