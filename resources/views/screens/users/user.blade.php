@@ -5,8 +5,7 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center py-3">
   <h3 class="mb-0">Users</h3>
-  <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-    data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Add User</button>
+  <button id="addbtn" class="btn btn-primary" type="button">Add</button>
 </div>
 
 <div>
@@ -31,8 +30,8 @@
   <div class="mt-3">
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasBackdrop" aria-labelledby="offcanvasBackdropLabel">
       <div class="offcanvas-header">
-        <h5 id="offcanvasBackdropLabel" class="offcanvas-title">Add/Edit User</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <h5 id="offcanvasBackdropLabel" class="offcanvas-title"></h5>
+        <button type="button" class="btn-close text-reset"></button>
       </div>
       <hr>
       <div class="offcanvas-body mx-0 flex-grow-0">
@@ -82,7 +81,7 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100 mb-2">Submit</button>
+          <button type="submit" class="btn btn-primary w-100 mb-2" id="SubBtn"></button>
         </form>
         <button type="button" class="btn btn-outline-secondary d-grid w-100" id="cancelButton">Cancel</button>
       </div>
@@ -94,6 +93,7 @@
   <script>
     $(document).ready(function () {
     var table = $('#table').DataTable();
+    let userList = [];
 
     function fetchUsers() {
       $.ajax({
@@ -104,7 +104,9 @@
         if (data.status === 200) {
         var tableBody = $('#tbody');
         tableBody.empty();
+
         $.each(data.data, function (index, user) {
+          userList.push(user);
           var row = '<tr>';
           row += '<td>' + (index + 1) + '</td>';
           row += '<td>' + user.Name + '</td>';
@@ -129,9 +131,31 @@
       });
     }
 
+    $(document).on('click', '.btn-close', function () {
+      $('#offcanvasBackdrop').offcanvas('hide');
+      $('#addUserForm')[0].reset();
+      $('#userId').val('');
+    })
+
+    $(document).on('click', '#addbtn', function () {
+
+      $('#offcanvasBackdrop').offcanvas('show');
+      $('.offcanvas-title').text('Add User');
+      $('#SubBtn').text('Add');
+    })
+
+    // $(document).on('click', '#SubBtn', function () {
+    //   // $('.offcanvas-title').text('Add User');
+
+    //   // $('#SubBtn').text('Update');
+    // })
+
     fetchUsers();
 
     $(document).on('click', '.editButton', function () {
+      $('#offcanvasBackdrop').offcanvas('show');
+      $('.offcanvas-title').text('Update User');
+      $('#SubBtn').text('Update');
       var userId = $(this).data('id');
       $.ajax({
       url: `/api/getuser/${userId}`,
@@ -145,7 +169,7 @@
         $('#email').val(user.Email);
         $('#roleSelect').val(user.RoleId);
         $('#password').val(user.Password);
-        $('#offcanvasBackdrop').offcanvas('show');
+        // $('#offcanvasBackdrop').offcanvas('show');
         } else {
         alert('User not found');
         }
@@ -216,6 +240,7 @@
         success: function (response) {
         alert(response.message);
         $('#offcanvasBackdrop').offcanvas('hide');
+        $('#addUserForm')[0].reset();
         fetchUsers();
         },
         error: function (xhr, status, error) {
@@ -226,7 +251,11 @@
     });
 
     $(document).on('click', '.deleteButton', function () {
-      var userId = $(this).data('id');
+      // var userId = $(this).data('id');
+      // console.log(userList);
+      // userList = userList.filter((data) => data.id !== userId);
+      // console.log(userList);
+      // 
       if (confirm('Are you sure you want to delete this user?')) {
       $.ajax({
         url: `/api/delete/${userId}`,
