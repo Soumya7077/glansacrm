@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RecruiterAssignsModel;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssigningUserController extends Controller
 {
@@ -29,11 +30,11 @@ class AssigningUserController extends Controller
         'created_at' => now(),
       ]);
 
-      if($assignRecruiter){
-        return response()-> json([
-          'status'=> 'success',
-          'message'=>'Recruiter assigned successfully',
-          'data'=>$assignRecruiter,
+      if ($assignRecruiter) {
+        return response()->json([
+          'status' => 'success',
+          'message' => 'Recruiter assigned successfully',
+          'data' => $assignRecruiter,
         ], 201);
       }
 
@@ -48,9 +49,19 @@ class AssigningUserController extends Controller
   /** ==============================Assigning particular recruiter to a job=========================== */
 
 
-  public function getRecruiter()
+  /**=============================Get assigned recruiter=====================================*/
+
+  public function getAssignedRecruiter()
   {
-    
+    $assignedRecruiter = DB::table('recruiter_assign')
+      ->join('job_post', 'job_post.id', '=', 'recruiter_assign.JobId')
+      ->join('user', 'user.id', '=', 'recruiter_assign.UserId')
+      ->select('recruiter_assign.*', 'job_post.Title', 'user.Name')
+      ->get();
+    return $assignedRecruiter;
   }
+
+  /**=============================Get assigned recruiter=====================================*/
+
 
 }
