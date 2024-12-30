@@ -64,4 +64,5 @@ Route::get('/getassignedrecruiter/{id}', [AssigningUserController::class, 'getAs
 Route::put('/updateassignuser/{id}', [AssigningUserController::class, 'updateAssignUser']);
 Route::put('/deleteassignuser/{id}', [AssigningUserController::class, 'deleteAssignUser']);
 
+
 /**==================================Assign recruiter to job======================================== */
