@@ -1,7 +1,11 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\Applicants\ApplicantsApplyController;
 use App\Http\Controllers\Department\DepartmentController;
+=======
+use App\Http\Controllers\AssigningUser\AssigningUserController;
+>>>>>>> dced8cacc537fb566c35ff581ca3239b2870972c
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\users\UserController;
@@ -57,6 +61,7 @@ Route::delete('/deleteJob/{id}', [JobsController::class, 'deleteJobs']);
 /**===================================Jobs API End=============================================== */
 
 
+<<<<<<< HEAD
 /**===================================Applicant API Start=============================================== */
 
 Route::post('/applicant', [ApplicantsApplyController::class, 'createApplicant']);
@@ -78,3 +83,15 @@ Route::delete('/deleteDepartment/{id}', [DepartmentController::class, 'destroy']
 /**===================================Department API End=============================================== */
 
 
+=======
+/**==================================Assign recruiter to job======================================== */
+
+Route::get('/getassignedrecruiter', [AssigningUserController::class, 'getAssignedRecruiter']);
+Route::post('/assignrecruitertojob', [AssigningUserController::class, 'assignRecruiterToJob']);
+Route::get('/getassignedrecruiter/{id}', [AssigningUserController::class, 'getAssignedRecruiterById']);
+Route::put('/updateassignuser/{id}', [AssigningUserController::class, 'updateAssignUser']);
+Route::put('/deleteassignuser/{id}', [AssigningUserController::class, 'deleteAssignUser']);
+
+
+/**==================================Assign recruiter to job======================================== */
+>>>>>>> dced8cacc537fb566c35ff581ca3239b2870972c

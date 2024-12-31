@@ -42,6 +42,7 @@ class ApplicantsApplyController extends Controller
             ], 400);
         }
 
+<<<<<<< HEAD
         elseif ($existingJob) {
             return response()->json([
                 'status' => 'error',
@@ -74,6 +75,25 @@ class ApplicantsApplyController extends Controller
             'Resume' => $resumePath, // Save the file path
             'KeySkills' => $request->KeySkills,
             'StatusId' => $request->StatusId,
+=======
+      if ($existingMobile) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Phone Number already exists!'
+        ], 400);
+      } else if ($existingEmail) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Email already exists!'
+        ], 400);
+      } else {
+        $applicants = ApplicantModel::create([
+            // 'job'
+          'Name' => $request->name,
+          'Email' => $request->email,
+          'Phone' => $request->phone,
+          'Location' => $request->location,
+>>>>>>> dced8cacc537fb566c35ff581ca3239b2870972c
         ]);
 
         return response()->json([

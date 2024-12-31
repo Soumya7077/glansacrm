@@ -14,14 +14,70 @@ class JobsController extends Controller
     return view('screens.Jobs.joblist');
   }
 
-
-  public function jobpost()
+  public function jobs()
   {
-    return view('screens.Jobs.jobpost');
+    // return view('screens.Jobs.jobpost');
+    $jobs = [
+      [
+        'id' => 1,
+        'title' => 'ReactJS Developer',
+        'company' => 'CyberPoint Pvt. Ltd',
+        'location' => 'Gurugram, Haryana',
+        'salary' => '₹45,000 - ₹60,000 a month',
+        'type' => 'Full-time',
+        'schedule' => 'Monday to Friday',
+      ],
+      [
+        'id' => 2,
+        'title' => 'Software Engineer',
+        'company' => 'Vujis',
+        'location' => 'Hyderabad, Telangana',
+        'salary' => '₹50,000 - ₹70,000 a month',
+        'type' => 'Part-time',
+        'schedule' => 'Flexible hours',
+      ],
+      [
+        'id' => 1,
+        'title' => 'ReactJS Developer',
+        'company' => 'CyberPoint Pvt. Ltd',
+        'location' => 'Gurugram, Haryana',
+        'salary' => '₹45,000 - ₹60,000 a month',
+        'type' => 'Full-time',
+        'schedule' => 'Monday to Friday',
+      ],
+      [
+        'id' => 2,
+        'title' => 'Software Engineer',
+        'company' => 'Vujis',
+        'location' => 'Hyderabad, Telangana',
+        'salary' => '₹50,000 - ₹70,000 a month',
+        'type' => 'Part-time',
+        'schedule' => 'Flexible hours',
+      ],
+    ];
+    return view('screens.Jobs.jobs', compact('jobs'));
   }
-  
+
+
+
+
+  public function jobpost($id = null)
+  {
+    if ($id) {
+      $job = JobPostModel::find($id);
+      if ($job) {
+        return view('screens.Jobs.jobpost', compact('job'));
+      } else {
+        return view('screens.Jobs.jobpost');
+      }
+    } else {
+      return view('screens.Jobs.jobpost');
+    }
+  }
+
   public function createJob(Request $request)
   {
+    // \Log::info('Incoming Request:', $request->all());
     try {
       // Create the job post
       $jobPost = JobPostModel::create([
@@ -40,25 +96,23 @@ class JobsController extends Controller
         'Department' => $request->Department,
         'Experience' => $request->Experience,
         'Shift' => $request->Shift,
-    ]);
+      ]);
 
       // Return a successful response
       return response()->json([
-          'status' => 'success',
-          'message' => 'Job post created successfully!',
-          'data' => $jobPost
+        'status' => 'success',
+        'message' => 'Job post created successfully!',
+        'data' => $jobPost
       ], 201);
-  } catch (Exception $e) {
+    } catch (Exception $e) {
       // Handle exceptions
       return response()->json([
-          'status' => 'error',
-          'message' => 'Something went wrong! Please try again.',
-          'error' => $e->getMessage()
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
       ], 500);
+    }
   }
-}
-  
-
 
   // Get all Jobs list
 
@@ -125,43 +179,43 @@ class JobsController extends Controller
   // Update Employer list by id
 
   public function updateJobs(Request $request, $id)
-{
+  {
     try {
-        // Find the job post by ID
-        $jobPost = JobPostModel::findOrFail($id);
+      // Find the job post by ID
+      $jobPost = JobPostModel::findOrFail($id);
 
-        // Update the job post
-        $jobPost->update([
-            'EmployerId' => $request->EmployerId ?? $jobPost->EmployerId,
-            'Title' => $request->Title ?? $jobPost->Title,
-            'Description' => $request->Description ?? $jobPost->Description,
-            'Opening' => $request->Opening ?? $jobPost->Opening,
-            'Salary' => $request->Salary ?? $jobPost->Salary,
-            'Location' => $request->Location ?? $jobPost->Location,
-            'Education' => $request->Education ?? $jobPost->Education,
-            'KeySkills' => $request->KeySkills ?? $jobPost->KeySkills,
-            'Department' => $request->Department ?? $jobPost->Department,
-            'Experience' => $request->Experience ?? $jobPost->Experience,
-            'Shift' => $request->Shift ?? $jobPost->Shift,
-            'ModifyOn' => now(),
-            'ModifyBy' => $request->ModifyBy ?? null,
-        ]);
+      // Update the job post
+      $jobPost->update([
+        'EmployerId' => $request->EmployerId ?? $jobPost->EmployerId,
+        'Title' => $request->Title ?? $jobPost->Title,
+        'Description' => $request->Description ?? $jobPost->Description,
+        'Opening' => $request->Opening ?? $jobPost->Opening,
+        'Salary' => $request->Salary ?? $jobPost->Salary,
+        'Location' => $request->Location ?? $jobPost->Location,
+        'Education' => $request->Education ?? $jobPost->Education,
+        'KeySkills' => $request->KeySkills ?? $jobPost->KeySkills,
+        'Department' => $request->Department ?? $jobPost->Department,
+        'Experience' => $request->Experience ?? $jobPost->Experience,
+        'Shift' => $request->Shift ?? $jobPost->Shift,
+        'ModifyOn' => now(),
+        'ModifyBy' => $request->ModifyBy ?? null,
+      ]);
 
-        // Return a successful response
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Job post updated successfully!',
-            'data' => $jobPost
-        ], 200);
+      // Return a successful response
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Job post updated successfully!',
+        'data' => $jobPost
+      ], 200);
     } catch (Exception $e) {
-        // Handle exceptions
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Something went wrong! Please try again.',
-            'error' => $e->getMessage()
-        ], 500);
+      // Handle exceptions
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500);
     }
-}
+  }
 
   // Delete employer
 
@@ -170,10 +224,15 @@ class JobsController extends Controller
     try {
       $job = JobPostModel::find($id);
       if (!$job) {
-        return response()->json(['error' => 'Jons not found'], 404);
+        return response()->json(['error' => 'Jobs not found'], 404);
+      } else {
+        $job->delete();
+        return response()->json([
+          'Status' => 'success',
+          'message' => 'Job Deleted Successfully'
+        ], 200);
       }
-      $job->delete();
-      return response()->json(['message' => 'Jobs deleted successfully'], 200);
+
 
     } catch (Exception $e) {
       return response()->json([
