@@ -177,5 +177,4 @@ class EmployerController extends Controller
       ], 500);
     }
   }
-
 }

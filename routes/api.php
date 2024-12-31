@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Applicants\ApplicantsApplyController;
+use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\users\UserController;
@@ -53,5 +55,26 @@ Route::put('/updateJob/{id}', [JobsController::class, 'updateJobs']);
 Route::delete('/deleteJob/{id}', [JobsController::class, 'deleteJobs']);
 
 /**===================================Jobs API End=============================================== */
+
+
+/**===================================Applicant API Start=============================================== */
+
+Route::post('/applicant', [ApplicantsApplyController::class, 'createApplicant']);
+Route::get('/getapplicant', [ApplicantsApplyController::class, 'getApplicant']);
+Route::get('/getapplicant/{id}', [ApplicantsApplyController::class, 'getApplicantById']);
+Route::put('/updateApplicant/{id}', [ApplicantsApplyController::class, 'updateApplicant']);
+Route::delete('/deleteApplicant/{id}', [ApplicantsApplyController::class, 'deleteApplicant']);
+
+/**===================================Applicant API End=============================================== */
+
+
+/**===================================Department API Start=============================================== */
+
+Route::get('/getdepartment{id?}', [DepartmentController::class, 'index']);
+Route::post('/department', [DepartmentController::class, 'store']);
+Route::put('/updateDepartment/{id}', [DepartmentController::class, 'update']);
+Route::delete('/deleteDepartment/{id}', [DepartmentController::class, 'destroy']);
+
+/**===================================Department API End=============================================== */
 
 

@@ -11,6 +11,7 @@
     </div>
     <div class="card-body">
         <form id="jobApplicationForm" class="needs-validation" novalidate>
+            @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
