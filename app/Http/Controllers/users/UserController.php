@@ -68,7 +68,6 @@ class UserController extends Controller
 
   public function store(Request $request)
   {
-
     $user = UserModel::create([
       'Name' => $request->username,
       'RoleId' => $request->role_id,
@@ -163,8 +162,6 @@ class UserController extends Controller
           'data' => $recruiter
         ], 400);
       }
-
-
     } catch (Exception $e) {
       return response()->json([
         'status' => 'error',

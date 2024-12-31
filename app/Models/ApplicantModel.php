@@ -24,4 +24,7 @@ class ApplicantModel extends Model
         'StatusId',
         'CreatedOn',
     ];
+
+    public $timestamps = false; // Disable default timestamps
+
 }
