@@ -22,6 +22,12 @@
       "slug": "User Creation"
     },
     {
+      "url": "/department",
+      "name": "Department",
+      "icon": "menu-icon tf-icons mdi mdi-file-document",
+      "slug": "Department"
+    },
+    {
       "url": "/employerlist",
       "name": "Employer Master List",
       "icon": "menu-icon tf-icons mdi mdi-domain",
@@ -98,12 +104,6 @@
       "name": "Documents",
       "icon": "menu-icon tf-icons mdi mdi-file-document",
       "slug": "Documents"
-    },
-    {
-      "url": "/department",
-      "name": "Department",
-      "icon": "menu-icon tf-icons mdi mdi-file-document",
-      "slug": "Department"
     }
   ]
 }

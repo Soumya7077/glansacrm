@@ -28,7 +28,18 @@
                     <td>Naveen</td>
                     <td>naveen@gmail.com</td>
                     <td class="text-center">
-                        <a href="" class="btn btn-primary btn-sm">Edit</a>
+                        <!-- <a href="" class="btn btn-primary btn-sm">Edit</a> -->
+                        <a id="clearForm" class="btn btn-primary btn-sm text-white">Edit</a>
+                        <a href="" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td>Anita</td>
+                    <td>anita@gmail.com</td>
+                    <td class="text-center">
+                        <!-- <a href="" class="btn btn-primary btn-sm">Edit</a> -->
+                        <a id="clearForm" class="btn btn-primary btn-sm text-white">Edit</a>
                         <a href="" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
@@ -81,93 +92,100 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            fetch("/api/getrecruiter")
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
-                        const recruiterSelect = $('#recruiter');
-                        recruiterSelect.empty();
-                        recruiterSelect.append('<option hidden value="">Select Recruiter</option>');
-                        data.data.forEach(recruiter => {
-                            recruiterSelect.append('<option value="' + recruiter.id + '">' + recruiter.Name + '</option>');
-                        });
-                    } else {
-                        $('#recruiter').append('<option value="" hidden>No recruiters available</option>');
-                        console.warn('No recruiters found.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching recruiters:', error);
-                    alert('Error fetching recruiters: ' + error);
-                });
+            // fetch("/api/getrecruiter")
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
+            //             const recruiterSelect = $('#recruiter');
+            //             recruiterSelect.empty();
+            //             recruiterSelect.append('<option hidden value="">Select Recruiter</option>');
+            //             data.data.forEach(recruiter => {
+            //                 recruiterSelect.append('<option value="' + recruiter.id + '">' + recruiter.Name + '</option>');
+            //             });
+            //         } else {
+            //             $('#recruiter').append('<option value="" hidden>No recruiters available</option>');
+            //             console.warn('No recruiters found.');
+            //         }
+            //     })
+            //     .catch(error => {
+            //         console.error('Error fetching recruiters:', error);
+            //         alert('Error fetching recruiters: ' + error);
+            //     });
 
-            fetch("/api/getJob")
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
-                        const jobTitleSelect = $('#Job-Title');
-                        jobTitleSelect.empty();
-                        jobTitleSelect.append('<option hidden value="">Select Job Title</option>');
-                        data.data.forEach(job => {
-                            jobTitleSelect.append('<option value="' + job.id + '">' + job.Title + '</option>');
-                        });
-                    } else {
-                        $('#Job-Title').append('<option value="" hidden>No job titles available</option>');
-                        console.warn('No job titles found.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching job titles:', error);
-                    alert('Error fetching job titles: ' + error);
-                });
+            // fetch("/api/getJob")
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
+            //             const jobTitleSelect = $('#Job-Title');
+            //             jobTitleSelect.empty();
+            //             jobTitleSelect.append('<option hidden value="">Select Job Title</option>');
+            //             data.data.forEach(job => {
+            //                 jobTitleSelect.append('<option value="' + job.id + '">' + job.Title + '</option>');
+            //             });
+            //         } else {
+            //             $('#Job-Title').append('<option value="" hidden>No job titles available</option>');
+            //             console.warn('No job titles found.');
+            //         }
+            //     })
+            //     .catch(error => {
+            //         console.error('Error fetching job titles:', error);
+            //         alert('Error fetching job titles: ' + error);
+            //     });
 
-            $('#assignUserForm').on('submit', function (e) {
-                e.preventDefault();
-                let isValid = true;
+            // $('#assignUserForm').on('submit', function (e) {
+            //     e.preventDefault();
+            //     let isValid = true;
 
-                const recruiter = $('#recruiter').val();
-                if (!recruiter) {
-                    $('#recruiter').addClass('is-invalid');
-                    isValid = false;
-                } else {
-                    $('#recruiter').removeClass('is-invalid').addClass('is-valid');
-                }
+            //     const recruiter = $('#recruiter').val();
+            //     if (!recruiter) {
+            //         $('#recruiter').addClass('is-invalid');
+            //         isValid = false;
+            //     } else {
+            //         $('#recruiter').removeClass('is-invalid').addClass('is-valid');
+            //     }
 
-                const jobTitle = $('#Job-Title').val();
-                if (!jobTitle) {
-                    $('#Job-Title').addClass('is-invalid');
-                    isValid = false;
-                } else {
-                    $('#Job-Title').removeClass('is-invalid').addClass('is-valid');
-                }
+            //     const jobTitle = $('#Job-Title').val();
+            //     if (!jobTitle) {
+            //         $('#Job-Title').addClass('is-invalid');
+            //         isValid = false;
+            //     } else {
+            //         $('#Job-Title').removeClass('is-invalid').addClass('is-valid');
+            //     }
 
-                if (isValid) {
-                    const formData = {
-                        recruiter_id: recruiter,
-                        job_title_id: jobTitle
-                    };
+            //     if (isValid) {
+            //         const formData = {
+            //             recruiter_id: recruiter,
+            //             job_title_id: jobTitle
+            //         };
 
-                    fetch('/api/assignrecruitertojob', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        body: JSON.stringify(formData)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === "success") {
-                                console.log('Success:', data);
-                            } else {
-                                console.error('Error:', data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                }
-            });
+            //         fetch('/api/assignrecruitertojob', {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //             },
+            //             body: JSON.stringify(formData)
+            //         })
+            //             .then(response => response.json())
+            //             .then(data => {
+            //                 if (data.status === "success") {
+            //                     console.log('Success:', data);
+            //                 } else {
+            //                     console.error('Error:', data.message);
+            //                 }
+            //             })
+            //             .catch(error => {
+            //                 console.error('Error:', error);
+            //             });
+            //     }
+            // });
+
+            $(document).on('click', '#clearForm', function () {
+
+                $('#offcanvasBackdrop').offcanvas('show');
+                $('.offcanvas-title').text('Add Name');
+                $('#SubBtn').text('Add');
+            })
 
             $('#cancelButton').on('click', function () {
                 $('#assignUserForm')[0].reset();
