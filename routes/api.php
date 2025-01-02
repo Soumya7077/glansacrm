@@ -27,7 +27,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 /**===================================Login API Start=============================================== */
 
-Route::post('/login', [AuthController::class, 'login']);
+// Login route
+// Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+// // Dashboard route
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
 
 /**===================================User API End=============================================== */
