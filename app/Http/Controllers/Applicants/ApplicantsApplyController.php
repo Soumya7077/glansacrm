@@ -42,40 +42,6 @@ class ApplicantsApplyController extends Controller
             ], 400);
         }
 
-<<<<<<< HEAD
-        elseif ($existingJob) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Already Applied for this Job!'
-            ], 400);
-        }
-
-        // Handle resume file upload
-        $resumePath = null;
-        if ($request->hasFile('Resume')) {
-            // Create a folder with the applicant's name (sanitize the name to avoid invalid characters)
-            $applicantName = preg_replace('/[^A-Za-z0-9]/', '_', $request->Name);
-            $folderPath = "resumes/{$applicantName}";
-
-            // Store the resume file in the specific folder
-            $resumePath = $request->file('Resume')->store($folderPath, 'public');
-        }
-
-        // Create applicant
-        $applicant = ApplicantModel::create([
-            'jobpost_id' => $request->jobpost_id,
-            'Source' => $request->Source,
-            'Name' => $request->Name,
-            'Email' => $request->Email,
-            'PhoneNumber' => $request->PhoneNumber,
-            'Experience' => $request->Experience,
-            'CurrentSalary' => $request->CurrentSalary,
-            'ExpectedSalary' => $request->ExpectedSalary,
-            'Qualification' => $request->Qualification,
-            'Resume' => $resumePath, // Save the file path
-            'KeySkills' => $request->KeySkills,
-            'StatusId' => $request->StatusId,
-=======
       if ($existingMobile) {
         return response()->json([
           'status' => 'error',
@@ -93,16 +59,16 @@ class ApplicantsApplyController extends Controller
           'Email' => $request->email,
           'Phone' => $request->phone,
           'Location' => $request->location,
->>>>>>> dced8cacc537fb566c35ff581ca3239b2870972c
         ]);
 
         return response()->json([
             'status' => 'success',
             'message' => 'Applicant created successfully!',
-            'data' => $applicant
+            'data' => $applicants
         ], 201);
 
-    } catch (Exception $e) {
+    }
+   } catch (Exception $e) {
         return response()->json([
             'status' => 'error',
             'message' => 'Something went wrong! Please try again.',
