@@ -22,25 +22,9 @@
             <tbody id="tbody">
                 <tr>
                     <td>01</td>
-                    <td>Naveen</td>
+                    <td>Operation</td>
                     <td class="text-center">
                         <!-- <a href="" class="btn btn-primary btn-sm">Edit</a> -->
-                        <a id="addbtn" class="btn btn-primary btn-sm text-white">Edit</a>
-                        <a href="" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>02</td>
-                    <td>Soumya</td>
-                    <td class="text-center">
-                        <a id="addbtn" class="btn btn-primary btn-sm text-white">Edit</a>
-                        <a href="" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>03</td>
-                    <td>Anita</td>
-                    <td class="text-center">
                         <a id="addbtn" class="btn btn-primary btn-sm text-white">Edit</a>
                         <a href="" class="btn btn-danger btn-sm">Delete</a>
                     </td>

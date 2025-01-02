@@ -20,6 +20,7 @@
                     <th>Phone No</th>
                     <th>Email</th>
                     <th>Interested In</th>
+                    <th>Upload</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +30,9 @@
                     <td>9876543210</td>
                     <td>john.doe@example.com</td>
                     <td>Role 1</td>
-
+                    <td>
+                        <a href="#" class="btn btn-primary btn-sm">Upload</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>02</td>
@@ -37,6 +40,9 @@
                     <td>9123456789</td>
                     <td>jane.smith@example.com</td>
                     <td>Role 2</td>
+                    <td>
+                        <a href="#" class="btn btn-primary btn-sm">Upload</a>
+                    </td>
                 </tr>
                 <!-- Add more rows dynamically as needed -->
             </tbody>
