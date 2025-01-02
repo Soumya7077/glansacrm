@@ -18,7 +18,7 @@
                 <tr>
                     <th>S No.</th>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th>Job Title</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -26,7 +26,7 @@
                 <tr>
                     <td>01</td>
                     <td>Naveen</td>
-                    <td>naveen@gmail.com</td>
+                    <td>React</td>
                     <td class="text-center">
                         <!-- <a href="" class="btn btn-primary btn-sm">Edit</a> -->
                         <a id="clearForm" class="btn btn-primary btn-sm text-white">Edit</a>
@@ -36,7 +36,7 @@
                 <tr>
                     <td>02</td>
                     <td>Anita</td>
-                    <td>anita@gmail.com</td>
+                    <td>PHP</td>
                     <td class="text-center">
                         <!-- <a href="" class="btn btn-primary btn-sm">Edit</a> -->
                         <a id="clearForm" class="btn btn-primary btn-sm text-white">Edit</a>
