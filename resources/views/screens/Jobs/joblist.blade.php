@@ -17,32 +17,48 @@
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
         <tr>
-          <th>Job Title</th>
           <th>Organisation Name</th>
-          <th>Openings</th>
-          <th>Salary</th>
-          <th>Location</th>
-          <th>Education</th>
+          <th>Job Title</th>
           <th>Description</th>
+          <th>Openings</th>
+          <th>Job's Location</th>
+          <th>Education</th>
           <th>Key Skills</th>
           <th>Department</th>
-          <th>Experience</th>
+          <th>Min Salary</th>
+          <th>Max Salary</th>
+          <th>Min Experience</th>
+          <th>Max Experience</th>
+          <th>Employment Type</th>
+          <th>Time line</th>
+          <th>Location</th>
           <th>Shift</th>
+          <th>Benefits</th>
+          <th>Gender</th>
+          <th>Remarks</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody id="jobList">
-        <td>Php</td>
-        <td>Appolo</td>
-        <td>10</td>
-        <td>50000</td>
-        <td>Delhi</td>
-        <td>BCA</td>
-        <td>Good</td>
-        <td>Good</td>
-        <td>IT</td>
-        <td>1</td>
-        <td>Day</td>
+       <td>Apollo</td>
+       <td>React</td>
+       <td>Develop and maintain React applications.</td>
+       <td>1</td>
+       <td>Chennai</td>
+       <td>BE</td>
+       <td>React, JavaScript</td>
+       <td>IT</td>
+       <td>50000</td>
+       <td>70000</td>
+       <td>1</td>
+       <td>5</td>
+       <td>Full Time</td>
+       <td>With in 2 weeks</td>
+       <td>Chennai</td>
+       <td>Day Shift</td>
+       <td>Health Insurance</td>
+       <td>Male</td>
+       <td>None</td>
         <td class="text-center">
          <div class="d-inline-flex gap-2">
           <a href="/applicantlist/?job_id=${1}" class="btn btn-sm btn-info">

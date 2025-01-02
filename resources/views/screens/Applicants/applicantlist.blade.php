@@ -8,6 +8,7 @@
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
                 <tr>
+                    <th>Select Applicant</th>
                     <th>Applicant Name</th>
                     <th>Job Title</th>
                     <th>Job Description</th>
@@ -21,6 +22,7 @@
             </thead>
             <tbody>
                 <tr class="text-center small">
+                    <th><input type="checkbox"></th>
                     <td>Naveen Nagam</td>
                     <td>React</td>
                     <td>Software Developer</td>
@@ -34,6 +36,7 @@
                     </td>
                 </tr>
                 <tr class="text-center small">
+                    <th><input type="checkbox"></th>
                     <td>Naveen Nagam</td>
                     <td>React</td>
                     <td>Software Developer</td>
@@ -45,6 +48,7 @@
                     <td>Sent</td>
                 </tr>
                 <tr class="text-center small">
+                    <th><input type="checkbox"></th>
                     <td>Naveen Nagam</td>
                     <td>React</td>
                     <td>Software Developer</td>
