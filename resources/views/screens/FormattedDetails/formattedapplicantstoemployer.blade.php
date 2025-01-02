@@ -16,7 +16,7 @@
             <div class="form-floating form-floating-outline mb-4">
                 <select class="form-control" id="to" required>
                     <option value="" hidden>Select Recipient</option>
-                    <option value="1">naveen@gmail.com</option>
+                    <option value="1">abc@appolo.com</option>
                     <option value="2">soumya@gmail.com</option>
                     <option value="3">sourav@gmail.com</option>
                 </select>
