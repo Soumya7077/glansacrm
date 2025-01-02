@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Applicants\ApplicantsApplyController;
 use App\Http\Controllers\AssigningUser\AssigningUserController;
+use App\Http\Controllers\authentications\AuthController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
@@ -23,6 +24,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
   return $request->user();
 });
+
+/**===================================Login API Start=============================================== */
+
+Route::post('/login', [AuthController::class, 'login']);
+
+
+/**===================================User API End=============================================== */
 
 /**===================================User API Start=============================================== */
 
