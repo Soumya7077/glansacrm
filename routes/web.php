@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Applicants\ApplicantsApplyController;
 use App\Http\Controllers\AssigningUser\AssigningUserController;
+use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Documents\DocumentsController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Enquiry\EnquiryController;
@@ -46,6 +47,7 @@ Route::get('/formattedapplicantslist', [FormatController::class, 'formattedappli
 Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
 Route::get('/offerletter', [OfferController::class, 'offer'])->name('Offer Letter');
 Route::get('/documents', [DocumentsController::class, 'documents'])->name('Documents');
+Route::get('/department  ', [DepartmentController::class, 'index'])->name('Department');
 
 
 // authentication

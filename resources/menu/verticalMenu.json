@@ -98,6 +98,12 @@
       "name": "Documents",
       "icon": "menu-icon tf-icons mdi mdi-file-document",
       "slug": "Documents"
+    },
+    {
+      "url": "/department",
+      "name": "Department",
+      "icon": "menu-icon tf-icons mdi mdi-file-document",
+      "slug": "Department"
     }
   ]
 }
