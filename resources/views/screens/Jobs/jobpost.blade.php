@@ -14,18 +14,19 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="job-title" name="Title" placeholder="Job Title"
-                            required minlength="3" />
-                        <label for="job-title">Title</label>
-                        <div class="invalid-feedback">Please enter a valid job title (at least 3 characters).</div>
-                    </div>
-                    <div class="form-floating form-floating-outline mb-4">
                         <select class="form-control" id="organisation-name" name="EmployerId" required>
                             <option value="" hidden>Select Organisation</option>
                         </select>
                         <label for="organisation-name">Organisation Name</label>
                         <div class="invalid-feedback">Please select an organisation.</div>
                     </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" class="form-control" id="job-title" name="Title" placeholder="Job Title"
+                            required minlength="3" />
+                        <label for="job-title">Title</label>
+                        <div class="invalid-feedback">Please enter a valid job title (at least 3 characters).</div>
+                    </div>
+
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="number" class="form-control" id="openings" name="Opening"
                             placeholder="Number of Openings" required min="1" />
@@ -154,8 +155,8 @@
             organisationDropdown.innerHTML = '<option value="" hidden>Loading...</option>';
 
             $.ajax({
-                url: '/api/getEmployer', 
-                type: 'GET', 
+                url: '/api/getEmployer',
+                type: 'GET',
                 dataType: 'json',
                 success: function (response) {
                     organisationDropdown.innerHTML = '<option value="" hidden>Select Organisation</option>';

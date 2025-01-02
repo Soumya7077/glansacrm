@@ -88,3 +88,15 @@ Route::put('/updateDepartment/{id}', [DepartmentController::class, 'update']);
 Route::delete('/deleteDepartment/{id}', [DepartmentController::class, 'destroy']);
 
 /**===================================Department API End=============================================== */
+
+
+/**==================================Assign recruiter to job======================================== */
+
+Route::get('/getassignedrecruiter', [AssigningUserController::class, 'getAssignedRecruiter']);
+Route::post('/assignrecruitertojob', [AssigningUserController::class, 'assignRecruiterToJob']);
+Route::get('/getassignedrecruiter/{id}', [AssigningUserController::class, 'getAssignedRecruiterById']);
+Route::put('/updateassignuser/{id}', [AssigningUserController::class, 'updateAssignUser']);
+Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'deleteAssignUser']);
+
+
+/**==================================Assign recruiter to job======================================== */
