@@ -42,6 +42,7 @@ Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employe
 Route::get('/employer', [EmployerController::class, 'employerForm'])->name('Employer Form');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
+Route::get('/smlist', [SmController::class, 'smlist'])->name('socialmedialist');
 Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('Formatted Details');
 Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('Formatted Applicants List');
 Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
@@ -58,7 +59,8 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 
 // Enquiry APIs
 
-Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form');
+Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry');
+Route::get('/enquiryForm', [EnquiryController::class, 'enquiryForm'])->name('Enquiry Form');
 
 
 // get Role

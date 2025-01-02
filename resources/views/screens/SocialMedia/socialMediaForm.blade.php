@@ -52,7 +52,8 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add</button>
+                <!-- <button type="submit" class="btn btn-primary">Add</button> -->
+                <a href="smlist" class="btn btn-primary">Add</a>
             </form>
         </div>
     </div>

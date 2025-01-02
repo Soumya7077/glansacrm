@@ -111,7 +111,8 @@
 
                     <!-- Submit Button -->
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                        <a href="enquiry?" type="submit" class="btn btn-primary">Submit</a>
                     </div>
                 </form>
             </div>

@@ -11,4 +11,8 @@ class EnquiryController extends Controller
     {
         return view('screens.Enquiry.enquiry');
     }
+    public function enquiryForm()
+    {
+        return view('screens.Enquiry.enquiryForm');
+    }
 }
