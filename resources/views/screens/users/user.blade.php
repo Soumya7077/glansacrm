@@ -41,7 +41,7 @@
           <td>1</td>
           <td class="text-center">
             <a id="addbtn" class="btn btn-primary btn-sm text-white">Edit</a>
-            <a href="" class="btn btn-danger btn-sm">Delete</a>
+            <a href="" class="btn btn-danger btn-sm deleteButton">Delete</a>
             <!-- <button id="addbtn" class="btn btn-primary" type="button">Edit</button> -->
           </td>
         </tr>
@@ -175,8 +175,7 @@
     //   // $('#SubBtn').text('Update');
     // })
 
-    fetchUsers();
-
+    // fetchUsers();
     // $(document).on('click', '.editButton', function () {
     //   $('#offcanvasBackdrop').offcanvas('show');
     //   $('.offcanvas-title').text('Update User');
@@ -277,7 +276,7 @@
 
     $(document).on('click', '.deleteButton', function () {
       // var userId = $(this).data('id');
-      // console.log(userList);
+      // // console.log(userList);
       // userList = userList.filter((data) => data.id !== userId);
       // console.log(userList);
       // 

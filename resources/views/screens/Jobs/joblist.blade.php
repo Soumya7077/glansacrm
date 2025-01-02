@@ -32,6 +32,30 @@
         </tr>
       </thead>
       <tbody id="jobList">
+        <td>Php</td>
+        <td>Appolo</td>
+        <td>10</td>
+        <td>50000</td>
+        <td>Delhi</td>
+        <td>BCA</td>
+        <td>Good</td>
+        <td>Good</td>
+        <td>IT</td>
+        <td>1</td>
+        <td>Day</td>
+        <td class="text-center">
+         <div class="d-inline-flex gap-2">
+          <a href="/applicantlist/?job_id=${1}" class="btn btn-sm btn-info">
+            <i class="fa fa-edit">View</i>
+            </a>
+            <a href="/jobpost/1" class="btn btn-sm btn-primary">
+          <i class="fa fa-edit">Edit</i>
+          </a>
+          <a href="/jobpost/1" class="btn btn-sm btn-danger">
+            <i class="fa fa-trash">Delete</i>
+            </a>
+          </div>
+            </td>
 
       </tbody>
     </table>
@@ -39,64 +63,64 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    var table = $('#table').DataTable();
-    function fetchJobs() {
-      $('#loading-spinner').show();
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   var table = $('#table').DataTable();
+  //   function fetchJobs() {
+  //     $('#loading-spinner').show();
 
-      $.ajax({
-        url: '/api/getJob',
-        type: 'GET',
-        dataType: 'json',
-        success: function (response) {
-          $('#loading-spinner').hide(); // Hide loading spinner
-          $('#table tbody').empty(); // Clear existing table rows
+  //     $.ajax({
+  //       url: '/api/getJob',
+  //       type: 'GET',
+  //       dataType: 'json',
+  //       success: function (response) {
+  //         $('#loading-spinner').hide(); // Hide loading spinner
+  //         $('#table tbody').empty(); // Clear existing table rows
 
-          if (response && response.status === 'success' && response.data?.length > 0) {
-            console.log(response, 'jobbbbbbbbbbbbb');
-            const tableBody = $('#jobList');
-            response.data.forEach((job, index) => {
-              const row = `
-                            <tr class="text-center small">
-                                <td>${job.Title || 'N/A'}</td>
-                                <td>${job.organisation_name || 'N/A'}</td>
-                                <td>${job.Opening || 'N/A'}</td>
-                                <td>${job.Salary || 'N/A'}</td>
-                                <td>${job.Location || 'N/A'}</td>
-                                <td>${job.Education || 'N/A'}</td>
-                                <td>${job.Description || 'N/A'}</td>
-                                <td>${job.KeySkills || 'N/A'}</td>
-                                <td>${job.Department || 'N/A'}</td>
-                                <td>${job.Experience || 'N/A'}</td>
-                                <td>${job.Shift || 'N/A'}</td>
-                                <td class="text-center">
-                                  <div class="d-inline-flex gap-2">
-                                    <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-xs">View</a>
-                                    <a href="/jobpost/${job.id}" class="btn btn-info btn-xs">Edit</a>
-                                    <buttton class="btn btn-danger btn-xs" data-id="${job.id}">Delete</button>
-                                  </div>
-                                </td>
-                            </tr>
-                        `;
-              $('#table tbody').append(row);
-            });
-            table.clear().rows.add(tableBody.find('tr')).draw();
-          } else {
-            $('#table tbody').append(`
-                        <tr>
-                            <td colspan="12" class="text-center">No jobs found.</td>
-                        </tr>
-                    `);
-          }
-        },
-        error: function () {
-          $('#loading-spinner').hide(); // Hide loading spinner
-          alert('Failed to fetch job data. Please try again later.');
-        },
-      });
-    }
+  //         if (response && response.status === 'success' && response.data?.length > 0) {
+  //           console.log(response, 'jobbbbbbbbbbbbb');
+  //           const tableBody = $('#jobList');
+  //           response.data.forEach((job, index) => {
+  //             const row = `
+  //                           <tr class="text-center small">
+  //                               <td>${job.Title || 'N/A'}</td>
+  //                               <td>${job.organisation_name || 'N/A'}</td>
+  //                               <td>${job.Opening || 'N/A'}</td>
+  //                               <td>${job.Salary || 'N/A'}</td>
+  //                               <td>${job.Location || 'N/A'}</td>
+  //                               <td>${job.Education || 'N/A'}</td>
+  //                               <td>${job.Description || 'N/A'}</td>
+  //                               <td>${job.KeySkills || 'N/A'}</td>
+  //                               <td>${job.Department || 'N/A'}</td>
+  //                               <td>${job.Experience || 'N/A'}</td>
+  //                               <td>${job.Shift || 'N/A'}</td>
+  //                               <td class="text-center">
+  //                                 <div class="d-inline-flex gap-2">
+  //                                   <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-xs">View</a>
+  //                                   <a href="/jobpost/${job.id}" class="btn btn-info btn-xs">Edit</a>
+  //                                   <buttton class="btn btn-danger btn-xs" data-id="${job.id}">Delete</button>
+  //                                 </div>
+  //                               </td>
+  //                           </tr>
+  //                       `;
+  //             $('#table tbody').append(row);
+  //           });
+  //           table.clear().rows.add(tableBody.find('tr')).draw();
+  //         } else {
+  //           $('#table tbody').append(`
+  //                       <tr>
+  //                           <td colspan="12" class="text-center">No jobs found.</td>
+  //                       </tr>
+  //                   `);
+  //         }
+  //       },
+  //       error: function () {
+  //         $('#loading-spinner').hide(); // Hide loading spinner
+  //         alert('Failed to fetch job data. Please try again later.');
+  //       },
+  //     });
+  //   }
 
-    fetchJobs();
+  //   fetchJobs();
 
     $(document).on('click', '.btn-danger', function () {
       const jobId = $(this).data('id'); // Get the job ID from the button
@@ -123,7 +147,7 @@
       }
     });
 
-  });
+  // });
 </script>
 
 @endsection
