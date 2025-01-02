@@ -1,16 +1,15 @@
 @extends('layouts/contentNavbarLayout')
-@section('title', 'Jobs - Job Post')
+@section('title', 'Department - Department')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span> Job Post</h4>
+<h4><span class="text-muted fw-light">Home /</span> Department</h4>
 
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Job Post</h5>
-        <small class="text-muted float-end">Fill in the details for the job post</small>
+        <h5 class="mb-0">Department</h5>
     </div>
     <div class="card-body">
-        <form id="jobPostForm" novalidate>
+        <form id="department" novalidate>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">

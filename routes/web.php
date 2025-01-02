@@ -47,7 +47,7 @@ Route::get('/formattedapplicantslist', [FormatController::class, 'formattedappli
 Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
 Route::get('/offerletter', [OfferController::class, 'offer'])->name('Offer Letter');
 Route::get('/documents', [DocumentsController::class, 'documents'])->name('Documents');
-Route::get('/department  ', [DepartmentController::class, 'index'])->name('Department');
+Route::get('/department  ', [DepartmentController::class, 'department'])->name('Department');
 
 
 // authentication
