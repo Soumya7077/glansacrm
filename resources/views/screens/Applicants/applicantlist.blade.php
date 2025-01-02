@@ -17,7 +17,6 @@
                     <th>Source</th>
                     <th>Mail</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,9 +30,6 @@
                     <td>Web</td>
                     <td>naveen@gmail.com</td>
                     <td class="text-success">Shortlisted</td>
-                    <td>
-                        <a href="" class="btn btn-primary btn-sm">Send</a>
-                    </td>
                 </tr>
                 <tr class="text-center small">
                     <th><input type="checkbox"></th>
@@ -45,7 +41,6 @@
                     <td>Web</td>
                     <td>naveen@gmail.com</td>
                     <td class="text-warning">Pending Review</td>
-                    <td>Sent</td>
                 </tr>
                 <tr class="text-center small">
                     <th><input type="checkbox"></th>
@@ -57,10 +52,13 @@
                     <td>Web</td>
                     <td>naveen@gmail.com</td>
                     <td class="text-danger">Rejected</td>
-                    <td>Sent</td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="d-flex justify-content-end">
+        <a href="formattedapplicantstoemployer" class="btn btn-primary me-2">Send</a>
+        <a href="schedule" class="btn btn-primary">Schedule an interview</a>
     </div>
 </div>
 @endsection
