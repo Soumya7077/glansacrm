@@ -103,9 +103,10 @@
                             <div class="form-floating form-floating-outline">
                                 <select class="form-control" id="job-post" required>
                                     <option value="" hidden>Select Job Post</option>
-                                    <option value="php">PHP</option>
-                                    <option value="react">React</option>
-                                    <option value="java">Java</option>
+                                    <option hidden value="">Applying For</option>
+                                <option value="1">Clinical Positions</option>
+                                <option value="2">Administrative and Support Roles</option>
+                                <option value="3">Research and Academic Roles</option>
                                 </select>
                                 <label for="job-post">Job Post</label>
                                 <div class="invalid-feedback">Please select a job post.</div>
