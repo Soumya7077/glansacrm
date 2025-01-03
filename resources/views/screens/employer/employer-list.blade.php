@@ -25,20 +25,18 @@
         </tr>
       </thead>
       <tbody id="empList">
-      <td>1</td>
-      <td>Appolo</td>
-      <td>Soumya</td>
-      <td>1234567890</td>
-      <td>abc@appolo.com</td>
-      <td>Delhi</td>
-      <td></td>
-      <td>
-        <button class="btn btn-sm btn-primary edit-btn" type="submit" data-bs-toggle="off
-        canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</
-        button>
-        <button class="btn btn-sm btn-danger delete-btn" type="submit" data-bs-toggle="off
-        canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Delete</
-        button>
+        <td>1</td>
+        <td>Appolo</td>
+        <td>Soumya</td>
+        <td>1234567890</td>
+        <td>abc@appolo.com</td>
+        <td>Delhi</td>
+        <td></td>
+        <td class="d-flex justify-content-between">
+          <button class="btn btn-sm btn-primary edit-btn" type="submit" data-bs-toggle="off
+        canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</ button>
+            <button class="btn btn-sm btn-danger delete-btn" type="submit" data-bs-toggle="off
+        canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Delete</ button>
         </td>
 
       </tbody>
@@ -221,48 +219,48 @@
   //   });
 
   //   // Handle Edit Button
-    $(document).on('click', '.edit-btn', function () {
-      editEmployerId = $(this).data('id');
-      isEdit = true;
-      $('#offcanvasBackdrop').offcanvas('show');
-      $('#edit-loading').show(); // Show loading spinner while fetching employer details
-      // $.ajax({
-      //   url: `/api/getEmployer/${editEmployerId}`,
-      //   type: 'GET',
-      //   success: function (response) {
-      //     $('#edit-loading').hide(); // Hide loading spinner
-      //     const employer = response.data;
-      //     $('#organisation-name').val(employer.Name);
-      //     $('#phone-number').val(employer.Phone);
-      //     $('#email').val(employer.Email);
-      //     $('#location').val(employer.Location);
-      //     $('#offcanvasBackdropLabel').text('Edit Employer');
-      //     $('#formSubmitButton').text('Update');
-      //   },
-      //   error: function () {
-      //     $('#edit-loading').hide(); // Hide loading spinner
-      //     alert('Failed to fetch employer details.');
-      //   },
-      // });
-    });
+  $(document).on('click', '.edit-btn', function () {
+    editEmployerId = $(this).data('id');
+    isEdit = true;
+    $('#offcanvasBackdrop').offcanvas('show');
+    $('#edit-loading').show(); // Show loading spinner while fetching employer details
+    // $.ajax({
+    //   url: `/api/getEmployer/${editEmployerId}`,
+    //   type: 'GET',
+    //   success: function (response) {
+    //     $('#edit-loading').hide(); // Hide loading spinner
+    //     const employer = response.data;
+    //     $('#organisation-name').val(employer.Name);
+    //     $('#phone-number').val(employer.Phone);
+    //     $('#email').val(employer.Email);
+    //     $('#location').val(employer.Location);
+    //     $('#offcanvasBackdropLabel').text('Edit Employer');
+    //     $('#formSubmitButton').text('Update');
+    //   },
+    //   error: function () {
+    //     $('#edit-loading').hide(); // Hide loading spinner
+    //     alert('Failed to fetch employer details.');
+    //   },
+    // });
+  });
 
   //   // Handle Delete Button
-    $(document).on('click', '.delete-btn', function () {
-      const employerId = $(this).data('id');
-      if (confirm('Are you sure you want to delete this employer?')) {
-        $.ajax({
-          url: `/api/deleteEmployer/${employerId}`,
-          type: 'DELETE',
-          success: function () {
-            alert('Employer deleted successfully.');
-            fetchEmployers();
-          },
-          error: function () {
-            alert('Failed to delete employer. Please try again.');
-          },
-        });
-      }
-    });
+  $(document).on('click', '.delete-btn', function () {
+    const employerId = $(this).data('id');
+    if (confirm('Are you sure you want to delete this employer?')) {
+      $.ajax({
+        url: `/api/deleteEmployer/${employerId}`,
+        type: 'DELETE',
+        success: function () {
+          alert('Employer deleted successfully.');
+          fetchEmployers();
+        },
+        error: function () {
+          alert('Failed to delete employer. Please try again.');
+        },
+      });
+    }
+  });
   // });
 </script>
 @endsection
