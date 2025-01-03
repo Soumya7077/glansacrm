@@ -31,28 +31,6 @@
         </tr>
       </thead>
       <tbody id="empList">
-<<<<<<< HEAD
-      <td>1</td>
-      <td>Appolo</td>
-      <td>Soumya</td>
-      <td>1234567890</td>
-      <td>abc@appolo.com</td>
-      <td>Delhi</td>
-      <td>Operation Head</td>
-      <td>Anita</td>
-      <td>1234567890</td>
-      <td>anita@appolo.com</td>
-      <td>Delhi</td>
-      <td>Operation Head</td>
-      <td></td>
-      <td class="text-center">
-        <button class="btn btn-sm btn-primary edit-btn" type="submit" data-bs-toggle="off
-        canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</
-        button>
-        <button class="btn btn-sm btn-danger delete-btn" type="submit" data-bs-toggle="off
-        canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Delete</
-        button>
-=======
         <td>1</td>
         <td>Appolo</td>
         <td>Soumya</td>
@@ -65,7 +43,6 @@
         canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</ button>
             <button class="btn btn-sm btn-danger delete-btn" type="submit" data-bs-toggle="off
         canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Delete</ button>
->>>>>>> c6c729f1a6f861d18a05561d2767226e88a5cabf
         </td>
       </tbody>
     </table>
@@ -96,7 +73,7 @@
               </div>
             </div>
           </div>
-    
+
           {{-- Contact Person 1 Section --}}
           <div class="card mb-4">
             <div class="card-header">
@@ -130,7 +107,7 @@
               </div>
             </div>
           </div>
-    
+
           {{-- Contact Person 2 Section --}}
           <div class="card mb-4">
             <div class="card-header">
@@ -160,7 +137,7 @@
               </div>
             </div>
           </div>
-    
+
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
