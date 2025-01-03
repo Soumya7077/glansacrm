@@ -27,9 +27,11 @@
       <tbody id="empList">
       <td>1</td>
       <td>Appolo</td>
+      <td>Soumya</td>
       <td>1234567890</td>
       <td>abc@appolo.com</td>
       <td>Delhi</td>
+      <td></td>
       <td>
         <button class="btn btn-sm btn-primary edit-btn" type="submit" data-bs-toggle="off
         canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</
