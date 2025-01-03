@@ -8,57 +8,66 @@
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
                 <tr>
-                    <th>Select Applicant</th>
+                    <th>SNo.</th>
                     <th>Applicant Name</th>
                     <th>Job Title</th>
                     <th>Job Description</th>
                     <th>Experience</th>
                     <th>Contact</th>
-                    <th>Source</th>
-                    <th>Mail</th>
+                    <th>Portfolio/LinkedIn</th>
+                    <th>Applying For</th>
+                    <th>Highest Qualification</th>
+                    <th>Current Location</th>
+                    <th>Preferred Location</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Blood Group</th>
+                    <th>Hemoglobin %</th>
+                    <th>Notice Period</th>
+                    <th>Current Organisation</th>
+                    <th>Current Salary</th>
+                    <th>Expected Salary</th>
+                    <th>Resume</th>
+                    <th>Certificates</th>
+                    <th>Work Experience</th>
+                    <th>Remarks</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="text-center small">
-                    <th><input type="checkbox"></th>
+                    <td>1</td>
                     <td>Naveen Nagam</td>
-                    <td>React</td>
-                    <td>Software Developer</td>
+                    <td>React Developer</td>
+                    <td>Developing React-based applications</td>
                     <td>5 years</td>
                     <td>9133913522</td>
-                    <td>Web</td>
-                    <td>naveen@gmail.com</td>
+                    <td><a href="https://linkedin.com/in/naveen">LinkedIn</a></td>
+                    <td>Software Developer</td>
+                    <td>M.Tech</td>
+                    <td>Hyderabad</td>
+                    <td>Bangalore</td>
+                    <td>5'9"</td>
+                    <td>70kg</td>
+                    <td>O+</td>
+                    <td>14%</td>
+                    <td>30 days</td>
+                    <td>Infosys</td>
+                    <td>12 LPA</td>
+                    <td>15 LPA</td>
+                    <td><a href="#">View Resume</a></td>
+                    <td><a href="#">View Certificates</a></td>
+                    <td>3</td>
+                    <td>Excellent problem-solving skills</td>
                     <td class="text-success">Shortlisted</td>
                 </tr>
-                <tr class="text-center small">
-                    <th><input type="checkbox"></th>
-                    <td>Naveen Nagam</td>
-                    <td>React</td>
-                    <td>Software Developer</td>
-                    <td>5 years</td>
-                    <td>9133913522</td>
-                    <td>Web</td>
-                    <td>naveen@gmail.com</td>
-                    <td class="text-warning">Pending Review</td>
-                </tr>
-                <tr class="text-center small">
-                    <th><input type="checkbox"></th>
-                    <td>Naveen Nagam</td>
-                    <td>React</td>
-                    <td>Software Developer</td>
-                    <td>5 years</td>
-                    <td>9133913522</td>
-                    <td>Web</td>
-                    <td>naveen@gmail.com</td>
-                    <td class="text-danger">Rejected</td>
-                </tr>
+
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-end">
+    <!-- <div class="d-flex justify-content-end">
         <a href="{{url('formattedapplicantstoemployer')}}" class="btn btn-primary me-2">Send</a>
         <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
-    </div>
+    </div> -->
 </div>
 @endsection
