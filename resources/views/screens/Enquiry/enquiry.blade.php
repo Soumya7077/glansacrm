@@ -25,8 +25,8 @@
           <th>Work Experience</th>
           <th>Current Salary</th>
           <th>Expected Salary</th>
-          <th>Resume</th>
           <th>Remark</th>
+          <th>Resume</th>
         </tr>
       </thead>
       <tbody>
@@ -36,8 +36,8 @@
           <td>Doe</td>
           <td>9876543210</td>
           <td>john@example.com</td>
-          <td>B.Tech</td>
-          <td>React</td>
+          <td>BE</td>
+          <td>Clinical Positions</td>
           <td>3 Years</td>
           <td>50000</td>
           <td>70000</td>
@@ -51,14 +51,13 @@
           <td>Doe</td>
           <td>9123456789</td>
           <td>jane@example.com</td>
-          <td>MCA</td>
-          <td>PHP</td>
+          <td>BE</td>
+          <td>Clinical Positions</td>
           <td>5 Years</td>
           <td>60000</td>
           <td>80000</td>
           <td></td>
           <td><a href="resume/jane_smith.pdf" target="_blank" class="btn btn-info btn-sm">View</a></td>
-
         </tr>
       </tbody>
     </table>

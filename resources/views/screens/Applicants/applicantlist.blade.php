@@ -8,7 +8,7 @@
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
                 <tr>
-                    <th>Select Applicant</th>
+                    
                     <th>Applicant Name</th>
                     <th>Job Title</th>
                     <th>Job Description</th>
@@ -21,10 +21,10 @@
             </thead>
             <tbody>
                 <tr class="text-center small">
-                    <th><input type="checkbox"></th>
+                    
                     <td>Naveen Nagam</td>
-                    <td>React</td>
-                    <td>Software Developer</td>
+                    <td>Clinical Positions</td>
+                    <td>General Practitioner (GP) - Providing primary healthcare services.</td>
                     <td>5 years</td>
                     <td>9133913522</td>
                     <td>Web</td>
@@ -32,10 +32,10 @@
                     <td class="text-success">Shortlisted</td>
                 </tr>
                 <tr class="text-center small">
-                    <th><input type="checkbox"></th>
-                    <td>Naveen Nagam</td>
-                    <td>React</td>
-                    <td>Software Developer</td>
+                    
+                    <td>Anita Seth</td>
+                    <td>Clinical Positions</td>
+                    <td>General Practitioner (GP) - Providing primary healthcare services.</td>
                     <td>5 years</td>
                     <td>9133913522</td>
                     <td>Web</td>
@@ -43,10 +43,10 @@
                     <td class="text-warning">Pending Review</td>
                 </tr>
                 <tr class="text-center small">
-                    <th><input type="checkbox"></th>
-                    <td>Naveen Nagam</td>
-                    <td>React</td>
-                    <td>Software Developer</td>
+                    
+                    <td>Soumya Ranjan</td>
+                    <td>Clinical Positions</td>
+                    <td>General Practitioner (GP) - Providing primary healthcare services.</td>
                     <td>5 years</td>
                     <td>9133913522</td>
                     <td>Web</td>
@@ -56,9 +56,9 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-end">
+    {{-- <div class="d-flex justify-content-end">
         <a href="{{url('formattedapplicantstoemployer')}}" class="btn btn-primary me-2">Send</a>
         <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
-    </div>
+    </div> --}}
 </div>
 @endsection

@@ -40,25 +40,25 @@
         </tr>
       </thead>
       <tbody id="jobList">
-       <td>Apollo</td>
-       <td>React</td>
-       <td>Develop and maintain React applications.</td>
-       <td>1</td>
-       <td>Chennai</td>
-       <td>BE</td>
-       <td>React, JavaScript</td>
-       <td>IT</td>
-       <td>50000</td>
-       <td>70000</td>
-       <td>1</td>
-       <td>5</td>
-       <td>Full Time</td>
-       <td>With in 2 weeks</td>
-       <td>Chennai</td>
-       <td>Day Shift</td>
-       <td>Health Insurance</td>
-       <td>Male</td>
-       <td>None</td>
+        <td>Apollo</td>
+        <td>Clinical Positions</td>
+        <td>Develop and maintain healthcare services or systems (e.g., clinical practices, medical equipment, or services)</td>
+        <td>1</td>
+        <td>Chennai</td>
+        <td>BE (Bachelor of Engineering)</td>
+        <td>Biology, Chemistry (Organic and Inorganic)</td>
+        <td>Healthcare IT</td>
+        <td>₹50,000</td>
+        <td>₹70,000</td>
+        <td>1 year</td>
+        <td>5 years</td>
+        <td>Full-Time</td>
+        <td>Within 2 weeks</td>
+        <td>Chennai</td>
+        <td>Day Shift</td>
+        <td>Health Insurance</td>
+        <td>Male</td>
+        <td>None</td>
         <td class="text-center">
          <div class="d-inline-flex gap-2">
           <a href="/applicantlist/?job_id=${1}" class="btn btn-sm btn-info">
