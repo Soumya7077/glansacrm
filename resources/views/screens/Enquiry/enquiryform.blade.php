@@ -99,9 +99,10 @@
               <div class="form-floating form-floating-outline">
                 <select class="form-control" id="job-post" required>
                   <option value="" hidden>Select Job Post</option>
-                  <option value="php">PHP</option>
-                  <option value="react">React</option>
-                  <option value="java">Java</option>
+                  <option hidden value="">Applying For</option>
+                  <option value="1">Clinical Positions</option>
+                  <option value="2">Administrative and Support Roles</option>
+                  <option value="3">Research and Academic Roles</option>
                 </select>
                 <label for="job-post">Job Post</label>
                 <div class="invalid-feedback">Please select a job post.</div>
@@ -131,7 +132,6 @@
                 <div class="invalid-feedback">Please enter your Remark.</div>
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control" id="remark" placeholder="Remark" required />
@@ -140,28 +140,25 @@
               </div>
             </div>
           </div>
+
+
           <!-- Submit Button -->
           <div class="col-md-6">
             <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
             <a href="enquiry?" type="submit" class="btn btn-primary">Submit</a>
           </div>
+        </form>
       </div>
-      </form>
     </div>
-  </div>
-</div>
-</div>
-
-<script>
-  $(function () {
-    $('#enquiryForm').submit(function (e) {
-      if (!this.checkValidity()) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      $(this).addClass('was-validated');
-    });
-  });
-
-</script>
-@endsection
+    <script>
+      $(function () {
+        $('#enquiryForm').submit(function (e) {
+          if (!this.checkValidity()) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          $(this).addClass('was-validated');
+        });
+      });
+    </script>
+    @endsection
