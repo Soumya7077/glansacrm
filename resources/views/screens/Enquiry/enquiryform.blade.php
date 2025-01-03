@@ -120,6 +120,23 @@
                         </div>
                     </div>
 
+                     <!-- six Row -->
+                     <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating form-floating-outline">
+                                <input type="text" class="form-control" id="remark" placeholder="Remark"
+                                    required />
+                                <label for="qualification">Remark</label>
+                                <div class="invalid-feedback">Please enter your Remark.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            
+                        </div>
+                    </div>
+
+
                     <!-- Submit Button -->
                     <div class="col-md-6">
                         <!-- <button type="submit" class="btn btn-primary">Submit</button> -->

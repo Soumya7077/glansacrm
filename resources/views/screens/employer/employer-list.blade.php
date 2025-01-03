@@ -16,10 +16,16 @@
         <tr>
           <th>Sr No</th>
           <th>Organisation Name</th>
-          <th>Contact Person Name</th>
+          <th>1st Contact Person Name</th>
           <th>Phone Number</th>
           <th>Email</th>
           <th>Location</th>
+          <th>Degisnation</th>
+          <th>2nd Contact Person Name</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Location</th>
+          <th>Degisnation</th>
           <th>Remarks</th>
           <th>Action</th>
         </tr>
@@ -31,8 +37,14 @@
       <td>1234567890</td>
       <td>abc@appolo.com</td>
       <td>Delhi</td>
+      <td>Operation Head</td>
+      <td>Anita</td>
+      <td>1234567890</td>
+      <td>anita@appolo.com</td>
+      <td>Delhi</td>
+      <td>Operation Head</td>
       <td></td>
-      <td>
+      <td class="text-center">
         <button class="btn btn-sm btn-primary edit-btn" type="submit" data-bs-toggle="off
         canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</
         button>
@@ -40,7 +52,6 @@
         canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Delete</
         button>
         </td>
-
       </tbody>
     </table>
   </div>
@@ -56,48 +67,86 @@
       <hr>
       <h4 id="edit-loading" class="text-primary" style="display: none; padding:0px 25px;">Loading...</h4>
       <div class="offcanvas-body mx-0 flex-grow-0">
-        <form id="employerForm" class="needs-validation" novalidate>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="organisation-name" placeholder="Organisation Name"
-                  required />
-                <label for="organisation-name">Organisation Name</label>
-                <div class="invalid-feedback">Please provide the organisation name.</div>
-              </div>
-              <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="contact-person-name" placeholder="Contact Person Name"
-                  required />
-                <label for="contact-person-name">Contact Person</label>
-                <div class="invalid-feedback">Please provide the contact person name.</div>
-              </div>
-              <div class="form-floating form-floating-outline mb-4">
-                <input type="tel" class="form-control" id="phone-number" placeholder="Phone Number" required
-                  pattern="^\d{10}$" maxlength="10" />
-                <label for="phone-number">Phone Number</label>
-                <div class="invalid-feedback">Please provide a valid 10-digit phone number.</div>
-              </div>
+        <form class="needs-validation" novalidate>
+          {{-- Organization Details --}}
+          <div class="card mb-4">
+            <div class="card-header">
+              <h6 class="text-primary mb-0">Organization Details</h6>
             </div>
-            <div class="col-md-12">
-              <div class="form-floating form-floating-outline mb-4">
-                <input type="email" class="form-control" id="email" placeholder="Email" required />
-                <label for="email">Email</label>
-                <div class="invalid-feedback">Please provide a valid email address.</div>
-              </div>
-              <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="location" placeholder="Location" required />
-                <label for="location">Location</label>
-                <div class="invalid-feedback">Please provide a location.</div>
-              </div>
-              <div class="form-floating form-floating-outline mb-4">
-                <textarea type="text" class="form-control" id="remarks" placeholder="Remarks"></textarea>
-                <label for="remarks">Remarks</label>
-                <!-- <div class="invalid-feedback">Please provide a location.</div> -->
+            <div class="card-body">
+              <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="organization-name" placeholder="Organization Name" required />
+                <label for="organization-name">Organization Name</label>
+                <div class="invalid-feedback">Please provide the organization name.</div>
               </div>
             </div>
           </div>
-          <button type="submit" id="formSubmitButton" class="btn btn-primary mb-2 d-grid w-100">Add</button>
-          <button type="button" id="clearFormCancel" class="btn btn-outline-secondary d-grid w-100">Cancel</button>
+    
+          {{-- Contact Person 1 Section --}}
+          <div class="card mb-4">
+            <div class="card-header">
+              <h6 class="text-primary mb-0">Contact Person 1 Details</h6>
+            </div>
+            <div class="card-body">
+              <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="contact-person-1-name" placeholder="Contact Person Name" required />
+                <label for="contact-person-1-name">Contact Person Name</label>
+                <div class="invalid-feedback">Please provide contact person 1's name.</div>
+              </div>
+              <div class="form-floating mb-4">
+                <input type="tel" class="form-control" id="contact-person-1-phone" placeholder="Phone Number" required pattern="^\d{10}$" maxlength="10" />
+                <label for="contact-person-1-phone">Phone Number</label>
+                <div class="invalid-feedback">Please provide a valid 10-digit phone number.</div>
+              </div>
+              <div class="form-floating mb-4">
+                <input type="email" class="form-control" id="contact-person-1-email" placeholder="Email" required />
+                <label for="contact-person-1-email">Email</label>
+                <div class="invalid-feedback">Please provide a valid email address.</div>
+              </div>
+              <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="contact-person-1-location" placeholder="Location" required />
+                <label for="contact-person-1-location">Location</label>
+                <div class="invalid-feedback">Please provide a location.</div>
+              </div>
+              <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="contact-person-1-Designation" placeholder="Designation" required />
+                <label for="contact-person-1-location">Designation</label>
+                <div class="invalid-feedback">Please provide a Designation.</div>
+              </div>
+            </div>
+          </div>
+    
+          {{-- Contact Person 2 Section --}}
+          <div class="card mb-4">
+            <div class="card-header">
+              <h6 class="text-primary mb-0">Contact Person 2 Details</h6>
+            </div>
+            <div class="card-body">
+              <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="contact-person-2-name" placeholder="Contact Person Name" />
+                <label for="contact-person-2-name">Contact Person Name</label>
+              </div>
+              <div class="form-floating mb-4">
+                <input type="tel" class="form-control" id="contact-person-2-phone" placeholder="Phone Number" pattern="^\d{10}$" maxlength="10" />
+                <label for="contact-person-2-phone">Phone Number</label>
+              </div>
+              <div class="form-floating mb-4">
+                <input type="email" class="form-control" id="contact-person-2-email" placeholder="Email" />
+                <label for="contact-person-2-email">Email</label>
+              </div>
+              <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="contact-person-2-location" placeholder="Location" />
+                <label for="contact-person-2-location">Location</label>
+              </div>
+              <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="contact-person-1-Designation" placeholder="Designation" required />
+                <label for="contact-person-1-location">Designation</label>
+                <div class="invalid-feedback">Please provide a Designation.</div>
+              </div>
+            </div>
+          </div>
+    
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>

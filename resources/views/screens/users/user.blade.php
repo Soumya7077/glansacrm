@@ -113,6 +113,16 @@
                 </div>
               </div>
             </div>
+            <div class="input-group input-group-merge">
+              <div class="form-floating form-floating-outline mb-4">
+                <input type="password" class="form-control" id="password"
+                  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                  aria-describedby="basic-default-password42" required />
+                <label for="basic-default-phone">Confirm Password</label>
+                <div class="invalid-feedback">Please provide a Confirm password.</div>
+              </div>
+            </div>
+          </div>
           </div>
 
           <button type="submit" class="btn btn-primary w-100 mb-2" id="SubBtn"></button>

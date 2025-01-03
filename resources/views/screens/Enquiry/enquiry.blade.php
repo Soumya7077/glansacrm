@@ -26,6 +26,7 @@
           <th>Current Salary</th>
           <th>Expected Salary</th>
           <th>Resume</th>
+          <th>Remark</th>
         </tr>
       </thead>
       <tbody>
@@ -40,6 +41,7 @@
           <td>3 Years</td>
           <td>50000</td>
           <td>70000</td>
+          <td></td>
           <td><a target="_blank" class="btn btn-info btn-sm">View</a></td>
 
         </tr>
@@ -54,6 +56,7 @@
           <td>5 Years</td>
           <td>60000</td>
           <td>80000</td>
+          <td></td>
           <td><a href="resume/jane_smith.pdf" target="_blank" class="btn btn-info btn-sm">View</a></td>
 
         </tr>
