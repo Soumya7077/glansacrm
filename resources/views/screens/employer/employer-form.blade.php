@@ -20,6 +20,12 @@
             <div class="invalid-feedback">Please provide the organisation name.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
+            <input type="tel" class="form-control" id="contact-person-name" placeholder="Contact Person Name" required
+               />
+            <label for="organisation-name">Contact Person</label>
+            <div class="invalid-feedback">Please provide contact person</div>
+          </div>
+          <div class="form-floating form-floating-outline mb-4">
             <input type="tel" class="form-control" id="organisation-name" placeholder="Phone Number" required
               pattern="^\d{10}$" maxlength="10" />
             <label for="organisation-name">Phone Number</label>
