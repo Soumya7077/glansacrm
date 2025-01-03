@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Applicants\ApplicantsApplyController;
-use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\AssigningUser\AssigningUserController;
+use App\Http\Controllers\authentications\AuthController;
+use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\users\UserController;
@@ -23,6 +24,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
   return $request->user();
 });
+
+/**===================================Login API Start=============================================== */
+
+// Login route
+// Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+// // Dashboard route
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+
+
+/**===================================User API End=============================================== */
 
 /**===================================User API Start=============================================== */
 
@@ -58,6 +72,17 @@ Route::delete('/deleteJob/{id}', [JobsController::class, 'deleteJobs']);
 /**===================================Jobs API End=============================================== */
 
 
+/**==================================Assign recruiter to job======================================== */
+
+Route::get('/getassignedrecruiter', [AssigningUserController::class, 'getAssignedRecruiter']);
+Route::post('/assignrecruitertojob', [AssigningUserController::class, 'assignRecruiterToJob']);
+Route::get('/getassignedrecruiter/{id}', [AssigningUserController::class, 'getAssignedRecruiterById']);
+Route::put('/updateassignuser/{id}', [AssigningUserController::class, 'updateAssignUser']);
+Route::put('/deleteassignuser/{id}', [AssigningUserController::class, 'deleteAssignUser']);
+
+
+/**==================================Assign recruiter to job======================================== */
+
 /**===================================Applicant API Start=============================================== */
 
 Route::post('/applicant', [ApplicantsApplyController::class, 'createApplicant']);
@@ -85,7 +110,7 @@ Route::get('/getassignedrecruiter', [AssigningUserController::class, 'getAssigne
 Route::post('/assignrecruitertojob', [AssigningUserController::class, 'assignRecruiterToJob']);
 Route::get('/getassignedrecruiter/{id}', [AssigningUserController::class, 'getAssignedRecruiterById']);
 Route::put('/updateassignuser/{id}', [AssigningUserController::class, 'updateAssignUser']);
-Route::put('/deleteassignuser/{id}', [AssigningUserController::class, 'deleteAssignUser']);
+Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'deleteAssignUser']);
 
 
 /**==================================Assign recruiter to job======================================== */

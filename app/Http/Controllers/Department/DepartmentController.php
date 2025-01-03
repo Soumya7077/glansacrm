@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+
+    public function department()
+    {
+        return view('screens.Department.department');
+    }
     public function index($id = null)
     {
         if ($id !== null) {
@@ -88,7 +93,7 @@ class DepartmentController extends Controller
             $department->update(
                 [
                     'Name' => $request->input('name'),
-                    ]
+                ]
             );
 
             return response()->json([

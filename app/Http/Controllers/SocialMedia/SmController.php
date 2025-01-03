@@ -11,4 +11,8 @@ class SmController extends Controller
     {
         return view('screens.SocialMedia.socialMediaForm');
     }
+    public function smlist()
+    {
+        return view('screens.SocialMedia.socialmedialist');
+    }
 }

@@ -39,9 +39,38 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Send Mail</button>
-        </form>
+            <!-- Table with Applicant Details inside the Form -->
+            <div class="table-responsive mt-2">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Applicant Name</th>
+                            <th>Key Skills</th>
+                            <th>Job Description</th>
+                            <th>Experience</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Naveen Nagam</td>
+                            <td>JavaScript, React, Node.js</td>
+                            <td>Frontend Developer</td>
+                            <td>3 Years</td>
+                        </tr>
+                        <tr>
+                            <td>Anita Seth</td>
+                            <td>Python, Django, REST APIs</td>
+                            <td>Backend Developer</td>
+                            <td>4 Years</td>
+                        </tr>
 
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="applicantlist" class="btn btn-primary mt-3">Send Mail</a>
+        </form>
     </div>
 </div>
 

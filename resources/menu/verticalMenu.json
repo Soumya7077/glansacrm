@@ -22,6 +22,12 @@
       "slug": "User Creation"
     },
     {
+      "url": "/department",
+      "name": "Department",
+      "icon": "menu-icon tf-icons mdi mdi-file-document",
+      "slug": "Department"
+    },
+    {
       "url": "/employerlist",
       "name": "Employer Master List",
       "icon": "menu-icon tf-icons mdi mdi-domain",
@@ -41,15 +47,15 @@
     },
     {
       "url": "/enquiry",
-      "name": "Enquiry Form",
+      "name": "Enquiry",
       "icon": "menu-icon tf-icons mdi mdi-frequently-asked-questions",
-      "slug": "Enquiry Form"
+      "slug": "Enquiry"
     },
     {
-      "url": "/smform",
-      "name": "Social Media Form",
+      "url": "/smlist",
+      "name": "Social Media List",
       "icon": "menu-icon tf-icons mdi mdi-shape-plus",
-      "slug": "socialmedia"
+      "slug": "socialmedialist"
     },
     {
       "url": "/smapplicantslist",

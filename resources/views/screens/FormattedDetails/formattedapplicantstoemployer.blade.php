@@ -10,43 +10,74 @@
             details to process the application</small>
     </div>
     <div class="card-body">
-    <form id="emailForm" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-floating form-floating-outline mb-4">
-                <select class="form-control" id="to" required>
-                    <option value="" hidden>Select Recipient</option>
-                    <option value="1">naveen@gmail.com</option>
-                    <option value="2">soumya@gmail.com</option>
-                    <option value="3">sourav@gmail.com</option>
-                </select>
-                <label for="to">To</label>
-                <div class="invalid-feedback">Please select a recipient.</div>
+        <form id="emailForm" class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating form-floating-outline mb-4">
+                        <select class="form-control" id="to" required>
+                            <option value="" hidden>Select Recipient</option>
+                            <option value="1">abc@appolo.com</option>
+                            <option value="2">soumya@gmail.com</option>
+                            <option value="3">sourav@gmail.com</option>
+                        </select>
+                        <label for="to">To</label>
+                        <div class="invalid-feedback">Please select a recipient.</div>
+                    </div>
+
+                    <div class="form-floating form-floating-outline mb-4">
+                        <select class="form-control" id="Applicants" required>
+                            <option value="" hidden>Select Applicant</option>
+                            <option value="1">Naveen</option>
+                            <option value="2">Sourav</option>
+                            <option value="3">Soumya</option>
+                        </select>
+                        <label for="Applicants">Applicants</label>
+                        <div class="invalid-feedback">Please select an applicant.</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating form-floating-outline mb-4">
+                        <textarea id="Subject-description" class="form-control" placeholder="Subject Description"
+                            style="height: 122px;" required></textarea>
+                        <label for="Subject-description">Subject Description</label>
+                        <div class="invalid-feedback">Please provide a subject description.</div>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-floating form-floating-outline mb-4">
-                <select class="form-control" id="Applicants" required>
-                    <option value="" hidden>Select Applicant</option>
-                    <option value="1">Naveen</option>
-                    <option value="2">Sourav</option>
-                    <option value="3">Soumya</option>
-                </select>
-                <label for="Applicants">Applicants</label>
-                <div class="invalid-feedback">Please select an applicant.</div>
-            </div>
-        </div>
+            <div class="table-responsive mt-2">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Applicant Name</th>
+                            <th>Key Skills</th>
+                            <th>Job Description</th>
+                            <th>Experience</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Naveen Nagam</td>
+                            <td>JavaScript, React, Node.js</td>
+                            <td>Frontend Developer</td>
+                            <td>3 Years</td>
+                        </tr>
+                        <tr>
+                            <td>Anita seth</td>
+                            <td>Python, Django, REST APIs</td>
+                            <td>Backend Developer</td>
+                            <td>4 Years</td>
+                        </tr>
 
-        <div class="col-md-6">
-            <div class="form-floating form-floating-outline mb-4">
-                <textarea id="Subject-description" class="form-control" placeholder="Subject Description" style="height: 122px;" required></textarea>
-                <label for="Subject-description">Subject Description</label>
-                <div class="invalid-feedback">Please provide a subject description.</div>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
             </div>
-        </div>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Send Mail</button>
-</form>
+            <!-- <button type="submit" class="btn btn-primary">Send Mail</button> -->
+            <a href="applicantlist" class="btn btn-primary mt-3">Send Mail</a>
+        </form>
     </div>
 </div>
 

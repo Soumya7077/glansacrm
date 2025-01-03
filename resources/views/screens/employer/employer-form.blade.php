@@ -17,7 +17,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="job-title" placeholder="Organisation Name" required />
             <label for="job-title">Organisation Name</label>
-            <div class="invalid-feedback">Please provide the organisation name.</div>
+            {{-- <div class="invalid-feedback">Please provide the organisation name.</div> --}}
           </div>
           <div class="form-floating form-floating-outline mb-4">
             <input type="tel" class="form-control" id="contact-person-name" placeholder="Contact Person Name" required
@@ -29,7 +29,7 @@
             <input type="tel" class="form-control" id="organisation-name" placeholder="Phone Number" required
               pattern="^\d{10}$" maxlength="10" />
             <label for="organisation-name">Phone Number</label>
-            <div class="invalid-feedback">Please provide a valid 10-digit phone number.</div>
+            {{-- <div class="invalid-feedback">Please provide a valid 10-digit phone number.</div> --}}
           </div>
 
         </div>
@@ -37,12 +37,12 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="email" class="form-control" id="openings" placeholder="Email" required />
             <label for="openings">Email</label>
-            <div class="invalid-feedback">Please provide a valid email address.</div>
+            {{-- <div class="invalid-feedback">Please provide a valid email address.</div> --}}
           </div>
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="salary" placeholder="Location" required />
             <label for="salary">Location</label>
-            <div class="invalid-feedback">Please provide a location.</div>
+            {{-- <div class="invalid-feedback">Please provide a location.</div> --}}
           </div>
         </div>
       </div>
@@ -53,16 +53,16 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    'use strict';
-    $('.needs-validation').on('submit', function (event) {
-      if (!this.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      $(this).addClass('was-validated');
-    });
-  });
+  // $(document).ready(function () {
+  //   'use strict';
+  //   $('.needs-validation').on('submit', function (event) {
+  //     if (!this.checkValidity()) {
+  //       event.preventDefault();
+  //       event.stopPropagation();
+  //     }
+  //     $(this).addClass('was-validated');
+  //   });
+  // });
 </script>
 
 @endsection

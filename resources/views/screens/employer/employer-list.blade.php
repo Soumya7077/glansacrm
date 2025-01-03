@@ -25,6 +25,19 @@
         </tr>
       </thead>
       <tbody id="empList">
+      <td>1</td>
+      <td>Appolo</td>
+      <td>1234567890</td>
+      <td>abc@appolo.com</td>
+      <td>Delhi</td>
+      <td>
+        <button class="btn btn-sm btn-primary edit-btn" type="submit" data-bs-toggle="off
+        canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</
+        button>
+        <button class="btn btn-sm btn-danger delete-btn" type="submit" data-bs-toggle="off
+        canvas" data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Delete</
+        button>
+        </td>
 
       </tbody>
     </table>
@@ -90,150 +103,148 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    var table = $('#table').DataTable();
+  // $(document).ready(function () {
+  //   var table = $('#table').DataTable();
 
-    function fetchEmployers() {
-      $('#loading-spinner').show(); // Show the loading spinner
-      $.ajax({
-        url: '/api/getEmployer', // API endpoint
-        type: 'GET', // HTTP method
-        dataType: 'json', // Expected data type
-        success: function (response) {
-          $('#loading-spinner').hide(); // Hide the loading spinner
-          $('#empList').empty();
-          if (response && response.status === 'success' && response.data?.length > 0) {
-            console.log(response, 'emppppppppppppp');
+  //   function fetchEmployers() {
+  //     $('#loading-spinner').show(); // Show the loading spinner
+  //     $.ajax({
+  //       url: '/api/getEmployer', // API endpoint
+  //       type: 'GET', // HTTP method
+  //       dataType: 'json', // Expected data type
+  //       success: function (response) {
+  //         $('#loading-spinner').hide(); // Hide the loading spinner
+  //         $('#empList').empty();
+  //         if (response && response.status === 'success' && response.data?.length > 0) {
+  //           console.log(response, 'emppppppppppppp');
 
-            const tableBody = $('#empList');
-            response.data.forEach((employer, index) => {
-              const row = `
-                <tr>
-                  <td class="text-center">${index + 1}</td>
-                  <td>${employer.Name || 'N/A'}</td>
-                  <td>${'N/A'}</td>
-                  <td>${employer.Phone || 'N/A'}</td>
-                  <td>${employer.Email || 'N/A'}</td>
-                  <td>${employer.Location || 'N/A'}</td>
-                  <td>${'N/A'}</td>
-                  <td class="text-center">
-                    <div class="d-inline-flex gap-2">
-                      <button class="btn btn-xs btn-info edit-btn" data-id="${employer.id}">Edit</button>
-                      <button class="btn btn-xs btn-danger delete-btn" data-id="${employer.id}">Delete</button>
-                    </div>
-                  </td>
-                </tr>`;
-              tableBody.append(row);
-            });
-            table.clear().rows.add(tableBody.find('tr')).draw();
-          } else {
-            $('#empList').append(`
-              <tr>
-                <td colspan="6" class="text-center">No employers found.</td>
-              </tr>`);
-          }
-        },
-        error: function () {
-          $('#loading-spinner').hide(); // Hide the loading spinner
-          alert('Failed to fetch employer data. Please try again later.');
-        },
-      });
-    }
+  //           const tableBody = $('#empList');
+  //           response.data.forEach((employer, index) => {
+  //             const row = `
+  //               <tr>
+  //                 <td class="text-center">${index + 1}</td>
+  //                 <td>${employer.Name || 'N/A'}</td>
+  //                 <td>${employer.Phone || 'N/A'}</td>
+  //                 <td>${employer.Email || 'N/A'}</td>
+  //                 <td>${employer.Location || 'N/A'}</td>
+  //                 <td class="text-center">
+  //                   <div class="d-inline-flex gap-2">
+  //                     <button class="btn btn-xs btn-info edit-btn" data-id="${employer.id}">Edit</button>
+  //                     <button class="btn btn-xs btn-danger delete-btn" data-id="${employer.id}">Delete</button>
+  //                   </div>
+  //                 </td>
+  //               </tr>`;
+  //             tableBody.append(row);
+  //           });
+  //           table.clear().rows.add(tableBody.find('tr')).draw();
+  //         } else {
+  //           $('#empList').append(`
+  //             <tr>
+  //               <td colspan="6" class="text-center">No employers found.</td>
+  //             </tr>`);
+  //         }
+  //       },
+  //       error: function () {
+  //         $('#loading-spinner').hide(); // Hide the loading spinner
+  //         alert('Failed to fetch employer data. Please try again later.');
+  //       },
+  //     });
+  //   }
 
-    // Fetch data on page load
-    fetchEmployers();
+  //   // Fetch data on page load
+  //   fetchEmployers();
 
-    // Form Submission Logic
-    let isEdit = false;
-    let editEmployerId = null;
+  //   // Form Submission Logic
+  //   let isEdit = false;
+  //   let editEmployerId = null;
 
-    $('#employerForm').on('submit', function (event) {
-      $('#edit-loading').show(); // Show loading spinner for form submission
-      event.preventDefault();
-      const form = this;
+  //   $('#employerForm').on('submit', function (event) {
+  //     $('#edit-loading').show(); // Show loading spinner for form submission
+  //     event.preventDefault();
+  //     const form = this;
 
-      if (!form.checkValidity()) {
-        event.stopPropagation();
-        $(form).addClass('was-validated');
-        return;
-      }
+  //     if (!form.checkValidity()) {
+  //       event.stopPropagation();
+  //       $(form).addClass('was-validated');
+  //       return;
+  //     }
 
-      const formData = {
-        name: $('#organisation-name').val().trim(),
-        phone: $('#phone-number').val().trim(),
-        email: $('#email').val().trim(),
-        location: $('#location').val().trim(),
-      };
+  //     const formData = {
+  //       name: $('#organisation-name').val().trim(),
+  //       phone: $('#phone-number').val().trim(),
+  //       email: $('#email').val().trim(),
+  //       location: $('#location').val().trim(),
+  //     };
 
-      const ajaxOptions = isEdit
-        ? { url: `/api/updateEmployer/${editEmployerId}`, type: 'PUT' }
-        : { url: '/api/createEmployer', type: 'POST' };
+  //     const ajaxOptions = isEdit
+  //       ? { url: `/api/updateEmployer/${editEmployerId}`, type: 'PUT' }
+  //       : { url: '/api/createEmployer', type: 'POST' };
 
-      $.ajax({
-        ...ajaxOptions,
-        contentType: 'application/json',
-        data: JSON.stringify(formData),
-        success: function (response) {
-          $('#edit-loading').hide(); // Hide the loading spinner
-          alert(response.message);
-          form.reset();
-          $(form).removeClass('was-validated');
-          $('#offcanvasBackdrop').offcanvas('hide');
-          fetchEmployers();
-          resetFormState();
-        },
-        error: function (xhr) {
-          $('#edit-loading').hide(); // Hide the loading spinner
-          alert(xhr.responseJSON?.message || 'An error occurred. Please try again.');
-        },
-      });
-    });
+  //     $.ajax({
+  //       ...ajaxOptions,
+  //       contentType: 'application/json',
+  //       data: JSON.stringify(formData),
+  //       success: function (response) {
+  //         $('#edit-loading').hide(); // Hide the loading spinner
+  //         alert(response.message);
+  //         form.reset();
+  //         $(form).removeClass('was-validated');
+  //         $('#offcanvasBackdrop').offcanvas('hide');
+  //         fetchEmployers();
+  //         resetFormState();
+  //       },
+  //       error: function (xhr) {
+  //         $('#edit-loading').hide(); // Hide the loading spinner
+  //         alert(xhr.responseJSON?.message || 'An error occurred. Please try again.');
+  //       },
+  //     });
+  //   });
 
-    // Reset form state
-    function resetFormState() {
-      isEdit = false;
-      editEmployerId = null;
-      $('#offcanvasBackdropLabel').text('Add Employer');
-      $('#formSubmitButton').text('Add');
-    }
+  //   // Reset form state
+  //   function resetFormState() {
+  //     isEdit = false;
+  //     editEmployerId = null;
+  //     $('#offcanvasBackdropLabel').text('Add Employer');
+  //     $('#formSubmitButton').text('Add');
+  //   }
 
-    $('#clearForm').on('click', function () {
-      $('#employerForm')[0].reset();
-      $('#employerForm').find('.is-invalid').removeClass('is-invalid');
-    });
+  //   $('#clearForm').on('click', function () {
+  //     $('#employerForm')[0].reset();
+  //     $('#employerForm').find('.is-invalid').removeClass('is-invalid');
+  //   });
 
-    $('#clearFormCancel').on('click', function () {
-      $('#employerForm')[0].reset();
-      $('#employerForm').find('.is-invalid').removeClass('is-invalid');
-    });
+  //   $('#clearFormCancel').on('click', function () {
+  //     $('#employerForm')[0].reset();
+  //     $('#employerForm').find('.is-invalid').removeClass('is-invalid');
+  //   });
 
-    // Handle Edit Button
+  //   // Handle Edit Button
     $(document).on('click', '.edit-btn', function () {
       editEmployerId = $(this).data('id');
       isEdit = true;
       $('#offcanvasBackdrop').offcanvas('show');
       $('#edit-loading').show(); // Show loading spinner while fetching employer details
-      $.ajax({
-        url: `/api/getEmployer/${editEmployerId}`,
-        type: 'GET',
-        success: function (response) {
-          $('#edit-loading').hide(); // Hide loading spinner
-          const employer = response.data;
-          $('#organisation-name').val(employer.Name);
-          $('#phone-number').val(employer.Phone);
-          $('#email').val(employer.Email);
-          $('#location').val(employer.Location);
-          $('#offcanvasBackdropLabel').text('Edit Employer');
-          $('#formSubmitButton').text('Update');
-        },
-        error: function () {
-          $('#edit-loading').hide(); // Hide loading spinner
-          alert('Failed to fetch employer details.');
-        },
-      });
+      // $.ajax({
+      //   url: `/api/getEmployer/${editEmployerId}`,
+      //   type: 'GET',
+      //   success: function (response) {
+      //     $('#edit-loading').hide(); // Hide loading spinner
+      //     const employer = response.data;
+      //     $('#organisation-name').val(employer.Name);
+      //     $('#phone-number').val(employer.Phone);
+      //     $('#email').val(employer.Email);
+      //     $('#location').val(employer.Location);
+      //     $('#offcanvasBackdropLabel').text('Edit Employer');
+      //     $('#formSubmitButton').text('Update');
+      //   },
+      //   error: function () {
+      //     $('#edit-loading').hide(); // Hide loading spinner
+      //     alert('Failed to fetch employer details.');
+      //   },
+      // });
     });
 
-    // Handle Delete Button
+  //   // Handle Delete Button
     $(document).on('click', '.delete-btn', function () {
       const employerId = $(this).data('id');
       if (confirm('Are you sure you want to delete this employer?')) {
@@ -250,6 +261,6 @@
         });
       }
     });
-  });
+  // });
 </script>
 @endsection

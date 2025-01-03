@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Applicants\ApplicantsApplyController;
 use App\Http\Controllers\AssigningUser\AssigningUserController;
+use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Documents\DocumentsController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Enquiry\EnquiryController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\SmConttroller;
 use App\Http\Controllers\SocialMedia\SmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\Analytics;
-
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
@@ -41,11 +41,13 @@ Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employe
 Route::get('/employer', [EmployerController::class, 'employerForm'])->name('Employer Form');
 
 Route::get('/smform', [SmController::class, 'smform'])->name('socialmedia');
+Route::get('/smlist', [SmController::class, 'smlist'])->name('socialmedialist');
 Route::get('/formatdetails', [FormatController::class, 'formattedDetails'])->name('Formatted Details');
 Route::get('/formattedapplicantslist', [FormatController::class, 'formattedapplicantslist'])->name('Formatted Applicants List');
 Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formattedapplicantstoemployer'])->name('Formatted Applicants to Employer');
 Route::get('/offerletter', [OfferController::class, 'offer'])->name('Offer Letter');
 Route::get('/documents', [DocumentsController::class, 'documents'])->name('Documents');
+Route::get('/department  ', [DepartmentController::class, 'department'])->name('Department');
 
 
 // authentication
@@ -56,7 +58,8 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 
 // Enquiry APIs
 
-Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry Form');
+Route::get('/enquiry', [EnquiryController::class, 'index'])->name('Enquiry');
+Route::get('/enquiryForm', [EnquiryController::class, 'enquiryForm'])->name('Enquiry Form');
 
 
 // get Role
