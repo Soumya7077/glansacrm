@@ -16,9 +16,11 @@
         <tr>
           <th>Sr No</th>
           <th>Organisation Name</th>
+          <th>Contact Person Name</th>
           <th>Phone Number</th>
           <th>Email</th>
           <th>Location</th>
+          <th>Remarks</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -62,6 +64,12 @@
                 <div class="invalid-feedback">Please provide the organisation name.</div>
               </div>
               <div class="form-floating form-floating-outline mb-4">
+                <input type="text" class="form-control" id="contact-person-name" placeholder="Contact Person Name"
+                  required />
+                <label for="contact-person-name">Contact Person</label>
+                <div class="invalid-feedback">Please provide the contact person name.</div>
+              </div>
+              <div class="form-floating form-floating-outline mb-4">
                 <input type="tel" class="form-control" id="phone-number" placeholder="Phone Number" required
                   pattern="^\d{10}$" maxlength="10" />
                 <label for="phone-number">Phone Number</label>
@@ -78,6 +86,11 @@
                 <input type="text" class="form-control" id="location" placeholder="Location" required />
                 <label for="location">Location</label>
                 <div class="invalid-feedback">Please provide a location.</div>
+              </div>
+              <div class="form-floating form-floating-outline mb-4">
+                <textarea type="text" class="form-control" id="remarks" placeholder="Remarks"></textarea>
+                <label for="remarks">Remarks</label>
+                <!-- <div class="invalid-feedback">Please provide a location.</div> -->
               </div>
             </div>
           </div>
