@@ -16,7 +16,8 @@
       <thead class="table-dark text-center small">
         <tr>
           <th>S No.</th>
-          <th>Name</th>
+          <th>First Name</th>
+          <th>Last Name</th>
           <th>Phone No</th>
           <th>Email</th>
           <th>Qualification</th>
@@ -30,7 +31,8 @@
       <tbody>
         <tr>
           <td>01</td>
-          <td>John Doe</td>
+          <td>John</td>
+          <td>Doe</td>
           <td>9876543210</td>
           <td>john@example.com</td>
           <td>B.Tech</td>
@@ -43,7 +45,8 @@
         </tr>
         <tr>
           <td>02</td>
-          <td>Jane Smith</td>
+          <td>Jane</td>
+          <td>Doe</td>
           <td>9123456789</td>
           <td>jane@example.com</td>
           <td>MCA</td>

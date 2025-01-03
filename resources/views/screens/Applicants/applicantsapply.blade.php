@@ -15,28 +15,23 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="name" placeholder="Full Name" required />
-                        <label for="name">Name</label>
-                        <div class="invalid-feedback">Please enter your full name.</div>
+                        <input type="text" class="form-control" id="name" placeholder="First Name" required />
+                        <label for="name">First Name</label>
+                        <div class="invalid-feedback">Please enter your First name.</div>
                     </div>
+                    
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="tel" class="form-control" id="phone-number" placeholder="Phone Number"  maxlength="10" required />
                         <label for="phone-number">Phone Number</label>
                         <div class="invalid-feedback">Please enter a valid phone number.</div>
                     </div>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="email" class="form-control" id="email" placeholder="Email" required />
-                        <label for="email">Email</label>
-                        <div class="invalid-feedback">Please enter a valid email address.</div>
-                    </div>
+                    
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="number" class="form-control" id="work-experience" placeholder="Work Experience"
                             required />
                         <label for="work-experience">Work Experience</label>
                         <div class="invalid-feedback">Please enter your work experience.</div>
                     </div>
-                </div>
-                <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="number" class="form-control" id="current-salary" placeholder="Current Salary"
                             required />
@@ -44,10 +39,21 @@
                         <div class="invalid-feedback">Please enter your current salary.</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="number" class="form-control" id="expected-salary" placeholder="Expected Salary"
-                            required />
-                        <label for="expected-salary">Expected Salary</label>
-                        <div class="invalid-feedback">Please enter your expected salary.</div>
+                        <input type="file" class="form-control" id="resume" required />
+                        <label for="resume">Resume</label>
+                        <div class="invalid-feedback">Please upload your resume.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" class="form-control" id="name" placeholder="Last Name" required />
+                        <label for="name">Last Name</label>
+                        <div class="invalid-feedback">Please enter your Last name.</div>
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="email" class="form-control" id="email" placeholder="Email" required />
+                        <label for="email">Email</label>
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="text" class="form-control" id="highest-qualification"
@@ -55,11 +61,15 @@
                         <label for="highest-qualification">Highest Qualification</label>
                         <div class="invalid-feedback">Please enter your highest qualification.</div>
                     </div>
+                   
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="file" class="form-control" id="resume" required />
-                        <label for="resume">Resume</label>
-                        <div class="invalid-feedback">Please upload your resume.</div>
+                        <input type="number" class="form-control" id="expected-salary" placeholder="Expected Salary"
+                            required />
+                        <label for="expected-salary">Expected Salary</label>
+                        <div class="invalid-feedback">Please enter your expected salary.</div>
                     </div>
+                   
+                    
                 </div>
             </div>
 

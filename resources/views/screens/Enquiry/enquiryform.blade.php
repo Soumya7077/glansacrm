@@ -18,11 +18,24 @@
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3">
                             <div class="form-floating form-floating-outline">
-                                <input type="text" class="form-control" id="name" placeholder="Name" required />
-                                <label for="name">Name</label>
-                                <div class="invalid-feedback">Please enter your name.</div>
+                                <input type="text" class="form-control" id="name" placeholder="First Name" required />
+                                <label for="name">First Name</label>
+                                <div class="invalid-feedback">Please enter your First Name.</div>
                             </div>
                         </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating form-floating-outline">
+                                <input type="text" class="form-control" id="name" placeholder="Last Name" required />
+                                <label for="name">Last Name</label>
+                                <div class="invalid-feedback">Please enter your Last Name.</div>
+                            </div>
+                        </div>
+                      
+                    </div>
+
+                    <!-- Second Row -->
+                    <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="form-floating form-floating-outline">
                                 <input type="tel" maxlength="10" class="form-control phone-mask" id="phone"
@@ -31,10 +44,6 @@
                                 <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Second Row -->
-                    <div class="row mb-3">
                         <div class="col-md-6 mb-3">
                             <div class="input-group input-group-merge">
                                 <div class="form-floating form-floating-outline">
@@ -44,6 +53,11 @@
                                 </div>
                             </div>
                         </div>
+                       
+                    </div>
+
+                    <!-- Third Row -->
+                    <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="form-floating form-floating-outline">
                                 <input type="text" class="form-control" id="qualification" placeholder="Qualification"
@@ -52,22 +66,7 @@
                                 <div class="invalid-feedback">Please enter your qualification.</div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Third Row -->
-                    <div class="row mb-3">
-                        <div class="col-md-6 mb-3">
-                            <div class="form-floating form-floating-outline">
-                                <select class="form-control" id="job-post" required>
-                                    <option value="" hidden>Select Job Post</option>
-                                    <option value="php">PHP</option>
-                                    <option value="react">React</option>
-                                    <option value="java">Java</option>
-                                </select>
-                                <label for="job-post">Job Post</label>
-                                <div class="invalid-feedback">Please select a job post.</div>
-                            </div>
-                        </div>
+                        
                         <div class="col-md-6">
                             <div class="form-floating form-floating-outline">
                                 <input type="text" class="form-control" id="experience" placeholder="Work Experience"
@@ -100,6 +99,18 @@
 
                     <!-- Resume Upload -->
                     <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating form-floating-outline">
+                                <select class="form-control" id="job-post" required>
+                                    <option value="" hidden>Select Job Post</option>
+                                    <option value="php">PHP</option>
+                                    <option value="react">React</option>
+                                    <option value="java">Java</option>
+                                </select>
+                                <label for="job-post">Job Post</label>
+                                <div class="invalid-feedback">Please select a job post.</div>
+                            </div>
+                        </div>
                         <div class="col-md-6 mb-3">
                             <div class="form-floating form-floating-outline">
                                 <input type="file" class="form-control" id="uploadResume" required />
