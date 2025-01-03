@@ -15,7 +15,8 @@
       <thead class="table-dark text-center small">
         <tr>
           <th>S No.</th>
-          <th>Name</th>
+          <th>First Name</th>
+          <th>Last Name</th>
           <th>Email</th>
           <th>Role</th>
           <th>Actions</th>
@@ -27,6 +28,7 @@
         <tr>
           <td>01</td>
           <td>Naveen</td>
+          <td>Nagam</td>
           <td>naveen@gmail.com</td>
           <td>2</td>
           <td class="text-center">
@@ -37,6 +39,7 @@
         <tr>
           <td>02</td>
           <td>Anita</td>
+          <td>Seth</td>
           <td>anita@gmail.com</td>
           <td>1</td>
           <td class="text-center">
@@ -66,9 +69,15 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="fullname" placeholder="User Name" required />
-                <label for="basic-default-fullname">User Name</label>
-                <div class="invalid-feedback">Please provide a username.</div>
+                <input type="text" class="form-control" id="fullname" placeholder="First Name" required />
+                <label for="basic-default-fullname">First Name</label>
+                <div class="invalid-feedback">Please provide a FirstName.</div>
+              </div>
+
+              <div class="form-floating form-floating-outline mb-4">
+                <input type="text" class="form-control" id="fullname" placeholder="Last Name" required />
+                <label for="basic-default-fullname">Last Name</label>
+                <div class="invalid-feedback">Please provide a LastName.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">

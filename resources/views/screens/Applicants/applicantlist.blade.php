@@ -57,8 +57,8 @@
         </table>
     </div>
     <div class="d-flex justify-content-end">
-        <a href="formattedapplicantstoemployer" class="btn btn-primary me-2">Send</a>
-        <a href="schedule" class="btn btn-primary">Schedule an interview</a>
+        <a href="{{url('formattedapplicantstoemployer')}}" class="btn btn-primary me-2">Send</a>
+        <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
     </div>
 </div>
 @endsection
