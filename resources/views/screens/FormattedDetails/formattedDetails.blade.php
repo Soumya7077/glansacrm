@@ -10,7 +10,7 @@
       <h5 class="mb-0">Formatted Details</h5>
     </div>
     <div class="card-body">
-      <form id="applicationForm" class="needs-validation" novalidate>
+      <a id="applicationForm" class="needs-validation" novalidate>
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
@@ -62,8 +62,9 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Add</button>
-      </form>
+        <!-- <button type="submit" class="btn btn-primary">Add</button> -->
+        <a href="formattedapplicantslist" class="btn btn-primary">Add</a>
+        </form>
     </div>
   </div>
 </div>

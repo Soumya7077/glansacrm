@@ -12,12 +12,18 @@
         <form id="validationForm" class="needs-validation" novalidate>
             <div class="row">
                 <div class="col-md-6">
+
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="organisation-name" placeholder="Organisation Name"
-                            required />
-                        <label for="organisation-name">Organisation Name</label>
-                        <div class="invalid-feedback">Please enter the organisation name.</div>
+                        <select id="" class="form-select" required>
+                            <option value="" hidden>Applicants Email</option>
+                            <option value="1">naveen@gmail.com</option>
+                            <option value="1">soumya@gmail.com</option>
+                            <option value="1">anita@gmail.com</option>
+                        </select>
+                        <label for="to">Applicants Email</label>
                     </div>
+
+
 
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="text" class="form-control" id="applicant-name" placeholder="Applicant's Name"
@@ -28,21 +34,23 @@
 
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="file" class="form-control" id="resume" required />
-                        <label for="resume">Resume</label>
-                        <div class="invalid-feedback">Please upload a resume file.</div>
+                        <label for="resume">Choose File</label>
+                        <div class="invalid-feedback">Please Choose File.</div>
                     </div>
                 </div>
 
                 <div class="col-md-6">
+
                     <div class="form-floating form-floating-outline mb-4">
-                        <select class="form-control" id="status" required>
-                            <option value="" hidden>Select Status</option>
-                            <option value="verified">Verified</option>
-                            <option value="uploaded">Uploaded</option>
+                        <select id="" class="form-select" required>
+                            <option value="" hidden>Organisation Name</option>
+                            <option value="1"></option>
                         </select>
-                        <label for="status">Status</label>
-                        <div class="invalid-feedback">Please select a status.</div>
+                        <label for="Organisation-Name">Organisation Name</label>
+                        <div class="invalid-feedback">Please enter the organisation name.</div>
                     </div>
+
+
 
                     <div class="form-floating form-floating-outline mb-4">
                         <textarea id="description" class="form-control" placeholder="Description" style="height: 122px;"
