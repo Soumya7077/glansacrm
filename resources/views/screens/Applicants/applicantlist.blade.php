@@ -79,7 +79,7 @@
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
                 <tr>
-                    <th>SNo.</th>
+                    <th>Select</th>
                     <th>Applicant Name</th>
                     <th>Experience</th>
                     <th>Contact</th>
@@ -97,7 +97,7 @@
             </thead>
             <tbody>
                 <tr class="text-center small">
-                    <td>1</td>
+                    <td><input type="checkbox" /></td>
                     <td>Naveen Nagam</td>
                     <td>5 years</td>
                     <td>9133913522</td>
@@ -115,8 +115,32 @@
                 </tr>
             </tbody>
         </table>
+        <div class="d-flex justify-content-end mt-3">
+            <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Format details </button>
+        </div>
     </div>
 </div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Details formatted successfully
+
+            </div>
+            <div class="modal-footer">
+                <a href="/formattedapplicantslist" class="btn btn-primary">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="applicantDetailsModal" tabindex="-1" aria-labelledby="applicantDetailsModalLabel"
@@ -217,5 +241,22 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#clearForm').on('click', function () {
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show(); // Show the success modal
+        });
+
+        $('#emailForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+            $('#emailForm')[0].reset();
+        });
+    });
+</script>
 
 @endsection

@@ -163,7 +163,7 @@
             Enquiry Form Submitted Successfully
           </div>
           <div class="modal-footer">
-            <a href="enquiry" class="btn btn-primary">OK</a>
+            <a href="/enquiry" class="btn btn-primary">OK</a>
 
           </div>
         </div>

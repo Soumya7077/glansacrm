@@ -81,7 +81,7 @@
       <div class="modal-body">
       </div>
       <div class="modal-footer">
-        <a href="formattedapplicantslist" class="btn btn-primary">OK</a>
+        <a href="/formattedapplicantslist" class="btn btn-primary">OK</a>
       </div>
     </div>
   </div>

@@ -7,7 +7,7 @@
 
 <div class="d-flex justify-content-between align-items-center py-3">
   <h3 class="mb-0">Enquiry List</h3>
-  <a href="enquiryForm" class="btn btn-primary">Add Enquiry </a>
+  <a href="/enquiryForm" class="btn btn-primary">Add Enquiry </a>
 </div>
 
 <div>

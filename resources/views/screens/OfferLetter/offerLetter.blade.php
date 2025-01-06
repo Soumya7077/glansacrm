@@ -13,13 +13,6 @@
             <form id="myForm" class="needs-validation" novalidate>
                 <div class="row">
                     <div class="col-md-6">
-
-                        <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
-                                placeholder="Subject" required />
-                            <label for="Subject">Subject</label>
-                        </div>
-
                         <div class="form-floating form-floating-outline mb-4">
                             <select id="" class="form-select" required>
                                 <option value="" hidden>To</option>
@@ -29,6 +22,13 @@
                             </select>
                             <label for="to">To</label>
                         </div>
+
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
+                                placeholder="Salary offered" required />
+                            <label for="Subject">Salary offered</label>
+                        </div>
+
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="interviewDate" name="interviewDate"
                                 placeholder="Name" required />
@@ -57,22 +57,27 @@
                     </div>
 
                     <div class="col-md-6">
-
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="interviewDate" name="interviewDate"
-                                placeholder="Salary offered" required />
-                            <label for="Subject">Salary offered</label>
+                                placeholder="Subject" required />
+                            <label for="Subject">Subject</label>
                         </div>
+
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="interviewDate" name="interviewDate"
                                 placeholder="Joining date" required />
                             <label for="Subject">Joining date</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
-                                placeholder="Shift" required />
-                            <label for="Subject">Shift</label>
+                            <select id="" class="form-select" required>
+                                <option value="" hidden>Shift</option>
+                                <option value="1">General Shift</option>
+                                <option value="1">12 Hrs</option>
+                                <option value="1">24 Hrs</option>
+                            </select>
+                            <label for="to">Shift</label>
                         </div>
+
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="interviewDate" name="interviewDate"
                                 placeholder="Benefits" required />

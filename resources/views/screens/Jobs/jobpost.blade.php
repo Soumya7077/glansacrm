@@ -224,7 +224,7 @@
       </div>
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button> -->
-        <a href="joblist" class="btn btn-primary">OK</a>
+        <a href="/joblist" class="btn btn-primary">OK</a>
       </div>
     </div>
   </div>

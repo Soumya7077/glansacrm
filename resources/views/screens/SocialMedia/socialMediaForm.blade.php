@@ -70,7 +70,7 @@
             </div>
 
             <div class="text-start">
-              <a href="smlist" class="btn btn-primary">Add</a>
+              <a href="/smlist" class="btn btn-primary">Add</a>
             </div>
           </div>
         </div>
