@@ -36,11 +36,14 @@
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
-              placeholder="Location / Virtual Link" required />
-            <label for="interviewDate">Location / Virtual Link</label>
+            <select name="" id="" class="form-select">
+              <option value="">Virtual</option>
+              <option value="">Walk-in</option>
+            </select>
+            <label for="interviewDate">Select mode of interview</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
+
         </div>
 
         <div class="col-md-6">
@@ -63,11 +66,9 @@
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <select name="" id="" class="form-select">
-              <option value="">Virtual</option>
-              <option value="">Walk-in</option>
-            </select>
-            <label for="interviewDate">Select mode of interview</label>
+            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
+              placeholder="Location / Virtual Link" required />
+            <label for="interviewDate">Location / Virtual Link</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
         </div>
