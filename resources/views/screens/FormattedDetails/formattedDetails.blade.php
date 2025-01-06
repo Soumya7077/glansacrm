@@ -10,7 +10,7 @@
       <h5 class="mb-0">Formatted Details</h5>
     </div>
     <div class="card-body">
-      <a id="applicationForm" class="needs-validation" novalidate>
+      <form id="applicationForm" class="needs-validation" novalidate>
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
@@ -56,95 +56,126 @@
               <div class="invalid-feedback">Please enter the highest qualification.</div>
             </div>
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" class="form-control" id="highestQualification" placeholder="Notice Period" required />
-              <label for="highestQualification">Notice Period</label>
-              <div class="invalid-feedback">Please enter the highest qualification.</div>
+              <input type="text" class="form-control" id="noticePeriod" placeholder="Notice Period" required />
+              <label for="noticePeriod">Notice Period</label>
+              <div class="invalid-feedback">Please enter the notice period.</div>
             </div>
           </div>
         </div>
-        <!-- <button type="submit" class="btn btn-primary">Add</button> -->
-        <a href="formattedapplicantslist" class="btn btn-primary">Add</a>
-        </form>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <a href="formattedapplicantslist" class="btn btn-primary">OK</a>
+      </div>
     </div>
   </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+  $('#applicationForm').on('submit', function (e) {
+    e.preventDefault();
+
+    var successMessage = "Formatted Details successfully submitted!";
+
+    $('#successModal .modal-body').html('<p>' + successMessage + '</p>');
+
+    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    successModal.show();
+
+    $('#applicationForm')[0].reset();
+  });
+
+
   $(document).ready(function () {
-    $('#applicationForm').on('submit', function (event) {
-      let isValid = true;
 
-      const applicantName = $('#applicantName');
-      if (applicantName.val().trim() === '') {
-        applicantName.addClass('is-invalid');
-        isValid = false;
-      } else {
-        applicantName.removeClass('is-invalid').addClass('is-valid');
-      }
+    // $('#applicationForm').on('submit', function (event) {
+    //   let isValid = true;
 
-      const jobApplied = $('#jobApplied');
-      if (jobApplied.val().trim() === '') {
-        jobApplied.addClass('is-invalid');
-        isValid = false;
-      } else {
-        jobApplied.removeClass('is-invalid').addClass('is-valid');
-      }
+    //   const applicantName = $('#applicantName');
+    //   if (applicantName.val().trim() === '') {
+    //     applicantName.addClass('is-invalid');
+    //     isValid = false;
+    //   } else {
+    //     applicantName.removeClass('is-invalid').addClass('is-valid');
+    //   }
 
-      const keySkills = $('#keySkills');
-      if (keySkills.val().trim() === '') {
-        keySkills.addClass('is-invalid');
-        isValid = false;
-      } else {
-        keySkills.removeClass('is-invalid').addClass('is-valid');
-      }
+    //   const jobApplied = $('#jobApplied');
+    //   if (jobApplied.val().trim() === '') {
+    //     jobApplied.addClass('is-invalid');
+    //     isValid = false;
+    //   } else {
+    //     jobApplied.removeClass('is-invalid').addClass('is-valid');
+    //   }
 
-      const workExperience = $('#workExperience');
-      if (workExperience.val().trim() === '' || workExperience.val() < 0) {
-        workExperience.addClass('is-invalid');
-        isValid = false;
-      } else {
-        workExperience.removeClass('is-invalid').addClass('is-valid');
-      }
+    //   const keySkills = $('#keySkills');
+    //   if (keySkills.val().trim() === '') {
+    //     keySkills.addClass('is-invalid');
+    //     isValid = false;
+    //   } else {
+    //     keySkills.removeClass('is-invalid').addClass('is-valid');
+    //   }
 
-      const currentSalary = $('#currentSalary');
-      if (currentSalary.val().trim() === '' || currentSalary.val() < 0) {
-        currentSalary.addClass('is-invalid');
-        isValid = false;
-      } else {
-        currentSalary.removeClass('is-invalid').addClass('is-valid');
-      }
+    //   const workExperience = $('#workExperience');
+    //   if (workExperience.val().trim() === '' || workExperience.val() < 0) {
+    //     workExperience.addClass('is-invalid');
+    //     isValid = false;
+    //   } else {
+    //     workExperience.removeClass('is-invalid').addClass('is-valid');
+    //   }
 
-      const expectedSalary = $('#expectedSalary');
-      if (expectedSalary.val().trim() === '' || expectedSalary.val() < 0) {
-        expectedSalary.addClass('is-invalid');
-        isValid = false;
-      } else {
-        expectedSalary.removeClass('is-invalid').addClass('is-valid');
-      }
+    //   const currentSalary = $('#currentSalary');
+    //   if (currentSalary.val().trim() === '' || currentSalary.val() < 0) {
+    //     currentSalary.addClass('is-invalid');
+    //     isValid = false;
+    //   } else {
+    //     currentSalary.removeClass('is-invalid').addClass('is-valid');
+    //   }
 
-      const highestQualification = $('#highestQualification');
-      if (highestQualification.val().trim() === '') {
-        highestQualification.addClass('is-invalid');
-        isValid = false;
-      } else {
-        highestQualification.removeClass('is-invalid').addClass('is-valid');
-      }
+    //   const expectedSalary = $('#expectedSalary');
+    //   if (expectedSalary.val().trim() === '' || expectedSalary.val() < 0) {
+    //     expectedSalary.addClass('is-invalid');
+    //     isValid = false;
+    //   } else {
+    //     expectedSalary.removeClass('is-invalid').addClass('is-valid');
+    //   }
 
-      if (!isValid) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    });
+    //   const highestQualification = $('#highestQualification');
+    //   if (highestQualification.val().trim() === '') {
+    //     highestQualification.addClass('is-invalid');
+    //     isValid = false;
+    //   } else {
+    //     highestQualification.removeClass('is-invalid').addClass('is-valid');
+    //   }
 
-    $('#applicationForm input').on('input', function () {
-      const input = $(this);
-      if (input.val().trim() === '' || (input.attr('type') === 'number' && input.val() < 0)) {
-        input.addClass('is-invalid').removeClass('is-valid');
-      } else {
-        input.removeClass('is-invalid').addClass('is-valid');
-      }
-    });
+    //   if (!isValid) {
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    //   }
+    // });
+
+    // $('#applicationForm input').on('input', function () {
+    //   const input = $(this);
+    //   if (input.val().trim() === '' || (input.attr('type') === 'number' && input.val() < 0)) {
+    //     input.addClass('is-invalid').removeClass('is-valid');
+    //   } else {
+    //     input.removeClass('is-invalid').addClass('is-valid');
+    //   }
+    // });
   });
 </script>
 

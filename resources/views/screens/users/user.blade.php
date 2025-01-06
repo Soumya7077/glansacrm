@@ -123,11 +123,31 @@
               </div>
             </div>
           </div>
-          </div>
 
-          <button type="submit" class="btn btn-primary w-100 mb-2" id="SubBtn"></button>
+          <!-- <button type="submit" class="btn btn-primary w-100 mb-2" id="SubBtn">Add</button> -->
+          <button type="submit" class="btn btn-primary w-100 mb-2">Add</button>
+
         </form>
         <button type="button" class="btn btn-outline-secondary d-grid w-100" id="cancelButton">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        The user has been successfully added!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
       </div>
     </div>
   </div>
@@ -136,217 +156,43 @@
 @push('scripts')
   <script>
     $(document).ready(function () {
-    var table = $('#table').DataTable();
-    let userList = [];
-
-    // function fetchUsers() {
-    //   $.ajax({
-    //   url: "/api/getuser",
-    //   type: 'GET',
-    //   dataType: 'json',
-    //   success: function (data) {
-    //     if (data.status === 200) {
-    //     var tableBody = $('#tbody');
-    //     tableBody.empty();
-
-    //     $.each(data.data, function (index, user) {
-    //       userList.push(user);
-    //       var row = '<tr>';
-    //       row += '<td>' + (index + 1) + '</td>';
-    //       row += '<td>' + user.Name + '</td>';
-    //       row += '<td>' + user.Email + '</td>';
-    //       row += '<td>' + user.RoleId + '</td>';
-    //       row += '<td>';
-    //       row += `<button type="button" class="btn btn-info btn-sm editButton" data-id="${user.id}">Edit</button>`;
-    //       row += ` <button type="button" class="btn btn-danger btn-sm deleteButton" data-id="${user.id}">Delete</button>`;
-    //       row += '</td>';
-    //       row += '</tr>';
-    //       tableBody.append(row);
-    //     });
-    //     table.clear();
-    //     table.rows.add(tableBody.find('tr')).draw();
-    //     } else {
-    //     alert('No users found');
-    //     }
-    //   },
-    //   error: function (xhr, status, error) {
-    //     alert('Error fetching data: ' + error);
-    //   }
-    //   });
-    // }
-
+    // Close offcanvas when close button is clicked
     $(document).on('click', '.btn-close', function () {
       $('#offcanvasBackdrop').offcanvas('hide');
       $('#addUserForm')[0].reset();
       $('#userId').val('');
-    })
+    });
 
+    // Handle form submission
+    $('#addUserForm').on('submit', function (e) {
+      e.preventDefault();
+      // Hide offcanvas and show success modal
+      $('#offcanvasBackdrop').offcanvas('hide');
+      $('#successModal').modal('show');
+      // Reset form after showing success modal
+      $('#addUserForm')[0].reset();
+    });
+
+    // Show offcanvas when add button is clicked
     $(document).on('click', '#addbtn', function () {
-
       $('#offcanvasBackdrop').offcanvas('show');
       $('.offcanvas-title').text('Add User');
       $('#SubBtn').text('Add');
-    })
-
-    // $(document).on('click', '#SubBtn', function () {
-    //   // $('.offcanvas-title').text('Add User');
-
-    //   // $('#SubBtn').text('Update');
-    // })
-
-    // fetchUsers();
-    // $(document).on('click', '.editButton', function () {
-    //   $('#offcanvasBackdrop').offcanvas('show');
-    //   $('.offcanvas-title').text('Update User');
-    //   $('#SubBtn').text('Update');
-    //   var userId = $(this).data('id');
-    //   $.ajax({
-    //   url: `/api/getuser/${userId}`,
-    //   type: 'GET',
-    //   dataType: 'json',
-    //   success: function (data) {
-    //     if (data.status === 200) {
-    //     var user = data.data;
-    //     $('#userId').val(user.id);
-    //     $('#fullname').val(user.Name);
-    //     $('#email').val(user.Email);
-    //     $('#roleSelect').val(user.RoleId);
-    //     $('#password').val(user.Password);
-    //     // $('#offcanvasBackdrop').offcanvas('show');
-    //     } else {
-    //     alert('User not found');
-    //     }
-    //   },
-    //   error: function (xhr, status, error) {
-    //     alert('Error fetching user: ' + error);
-    //   }
-    //   });
-    // });
-
-    // $('#addUserForm').on('submit', function (e) {
-    //   e.preventDefault();
-
-    //   $('.invalid-feedback').remove();
-    //   $('.form-control').removeClass('is-invalid');
-
-    //   var formData = {
-    //   username: $('#fullname').val(),
-    //   role_id: $('#roleSelect').val(),
-    //   email: $('#email').val(),
-    //   password: $('#password').val()
-    //   };
-
-    //   var userId = $('#userId').val();
-    //   var url = userId ? '/api/update/' + userId : '/api/register';
-    //   var method = userId ? 'PUT' : 'POST';
-
-    //   var isValid = true;
-
-    //   if (!formData.username) {
-    //   $('#fullname').addClass('is-invalid');
-    //   $('#fullname').after('<div class="invalid-feedback">Please provide a username.</div>');
-    //   isValid = false;
-    //   }
-
-    //   if (!formData.role_id) {
-    //   $('#roleSelect').addClass('is-invalid');
-    //   $('#roleSelect').after('<div class="invalid-feedback">Please select a role.</div>');
-    //   isValid = false;
-    //   }
-
-    //   var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //   if (!formData.email || !emailPattern.test(formData.email)) {
-    //   $('#email').addClass('is-invalid');
-    //   $('#email').after('<div class="invalid-feedback">Please provide a valid email.</div>');
-    //   isValid = false;
-    //   }
-
-    //   if (!formData.password) {
-    //   $('#password').addClass('is-invalid');
-    //   $('#password').after('<div class="invalid-feedback">Please provide a password.</div>');
-    //   isValid = false;
-    //   }
-
-    //   if (isValid) {
-    //   if (!formData.password) {
-    //     delete formData.password;
-    //   }
-
-    //   $.ajax({
-    //     url: url,
-    //     type: method,
-    //     dataType: 'json',
-    //     data: formData,
-    //     headers: {
-    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     },
-    //     success: function (response) {
-    //     alert(response.message);
-    //     $('#offcanvasBackdrop').offcanvas('hide');
-    //     $('#addUserForm')[0].reset();
-    //     fetchUsers();
-    //     },
-    //     error: function (xhr, status, error) {
-    //     alert('Error: ' + xhr.responseText);
-    //     }
-    //   });
-    //   }
-    // });
-
-    $(document).on('click', '.deleteButton', function () {
-      // var userId = $(this).data('id');
-      // // console.log(userList);
-      // userList = userList.filter((data) => data.id !== userId);
-      // console.log(userList);
-      // 
-      if (confirm('Are you sure you want to delete this user?')) {
-      // $.ajax({
-      //   url: `/api/delete/${userId}`,
-      //   type: 'DELETE',
-      //   headers: {
-      //   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      //   },
-      //   success: function (response) {
-      //   alert('User deleted successfully!');
-      //   fetchUsers();
-      //   },
-      //   error: function (xhr, status, error) {
-      //   alert('Error deleting user: ' + xhr.responseText);
-      //   }
-      // });
-      }
     });
 
-    // $.ajax({
-    //   url: "/roles",
-    //   type: 'GET',
-    //   dataType: 'json',
-    //   success: function (data) {
-    //   if (data.status === 200) {
-    //     var roleSelect = $('#roleSelect');
-    //     roleSelect.empty();
-    //     roleSelect.append('<option hidden value="">Select Role</option>');
-    //     $.each(data.data, function (index, role) {
-    //     roleSelect.append('<option value="' + role.id + '">' + role.RoleName + '</option>');
-    //     });
-    //   } else {
-    //     alert('No roles found');
-    //   }
-    //   },
-    //   error: function (xhr, status, error) {
-    //   alert('Error fetching roles: ' + error);
-    //   }
-    // });
-
+    // Cancel button behavior
     $('#cancelButton').on('click', function () {
       $('#addUserForm')[0].reset();
       $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
     });
+
+    // Clear form behavior
     $('#clearForm').on('click', function () {
       $('#addUserForm')[0].reset();
       $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
     });
     });
   </script>
+
 @endpush
 @endsection

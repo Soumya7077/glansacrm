@@ -5,13 +5,12 @@
 <h4><span class="text-muted fw-light">Home /</span> Assigning User </h4>
 
 <div class="d-flex justify-content-between align-items-center py-3">
-    <h3 class="mb-0">Users</h3>
+    <h3 class="mb-0">Assigning User</h3>
     <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Assigning User </button>
 </div>
 
 <div>
-    <h5 class="card-header">User Master List</h5>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
@@ -26,7 +25,7 @@
                 <tr>
                     <td>01</td>
                     <td>Naveen</td>
-                    <td>React</td>
+                    <td>Medical Assistant</td>
                     <td class="text-center">
                         <!-- <a href="" class="btn btn-primary btn-sm">Edit</a> -->
                         <a id="clearForm" class="btn btn-primary btn-sm text-white">Edit</a>
@@ -87,110 +86,157 @@
         </div>
     </div>
 </div>
+
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your User has been successfully assigned!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('scripts')
     <script>
-        $(document).ready(function () {
-            // fetch("/api/getrecruiter")
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
-            //             const recruiterSelect = $('#recruiter');
-            //             recruiterSelect.empty();
-            //             recruiterSelect.append('<option hidden value="">Select Recruiter</option>');
-            //             data.data.forEach(recruiter => {
-            //                 recruiterSelect.append('<option value="' + recruiter.id + '">' + recruiter.Name + '</option>');
-            //             });
-            //         } else {
-            //             $('#recruiter').append('<option value="" hidden>No recruiters available</option>');
-            //             console.warn('No recruiters found.');
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error('Error fetching recruiters:', error);
-            //         alert('Error fetching recruiters: ' + error);
-            //     });
 
-            // fetch("/api/getJob")
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
-            //             const jobTitleSelect = $('#Job-Title');
-            //             jobTitleSelect.empty();
-            //             jobTitleSelect.append('<option hidden value="">Select Job Title</option>');
-            //             data.data.forEach(job => {
-            //                 jobTitleSelect.append('<option value="' + job.id + '">' + job.Title + '</option>');
-            //             });
-            //         } else {
-            //             $('#Job-Title').append('<option value="" hidden>No job titles available</option>');
-            //             console.warn('No job titles found.');
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error('Error fetching job titles:', error);
-            //         alert('Error fetching job titles: ' + error);
-            //     });
+        $('#assignUserForm').on('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
 
-            // $('#assignUserForm').on('submit', function (e) {
-            //     e.preventDefault();
-            //     let isValid = true;
+            // Show success modal
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show(); // Show modal
 
-            //     const recruiter = $('#recruiter').val();
-            //     if (!recruiter) {
-            //         $('#recruiter').addClass('is-invalid');
-            //         isValid = false;
-            //     } else {
-            //         $('#recruiter').removeClass('is-invalid').addClass('is-valid');
-            //     }
+            // Hide the offcanvas form
+            $('#offcanvasBackdrop').offcanvas('hide');
 
-            //     const jobTitle = $('#Job-Title').val();
-            //     if (!jobTitle) {
-            //         $('#Job-Title').addClass('is-invalid');
-            //         isValid = false;
-            //     } else {
-            //         $('#Job-Title').removeClass('is-invalid').addClass('is-valid');
-            //     }
-
-            //     if (isValid) {
-            //         const formData = {
-            //             recruiter_id: recruiter,
-            //             job_title_id: jobTitle
-            //         };
-
-            //         fetch('/api/assignrecruitertojob', {
-            //             method: 'POST',
-            //             headers: {
-            //                 'Content-Type': 'application/json',
-            //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //             },
-            //             body: JSON.stringify(formData)
-            //         })
-            //             .then(response => response.json())
-            //             .then(data => {
-            //                 if (data.status === "success") {
-            //                     console.log('Success:', data);
-            //                 } else {
-            //                     console.error('Error:', data.message);
-            //                 }
-            //             })
-            //             .catch(error => {
-            //                 console.error('Error:', error);
-            //             });
-            //     }
-            // });
-
-            $(document).on('click', '#clearForm', function () {
-
-                $('#offcanvasBackdrop').offcanvas('show');
-                $('.offcanvas-title').text('Add Name');
-                $('#SubBtn').text('Add');
-            })
-
-            $('#cancelButton').on('click', function () {
-                $('#assignUserForm')[0].reset();
-                $('#recruiter, #Job-Title').removeClass('is-valid is-invalid');
-            });
+            // Reset form after showing the success modal
+            $('#assignUserForm')[0].reset();
         });
+
+        // Cancel button behavior (if applicable)
+        $('#cancelButton').on('click', function () {
+            $('#assignUserForm')[0].reset();
+            $('#assignUserForm').find('.is-invalid').removeClass('is-invalid');
+        });
+
+        // Handle "clear form" button click
+        $(document).on('click', '#clearForm', function () {
+            $('#offcanvasBackdrop').offcanvas('show');
+            $('.offcanvas-title').text('Add Name');
+            $('#SubBtn').text('Add');
+        });
+
+        // Cancel button behavior in offcanvas
+        $('#cancelButton').on('click', function () {
+            $('#assignUserForm')[0].reset();
+            $('#recruiter, #Job-Title').removeClass('is-valid is-invalid');
+        });
+
+
+
+        // $(document).ready(function () {
+        //     fetch("/api/getrecruiter")
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
+        //                 const recruiterSelect = $('#recruiter');
+        //                 recruiterSelect.empty();
+        //                 recruiterSelect.append('<option hidden value="">Select Recruiter</option>');
+        //                 data.data.forEach(recruiter => {
+        //                     recruiterSelect.append('<option value="' + recruiter.id + '">' + recruiter.Name + '</option>');
+        //                 });
+        //             } else {
+        //                 $('#recruiter').append('<option value="" hidden>No recruiters available</option>');
+        //                 console.warn('No recruiters found.');
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching recruiters:', error);
+        //             alert('Error fetching recruiters: ' + error);
+        //         });
+
+        //     fetch("/api/getJob")
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
+        //                 const jobTitleSelect = $('#Job-Title');
+        //                 jobTitleSelect.empty();
+        //                 jobTitleSelect.append('<option hidden value="">Select Job Title</option>');
+        //                 data.data.forEach(job => {
+        //                     jobTitleSelect.append('<option value="' + job.id + '">' + job.Title + '</option>');
+        //                 });
+        //             } else {
+        //                 $('#Job-Title').append('<option value="" hidden>No job titles available</option>');
+        //                 console.warn('No job titles found.');
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching job titles:', error);
+        //             alert('Error fetching job titles: ' + error);
+        //         });
+
+        //     $('#assignUserForm').on('submit', function (e) {
+        //         e.preventDefault();
+        //         let isValid = true;
+
+        //         const recruiter = $('#recruiter').val();
+        //         if (!recruiter) {
+        //             $('#recruiter').addClass('is-invalid');
+        //             isValid = false;
+        //         } else {
+        //             $('#recruiter').removeClass('is-invalid').addClass('is-valid');
+        //         }
+
+        //         const jobTitle = $('#Job-Title').val();
+        //         if (!jobTitle) {
+        //             $('#Job-Title').addClass('is-invalid');
+        //             isValid = false;
+        //         } else {
+        //             $('#Job-Title').removeClass('is-invalid').addClass('is-valid');
+        //         }
+
+        //         if (isValid) {
+        //             const formData = {
+        //                 recruiter_id: recruiter,
+        //                 job_title_id: jobTitle
+        //             };
+
+        //             fetch('/api/assignrecruitertojob', {
+        //                 method: 'POST',
+        //                 headers: {
+        //                     'Content-Type': 'application/json',
+        //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //                 },
+        //                 body: JSON.stringify(formData)
+        //             })
+        //                 .then(response => response.json())
+        //                 .then(data => {
+        //                     if (data.status === "success") {
+        //                         console.log('Success:', data);
+        //                     } else {
+        //                         console.error('Error:', data.message);
+        //                     }
+        //                 })
+        //                 .catch(error => {
+        //                     console.error('Error:', error);
+        //                 });
+        //         }
+        //     });
+
+
+        // });
+
     </script>
 @endpush

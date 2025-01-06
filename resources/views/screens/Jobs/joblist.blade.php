@@ -19,6 +19,7 @@
         <tr>
           <th>Organisation Name</th>
           <th>Job Title</th>
+          <th>Count</th>
           <th>Description</th>
           <th>Openings</th>
           <th>Job's Location</th>
@@ -42,7 +43,8 @@
       <tbody id="jobList">
         <td>Apollo</td>
         <td>Clinical Positions</td>
-        <td>Develop and maintain healthcare services or systems (e.g., clinical practices, medical equipment, or services)</td>
+        <td>98</td>
+        <td>Develop and maintain healthcare services </td>
         <td>1</td>
         <td>Chennai</td>
         <td>BE (Bachelor of Engineering)</td>
@@ -60,18 +62,18 @@
         <td>Male</td>
         <td>None</td>
         <td class="text-center">
-         <div class="d-inline-flex gap-2">
-          <a href="/applicantlist/?job_id=${1}" class="btn btn-sm btn-info">
-            <i class="fa fa-edit">View</i>
+          <div class="d-inline-flex gap-2">
+            <a href="/applicantlist/?job_id=${1}" class="btn btn-sm btn-info">
+              <i class="fa fa-edit">View</i>
             </a>
-            <a href="/jobpost/1" class="btn btn-sm btn-primary">
-          <i class="fa fa-edit">Edit</i>
-          </a>
-          <a href="/jobpost/1" class="btn btn-sm btn-danger">
-            <i class="fa fa-trash">Delete</i>
+            <a class="btn btn-sm btn-primary text-white">
+              <i class="fa fa-edit">Edit</i>
+            </a>
+            <a class="btn btn-sm btn-danger text-white">
+              <i class="fa fa-trash">Delete</i>
             </a>
           </div>
-            </td>
+        </td>
 
       </tbody>
     </table>
@@ -138,30 +140,30 @@
 
   //   fetchJobs();
 
-    $(document).on('click', '.btn-danger', function () {
-      const jobId = $(this).data('id'); // Get the job ID from the button
+  // $(document).on('click', '.btn-danger', function () {
+  //   const jobId = $(this).data('id');
 
-      // Confirm with the user before deletion
-      if (confirm('Are you sure you want to delete this job?')) {
-        $.ajax({
-          url: `/api/deleteJob/${jobId}`, // API endpoint for deletion
-          type: 'DELETE',
-          success: function (response) {
-            // console.log(response,'ererge');
-            
-            if (response.Status === 'success') {
-              alert('Job deleted successfully');
-              fetchJobs(); // Re-fetch the job list after deletion
-            }else{
-              alert('Failed to delete');
-            } 
-          },
-          error: function () {
-            alert('Failed to delete the job. Please try again later.');
-          },
-        });
-      }
-    });
+  // Confirm with the user before deletion
+  //   if (confirm('Are you sure you want to delete this job?')) {
+  //     $.ajax({
+  //       url: `/api/deleteJob/${jobId}`, // API endpoint for deletion
+  //       type: 'DELETE',
+  //       success: function (response) {
+  //         // console.log(response,'ererge');
+
+  //         if (response.Status === 'success') {
+  //           alert('Job deleted successfully');
+  //           fetchJobs(); // Re-fetch the job list after deletion
+  //         } else {
+  //           alert('Failed to delete');
+  //         }
+  //       },
+  //       error: function () {
+  //         alert('Failed to delete the job. Please try again later.');
+  //       },
+  //     });
+  //   }
+  // });
 
   // });
 </script>

@@ -52,16 +52,10 @@
       "slug": "Enquiry"
     },
     {
-      "url": "/smlist",
-      "name": "Social Media List",
-      "icon": "menu-icon tf-icons mdi mdi-shape-plus",
-      "slug": "socialmedialist"
-    },
-    {
       "url": "/smapplicantslist",
-      "name": "SM applicant's list",
+      "name": "Assign Social Media Applicants",
       "icon": "menu-icon tf-icons mdi mdi-account-multiple",
-      "slug": "SM Applicants List"
+      "slug": "Assign Social Media Applicants"
     },
     {
       "url": "/applicantsapply",
@@ -98,12 +92,6 @@
       "name": "Offer Letter",
       "icon": "menu-icon tf-icons mdi mdi-clipboard-text",
       "slug": "Offer Letter"
-    },
-    {
-      "url": "/documents",
-      "name": "Documents",
-      "icon": "menu-icon tf-icons mdi mdi-file-document",
-      "slug": "Documents"
     }
   ]
 }

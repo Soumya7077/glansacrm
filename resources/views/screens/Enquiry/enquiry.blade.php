@@ -42,7 +42,7 @@
           <td>50000</td>
           <td>70000</td>
           <td></td>
-          <td><a target="_blank" class="btn btn-info btn-sm">View</a></td>
+          <td><a class="btn btn-info text-white btn-sm">View</a></td>
 
         </tr>
         <tr>
@@ -57,7 +57,7 @@
           <td>60000</td>
           <td>80000</td>
           <td></td>
-          <td><a href="resume/jane_smith.pdf" target="_blank" class="btn btn-info btn-sm">View</a></td>
+          <td><a class="btn btn-info text-white btn-sm">View</a></td>
         </tr>
       </tbody>
     </table>

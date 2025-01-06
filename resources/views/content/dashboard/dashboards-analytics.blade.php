@@ -236,7 +236,7 @@
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
               <div class="me-2">
                 <h6 class="mb-0">Zipcar</h6>
-                <small>Vuejs, React & HTML</small>
+                <small>Medical Assistant</small>
               </div>
               <div>
                 <h6 class="mb-2">$24,895.65</h6>

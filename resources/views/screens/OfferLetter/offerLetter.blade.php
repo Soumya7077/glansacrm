@@ -60,65 +60,94 @@
     </div>
 </div>
 
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Offer Letter Sent Successfully
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#myForm').on('submit', function (event) {
-            let isValid = true;
 
-            const organisationName = $('#organisationName');
-            if (organisationName.val().trim() === '') {
-                organisationName.addClass('is-invalid');
-                organisationName.removeClass('is-valid');
-                isValid = false;
-            } else {
-                organisationName.removeClass('is-invalid').addClass('is-valid');
-            }
+    $('#myForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission
 
-            const fileInput = $('#file');
-            if (fileInput.val() === '') {
-                fileInput.addClass('is-invalid');
-                fileInput.removeClass('is-valid');
-                isValid = false;
-            } else {
-                fileInput.removeClass('is-invalid').addClass('is-valid');
-            }
+        // Display the success modal
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show(); // Show the success modal
 
-            const status = $('#status');
-            if (status.val() === '') {
-                status.addClass('is-invalid');
-                status.removeClass('is-valid');
-                isValid = false;
-            } else {
-                status.removeClass('is-invalid').addClass('is-valid');
-            }
-
-            const description = $('#description');
-            if (description.val().trim() === '') {
-                description.addClass('is-invalid');
-                description.removeClass('is-valid');
-                isValid = false;
-            } else {
-                description.removeClass('is-invalid').addClass('is-valid');
-            }
-
-            if (!isValid) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-
-            $(this).addClass('was-validated');
-        });
-
-        $('#organisationName, #file, #status, #description').on('input change', function () {
-            const input = $(this);
-            if (input.val().trim() === '') {
-                input.addClass('is-invalid').removeClass('is-valid');
-            } else {
-                input.removeClass('is-invalid').addClass('is-valid');
-            }
-        });
+        // Reset the form after displaying the modal
+        $('#myForm')[0].reset();
     });
+    // $(document).ready(function () {
+    //     $('#myForm').on('submit', function (event) {
+    //         let isValid = true;
+
+    //         const organisationName = $('#organisationName');
+    //         if (organisationName.val().trim() === '') {
+    //             organisationName.addClass('is-invalid');
+    //             organisationName.removeClass('is-valid');
+    //             isValid = false;
+    //         } else {
+    //             organisationName.removeClass('is-invalid').addClass('is-valid');
+    //         }
+
+    //         const fileInput = $('#file');
+    //         if (fileInput.val() === '') {
+    //             fileInput.addClass('is-invalid');
+    //             fileInput.removeClass('is-valid');
+    //             isValid = false;
+    //         } else {
+    //             fileInput.removeClass('is-invalid').addClass('is-valid');
+    //         }
+
+    //         const status = $('#status');
+    //         if (status.val() === '') {
+    //             status.addClass('is-invalid');
+    //             status.removeClass('is-valid');
+    //             isValid = false;
+    //         } else {
+    //             status.removeClass('is-invalid').addClass('is-valid');
+    //         }
+
+    //         const description = $('#description');
+    //         if (description.val().trim() === '') {
+    //             description.addClass('is-invalid');
+    //             description.removeClass('is-valid');
+    //             isValid = false;
+    //         } else {
+    //             description.removeClass('is-invalid').addClass('is-valid');
+    //         }
+
+    //         if (!isValid) {
+    //             event.preventDefault();
+    //             event.stopPropagation();
+    //         }
+
+    //         $(this).addClass('was-validated');
+    //     });
+
+    //     $('#organisationName, #file, #status, #description').on('input change', function () {
+    //         const input = $(this);
+    //         if (input.val().trim() === '') {
+    //             input.addClass('is-invalid').removeClass('is-valid');
+    //         } else {
+    //             input.removeClass('is-invalid').addClass('is-valid');
+    //         }
+    //     });
+    // });
 </script>
 
 @endsection

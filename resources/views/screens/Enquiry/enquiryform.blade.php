@@ -144,21 +144,51 @@
 
           <!-- Submit Button -->
           <div class="col-md-6">
-            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-            <a href="enquiry?" type="submit" class="btn btn-primary">Submit</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- <a href="enquiry?" type="submit" class="btn btn-primary">Submit</a> -->
           </div>
         </form>
       </div>
     </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Success</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Enquiry Form Submitted Successfully
+          </div>
+          <div class="modal-footer">
+            <a href="enquiry" class="btn btn-primary">OK</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
-      $(function () {
-        $('#enquiryForm').submit(function (e) {
-          if (!this.checkValidity()) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
-          $(this).addClass('was-validated');
-        });
+      $('#enquiryForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Display the success modal
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show(); // Show the success modal
+
+        // Reset the form after displaying the modal
+        $('#enquiryForm')[0].reset();
       });
+      // $(function () {
+      //   $('#enquiryForm').submit(function (e) {
+      //     if (!this.checkValidity()) {
+      //       e.preventDefault();
+      //       e.stopPropagation();
+      //     }
+      //     $(this).addClass('was-validated');
+      //   });
+      // });
     </script>
     @endsection

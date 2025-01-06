@@ -60,8 +60,8 @@
                     <div class="form-floating form-floating-outline mb-4">
                         <select name="" id="" class="form-select">
                             <option value=""></option>
-                            <option value="React">React</option>
-                            <option value="Php">Php</option>
+                            <option value="">Medical Assistant</option>
+                            <option value="">Surgeon</option>
                         </select>
                         <label for="Applying-For">Applying For</label>
                     </div>
@@ -218,4 +218,37 @@
     </form>
 </div>
 </div>
+
+
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Thank you for applying!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+@push('scripts')
+    <script>
+
+        $('#jobApplicationForm').on('submit', function (e) {
+            e.preventDefault();
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+            $('#jobApplicationForm')[0].reset();
+        });
+
+    </script>
+@endpush
