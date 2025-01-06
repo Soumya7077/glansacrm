@@ -40,88 +40,107 @@
         </div>
       </div>
 
-      <div class="table-responsive mt-2">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Applicant Name</th>
-              <th>Key Skills</th>
-              <th>Job Description</th>
-              <th>Experience</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Naveen Nagam</td>
-              <td>JavaScript, React, Node.js</td>
-              <td>Frontend Developer</td>
-              <td>3 Years</td>
-            </tr>
-            <tr>
-              <td>Anita seth</td>
-              <td>Python, Django, REST APIs</td>
-              <td>Backend Developer</td>
-              <td>4 Years</td>
-            </tr>
+            <div class="table-responsive mt-2">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Applicant Name</th>
+                            <th>Key Skills</th>
+                            <th>Job Description</th>
+                            <th>Experience</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Naveen Nagam</td>
+                            <td>Medical Assistant, Surgeon</td>
+                            <td>Frontend Developer</td>
+                            <td>3 Years</td>
+                        </tr>
+                        <tr>
+                            <td>Anita Seth</td>
+                            <td>Medical Assistant, Surgeon</td>
+                            <td>Backend Developer</td>
+                            <td>4 Years</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
 
-            <!-- Add more rows as needed -->
-          </tbody>
-        </table>
-      </div>
+            <button type="submit" class="btn btn-primary mt-3">Send Mail</button>
+        </form>
+    </div>
+</div>
 
-      <!-- <button type="submit" class="btn btn-primary">Send Mail</button> -->
-      <a href="applicantlist" class="btn btn-primary mt-3">Send Mail</a>
-    </form>
-  </div>
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Mail Sent Successfully
+            </div>
+            <div class="modal-footer">
+                <a href="formattedapplicantslist" class="btn btn-primary">OK</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    $('#emailForm').on('submit', function (event) {
-      let isValid = true;
+    // Form submission handler
+    $('#emailForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission
 
-      const toField = $('#to');
-      if (toField.val() === '') {
-        toField.addClass('is-invalid');
-        isValid = false;
-      } else {
-        toField.removeClass('is-invalid').addClass('is-valid');
-      }
+        // Display the success modal
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show(); // Show the success modal
 
-      const applicantsField = $('#Applicants');
-      if (applicantsField.val() === '') {
-        applicantsField.addClass('is-invalid');
-        isValid = false;
-      } else {
-        applicantsField.removeClass('is-invalid').addClass('is-valid');
-      }
-
-      const subjectDescription = $('#Subject-description');
-      if (subjectDescription.val().trim() === '') {
-        subjectDescription.addClass('is-invalid');
-        isValid = false;
-      } else {
-        subjectDescription.removeClass('is-invalid').addClass('is-valid');
-      }
-
-      if (!isValid) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-
-      $(this).addClass('was-validated');
+        // Reset the form after displaying the modal
+        $('#emailForm')[0].reset();
     });
 
-    $('#to, #Applicants, #Subject-description').on('input change', function () {
-      const input = $(this);
-      if (input.val().trim() === '') {
-        input.addClass('is-invalid').removeClass('is-valid');
-      } else {
-        input.removeClass('is-invalid').addClass('is-valid');
-      }
-    });
-  });
+    // Example of validation if needed:
+    // $(document).ready(function () {
+    //     $('#emailForm').on('submit', function (event) {
+    //         let isValid = true;
+    //         const toField = $('#to');
+    //         if (toField.val() === '') {
+    //             toField.addClass('is-invalid');
+    //             isValid = false;
+    //         } else {
+    //             toField.removeClass('is-invalid').addClass('is-valid');
+    //         }
+
+    //         const applicantsField = $('#Applicants');
+    //         if (applicantsField.val() === '') {
+    //             applicantsField.addClass('is-invalid');
+    //             isValid = false;
+    //         } else {
+    //             applicantsField.removeClass('is-invalid').addClass('is-valid');
+    //         }
+
+    //         const subjectDescription = $('#Subject-description');
+    //         if (subjectDescription.val().trim() === '') {
+    //             subjectDescription.addClass('is-invalid');
+    //             isValid = false;
+    //         } else {
+    //             subjectDescription.removeClass('is-invalid').addClass('is-valid');
+    //         }
+
+    //         if (!isValid) {
+    //             event.preventDefault();
+    //             event.stopPropagation();
+    //         }
+
+    //         $(this).addClass('was-validated');
+    //     });
+    // });
 </script>
 
 @endsection

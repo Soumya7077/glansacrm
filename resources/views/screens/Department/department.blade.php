@@ -9,7 +9,6 @@
 </div>
 
 <div>
-    <h5 class="card-header">User Master List</h5>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
@@ -57,12 +56,31 @@
                                     <div class="invalid-feedback">Please enter a valid Name.</div>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-primary w-100 mb-2">Add</button>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 mb-2" id="SubBtn"></button>
                     </div>
                     <button type="button" class="btn btn-outline-secondary d-grid w-100"
                         id="cancelButton">Cancel</button>
                 </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Department has been successfully added!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
@@ -79,14 +97,25 @@
                 $('#offcanvasBackdrop').offcanvas('hide');
                 $('#addNameForm')[0].reset();
                 $('#nameId').val('');
-            })
+            });
+
+            // Correct form submission handler
+            $('#addNameForm').on('submit', function (e) {
+                e.preventDefault();
+                $('#offcanvasBackdrop').offcanvas('hide');
+
+                // Show success modal
+                $('#successModal').modal('show');
+
+                // Reset the form
+                $('#addNameForm')[0].reset();
+            });
 
             $(document).on('click', '#addbtn', function () {
-
                 $('#offcanvasBackdrop').offcanvas('show');
                 $('.offcanvas-title').text('Add Name');
                 $('#SubBtn').text('Add');
-            })
+            });
 
             $('#cancelButton').on('click', function () {
                 $('#addNameForm')[0].reset();
@@ -97,6 +126,7 @@
                 $('#addNameForm').find('.is-invalid').removeClass('is-invalid');
             });
         });
+
     </script>
 @endpush
 

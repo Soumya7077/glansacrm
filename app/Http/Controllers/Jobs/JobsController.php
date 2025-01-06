@@ -20,7 +20,7 @@ class JobsController extends Controller
     $jobs = [
       [
         'id' => 1,
-        'title' => 'ReactJS Developer',
+        'title' => 'Medical Assistant',
         'company' => 'CyberPoint Pvt. Ltd',
         'location' => 'Gurugram, Haryana',
         'salary' => '₹45,000 - ₹60,000 a month',
@@ -38,7 +38,7 @@ class JobsController extends Controller
       ],
       [
         'id' => 1,
-        'title' => 'ReactJS Developer',
+        'title' => 'Medical Assistant',
         'company' => 'CyberPoint Pvt. Ltd',
         'location' => 'Gurugram, Haryana',
         'salary' => '₹45,000 - ₹60,000 a month',

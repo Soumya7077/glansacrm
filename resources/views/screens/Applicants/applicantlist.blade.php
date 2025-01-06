@@ -38,12 +38,12 @@
                 <tr class="text-center small">
                     <td>1</td>
                     <td>Naveen Nagam</td>
-                    <td>React Developer</td>
-                    <td>Developing React-based applications</td>
+                    <td>Neurologist</td>
+                    <td>Medical Assistant</td>
                     <td>5 years</td>
                     <td>9133913522</td>
                     <td><a href="https://linkedin.com/in/naveen">LinkedIn</a></td>
-                    <td>Software Developer</td>
+                    <td>Neurologist</td>
                     <td>M.Tech</td>
                     <td>Hyderabad</td>
                     <td>Bangalore</td>
@@ -52,13 +52,13 @@
                     <td>O+</td>
                     <td>14%</td>
                     <td>30 days</td>
-                    <td>Infosys</td>
+                    <td>Glansa</td>
                     <td>12 LPA</td>
                     <td>15 LPA</td>
                     <td><a href="#">View Resume</a></td>
                     <td><a href="#">View Certificates</a></td>
                     <td>3</td>
-                    <td>Excellent problem-solving skills</td>
+                    <td>Neurologist</td>
                     <td class="text-success">Shortlisted</td>
                 </tr>
 

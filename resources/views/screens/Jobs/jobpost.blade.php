@@ -210,84 +210,46 @@
   </div>
 </div>
 
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        The Job Post has been successfully created!
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button> -->
+        <a href="joblist" class="btn btn-primary">OK</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-  // document.addEventListener("DOMContentLoaded", () => {
-  //     const form = document.getElementById("jobPostForm");
+  $(document).ready(function () {
+    // Handle form submission
+    $('#jobPostForm').on('submit', function (e) {
+      e.preventDefault(); // Prevent default form submission
 
-  //     form.addEventListener("submit", async (event) => {
-  //         event.preventDefault();
-  //         event.stopPropagation();
+      // Show success modal
+      var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+      successModal.show(); // Show modal
 
-  //         if (!form.checkValidity()) {
-  //             form.classList.add("was-validated");
-  //             return;
-  //         }
+      // Reset form after showing the success modal
+      $('#jobPostForm')[0].reset();
+    });
 
-  //         // Collect form data
-  //         const formData = new FormData(form);
-  //         const formObject = Object.fromEntries(formData.entries());
-
-  //         try {
-  //             const response = await fetch("/api/createJob", {
-  //                 method: "POST",
-  //                 headers: {
-  //                     "Content-Type": "application/json",
-  //                     "Accept": "application/json",
-  //                 },
-  //                 body: JSON.stringify(formObject),
-  //             });
-
-  //             const result = await response.json();
-
-  //             if (response.ok) {
-  //                 alert("Job posted successfully!");
-  //                 // Optionally, reset the form or redirect
-  //                 form.reset();
-  //                 form.classList.remove("was-validated");
-  //             } else {
-  //                 console.error("Error:", result.message);
-  //                 alert(`Failed to post job: ${result.message}`);
-  //             }
-  //         } catch (error) {
-  //             console.error("Error:", error);
-  //             alert("An unexpected error occurred.");
-  //         }
-  //     });
-
-  const organisationDropdown = document.getElementById('organisation-name');
-
-  // function populateOrganisationDropdown() {
-  //     organisationDropdown.innerHTML = '<option value="" hidden>Loading...</option>';
-
-  //     $.ajax({
-  //         url: '/api/getEmployer',
-  //         type: 'GET',
-  //         dataType: 'json',
-  //         success: function (response) {
-  //             organisationDropdown.innerHTML = '<option value="" hidden>Select Organisation</option>';
-
-  //             if (response && response.status === 'success' && response.data?.length > 0) {
-  //                 response.data.forEach(employer => {
-  //                     const option = document.createElement('option');
-  //                     option.value = employer.id; // Employer ID
-  //                     option.textContent = employer.Name || 'N/A'; // Organisation Name
-  //                     organisationDropdown.appendChild(option);
-  //                 });
-  //             } else {
-  //                 organisationDropdown.innerHTML = '<option value="" hidden>No organisations found</option>';
-  //             }
-  //         },
-  //         error: function () {
-  //             organisationDropdown.innerHTML = '<option value="" hidden>Failed to load data</option>';
-  //             alert('Failed to fetch organisation data. Please try again later.');
-  //         },
-  //     });
-  // }
-
-  // populateOrganisationDropdown();
-
-  // });
+    // Cancel button behavior (if applicable)
+    $('#cancelButton').on('click', function () {
+      $('#jobPostForm')[0].reset();
+      $('#jobPostForm').find('.is-invalid').removeClass('is-invalid');
+    });
+  });
 </script>
-
 
 @endsection

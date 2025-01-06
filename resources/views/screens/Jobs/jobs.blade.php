@@ -32,8 +32,8 @@
                 <div class="bg-white" style=" border: 1px solid #ddd; border-radius: 5px; position: sticky; top: 0; ">
                     <div class=" job-card">
                         <div class="card-body">
-                            <h5 class="card-title">ReactJS Developer</h5>
-                            <a class="badge bg-primary text-white fs-6 p-2">Apply Now</a>
+                            <h5 class="card-title">Medical Assistant</h5>
+                            <a href="applicantsapply" class="badge bg-primary text-white fs-6 p-2">Apply Now</a>
                         </div>
                     </div>
                     <hr class="m-0" />

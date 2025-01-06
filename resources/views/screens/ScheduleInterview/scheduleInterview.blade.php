@@ -87,7 +87,7 @@
           <tbody>
             <tr>
               <td>Naveen Nagam</td>
-              <td>JavaScript, React, Node.js</td>
+              <td>JavaScript, , Node.js</td>
               <td>Frontend Developer</td>
               <td>3 Years</td>
             </tr>
@@ -102,23 +102,53 @@
           </tbody>
         </table>
       </div> -->
+      <button type="submit" class="btn btn-primary mt-3">Send Mail</button>
 
-      <a href="applicantlist" class="btn btn-primary mt-3">Send Mail</a>
+      <!-- <a href="applicantlist" class="btn btn-primary mt-3">Send Mail</a> -->
     </form>
+  </div>
+</div>
+
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Mail Sent Successfully
+      </div>
+      <div class="modal-footer">
+        <a href="formattedapplicantslist" class="btn btn-primary">OK</a>
+      </div>
+    </div>
   </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    $('#emailForm').on('submit', function (event) {
-      if (this.checkValidity() === false) {
-        event.preventDefault(); // Prevent form submission
-        event.stopPropagation(); // Stop event propagation
-      }
-      $(this).addClass('was-validated');
-    });
+  $('#emailForm').on('submit', function (e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    // Display the success modal
+    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    successModal.show(); // Show the success modal
+
+    // Reset the form after displaying the modal
+    $('#emailForm')[0].reset();
   });
+  // $(document).ready(function () {
+  //   $('#emailForm').on('submit', function (event) {
+  //     if (this.checkValidity() === false) {
+  //       event.preventDefault(); // Prevent form submission
+  //       event.stopPropagation(); // Stop event propagation
+  //     }
+  //     $(this).addClass('was-validated');
+  //   });
+  // });
 </script>
 
 @endsection

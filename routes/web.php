@@ -33,7 +33,7 @@ Route::get('/joblist', [JobsController::class, 'joblist'])->name('Job List');
 Route::get('/jobpost/{id?}', [JobsController::class, 'jobpost'])->name('jobpost');
 Route::get('/jobs', [JobsController::class, 'jobs'])->name('Jobs');
 Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('Applicants Apply');
-Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('SM Applicants List');
+Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('Assign Social Media Applicants');
 Route::get('/applicantlist', [ApplicantsApplyController::class, 'applicantlist'])->name('Applicant List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 

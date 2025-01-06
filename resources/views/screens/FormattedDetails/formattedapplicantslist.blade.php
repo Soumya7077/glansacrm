@@ -20,6 +20,7 @@
             <th>Key Skills</th>
             <th>Current Salary</th>
             <th>Expected Salary</th>
+            <th>Notice Period</th>
             <th>Highest Qualification</th>
             <th>Status</th>
           </tr>
@@ -34,6 +35,7 @@
             <td>Communication Skills, Teamwork, Flexibility, Ethics</td>
             <td>200000</td>
             <td>400000</td>
+            <td>15 days</td>
             <td>BSc Nursing</td>
             <td class="text-success">Shortlisted</td>
           </tr>
@@ -46,6 +48,7 @@
             <td>Communication Skills, Teamwork, Flexibility, Ethics</td>
             <td>200000</td>
             <td>400000</td>
+            <td>15 days</td>
             <td>BSc Nursing</td>
             <td class="text-warning">Pending Review</td>
           </tr>
@@ -58,6 +61,7 @@
             <td>Communication Skills, Teamwork, Flexibility, Ethics</td>
             <td>200000</td>
             <td>400000</td>
+            <td>15 days</td>
             <td>BSc Nursing</td>
             <td class="text-danger">Rejected</td>
           </tr>
