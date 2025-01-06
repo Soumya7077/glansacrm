@@ -5,7 +5,7 @@
 
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Schedule Interview</h5>
+    <h5 class="mb-0">Candidate Interview</h5>
   </div>
   <div class="card-body">
     <form id="emailForm" class="needs-validation" novalidate>
@@ -44,6 +44,12 @@
         </div>
 
         <div class="col-md-6">
+          <div class="form-floating form-floating-outline mb-4">
+            <input type="text" class="form-control" id="interviewDate" name="interviewDate" placeholder="BCC"
+              required />
+            <label for="interviewDate">BCC</label>
+            <div class="invalid-feedback">Please choose BCC </div>
+          </div>
           <div class="form-floating form-floating-outline mb-4">
             <textarea id="description" name="description" class="form-control" placeholder="Subject Description"
               style="height: 122px;" required></textarea>

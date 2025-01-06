@@ -9,38 +9,39 @@ use Illuminate\Http\Request;
 
 class ApplicantsApplyController extends Controller
 {
-    public function applicantsapply()
-    {
-        return view('screens.Applicants.applicantsapply');
-    }
-    public function smapplicantslist()
-    {
-        return view('screens.Applicants.smapplicantslist');
-    }
-    public function applicantlist()
-    {
-        return view('screens.Applicants.applicantlist');
-    }
 
-    public function createApplicant(Request $request)
-{
+  public function applicantsapply()
+  {
+    return view('screens.Applicants.applicantsapply');
+  }
+  public function smapplicantslist()
+  {
+    return view('screens.Applicants.smapplicantslist');
+  }
+  public function applicantlist()
+  {
+    return view('screens.Applicants.applicantlist');
+  }
+
+  public function createApplicant(Request $request)
+  {
     try {
-        // Check if phone or email already exists
-        $existingMobile = ApplicantModel::where('PhoneNumber', $request->PhoneNumber)->first();
-        $existingEmail = ApplicantModel::where('Email', $request->email)->first();
-        $existingJob = ApplicantModel::where('jobpost_id', $request->jobpost_id)->first();
+      // Check if phone or email already exists
+      $existingMobile = ApplicantModel::where('PhoneNumber', $request->PhoneNumber)->first();
+      $existingEmail = ApplicantModel::where('Email', $request->email)->first();
+      $existingJob = ApplicantModel::where('jobpost_id', $request->jobpost_id)->first();
 
-        if ($existingMobile) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Phone Number already exists!'
-            ], 400);
-        } elseif ($existingEmail) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Email already exists!'
-            ], 400);
-        }
+      if ($existingMobile) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Phone Number already exists!'
+        ], 400);
+      } elseif ($existingEmail) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Email already exists!'
+        ], 400);
+      }
 
       if ($existingMobile) {
         return response()->json([
@@ -54,7 +55,7 @@ class ApplicantsApplyController extends Controller
         ], 400);
       } else {
         $applicants = ApplicantModel::create([
-            // 'job'
+          // 'job'
           'Name' => $request->name,
           'Email' => $request->email,
           'Phone' => $request->phone,
@@ -62,22 +63,22 @@ class ApplicantsApplyController extends Controller
         ]);
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Applicant created successfully!',
-            'data' => $applicants
+          'status' => 'success',
+          'message' => 'Applicant created successfully!',
+          'data' => $applicants
         ], 201);
 
+      }
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500); // Internal Server Error status code
     }
-   } catch (Exception $e) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Something went wrong! Please try again.',
-            'error' => $e->getMessage()
-        ], 500); // Internal Server Error status code
-    }
-}
+  }
 
-public function getApplicant()
+  public function getApplicant()
   {
     try {
       $applicantlist = ApplicantModel::all();
@@ -136,99 +137,99 @@ public function getApplicant()
   }
 
   public function updateApplicant(Request $request, $id)
-{
+  {
     try {
-        // Find the applicant by ID
-        $applicant = ApplicantModel::find($id);
+      // Find the applicant by ID
+      $applicant = ApplicantModel::find($id);
 
-        if (!$applicant) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Applicant not found!'
-            ], 404); // Not Found status code
-        }
-
-        // Check for duplicate phone number or email (excluding the current applicant)
-        $existingMobile = ApplicantModel::where('PhoneNumber', $request->PhoneNumber)
-            ->where('id', '!=', $id)
-            ->first();
-        $existingEmail = ApplicantModel::where('Email', $request->Email)
-            ->where('id', '!=', $id)
-            ->first();
-
-        if ($existingMobile) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Phone Number already exists!'
-            ], 400);
-        } elseif ($existingEmail) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Email already exists!'
-            ], 400);
-        }
-
-        // Handle resume file upload
-        $resumePath = $applicant->Resume; // Preserve current resume
-        if ($request->hasFile('Resume')) {
-            // Create a folder with the applicant's name (sanitize the name to avoid invalid characters)
-            $applicantName = preg_replace('/[^A-Za-z0-9]/', '_', $request->Name);
-            $folderPath = "resumes/{$applicantName}";
-
-            // Store the new resume file in the specific folder
-            $resumePath = $request->file('Resume')->store($folderPath, 'public');
-        }
-
-        // Update applicant details
-        $applicant->update([
-            'jobpost_id' => $request->jobpost_id,
-            'Source' => $request->Source,
-            'Name' => $request->Name,
-            'Email' => $request->Email,
-            'PhoneNumber' => $request->PhoneNumber,
-            'Experience' => $request->Experience,
-            'CurrentSalary' => $request->CurrentSalary,
-            'ExpectedSalary' => $request->ExpectedSalary,
-            'Qualification' => $request->Qualification,
-            'Resume' => $resumePath, // Save the updated file path
-            'KeySkills' => $request->KeySkills,
-            'StatusId' => $request->StatusId,
-        ]);
-
+      if (!$applicant) {
         return response()->json([
-            'status' => 'success',
-            'message' => 'Applicant updated successfully!',
-            'data' => $applicant
-        ], 200);
+          'status' => 'error',
+          'message' => 'Applicant not found!'
+        ], 404); // Not Found status code
+      }
+
+      // Check for duplicate phone number or email (excluding the current applicant)
+      $existingMobile = ApplicantModel::where('PhoneNumber', $request->PhoneNumber)
+        ->where('id', '!=', $id)
+        ->first();
+      $existingEmail = ApplicantModel::where('Email', $request->Email)
+        ->where('id', '!=', $id)
+        ->first();
+
+      if ($existingMobile) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Phone Number already exists!'
+        ], 400);
+      } elseif ($existingEmail) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Email already exists!'
+        ], 400);
+      }
+
+      // Handle resume file upload
+      $resumePath = $applicant->Resume; // Preserve current resume
+      if ($request->hasFile('Resume')) {
+        // Create a folder with the applicant's name (sanitize the name to avoid invalid characters)
+        $applicantName = preg_replace('/[^A-Za-z0-9]/', '_', $request->Name);
+        $folderPath = "resumes/{$applicantName}";
+
+        // Store the new resume file in the specific folder
+        $resumePath = $request->file('Resume')->store($folderPath, 'public');
+      }
+
+      // Update applicant details
+      $applicant->update([
+        'jobpost_id' => $request->jobpost_id,
+        'Source' => $request->Source,
+        'Name' => $request->Name,
+        'Email' => $request->Email,
+        'PhoneNumber' => $request->PhoneNumber,
+        'Experience' => $request->Experience,
+        'CurrentSalary' => $request->CurrentSalary,
+        'ExpectedSalary' => $request->ExpectedSalary,
+        'Qualification' => $request->Qualification,
+        'Resume' => $resumePath, // Save the updated file path
+        'KeySkills' => $request->KeySkills,
+        'StatusId' => $request->StatusId,
+      ]);
+
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Applicant updated successfully!',
+        'data' => $applicant
+      ], 200);
 
     } catch (Exception $e) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Something went wrong! Please try again.',
-            'error' => $e->getMessage()
-        ], 500); // Internal Server Error status code
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500); // Internal Server Error status code
     }
-}
-
-// Delete employer
-
-public function deleteApplicant($id)
-{
-  try {
-    $employer = ApplicantModel::find($id);
-    if (!$employer) {
-      return response()->json(['error' => 'Applicant not found'], 404);
-    }
-    $employer->delete();
-    return response()->json(['message' => 'Applicant deleted successfully'], 200);
-
-  } catch (Exception $e) {
-    return response()->json([
-      'status' => 'error',
-      'message' => 'Something went wrong! Please try again.',
-      'error' => $e->getMessage()
-    ], 500);
   }
-}
+
+  // Delete employer
+
+  public function deleteApplicant($id)
+  {
+    try {
+      $employer = ApplicantModel::find($id);
+      if (!$employer) {
+        return response()->json(['error' => 'Applicant not found'], 404);
+      }
+      $employer->delete();
+      return response()->json(['message' => 'Applicant deleted successfully'], 200);
+
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500);
+    }
+  }
 
 }

@@ -16,6 +16,8 @@
                 <tr>
                     <th>Sr No</th>
                     <th>Organisation Name</th>
+                    <th>Count</th>
+                    <th>Date</th>
                     <th>1st Contact Person Name</th>
                     <th>Phone Number</th>
                     <th>Email</th>
@@ -34,6 +36,8 @@
                 <tr>
                     <td>1</td>
                     <td>Appolo</td>
+                    <td>43</td>
+                    <td>01/06/2025</td>
                     <td>Soumya</td>
                     <td>1234567890</td>
                     <td>abc@appolo.com</td>

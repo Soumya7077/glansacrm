@@ -28,7 +28,7 @@
         <tbody>
           <tr class="text-center small">
             <th><input type="checkbox"></th>
-            <td>Naveen Nagam</td>
+            <td>Nagam</td>
             <td>Physician Assistant</td>
             <td>Physician Assistant</td>
             <td>5 years</td>
@@ -41,7 +41,7 @@
           </tr>
           <tr class="text-center small">
             <th><input type="checkbox"></th>
-            <td>Soumya Ranjan</td>
+            <td>Ranjan</td>
             <td>Physician Assistant</td>
             <td>Physician Assistant</td>
             <td>5 years</td>
@@ -54,7 +54,7 @@
           </tr>
           <tr class="text-center small">
             <th><input type="checkbox"></th>
-            <td>Anita seth</td>
+            <td>seth</td>
             <td>Physician Assistant</td>
             <td>Physician Assistant</td>
             <td>5 years</td>
@@ -68,7 +68,7 @@
         </tbody>
       </table>
     </div>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mt-3">
       <a href="{{url('formattedapplicantstoemployer')}}" class="btn btn-primary me-2">Send</a>
       <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
     </div>

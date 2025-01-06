@@ -15,14 +15,6 @@
                     <div class="col-md-6">
 
                         <div class="form-floating form-floating-outline mb-4">
-                            <select id="" class="form-select" required>
-                                <option value="" hidden>Organisation Name</option>
-                                <option value="1"></option>
-                            </select>
-                            <label for="Organisation-Name">Organisation Name</label>
-                            <div class="invalid-feedback">Please enter the organisation name.</div>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="interviewDate" name="interviewDate"
                                 placeholder="Subject" required />
                             <label for="Subject">Subject</label>
@@ -37,19 +29,62 @@
                             </select>
                             <label for="to">To</label>
                         </div>
-                    </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
+                                placeholder="Name" required />
+                            <label for="Subject">Name</label>
+                        </div>
 
-                    <div class="col-md-6">
+                        <div class="form-floating form-floating-outline mb-4">
+                            <select id="" class="form-select" required>
+                                <option value="" hidden>Organisation Name</option>
+                                <option value="1"></option>
+                            </select>
+                            <label for="Organisation-Name">Organisation Name</label>
+                            <div class="invalid-feedback">Please enter the organisation name.</div>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
+                                placeholder="Designation" required />
+                            <label for="Subject">Designation</label>
+                        </div>
+
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="file" class="form-control" id="file" required />
                             <label for="file">File</label>
                             <div class="invalid-feedback">Please upload a file.</div>
                         </div>
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
+                                placeholder="Salary offered" required />
+                            <label for="Subject">Salary offered</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
+                                placeholder="Joining date" required />
+                            <label for="Subject">Joining date</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
+                                placeholder="Shift" required />
+                            <label for="Subject">Shift</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
+                                placeholder="Benefits" required />
+                            <label for="Subject">Benefits</label>
+                        </div>
+
+
                         <div class="form-floating form-floating-outline mb-4">
                             <textarea id="description" name="description" class="form-control" placeholder="Description"
                                 style="height: 122px;" required></textarea>
-                            <label for="description">Description</label>
-                            <div class="invalid-feedback">Please provide a description.</div>
+                            <label for="description">Remarks</label>
+                            <div class="invalid-feedback">Please provide a Remarks.</div>
                         </div>
                     </div>
                 </div>

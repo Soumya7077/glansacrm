@@ -14,14 +14,14 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" class="form-control" id="applicantName" placeholder="Name" required />
-              <label for="applicantName">Applicant Name</label>
-              <div class="invalid-feedback">Please enter the applicant's name.</div>
+              <input type="text" class="form-control" id="applicantName" placeholder="Last Name" required />
+              <label for="applicantName">Applicant Last Name</label>
+              <div class="invalid-feedback">Please enter the applicant's last name.</div>
             </div>
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" class="form-control" id="jobApplied" placeholder="Job Applied" required />
-              <label for="jobApplied">Job Applied</label>
-              <div class="invalid-feedback">Please enter the job applied for.</div>
+              <input type="number" class="form-control" id="currentSalary" placeholder="Current Salary" required />
+              <label for="currentSalary">Current Salary</label>
+              <div class="invalid-feedback">Please enter the current salary.</div>
             </div>
             <div class="mb-4">
               <div class="input-group input-group-merge">
@@ -40,10 +40,12 @@
           </div>
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
-              <input type="number" class="form-control" id="currentSalary" placeholder="Current Salary" required />
-              <label for="currentSalary">Current Salary</label>
-              <div class="invalid-feedback">Please enter the current salary.</div>
+              <input type="text" class="form-control" id="jobApplied" placeholder="Job Applied" required />
+              <label for="jobApplied">Job Applied</label>
+              <div class="invalid-feedback">Please enter the job applied for.</div>
             </div>
+
+
             <div class="form-floating form-floating-outline mb-4">
               <input type="number" class="form-control" id="expectedSalary" placeholder="Expected Salary" required />
               <label for="expectedSalary">Expected Salary</label>

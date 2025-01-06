@@ -83,7 +83,7 @@
     },
     {
       "url": "/schedule",
-      "name": "Schedule Interview",
+      "name": "Candidate Interview",
       "icon": "menu-icon tf-icons mdi mdi-calendar",
       "slug": "Interview"
     },

@@ -3,6 +3,77 @@
 
 @section('content')
 <h4><span class="text-muted fw-light">Home /</span> Applicant List</h4>
+
+
+<div class="offcanvas-body mx-0 flex-grow-0">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Applicant Details</h5>
+        </div>
+        <div class="card-body">
+            <form id="addUserForm" novalidate>
+                @csrf
+                <div class="row">
+                    <!-- Experience -->
+                    <div class="col-md-6">
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="experience" placeholder="Experience" required />
+                            <label for="experience">Experience</label>
+                            <div class="invalid-feedback">Please provide experience details.</div>
+                        </div>
+                    </div>
+
+                    <!-- Qualifications -->
+                    <div class="col-md-6">
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="qualifications" placeholder="Qualifications"
+                                required />
+                            <label for="qualifications">Qualifications</label>
+                            <div class="invalid-feedback">Please provide your qualifications.</div>
+                        </div>
+                    </div>
+
+                    <!-- Preferred Location -->
+                    <div class="col-md-6">
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="preferredLocation"
+                                placeholder="Preferred Location" required />
+                            <label for="preferredLocation">Preferred Location</label>
+                            <div class="invalid-feedback">Please provide your preferred location.</div>
+                        </div>
+                    </div>
+
+                    <!-- Notice Period -->
+                    <div class="col-md-6">
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="noticePeriod" placeholder="Notice Period"
+                                required />
+                            <label for="noticePeriod">Notice Period</label>
+                            <div class="invalid-feedback">Please provide your notice period.</div>
+                        </div>
+                    </div>
+
+                    <!-- Expected Salary -->
+                    <div class="col-md-6">
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="expectedSalary" placeholder="Expected Salary"
+                                required />
+                            <label for="expectedSalary">Expected Salary</label>
+                            <div class="invalid-feedback">Please provide your expected salary.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary w-25 mb-3">Filter</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="container-fluid mt-3 px-0">
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
@@ -10,64 +81,141 @@
                 <tr>
                     <th>SNo.</th>
                     <th>Applicant Name</th>
-                    <th>Job Title</th>
-                    <th>Job Description</th>
                     <th>Experience</th>
                     <th>Contact</th>
-                    <th>Portfolio/LinkedIn</th>
-                    <th>Applying For</th>
                     <th>Highest Qualification</th>
                     <th>Current Location</th>
                     <th>Preferred Location</th>
-                    <th>Height</th>
-                    <th>Weight</th>
-                    <th>Blood Group</th>
-                    <th>Hemoglobin %</th>
                     <th>Notice Period</th>
                     <th>Current Organisation</th>
                     <th>Current Salary</th>
                     <th>Expected Salary</th>
                     <th>Resume</th>
-                    <th>Certificates</th>
-                    <th>Work Experience</th>
-                    <th>Remarks</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="text-center small">
                     <td>1</td>
                     <td>Naveen Nagam</td>
-                    <td>Neurologist</td>
-                    <td>Medical Assistant</td>
                     <td>5 years</td>
                     <td>9133913522</td>
-                    <td><a href="https://linkedin.com/in/naveen">LinkedIn</a></td>
-                    <td>Neurologist</td>
                     <td>M.Tech</td>
                     <td>Hyderabad</td>
                     <td>Bangalore</td>
-                    <td>5'9"</td>
-                    <td>70kg</td>
-                    <td>O+</td>
-                    <td>14%</td>
                     <td>30 days</td>
                     <td>Glansa</td>
                     <td>12 LPA</td>
                     <td>15 LPA</td>
                     <td><a href="#">View Resume</a></td>
-                    <td><a href="#">View Certificates</a></td>
-                    <td>3</td>
-                    <td>Neurologist</td>
                     <td class="text-success">Shortlisted</td>
+                    <td><button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#applicantDetailsModal">View</button></td>
                 </tr>
-
             </tbody>
         </table>
     </div>
-    <!-- <div class="d-flex justify-content-end">
-        <a href="{{url('formattedapplicantstoemployer')}}" class="btn btn-primary me-2">Send</a>
-        <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
-    </div> -->
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="applicantDetailsModal" tabindex="-1" aria-labelledby="applicantDetailsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applicantDetailsModalLabel">Applicant Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Name:</strong> Naveen Nagam</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Phone Number:</strong> +1234567890</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Email:</strong> john.doe@example.com</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Portfolio/LinkedIn Profile:</strong> <a href="#">linkedin.com/johndoe</a>
+                                    </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Applying For:</strong> Software Engineer</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Highest Qualification:</strong> Master's in Computer Science</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Current Location:</strong> New York</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Preferred Location:</strong> San Francisco</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Height:</strong> 6 ft</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Weight:</strong> 180 lbs</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Blood Group:</strong> O+</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Hemoglobin %:</strong> 14.5</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Notice Period:</strong> 1 month</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Work Experience:</strong> 5 years</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Current Salary:</strong> 3,00,000</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Expected Salary:</strong> 3,20,000</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Current Organisation:</strong> ABC Corp</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Resume:</strong> <a href="#">Download Resume</a></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Certificates:</strong> <a href="#">Download Certificates</a></p>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <p><strong>Remarks:</strong> Excellent candidate with strong skills in web
+                                        development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
