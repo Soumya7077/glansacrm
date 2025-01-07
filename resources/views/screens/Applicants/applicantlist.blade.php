@@ -14,7 +14,6 @@
             <form id="addUserForm" novalidate>
                 @csrf
                 <div class="row">
-                    <!-- Experience -->
                     <div class="col-md-6">
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="experience" placeholder="Experience" required />
@@ -23,7 +22,6 @@
                         </div>
                     </div>
 
-                    <!-- Qualifications -->
                     <div class="col-md-6">
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="qualifications" placeholder="Qualifications"
@@ -33,7 +31,6 @@
                         </div>
                     </div>
 
-                    <!-- Preferred Location -->
                     <div class="col-md-6">
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="preferredLocation"
@@ -43,7 +40,6 @@
                         </div>
                     </div>
 
-                    <!-- Notice Period -->
                     <div class="col-md-6">
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="noticePeriod" placeholder="Notice Period"
@@ -53,7 +49,6 @@
                         </div>
                     </div>
 
-                    <!-- Expected Salary -->
                     <div class="col-md-6">
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="expectedSalary" placeholder="Expected Salary"

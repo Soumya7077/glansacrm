@@ -63,10 +63,10 @@
         <td>None</td>
         <td class="text-center">
           <div class="d-inline-flex gap-2">
-            <a href="/applicantlist/?job_id=${1}" class="btn btn-sm btn-info">
+            <a href="/applicantlist" class="btn btn-sm btn-info">
               <i class="fa fa-edit">View</i>
             </a>
-            <a class="btn btn-sm btn-primary text-white">
+            <a href="/jobpost" class="btn btn-sm btn-primary text-white">
               <i class="fa fa-edit">Edit</i>
             </a>
             <a class="btn btn-sm btn-danger text-white">
