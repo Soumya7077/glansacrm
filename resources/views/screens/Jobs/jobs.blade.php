@@ -21,7 +21,7 @@
                             @endif
                         </div>
                         <div class="card-body py-0 pb-3">
-                            <a class="badge bg-primary text-white fs-6 p-2">Apply Now</a>
+                            <a href="/applicantsapply" class="badge bg-primary text-white fs-6 p-2">Apply Now</a>
                         </div>
                     </div>
                 @endforeach
