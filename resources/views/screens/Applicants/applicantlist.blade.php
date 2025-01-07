@@ -115,10 +115,11 @@
                 </tr>
             </tbody>
         </table>
-        <div class="d-flex justify-content-end mt-3">
-            <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Format details </button>
-        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">
+        <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Format details </button>
     </div>
 </div>
 
