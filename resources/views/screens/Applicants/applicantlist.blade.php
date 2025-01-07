@@ -172,7 +172,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p><strong>Applying For:</strong> Software Engineer</p>
+                                    <p><strong>Applying For:</strong>Medical</p>
                                 </div>
                                 <div class="col-md-6">
                                     <p><strong>Highest Qualification:</strong> Master's in Computer Science</p>

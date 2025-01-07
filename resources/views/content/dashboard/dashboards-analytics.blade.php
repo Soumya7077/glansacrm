@@ -21,8 +21,8 @@
     <div class="col-md-4 my-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card Title </h5>
-          <p class="card-text">This is a description for the first card.</p>
+          <h5 class="card-title ">Users</h5>
+          <h5 class="card-text">20</h5>
           <a href="#" class="btn btn-primary">Learn More</a>
         </div>
       </div>
@@ -30,8 +30,8 @@
     <div class="col-md-4 my-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card Title </h5>
-          <p class="card-text">This is a description for the first card.</p>
+          <h5 class="card-title ">Jobs</h5>
+          <h5 class="card-text">52</h5>
           <a href="#" class="btn btn-primary">Learn More</a>
         </div>
       </div>
@@ -39,8 +39,8 @@
     <div class="col-md-4 my-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card Title </h5>
-          <p class="card-text">This is a description for the first card.</p>
+          <h5 class="card-title ">Employer </h5>
+          <h5 class="card-text">62</h5>
           <a href="#" class="btn btn-primary">Learn More</a>
         </div>
       </div>
@@ -48,8 +48,8 @@
     <div class="col-md-4 my-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card Title </h5>
-          <p class="card-text">This is a description for the first card.</p>
+          <h5 class="card-title ">Applicants</h5>
+          <h5 class="card-text">20</h5>
           <a href="#" class="btn btn-primary">Learn More</a>
         </div>
       </div>
@@ -57,12 +57,23 @@
     <div class="col-md-4 my-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card Title </h5>
-          <p class="card-text">This is a description for the first card.</p>
+          <h5 class="card-title ">Enquiry List
+          </h5>
+          <h5 class="card-text">50</h5>
           <a href="#" class="btn btn-primary">Learn More</a>
         </div>
       </div>
     </div>
+    <div class="col-md-4 my-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title ">Jobs</h5>
+          <h5 class="card-text">20</h5>
+          <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
