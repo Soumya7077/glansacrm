@@ -11,7 +11,7 @@
     <div class="table-responsive">
       <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
         <thead class="table-dark text-center small">
-          <tr>
+          <tr class="text-center align-middle">
             <th>Select Applicant</th>
             <th>Applicant Name</th>
             <th>Job Title</th>
@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-center small">
+          <tr class="text-center small align-middle">
             <th><input type="checkbox"></th>
             <td>Nagam</td>
             <td>Physician Assistant</td>
@@ -43,7 +43,7 @@
             <td class="text-success">Shortlisted</td>
             <td><button id="addbtn" class="btn btn-primary">Update</button></td>
           </tr>
-          <tr class="text-center small">
+          <tr class="text-center small align-middle">
             <th><input type="checkbox"></th>
             <td>Ranjan</td>
             <td>Physician Assistant</td>
@@ -59,7 +59,7 @@
             <td><button id="addbtn" class="btn btn-primary">Update</button></td>
 
           </tr>
-          <tr class="text-center small">
+          <tr class="text-center small align-middle">
             <th><input type="checkbox"></th>
             <td>seth</td>
             <td>Physician Assistant</td>

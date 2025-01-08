@@ -43,7 +43,7 @@
       <div class="table-responsive mt-2">
         <table class="table table-bordered">
           <thead>
-            <tr>
+            <tr class="text-center align-middle">
               <th>Applicant Name</th>
               <th>Key Skills</th>
               <th>Job Description</th>
@@ -51,13 +51,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr class="text-center align-middle">
               <td>Naveen Nagam</td>
               <td>Medical Assistant, Surgeon</td>
               <td>Frontend Developer</td>
               <td>3 Years</td>
             </tr>
-            <tr>
+            <tr class="text-center align-middle">
               <td>Anita Seth</td>
               <td>Medical Assistant, Surgeon</td>
               <td>Backend Developer</td>

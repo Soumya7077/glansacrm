@@ -10,7 +10,7 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
-                <tr>
+                <tr class="text-center align-middle">
                     <th>Select Applicant</th>
                     <th>Applicant's Name</th>
                     <th>Email</th>
@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center">
+                <tr class="text-center align-middle">
                     <td><input type="checkbox" /></td>
                     <td>Rahul</td>
                     <td>rahul@gmail.com</td>
@@ -34,7 +34,7 @@
                     </td>
 
                 </tr>
-                <tr class="text-center">
+                <tr class="text-center align-middle">
                     <td><input type="checkbox" /></td>
                     <td>Hemanth</td>
                     <td>hema@gmail.com</td>
@@ -47,7 +47,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr class="text-center">
+                <tr class="text-center align-middle">
                     <td><input type="checkbox" /></td>
                     <td>Mamatha</td>
                     <td>virat@gmail.com</td>
@@ -60,7 +60,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr class="text-center">
+                <tr class="text-center align-middle">
                     <td><input type="checkbox" /></td>
                     <td>Rahul</td>
                     <td>rahul@gmail.com</td>
@@ -73,7 +73,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr class="text-center">
+                <tr class="text-center align-middle">
                     <td><input type="checkbox" /></td>
                     <td>Hemanth</td>
                     <td>hema@gmail.com</td>
@@ -86,7 +86,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr class="text-center">
+                <tr class="text-center align-middle">
                     <td><input type="checkbox" /></td>
                     <td>Mamatha</td>
                     <td>virat@gmail.com</td>

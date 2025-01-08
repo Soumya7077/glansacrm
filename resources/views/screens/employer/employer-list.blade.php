@@ -13,17 +13,17 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
-                <tr>
+                <tr class="text-center align-middle">
                     <th>Sr No</th>
                     <th>Organisation Name</th>
-                    <th>Count</th>
+                    <th>Job Count</th>
                     <th>Date</th>
-                    <th>1st Contact Person Name</th>
+                    <th>First Contact Person Name</th>
                     <th>Phone Number</th>
                     <th>Email</th>
                     <th>Location</th>
                     <th>Designation</th>
-                    <th>2nd Contact Person Name</th>
+                    <th>Second Contact Person Name</th>
                     <th>Phone Number</th>
                     <th>Email</th>
                     <th>Location</th>
@@ -33,12 +33,12 @@
                 </tr>
             </thead>
             <tbody id="empList">
-                <tr>
+                <tr class="text-center align-middle">
                     <td>1</td>
                     <td>Appolo</td>
                     <td>43</td>
                     <td>01/06/2025</td>
-                    <td>Soumya</td>
+                    <td>Soumya Ranjan</td>
                     <td>1234567890</td>
                     <td>abc@appolo.com</td>
                     <td>Delhi</td>
@@ -48,7 +48,33 @@
                     <td>anita@appolo.com</td>
                     <td>Delhi</td>
                     <td>Operation Head</td>
-                    <td></td>
+                    <td>Data alignment</td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-sm btn-primary edit-btn" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</button>
+                            <button class="btn btn-sm btn-danger delete-btn ms-2" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBackdrop"
+                                aria-controls="offcanvasBackdrop">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="text-center align-middle">
+                    <td>2</td>
+                    <td>Appolo</td>
+                    <td>25</td>
+                    <td>01/06/2025</td>
+                    <td>Naveen Nagam</td>
+                    <td>1234567890</td>
+                    <td>abc@appolo.com</td>
+                    <td>Hyderabad</td>
+                    <td>Operation Head</td>
+                    <td>Anita</td>
+                    <td>1234567890</td>
+                    <td>anita@appolo.com</td>
+                    <td>Hyderabad</td>
+                    <td>Operation Head</td>
+                    <td>Data alignment</td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-sm btn-primary edit-btn" type="button" data-bs-toggle="offcanvas"
@@ -194,42 +220,32 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Close offcanvas when close button is clicked
         $(document).on('click', '.btn-close', function () {
             $('#offcanvasBackdrop').offcanvas('hide');
             $('#addUserForm')[0].reset();
             $('#userId').val('');
         });
 
-        // Handle form submission
         $('#addUserForm').on('submit', function (e) {
-            e.preventDefault(); // Prevent default form submission
-
-            // Hide the offcanvas and show the success modal
+            e.preventDefault();
             $('#offcanvasBackdrop').offcanvas('hide');
 
-            // Show success modal
             var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show(); // Show modal
-
-            // Reset form after showing the success modal
+            successModal.show();
             $('#addUserForm')[0].reset();
         });
 
-        // Show offcanvas when add button is clicked
         $(document).on('click', '#addbtn', function () {
             $('#offcanvasBackdrop').offcanvas('show');
             $('.offcanvas-title').text('Add Employer');
             $('#SubBtn').text('Add');
         });
 
-        // Cancel button behavior
         $('#cancelButton').on('click', function () {
             $('#addUserForm')[0].reset();
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
         });
 
-        // Clear form behavior
         $('#clearForm').on('click', function () {
             $('#addUserForm')[0].reset();
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');

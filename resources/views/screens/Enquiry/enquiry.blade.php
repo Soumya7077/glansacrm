@@ -14,7 +14,7 @@
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
-        <tr>
+        <tr class="text-center align-middle">
           <th>S No.</th>
           <th>First Name</th>
           <th>Last Name</th>
@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="text-center align-middle">
           <td>01</td>
           <td>John</td>
           <td>Doe</td>
@@ -45,7 +45,7 @@
           <td><a class="btn btn-info text-white btn-sm">View</a></td>
 
         </tr>
-        <tr>
+        <tr class="text-center align-middle">
           <td>02</td>
           <td>Jane</td>
           <td>Doe</td>
