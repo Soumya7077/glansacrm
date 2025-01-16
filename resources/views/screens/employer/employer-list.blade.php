@@ -35,17 +35,17 @@
             <tbody id="empList">
                 <tr class="text-center align-middle">
                     <td>1</td>
-                    <td>Appolo</td>
+                    <td>Apollo</td>
                     <td>43</td>
                     <td>01/06/2025</td>
                     <td>Soumya Ranjan</td>
                     <td>1234567890</td>
-                    <td>abc@appolo.com</td>
+                    <td>abc@apollo.com</td>
                     <td>Delhi</td>
                     <td>Operation Head</td>
                     <td>Anita</td>
                     <td>1234567890</td>
-                    <td>anita@appolo.com</td>
+                    <td>anita@apollo.com</td>
                     <td>Delhi</td>
                     <td>Operation Head</td>
                     <td>Data alignment</td>
@@ -61,17 +61,17 @@
                 </tr>
                 <tr class="text-center align-middle">
                     <td>2</td>
-                    <td>Appolo</td>
+                    <td>Apollo</td>
                     <td>25</td>
                     <td>01/06/2025</td>
                     <td>Naveen Nagam</td>
                     <td>1234567890</td>
-                    <td>abc@appolo.com</td>
+                    <td>abc@apollo.com</td>
                     <td>Hyderabad</td>
                     <td>Operation Head</td>
                     <td>Anita</td>
                     <td>1234567890</td>
-                    <td>anita@appolo.com</td>
+                    <td>anita@apollo.com</td>
                     <td>Hyderabad</td>
                     <td>Operation Head</td>
                     <td>Data alignment</td>
