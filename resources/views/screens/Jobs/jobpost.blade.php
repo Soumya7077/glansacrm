@@ -232,19 +232,15 @@
 
 <script>
   $(document).ready(function () {
-    // Handle form submission
     $('#jobPostForm').on('submit', function (e) {
-      e.preventDefault(); // Prevent default form submission
+      e.preventDefault();
 
-      // Show success modal
       var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-      successModal.show(); // Show modal
+      successModal.show();
 
-      // Reset form after showing the success modal
       $('#jobPostForm')[0].reset();
     });
 
-    // Cancel button behavior (if applicable)
     $('#cancelButton').on('click', function () {
       $('#jobPostForm')[0].reset();
       $('#jobPostForm').find('.is-invalid').removeClass('is-invalid');

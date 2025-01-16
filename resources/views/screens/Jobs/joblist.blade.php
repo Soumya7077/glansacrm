@@ -16,7 +16,7 @@
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
-        <tr>
+        <tr class="text-center align-middle">
           <th>Organisation Name</th>
           <th>Job Title</th>
           <th>Count</th>

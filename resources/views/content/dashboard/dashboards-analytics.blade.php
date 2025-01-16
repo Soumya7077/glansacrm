@@ -47,63 +47,136 @@
   <div class="row">
     <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1000">
       <div class="card border-primary shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="card-title text-primary fw-bold">Users</h5>
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Users</h5>
+          <div class="d-flex justify-content-between">
             <h5 id="users-count" class="card-text fs-1 text-dark mb-0">10</h5>
+            <a href="/user" class="btn btn-primary">View</a>
           </div>
-          <a href="/user" class="btn btn-primary">View</a>
         </div>
       </div>
     </div>
 
     <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1200">
       <div class="card border-primary shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="card-title text-primary fw-bold">Jobs</h5>
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Jobs</h5>
+          <div class="d-flex justify-content-between">
             <h5 id="jobs-count" class="card-text fs-1 text-dark mb-0">20</h5>
+            <a href="/joblist" class="btn btn-primary">View</a>
           </div>
-          <a href="/joblist" class="btn btn-primary">View</a>
         </div>
       </div>
     </div>
 
     <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1400">
       <div class="card border-primary shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="card-title text-primary fw-bold">Employer</h5>
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Employer</h5>
+          <div class="d-flex justify-content-between">
             <h5 id="employer-count" class="card-text fs-1 text-dark mb-0">30</h5>
+            <a href="/employerlist" class="btn btn-primary">View</a>
           </div>
-          <a href="/employerlist" class="btn btn-primary">View</a>
         </div>
       </div>
     </div>
 
     <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1600">
       <div class="card border-primary shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="card-title text-primary fw-bold">SM Applicants</h5>
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">SM Applicants</h5>
+          <div class="d-flex justify-content-between">
             <h5 id="smapplicants-count" class="card-text fs-1 text-dark mb-0">40</h5>
+            <a href="/smapplicantslist" class="btn btn-primary">View</a>
           </div>
-          <a href="/smapplicantslist" class="btn btn-primary">View</a>
         </div>
       </div>
     </div>
 
     <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
       <div class="card border-primary shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="card-title text-primary fw-bold">Enquiry List</h5>
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Enquiry List</h5>
+          <div class="d-flex justify-content-between">
             <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">50</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
           </div>
-          <a href="/enquiry" class="btn btn-primary">View</a>
         </div>
       </div>
     </div>
+
+    <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Priority Follow-Up</h5>
+          <div class="d-flex justify-content-between">
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">03</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Selected Candidates</h5>
+          <div class="d-flex justify-content-between">
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">100</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Pending Candidates</h5>
+          <div class="d-flex justify-content-between">
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">60</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Rejected Candidates</h5>
+          <div class="d-flex justify-content-between">
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">08</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Today's Interviews</h5>
+          <div class="d-flex justify-content-between">
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">10</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">This Week's Interviews</h5>
+          <div class="d-flex justify-content-between">
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">80</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 </div>

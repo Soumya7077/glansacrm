@@ -12,14 +12,14 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
-                <tr>
+                <tr class="text-center align-middle">
                     <th>S No.</th>
                     <th>Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr>
+                <tr class="text-center align-middle">
                     <td>01</td>
                     <td>Operation</td>
                     <td class="text-center">

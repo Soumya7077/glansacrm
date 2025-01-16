@@ -14,7 +14,7 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
-                <tr>
+                <tr class="text-center align-middle">
                     <th>S No.</th>
                     <th>Name</th>
                     <th>Job Title</th>
@@ -22,22 +22,20 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr>
+                <tr class="text-center align-middle">
                     <td>01</td>
                     <td>Naveen</td>
                     <td>Medical Assistant</td>
                     <td class="text-center">
-                        <!-- <a href="" class="btn btn-primary btn-sm">Edit</a> -->
                         <a id="clearForm" class="btn btn-primary btn-sm text-white">Edit</a>
                         <a href="" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
-                <tr>
+                <tr class="text-center align-middle">
                     <td>02</td>
                     <td>Anita</td>
                     <td>PHP</td>
                     <td class="text-center">
-                        <!-- <a href="" class="btn btn-primary btn-sm">Edit</a> -->
                         <a id="clearForm" class="btn btn-primary btn-sm text-white">Edit</a>
                         <a href="" class="btn btn-danger btn-sm">Delete</a>
                     </td>

@@ -73,7 +73,7 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
-                <tr>
+                <tr class="text-center align-middle">
                     <th>Select</th>
                     <th>Applicant Name</th>
                     <th>Experience</th>
@@ -91,7 +91,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center small">
+                <tr class="text-center small align-middle">
                     <td><input type="checkbox" /></td>
                     <td>Naveen Nagam</td>
                     <td>5 years</td>
@@ -153,82 +153,81 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p><strong>Name:</strong> Naveen Nagam</p>
+                                    <p><strong>Name:</strong> Anita Seth </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Phone Number:</strong> +1234567890</p>
+                                    <p><strong>Phone Number:</strong> 9658741235 </p>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p><strong>Email:</strong> john.doe@example.com</p>
+                                    <p><strong>Email:</strong> anita@gmail.com </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Portfolio/LinkedIn Profile:</strong> <a href="#">linkedin.com/johndoe</a>
+                                    <p><strong>Portfolio/LinkedIn Profile:</strong> <a href="#"> linkedin.com/anita </a>
                                     </p>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p><strong>Applying For:</strong>Medical</p>
+                                    <p><strong>Applying For:</strong> Medical </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Highest Qualification:</strong> Master's in Computer Science</p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Current Location:</strong> New York</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Preferred Location:</strong> San Francisco</p>
+                                    <p><strong>Highest Qualification:</strong> MBBS </p>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p><strong>Height:</strong> 6 ft</p>
+                                    <p><strong>Current Location:</strong> Hyderabad </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Weight:</strong> 180 lbs</p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Blood Group:</strong> O+</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Hemoglobin %:</strong> 14.5</p>
+                                    <p><strong>Preferred Location:</strong> Hyderabad </p>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p><strong>Notice Period:</strong> 1 month</p>
+                                    <p><strong>Height:</strong> 5.4 ft </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Work Experience:</strong> 5 years</p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Current Salary:</strong> 3,00,000</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Expected Salary:</strong> 3,20,000</p>
+                                    <p><strong>Weight:</strong> 58 kg </p>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p><strong>Current Organisation:</strong> ABC Corp</p>
+                                    <p><strong>Blood Group:</strong> O+ </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Hemoglobin:</strong> 14.5% </p>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p><strong>Resume:</strong> <a href="#">Download Resume</a></p>
+                                    <p><strong>Notice Period:</strong> 1 month </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Certificates:</strong> <a href="#">Download Certificates</a></p>
+                                    <p><strong>Work Experience:</strong> 5 years </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Current Salary:</strong> 3,00,000 </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Expected Salary:</strong> 6,20,000 </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Current Organisation:</strong> Glansa </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Resume:</strong> <a href="#"> Download Resume </a></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Certificates:</strong> <a href="#"> Download Certificates </a></p>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <p><strong>Remarks:</strong> Excellent candidate with strong skills in web
-                                        development.</p>
+                                    <p><strong>Remarks:</strong> Demonstrates exceptional dedication and compassion
+                                        towards patients, providing holistic care and support.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 
             </div>
             <div class="modal-footer">
@@ -242,7 +241,7 @@
     $(document).ready(function () {
         $('#clearForm').on('click', function () {
             var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show(); // Show the success modal
+            successModal.show();
         });
 
         $('#emailForm').on('submit', function (e) {

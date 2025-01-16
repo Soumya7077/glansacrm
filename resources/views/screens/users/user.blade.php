@@ -13,7 +13,7 @@
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
-        <tr>
+        <tr class="text-center align-middle">
           <th>S No.</th>
           <th>First Name</th>
           <th>Last Name</th>
@@ -22,10 +22,9 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <!-- <tbody id="tbody"></tbody> -->
 
       <tbody id="">
-        <tr>
+        <tr class="text-center align-middle">
           <td>01</td>
           <td>Naveen</td>
           <td>Nagam</td>
@@ -36,7 +35,7 @@
             <a class="btn btn-danger btn-sm text-white">Delete</a>
           </td>
         </tr>
-        <tr>
+        <tr class="text-center align-middle">
           <td>02</td>
           <td>Anita</td>
           <td>Seth</td>
@@ -71,13 +70,13 @@
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="fullname" placeholder="First Name" required />
                 <label for="basic-default-fullname">First Name</label>
-                <div class="invalid-feedback">Please provide a FirstName.</div>
+                <div class="invalid-feedback">Please provide a First Name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="fullname" placeholder="Last Name" required />
                 <label for="basic-default-fullname">Last Name</label>
-                <div class="invalid-feedback">Please provide a LastName.</div>
+                <div class="invalid-feedback">Please provide a Last Name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
@@ -156,37 +155,30 @@
 @push('scripts')
   <script>
     $(document).ready(function () {
-    // Close offcanvas when close button is clicked
     $(document).on('click', '.btn-close', function () {
       $('#offcanvasBackdrop').offcanvas('hide');
       $('#addUserForm')[0].reset();
       $('#userId').val('');
     });
 
-    // Handle form submission
     $('#addUserForm').on('submit', function (e) {
       e.preventDefault();
-      // Hide offcanvas and show success modal
       $('#offcanvasBackdrop').offcanvas('hide');
       $('#successModal').modal('show');
-      // Reset form after showing success modal
       $('#addUserForm')[0].reset();
     });
 
-    // Show offcanvas when add button is clicked
     $(document).on('click', '#addbtn', function () {
       $('#offcanvasBackdrop').offcanvas('show');
       $('.offcanvas-title').text('Add User');
       $('#SubBtn').text('Add');
     });
 
-    // Cancel button behavior
     $('#cancelButton').on('click', function () {
       $('#addUserForm')[0].reset();
       $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
     });
 
-    // Clear form behavior
     $('#clearForm').on('click', function () {
       $('#addUserForm')[0].reset();
       $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
