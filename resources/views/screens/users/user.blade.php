@@ -35,20 +35,7 @@
             <a class="btn btn-danger btn-sm text-white">Delete</a>
           </td>
         </tr>
-        <tr class="text-center align-middle">
-          <td>02</td>
-          <td>Anita</td>
-          <td>Seth</td>
-          <td>anita@gmail.com</td>
-          <td>1</td>
-          <td class="text-center">
-            <a id="addbtn" class="btn btn-primary btn-sm text-white">Edit</a>
-            <a href="" class="btn btn-danger btn-sm deleteButton">Delete</a>
-            <!-- <button id="addbtn" class="btn btn-primary" type="button">Edit</button> -->
-          </td>
-        </tr>
       </tbody>
-
     </table>
   </div>
 </div>
@@ -62,71 +49,61 @@
       </div>
       <hr>
       <div class="offcanvas-body mx-0 flex-grow-0">
-        <form id="addUserForm" novalidate>
+        <form id="addUserForm" method="POST" action="{{ route('user.store') }}">
           @csrf
           <input type="hidden" id="userId">
           <div class="row">
             <div class="col-md-12">
+
+
               <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="fullname" placeholder="First Name" required />
-                <label for="basic-default-fullname">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="username" placeholder="First Name"
+                  required />
+                <label for="first_name">First Name</label>
                 <div class="invalid-feedback">Please provide a First Name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="fullname" placeholder="Last Name" required />
-                <label for="basic-default-fullname">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
+                  required />
+                <label for="last_name">Last Name</label>
                 <div class="invalid-feedback">Please provide a Last Name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
-                <select id="roleSelect" class="form-select" required>
-                  <option hidden value="">Select Role</option>
-                </select>
-                <label for="basic-default-company">Role</label>
-                <div class="invalid-feedback">
-                  Please select a role.
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="mb-4">
-                <div class="input-group input-group-merge">
-                  <div class="form-floating form-floating-outline">
-                    <input type="email" id="email" class="form-control" placeholder="user.name" aria-label="john.doe"
-                      aria-describedby="basic-default-email2" required />
-                    <label for="basic-default-email">Email</label>
-                    <div class="invalid-feedback">Please provide a valid email.</div>
-                  </div>
-                </div>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required />
+                <label for="email">Email</label>
+                <div class="invalid-feedback">Please provide a valid email.</div>
               </div>
 
-              <div class="input-group input-group-merge">
-                <div class="form-floating form-floating-outline mb-4">
-                  <input type="password" class="form-control" id="password"
-                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                    aria-describedby="basic-default-password42" required />
-                  <label for="basic-default-phone">Password</label>
-                  <div class="invalid-feedback">Please provide a password.</div>
-                </div>
-              </div>
-            </div>
-            <div class="input-group input-group-merge">
               <div class="form-floating form-floating-outline mb-4">
-                <input type="password" class="form-control" id="password"
-                  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                  aria-describedby="basic-default-password42" required />
-                <label for="basic-default-phone">Confirm Password</label>
-                <div class="invalid-feedback">Please provide a Confirm password.</div>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                  required />
+                <label for="password">Password</label>
+                <div class="invalid-feedback">Please provide a password.</div>
+              </div>
+
+              <div class="form-floating form-floating-outline mb-4">
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                  placeholder="Confirm Password" required />
+                <label for="confirm_password">Confirm Password</label>
+                <div class="invalid-feedback">Please confirm your password.</div>
+              </div>
+
+              <div class="form-floating form-floating-outline mb-4">
+                <select id="role_id" name="role_id" class="form-select" required>
+                  <option hidden value="">Select Role</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+                <label for="role_id">Role</label>
+                <div class="invalid-feedback">Please select a role.</div>
               </div>
             </div>
           </div>
-
-          <!-- <button type="submit" class="btn btn-primary w-100 mb-2" id="SubBtn">Add</button> -->
           <button type="submit" class="btn btn-primary w-100 mb-2">Add</button>
-
         </form>
+
         <button type="button" class="btn btn-outline-secondary d-grid w-100" id="cancelButton">Cancel</button>
       </div>
     </div>
@@ -134,8 +111,10 @@
 </div>
 </div>
 
+
+
 <!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+<div class="modal fade" id="successModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -152,26 +131,27 @@
   </div>
 </div>
 
+
 @push('scripts')
   <script>
     $(document).ready(function () {
-    $(document).on('click', '.btn-close', function () {
-      $('#offcanvasBackdrop').offcanvas('hide');
-      $('#addUserForm')[0].reset();
-      $('#userId').val('');
-    });
 
     $('#addUserForm').on('submit', function (e) {
       e.preventDefault();
-      $('#offcanvasBackdrop').offcanvas('hide');
-      $('#successModal').modal('show');
-      $('#addUserForm')[0].reset();
-    });
 
-    $(document).on('click', '#addbtn', function () {
-      $('#offcanvasBackdrop').offcanvas('show');
-      $('.offcanvas-title').text('Add User');
-      $('#SubBtn').text('Add');
+      $.ajax({
+      url: "{{ route('user.store') }}",
+      type: "POST",
+      data: $(this).serialize(),
+      success: function (response) {
+        console.log(response);
+        $('#successModal').modal('show');
+        $('#addUserForm')[0].reset();
+      },
+      error: function (error) {
+        console.log(error.responseJSON);
+      }
+      });
     });
 
     $('#cancelButton').on('click', function () {
@@ -179,12 +159,17 @@
       $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
     });
 
-    $('#clearForm').on('click', function () {
+    $(document).on('click', '#addbtn', function () {
+      $('#offcanvasBackdrop').offcanvas('show');
+      $('.offcanvas-title').text('Add User');
+    });
+
+    $(document).on('click', '.btn-close', function () {
+      $('#offcanvasBackdrop').offcanvas('hide');
       $('#addUserForm')[0].reset();
-      $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
     });
     });
   </script>
-
 @endpush
+
 @endsection
