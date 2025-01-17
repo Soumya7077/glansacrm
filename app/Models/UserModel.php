@@ -15,6 +15,18 @@ class UserModel extends Authenticatable implements JWTSubject
   use HasApiTokens, HasFactory, Notifiable;
 
 
+  protected $table = 'user';
+  protected $guard = 'user';
+  protected $fillable = [
+    'Name',
+    'Email',
+    'Password',
+    'RoleId',
+    'CreatedOn',
+    'CreatedBy',
+    'ModifyOn',
+    'ModifyBy'
+  ];
   public function getJWTIdentifier()
   {
     return $this->getKey();
@@ -26,18 +38,7 @@ class UserModel extends Authenticatable implements JWTSubject
     return [];
   }
 
-  protected $table = 'user';
-  protected $guards = 'user';
-  protected $fillable = [
-    'Name',
-    'Email',
-    'Password',
-    'RoleId',
-    'CreatedOn',
-    'CreatedBy',
-    'ModifyOn',
-    'ModifyBy'
-  ];
+  
 
   // Disable default timestamps (created_at, updated_at)
   public $timestamps = false;

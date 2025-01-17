@@ -9,6 +9,8 @@ use Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class UserController extends Controller
 {
@@ -19,29 +21,36 @@ class UserController extends Controller
   //   $this->middleware('auth:api', ['except' => ['login']]);
   // }
 
-  public function login()
-  {
-    try {
-      $credentials = request(['Email', 'Password']);
+  public function login(Request $request)
+{
+  $user = UserModel::where('Email', $request->Email)->first();
 
-      if (!$token = auth()->attempt($credentials)) {
-        return response()->json(['error' => 'Unauthorized'], 401);
-      }
-
+  if ($user && Hash::check($request->Password, $user->Password)) {
+      $token = Auth::guard('user')->login($user);
       return $this->respondWithToken($token);
-    } catch (\Throwable $e) {
-
-      // Log the exception for debugging
-      // \Log::error('Login error: ' . $e->getMessage(), [
-      //   'file' => $e->getFile(),
-      //   'line' => $e->getLine(),
-      //   'trace' => $e->getTraceAsString(),
+      // return response()->json([
+      //     'message' => 'Login successful',
+      //     'token' => $token,
+      //     'user' => $user,
       // ]);
-
-      // Return a generic error response
-      return response()->json(['error' => $e->getMessage()], 500);
-    }
   }
+  
+  return response()->json(['error' => 'Invalid email or password'], 401);
+  
+}
+
+public function me()
+{
+  return response()->json(Auth::guard('user')->user());
+}
+
+public function logout()
+{
+  auth()->logout();
+  return response()->json(['message' => 'Logged out successfully']);
+}
+  
+
 
   protected function respondWithToken($token)
   {
@@ -52,6 +61,7 @@ class UserController extends Controller
     ]);
   }
 
+  
 
   public function index()
   {

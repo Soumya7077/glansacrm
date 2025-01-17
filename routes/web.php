@@ -34,6 +34,7 @@ Route::get('/jobpost/{id?}', [JobsController::class, 'jobpost'])->name('jobpost'
 Route::get('/jobs', [JobsController::class, 'jobs'])->name('Jobs');
 Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapply'])->name('Applicants Apply');
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('Assign Social Media Applicants');
+Route::get('/socialMediaForm', [ApplicantsApplyController::class, 'socialMediaForm'])->name('social Media Form');
 Route::get('/applicantlist', [ApplicantsApplyController::class, 'applicantlist'])->name('Applicant List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
