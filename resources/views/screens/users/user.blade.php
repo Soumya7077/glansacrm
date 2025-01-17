@@ -15,8 +15,8 @@
       <thead class="table-dark text-center small">
         <tr class="text-center align-middle">
           <th>S No.</th>
-          <th>First Name</th>
-          <th>Last Name</th>
+          <th>Name</th>
+          <!-- <th>Last Name</th> -->
           <th>Email</th>
           <th>Role</th>
           <th>Actions</th>
@@ -181,8 +181,7 @@
           rows += `<tr class="text-center align-middle">
       <td>${index + 1}</td>
       <td>${user.Name}</td>
-      <td>${user.last_name}</td>
-      <td>${user.email}</td>
+      <td>${user.Email}</td>
       <td>${user.RoleId}</td>
       <td>
       <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
