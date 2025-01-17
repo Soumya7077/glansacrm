@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 class ApplicantsApplyController extends Controller
 {
 
+  public function socialMediaForm()
+  {
+    return view('screens.SocialMedia.socialMediaForm');
+  }
   public function applicantsapply()
   {
     return view('screens.Applicants.applicantsapply');

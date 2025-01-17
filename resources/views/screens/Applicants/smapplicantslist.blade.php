@@ -15,7 +15,7 @@
                     <th>Applicant's Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Interested For</th>
+                    <th>Applying For</th>
                     <th>Upload</th>
                 </tr>
             </thead>

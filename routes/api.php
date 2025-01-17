@@ -118,7 +118,8 @@ Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'delete
 
 
 Route::post('/login', [UserController::class, 'login']);
-
+Route::get('/me', [UserController::class, 'me']);
+Route::get('/logout', [UserController::class, 'logout']);
 
 // Route::group([
 
