@@ -4,12 +4,17 @@ namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserModel;
+use Illuminate\Support\Facades\DB;
 use Exception;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordResetMail;
+
 
 
 class UserController extends Controller
@@ -22,10 +27,10 @@ class UserController extends Controller
   // }
 
   public function login(Request $request)
-{
-  $user = UserModel::where('Email', $request->Email)->first();
+  {
+    $user = UserModel::where('Email', $request->Email)->first();
 
-  if ($user && Hash::check($request->Password, $user->Password)) {
+    if ($user && Hash::check($request->Password, $user->Password)) {
       $token = Auth::guard('user')->login($user);
       return $this->respondWithToken($token);
       // return response()->json([
@@ -33,23 +38,23 @@ class UserController extends Controller
       //     'token' => $token,
       //     'user' => $user,
       // ]);
+    }
+
+    return response()->json(['error' => 'Invalid email or password'], 401);
+
   }
-  
-  return response()->json(['error' => 'Invalid email or password'], 401);
-  
-}
 
-public function me()
-{
-  return response()->json(Auth::guard('user')->user());
-}
+  public function me()
+  {
+    return response()->json(Auth::guard('user')->user());
+  }
 
-public function logout()
-{
-  auth()->logout();
-  return response()->json(['message' => 'Logged out successfully']);
-}
-  
+  public function logout()
+  {
+    auth()->logout();
+    return response()->json(['message' => 'Logged out successfully']);
+  }
+
 
 
   protected function respondWithToken($token)
@@ -61,11 +66,42 @@ public function logout()
     ]);
   }
 
-  
+  public function forgotPassword(Request $request)
+  {
+    try {
+      // Validate the email
+      $request->validate([
+        'Email' => 'required|email|exists:user,Email', // Ensure email exists in 'user' table
+      ]);
+
+      // Get the user by email
+      $user = UserModel::where('Email', $request->Email)->first();
+
+      if ($user) {
+        // Generate a reset link (Here we are just encoding the email, you can add a token for added security)
+        $resetLink = url('/reset-password?email=' . urlencode($user->Email));
+
+        // Send the password reset email with the link
+        Mail::to($user->Email)->send(new PasswordResetMail($resetLink));
+
+        return response()->json(['message' => 'Password reset link has been sent to your email.']);
+    } else {
+        return response()->json(['message' => 'Email not found.'], 404);
+    }
+   
+    } catch (\Exception $e) {
+      return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+    }
+  }
 
   public function index()
   {
     return view('screens.users.user');
+  }
+
+  public function resetpassword()
+  {
+    return view('screens.email.password_reset');
   }
 
   public function userform($id = null)
@@ -116,8 +152,6 @@ public function logout()
       ], 200);
     }
   }
-
-
 
   public function store(Request $request)
   {

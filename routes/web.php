@@ -26,6 +26,7 @@ Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard');
 // User APIs
 Route::get('/user', [UserController::class, 'index'])->name('User Creation');
 Route::get('/userForm/{id?}', [UserController::class, 'userform'])->name('');
+Route::post('/resetpassword', [UserController::class, 'resetpassword'])->name('');
 
 
 
