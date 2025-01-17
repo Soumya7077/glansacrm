@@ -2,7 +2,7 @@
 @section('title', 'Formatted Details - Formatted Applicants to Employer')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span> Formatted Applicants to Employer </h4>
+<!-- <h4><span class="text-muted fw-light">Home /</span> Formatted Applicants to Employer </h4> -->
 
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">

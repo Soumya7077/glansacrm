@@ -28,7 +28,7 @@ class DepartmentController extends Controller
             } catch (ModelNotFoundException $e) {
                 return response()->json([
                     'status' => 404,
-                    'message' => "Departent with the given ID not found",
+                    'message' => "Department with the given ID not found",
                 ], 404);
             }
         } else {
