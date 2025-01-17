@@ -22,10 +22,10 @@ class UserController extends Controller
   // }
 
   public function login(Request $request)
-{
-  $user = UserModel::where('Email', $request->Email)->first();
+  {
+    $user = UserModel::where('Email', $request->Email)->first();
 
-  if ($user && Hash::check($request->Password, $user->Password)) {
+    if ($user && Hash::check($request->Password, $user->Password)) {
       $token = Auth::guard('user')->login($user);
       return $this->respondWithToken($token);
       // return response()->json([
@@ -33,27 +33,31 @@ class UserController extends Controller
       //     'token' => $token,
       //     'user' => $user,
       // ]);
+
+    }
+
+    return response()->json(['error' => 'Invalid email or password'], 401);
+
   }
-  
-  return response()->json(['error' => 'Invalid email or password'], 401);
-  
-}
 
-public function me()
-{
-  return response()->json(Auth::guard('user')->user());
-}
+  public function me()
+  {
+    return response()->json(Auth::guard('user')->user());
+  }
 
-public function logout()
-{
-  auth()->logout();
-  return response()->json(['message' => 'Logged out successfully']);
-}
-  
+  public function logout()
+  {
+    auth()->logout();
+    return response()->json(['message' => 'Logged out successfully']);
+  }
+
 
 
   protected function respondWithToken($token)
   {
+
+    session('token', $token);
+
     return response()->json([
       'access_token' => $token,
       'token_type' => 'bearer',
@@ -61,7 +65,32 @@ public function logout()
     ]);
   }
 
-  
+
+
+  public function resetpassword(Request $request)
+  {
+    try {
+      $user = UserModel::where('Email', $request->Email)->first();
+
+      if ($user) {
+
+        $user->Password = $request->input('newPassword');
+        $user->save();
+
+        return response()->json(['message' => 'Password updated successfully', 'user' => $user], 200);
+      } else {
+        return response()->json(['message' => 'Email Not Found'], 200);
+      }
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500);
+    }
+  }
+
+
 
   public function index()
   {

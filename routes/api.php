@@ -46,6 +46,10 @@ Route::post('/users', [UserController::class, 'store'])->name('user.store');
 Route::put('/update/{id}', [UserController::class, 'update']);
 Route::delete('/delete/{id}', [UserController::class, 'delete']);
 Route::get('/getrecruiter', [UserController::class, 'getRecruiter']);
+Route::post('/login', [UserController::class, 'login']);
+Route::get('/me', [UserController::class, 'me']);
+Route::get('/logout', [UserController::class, 'logout']);
+Route::put('/resetpassword', [UserController::class, 'resetpassword']);
 
 /**===================================User API End=============================================== */
 
@@ -117,9 +121,7 @@ Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'delete
 /**==================================Assign recruiter to job======================================== */
 
 
-Route::post('/login', [UserController::class, 'login']);
-Route::get('/me', [UserController::class, 'me']);
-Route::get('/logout', [UserController::class, 'logout']);
+
 
 // Route::group([
 
