@@ -136,6 +136,7 @@
 
 @push('scripts')
   <script>
+    
     // $(document).ready(function () {
 
     // $(document).on('click', '#addbtn', function () {
