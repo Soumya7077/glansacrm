@@ -1,5 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 @section('title', 'Department - Department')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 <h4><span class="text-muted fw-light">Home /</span> Department</h4>
@@ -90,43 +91,122 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            var table = $('#table').DataTable();
-            let userList = [];
+            fetchDepartments();
+            
+            // Fetch Departments
+            function fetchDepartments() {
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/getdepartment',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        let rows = '';
+                        $.each(response.data, function (index, department) {
+                            rows += `<tr class="text-center align-middle">
+                                        <td>${index + 1}</td>
+                                        <td>${department.Name}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
+                                            <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
+                                        </td>
+                                    </tr>`;
+                        });
+                        $('#tbody').html(rows);
+                    }
+                });
+            }
 
-            $(document).on('click', '.btn-close', function () {
-                $('#offcanvasBackdrop').offcanvas('hide');
-                $('#addNameForm')[0].reset();
-                $('#nameId').val('');
+            // Open Add Modal
+            $('#addbtn').click(function () {
+                $('#deptId').val('');
+                $('#deptName').val('');
+                $('#offcanvasBackdropLabel').text('Add Department');
+                let offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasBackdrop'));
+                offcanvas.show();
             });
 
-            // Correct form submission handler
-            $('#addNameForm').on('submit', function (e) {
+            // Open Edit Modal
+            $(document).on('click', '.editBtn', function () {
+                let id = $(this).data('id');
+                let name = $(this).data('name');
+
+                $('#deptId').val(id);
+                $('#deptName').val(name);
+                $('#offcanvasBackdropLabel').text('Edit Department');
+
+                let offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasBackdrop'));
+                offcanvas.show();
+            });
+
+            // Save (Add / Update) Department
+            $('#departmentForm').submit(function (e) {
                 e.preventDefault();
-                $('#offcanvasBackdrop').offcanvas('hide');
+                let id = $('#deptId').val();
+                let name = $('#deptName').val().trim();
 
-                // Show success modal
-                $('#successModal').modal('show');
+                if (!name) {
+                    $('#deptName').addClass('is-invalid');
+                    return;
+                } else {
+                    $('#deptName').removeClass('is-invalid');
+                }
 
-                // Reset the form
-                $('#addNameForm')[0].reset();
+                let url = id ? `http://127.0.0.1:8000/api/updateDepartment/${id}` : "http://127.0.0.1:8000/api/department";
+                let method = id ? "PUT" : "POST";
+
+                $.ajax({
+                    url: url,
+                    type: method,
+                    data: JSON.stringify({ name: name }),
+                    contentType: "application/json",
+                    headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
+                    success: function (response) {
+                        if (response.success) {
+                            let offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasBackdrop'));
+                            offcanvas.hide();
+                            $('#successModal').modal('show');
+                            $('#departmentForm')[0].reset();
+                            fetchDepartments();
+                        } else {
+                            alert("Operation failed.");
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("Error: " + xhr.responseText);
+                    }
+                });
             });
 
-            $(document).on('click', '#addbtn', function () {
-                $('#offcanvasBackdrop').offcanvas('show');
-                $('.offcanvas-title').text('Add Name');
-                $('#SubBtn').text('Add');
+            // Delete Department
+            $(document).on('click', '.deleteBtn', function () {
+                let id = $(this).data('id');
+
+                if (confirm('Are you sure you want to delete this department?')) {
+                    $.ajax({
+                        url: `http://127.0.0.1:8000/api/deleteDepartment/${id}`,
+                        type: 'DELETE',
+                        headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
+                        success: function (response) {
+                            if (response.success) {
+                                alert("Department deleted successfully!");
+                                fetchDepartments();
+                            } else {
+                                alert("Failed to delete department.");
+                            }
+                        },
+                        error: function (xhr) {
+                            alert("Error: " + xhr.responseText);
+                        }
+                    });
+                }
             });
 
-            $('#cancelButton').on('click', function () {
-                $('#addNameForm')[0].reset();
-                $('#addNameForm').find('.is-invalid').removeClass('is-invalid');
-            });
-            $('#clearForm').on('click', function () {
-                $('#addNameForm')[0].reset();
-                $('#addNameForm').find('.is-invalid').removeClass('is-invalid');
+            // Cancel Button
+            $('#cancelButton').click(function () {
+                let offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasBackdrop'));
+                offcanvas.hide();
             });
         });
-
     </script>
 @endpush
 

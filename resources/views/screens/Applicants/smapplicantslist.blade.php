@@ -5,7 +5,7 @@
 <h4><span class="text-muted fw-light">Home /</span> SM applicants list</h4>
 <div class="container-fluid mt-3 px-0">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="mb-0">Social Media applicants' list</h3>
+        <h3 class="mb-0">Social Media Applicants list</h3>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
