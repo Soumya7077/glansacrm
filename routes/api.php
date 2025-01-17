@@ -114,3 +114,21 @@ Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'delete
 
 
 /**==================================Assign recruiter to job======================================== */
+
+
+Route::post('/login', [UserController::class, 'login']);
+
+
+// Route::group([
+
+//   'middleware' => 'api',
+//   'prefix' => 'auth'
+
+// ], function ($router) {
+
+//   Route::post('login', 'UserController@login');
+//   // Route::post('logout', 'AuthController@logout');
+//   // Route::post('refresh', 'AuthController@refresh');
+//   // Route::post('me', 'AuthController@me');
+
+// });
