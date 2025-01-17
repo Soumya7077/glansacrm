@@ -9259,12 +9259,22 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
+<<<<<<< HEAD
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+=======
+<<<<<<< HEAD
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+=======
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
+>>>>>>> fa8121f051ba5904ae3972a96984b313c6dbcc81
+>>>>>>> 5115a3fefa01c0746d54387604465f00a21dcf9a
 }
