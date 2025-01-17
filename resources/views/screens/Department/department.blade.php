@@ -92,13 +92,13 @@
                         if (response.data.length > 0) {
                             $.each(response.data, function (index, department) {
                                 rows += `<tr class="text-center align-middle">
-                                        <td>${index + 1}</td>
-                                        <td>${department.Name}</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
-                                            <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
-                                        </td>
-                                    </tr>`;
+                                            <td>${index + 1}</td>
+                                            <td>${department.Name}</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
+                                                <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
+                                            </td>
+                                        </tr>`;
                             });
                         } else {
                             rows = '<tr class="text-center"><td colspan="3">No Data Found</td></tr>';
@@ -191,7 +191,15 @@
                 }
             });
 
+            // When the Cancel button is clicked, clear the form and hide the offcanvas
             $('#cancelButton').click(function () {
+                $('#departmentForm')[0].reset();
+                $('#deptName').removeClass('is-invalid'); // Remove error class if any
+                bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasBackdrop')).hide();
+            });
+
+            // When the cross button (close) is clicked, just close the offcanvas
+            $('.btn-close').click(function () {
                 bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasBackdrop')).hide();
             });
         });
