@@ -70,13 +70,13 @@
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="fullname" placeholder="First Name" required />
                 <label for="basic-default-fullname">First Name</label>
-                <div class="invalid-feedback">Please provide a FirstName.</div>
+                <div class="invalid-feedback">Please provide a First Name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="fullname" placeholder="Last Name" required />
                 <label for="basic-default-fullname">Last Name</label>
-                <div class="invalid-feedback">Please provide a LastName.</div>
+                <div class="invalid-feedback">Please provide a Last Name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
