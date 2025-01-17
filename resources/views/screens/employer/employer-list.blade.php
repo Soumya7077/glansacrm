@@ -2,12 +2,12 @@
 @section('title', 'Employer - Employer List')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span> Employer List</h4>
+<!-- <h4><span class="text-muted fw-light">Home /</span> Employer List</h4> -->
 <div class="container-fluid mt-3 px-0">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="mb-0">Employer List</h2>
         <button class="btn btn-primary" id="clearForm" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">+Add Employer</button>
+            data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">+ Add Employer</button>
     </div>
     <h4 id="loading-spinner" class="text-primary" style="display:none;">Loading...</h4>
     <div class="table-responsive">
@@ -35,17 +35,17 @@
             <tbody id="empList">
                 <tr class="text-center align-middle">
                     <td>1</td>
-                    <td>Appolo</td>
+                    <td>Apollo</td>
                     <td>43</td>
                     <td>01/06/2025</td>
                     <td>Soumya Ranjan</td>
                     <td>1234567890</td>
-                    <td>abc@appolo.com</td>
+                    <td>abc@apollo.com</td>
                     <td>Delhi</td>
                     <td>Operation Head</td>
                     <td>Anita</td>
                     <td>1234567890</td>
-                    <td>anita@appolo.com</td>
+                    <td>anita@apollo.com</td>
                     <td>Delhi</td>
                     <td>Operation Head</td>
                     <td>Data alignment</td>
@@ -61,17 +61,17 @@
                 </tr>
                 <tr class="text-center align-middle">
                     <td>2</td>
-                    <td>Appolo</td>
+                    <td>Apollo</td>
                     <td>25</td>
                     <td>01/06/2025</td>
                     <td>Naveen Nagam</td>
                     <td>1234567890</td>
-                    <td>abc@appolo.com</td>
+                    <td>abc@apollo.com</td>
                     <td>Hyderabad</td>
                     <td>Operation Head</td>
                     <td>Anita</td>
                     <td>1234567890</td>
-                    <td>anita@appolo.com</td>
+                    <td>anita@apollo.com</td>
                     <td>Hyderabad</td>
                     <td>Operation Head</td>
                     <td>Data alignment</td>

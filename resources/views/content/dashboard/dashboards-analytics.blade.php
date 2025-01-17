@@ -134,7 +134,7 @@
         <div class="card-body justify-content-between align-items-center">
           <h5 class="card-title text-primary fw-bold mb-3">Pending Candidates</h5>
           <div class="d-flex justify-content-between">
-            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">20</h5>
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">60</h5>
             <a href="/enquiry" class="btn btn-primary">View</a>
           </div>
         </div>
@@ -147,6 +147,30 @@
           <h5 class="card-title text-primary fw-bold mb-3">Rejected Candidates</h5>
           <div class="d-flex justify-content-between">
             <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">08</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">Today's Interviews</h5>
+          <div class="d-flex justify-content-between">
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">10</h5>
+            <a href="/enquiry" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 my-3" data-aos="fade-up" data-aos-duration="1800">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body justify-content-between align-items-center">
+          <h5 class="card-title text-primary fw-bold mb-3">This Week's Interviews</h5>
+          <div class="d-flex justify-content-between">
+            <h5 id="enquiry-count" class="card-text fs-1 text-dark mb-0">80</h5>
             <a href="/enquiry" class="btn btn-primary">View</a>
           </div>
         </div>
