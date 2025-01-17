@@ -50,6 +50,7 @@ Route::post('/login', [UserController::class, 'login']);
 Route::get('/me', [UserController::class, 'me']);
 Route::get('/logout', [UserController::class, 'logout']);
 Route::put('/resetpassword', [UserController::class, 'resetpassword']);
+Route::post('/forgotPassword', [UserController::class, 'forgotPassword']);
 
 /**===================================User API End=============================================== */
 
@@ -119,6 +120,7 @@ Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'delete
 
 
 /**==================================Assign recruiter to job======================================== */
+
 
 
 

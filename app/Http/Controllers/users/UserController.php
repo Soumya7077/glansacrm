@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PasswordResetMail;
 use App\Models\UserModel;
 use Exception;
 use Hash;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -90,6 +91,42 @@ class UserController extends Controller
     }
   }
 
+
+
+
+  public function forgotPassword(Request $request)
+  {
+    try {
+      // Validate the email
+      $request->validate([
+        'Email' => 'required|email|exists:user,Email', // Ensure email exists in 'user' table
+      ]);
+
+      // Get the user by email
+      $user = UserModel::where('Email', $request->Email)->first();
+
+      if ($user) {
+        // Generate a reset link (Here we are just encoding the email, you can add a token for added security)
+        $resetLink = url('/reset-password?email=' . urlencode($user->Email));
+
+        // Send the password reset email with the link
+        Mail::to($user->Email)->send(new PasswordResetMail($resetLink));
+
+        return response()->json(['message' => 'Password reset link has been sent to your email.']);
+      } else {
+        return response()->json(['message' => 'Email not found.'], 404);
+      }
+
+    } catch (\Exception $e) {
+      return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+    }
+  }
+
+
+  public function emailpage()
+  {
+    return view('screens.email.password_reset');
+  }
 
 
   public function index()
