@@ -18,7 +18,8 @@ class UserModel extends Authenticatable implements JWTSubject
   protected $table = 'user';
   protected $guard = 'user';
   protected $fillable = [
-    'Name',
+    'FirstName',
+    'LastName',
     'Email',
     'Password',
     'RoleId',
@@ -38,7 +39,7 @@ class UserModel extends Authenticatable implements JWTSubject
     return [];
   }
 
-  
+
 
   // Disable default timestamps (created_at, updated_at)
   public $timestamps = false;

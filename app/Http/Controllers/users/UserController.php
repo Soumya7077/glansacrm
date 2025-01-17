@@ -67,6 +67,8 @@ class UserController extends Controller
   }
 
 
+  /**===================================Password reset functionality========================== */
+
 
   public function resetpassword(Request $request)
   {
@@ -90,6 +92,9 @@ class UserController extends Controller
       ], 500);
     }
   }
+
+
+  /**===================================Password reset functionality========================== */
 
 
 
@@ -188,7 +193,8 @@ class UserController extends Controller
   public function store(Request $request)
   {
     $user = UserModel::create([
-      'Name' => $request->username,
+      'FirstName' => $request->first_name,
+      'LastName' => $request->last_name,
       'RoleId' => $request->role_id,
       'Email' => $request->email,
       'Password' => bcrypt($request->password),
@@ -234,7 +240,8 @@ class UserController extends Controller
     }
 
     // Update user details directly from the request
-    $user->Name = $request->input('username');
+    $user->FirstName = $request->input('first_name');
+    $user->LastName = $request->input('last_name');
     $user->Email = $request->input('email');
     $user->RoleId = $request->input('role_id');
 
