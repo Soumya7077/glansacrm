@@ -27,6 +27,7 @@
       </tbody>
     </table>
 
+
   </div>
 </div>
 
@@ -121,33 +122,75 @@
   </div>
 </div>
 
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="errorMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this user?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 @push('scripts')
   <script>
     $(document).ready(function () {
 
+
+
     function fetchUsers() {
       $.ajax({
-      url: 'http://127.0.0.1:8000/getuser',
+      url: 'http://127.0.0.1:8000/api/getuser',
       type: 'GET',
       dataType: 'json',
       success: function (response) {
+        console.log('Response:', response);
         let rows = '';
         if (response.status === 200) {
         $.each(response.data, function (index, user) {
           rows += `<tr class="text-center align-middle">
-            <td>${index + 1}</td>
-            <td>${user.Name}</td>
-            <td>${user.last_name}</td>
-            <td>${user.email}</td>
-            <td>${user.RoleId}</td>
-            <td>
-            <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
-            <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
-            </td>
-          </tr>`;
+      <td>${index + 1}</td>
+      <td>${user.Name}</td>
+      <td>${user.last_name}</td>
+      <td>${user.email}</td>
+      <td>${user.RoleId}</td>
+      <td>
+      <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
+      <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
+      </td>
+      </tr>`;
         });
-        $('#tbody').html(rows);
+        $('#table tbody').html(rows);
         } else {
         console.error('Error fetching users:', response.message);
         }
@@ -160,10 +203,36 @@
 
     fetchUsers();
 
-    $(document).on('click', '.editBtn', function () {
-      var userId = $(this).data('id');
-      console.log('Edit user with ID:', userId);
+    let userIdToDelete;
+
+    $(document).on('click', '.deleteBtn', function () {
+      userIdToDelete = $(this).data('id');
+      $('#confirmModal').modal('show');
     });
+
+    $('#confirmDeleteButton').on('click', function () {
+      $.ajax({
+      url: `http://127.0.0.1:8000/api/delete/${userIdToDelete}`,
+      type: 'DELETE',
+      dataType: 'json',
+      success: function (response) {
+        $('#confirmModal').modal('hide');
+        $('#successMessage').text('User deleted successfully.');
+        $('#successModal').modal('show');
+        $('#successModal').on('hidden.bs.modal', function () {
+        fetchUsers();
+        });
+      },
+      error: function (error) {
+        $('#confirmModal').modal('hide');
+        $('#errorMessage').text('Error deleting user: ' + error.responseJSON.message);
+        $('#errorModal').modal('show');
+      }
+      });
+    });
+
+
+
 
     $(document).on('click', '.deleteBtn', function () {
       var userId = $(this).data('id');
