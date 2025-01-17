@@ -22,21 +22,11 @@
           <th>Actions</th>
         </tr>
       </thead>
+      <tbody>
 
-      <tbody id="">
-        <tr class="text-center align-middle">
-          <td>01</td>
-          <td>Naveen</td>
-          <td>Nagam</td>
-          <td>naveen@gmail.com</td>
-          <td>2</td>
-          <td class="text-center">
-            <a id="addbtn" class="btn btn-primary btn-sm text-white">Edit</a>
-            <a class="btn btn-danger btn-sm text-white">Delete</a>
-          </td>
-        </tr>
       </tbody>
     </table>
+
   </div>
 </div>
 
@@ -136,6 +126,53 @@
   <script>
     $(document).ready(function () {
 
+    function fetchUsers() {
+      $.ajax({
+      url: 'http://127.0.0.1:8000/getuser',
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        let rows = '';
+        if (response.status === 200) {
+        $.each(response.data, function (index, user) {
+          rows += `<tr class="text-center align-middle">
+            <td>${index + 1}</td>
+            <td>${user.Name}</td>
+            <td>${user.last_name}</td>
+            <td>${user.email}</td>
+            <td>${user.RoleId}</td>
+            <td>
+            <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
+            <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
+            </td>
+          </tr>`;
+        });
+        $('#tbody').html(rows);
+        } else {
+        console.error('Error fetching users:', response.message);
+        }
+      },
+      error: function (err) {
+        console.error('API error:', err);
+      }
+      });
+    }
+
+    fetchUsers();
+
+    $(document).on('click', '.editBtn', function () {
+      var userId = $(this).data('id');
+      console.log('Edit user with ID:', userId);
+    });
+
+    $(document).on('click', '.deleteBtn', function () {
+      var userId = $(this).data('id');
+      console.log('Delete user with ID:', userId);
+    });
+
+
+
+
     $('#addUserForm').on('submit', function (e) {
       e.preventDefault();
 
@@ -169,6 +206,7 @@
       $('#addUserForm')[0].reset();
     });
     });
+
   </script>
 @endpush
 
