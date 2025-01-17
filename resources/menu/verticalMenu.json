@@ -58,6 +58,12 @@
       "slug": "Assign Social Media Applicants"
     },
     {
+      "url": "/socialMediaForm",
+      "name": "Social media form",
+      "icon": "menu-icon tf-icons mdi mdi-clipboard-text",
+      "slug": "social Media Form"
+    },
+    {
       "url": "/applicantsapply",
       "name": "Applicant's Apply",
       "icon": "menu-icon tf-icons mdi mdi-briefcase-check",
