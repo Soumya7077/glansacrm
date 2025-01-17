@@ -2,7 +2,7 @@
 @section('title', 'Applicants - Applicants Apply')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span> Applicants Apply</h4>
+<!-- <h4><span class="text-muted fw-light">Home /</span> Applicants Apply</h4> -->
 
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">

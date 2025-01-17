@@ -2,7 +2,7 @@
 @section('title', 'Department - Department')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span> Department</h4>
+<!-- <h4><span class="text-muted fw-light">Home /</span> Department</h4> -->
 <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">Department</h5>
     <button id="addbtn" class="btn btn-primary" type="button">Add</button>

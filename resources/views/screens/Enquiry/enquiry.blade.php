@@ -3,7 +3,7 @@
 @section('title', 'Enquiry List')
 
 @section('content')
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">Home /</span> Enquiry List</h4>
+<!-- <h4 class="py-3 mb-4"><span class="text-muted fw-light">Home /</span> Enquiry List</h4> -->
 
 <div class="d-flex justify-content-between align-items-center py-3">
   <h3 class="mb-0">Enquiry List</h3>

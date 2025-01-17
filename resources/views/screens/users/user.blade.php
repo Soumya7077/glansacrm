@@ -4,12 +4,12 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center py-3">
-  <h3 class="mb-0">Users</h3>
+  <h3 class="mb-0">User Master List</h3>
   <button id="addbtn" class="btn btn-primary" type="button">Add</button>
 </div>
 
 <div>
-  <h5 class="card-header">User Master List</h5>
+  <!-- <h5 class="card-header">User Master List</h5> -->
   <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
