@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PasswordResetMail;
 use App\Models\UserModel;
 use Exception;
 use Hash;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -22,10 +23,10 @@ class UserController extends Controller
   // }
 
   public function login(Request $request)
-{
-  $user = UserModel::where('Email', $request->Email)->first();
+  {
+    $user = UserModel::where('Email', $request->Email)->first();
 
-  if ($user && Hash::check($request->Password, $user->Password)) {
+    if ($user && Hash::check($request->Password, $user->Password)) {
       $token = Auth::guard('user')->login($user);
       return $this->respondWithToken($token);
       // return response()->json([
@@ -33,27 +34,31 @@ class UserController extends Controller
       //     'token' => $token,
       //     'user' => $user,
       // ]);
+
+    }
+
+    return response()->json(['error' => 'Invalid email or password'], 401);
+
   }
-  
-  return response()->json(['error' => 'Invalid email or password'], 401);
-  
-}
 
-public function me()
-{
-  return response()->json(Auth::guard('user')->user());
-}
+  public function me()
+  {
+    return response()->json(Auth::guard('user')->user());
+  }
 
-public function logout()
-{
-  auth()->logout();
-  return response()->json(['message' => 'Logged out successfully']);
-}
-  
+  public function logout()
+  {
+    auth()->logout();
+    return response()->json(['message' => 'Logged out successfully']);
+  }
+
 
 
   protected function respondWithToken($token)
   {
+
+    session('token', $token);
+
     return response()->json([
       'access_token' => $token,
       'token_type' => 'bearer',
@@ -61,7 +66,73 @@ public function logout()
     ]);
   }
 
-  
+
+  /**===================================Password reset functionality========================== */
+
+
+  public function resetpassword(Request $request)
+  {
+    try {
+      $user = UserModel::where('Email', $request->Email)->first();
+
+      if ($user) {
+
+        $user->Password = $request->input('newPassword');
+        $user->save();
+
+        return response()->json(['message' => 'Password updated successfully', 'user' => $user], 200);
+      } else {
+        return response()->json(['message' => 'Email Not Found'], 200);
+      }
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500);
+    }
+  }
+
+
+  /**===================================Password reset functionality========================== */
+
+
+
+
+  public function forgotPassword(Request $request)
+  {
+    try {
+      // Validate the email
+      $request->validate([
+        'Email' => 'required|email|exists:user,Email', // Ensure email exists in 'user' table
+      ]);
+
+      // Get the user by email
+      $user = UserModel::where('Email', $request->Email)->first();
+
+      if ($user) {
+        // Generate a reset link (Here we are just encoding the email, you can add a token for added security)
+        $resetLink = url('/reset-password?email=' . urlencode($user->Email));
+
+        // Send the password reset email with the link
+        Mail::to($user->Email)->send(new PasswordResetMail($resetLink));
+
+        return response()->json(['message' => 'Password reset link has been sent to your email.']);
+      } else {
+        return response()->json(['message' => 'Email not found.'], 404);
+      }
+
+    } catch (\Exception $e) {
+      return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+    }
+  }
+
+
+  public function emailpage()
+  {
+    return view('screens.email.password_reset');
+  }
+
 
   public function index()
   {
@@ -122,7 +193,8 @@ public function logout()
   public function store(Request $request)
   {
     $user = UserModel::create([
-      'Name' => $request->username,
+      'FirstName' => $request->first_name,
+      'LastName' => $request->last_name,
       'RoleId' => $request->role_id,
       'Email' => $request->email,
       'Password' => bcrypt($request->password),
@@ -168,7 +240,8 @@ public function logout()
     }
 
     // Update user details directly from the request
-    $user->Name = $request->input('username');
+    $user->FirstName = $request->input('first_name');
+    $user->LastName = $request->input('last_name');
     $user->Email = $request->input('email');
     $user->RoleId = $request->input('role_id');
 

@@ -15,8 +15,8 @@
       <thead class="table-dark text-center small">
         <tr class="text-center align-middle">
           <th>S No.</th>
-          <th>First Name</th>
-          <th>Last Name</th>
+          <th>Name</th>
+          <!-- <th>Last Name</th> -->
           <th>Email</th>
           <th>Role</th>
           <th>Actions</th>
