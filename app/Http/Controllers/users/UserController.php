@@ -8,9 +8,51 @@ use Exception;
 use Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+
+  // public function __construct()
+  // {
+  //   $this->middleware('auth:api', ['except' => ['login']]);
+  // }
+
+  public function login()
+  {
+    try {
+      $credentials = request(['Email', 'Password']);
+
+      if (!$token = auth()->attempt($credentials)) {
+        return response()->json(['error' => 'Unauthorized'], 401);
+      }
+
+      return $this->respondWithToken($token);
+    } catch (\Throwable $e) {
+
+      // Log the exception for debugging
+      // \Log::error('Login error: ' . $e->getMessage(), [
+      //   'file' => $e->getFile(),
+      //   'line' => $e->getLine(),
+      //   'trace' => $e->getTraceAsString(),
+      // ]);
+
+      // Return a generic error response
+      return response()->json(['error' => $e->getMessage()], 500);
+    }
+  }
+
+  protected function respondWithToken($token)
+  {
+    return response()->json([
+      'access_token' => $token,
+      'token_type' => 'bearer',
+      'expires_in' => auth()->factory()->getTTL() * 60
+    ]);
+  }
+
+
   public function index()
   {
     return view('screens.users.user');
