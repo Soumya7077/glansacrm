@@ -2,7 +2,7 @@
 @section('title', 'Jobs - Job List')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span> Job List</h4>
+<!-- <h4><span class="text-muted fw-light">Home /</span> Job List</h4> -->
 <div class="container-fluid mt-3 px-0">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 class="mb-0">Job List</h3>

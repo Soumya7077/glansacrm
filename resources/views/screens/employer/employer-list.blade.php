@@ -2,12 +2,12 @@
 @section('title', 'Employer - Employer List')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span> Employer List</h4>
+<!-- <h4><span class="text-muted fw-light">Home /</span> Employer List</h4> -->
 <div class="container-fluid mt-3 px-0">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="mb-0">Employer List</h2>
         <button class="btn btn-primary" id="clearForm" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">+Add Employer</button>
+            data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">+ Add Employer</button>
     </div>
     <h4 id="loading-spinner" class="text-primary" style="display:none;">Loading...</h4>
     <div class="table-responsive">
