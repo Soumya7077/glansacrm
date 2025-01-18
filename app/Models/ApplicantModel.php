@@ -7,24 +7,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApplicantModel extends Model
 {
-    use HasFactory;
-    protected $table = 'applicant';
-    protected $fillable = [
-        'jobpost_id',
-        'Source',
-        'Name',
-        'Email',
-        'PhoneNumber',
-        'Experience',
-        'CurrentSalary',
-        'ExpectedSalary',
-        'Qualification',
-        'Resume',
-        'KeySkills',
-        'StatusId',
-        'CreatedOn',
-    ];
+  use HasFactory;
+  protected $table = 'applicant';
+  protected $fillable = [
+    'jobpost_id',
+    'Source',
+    'FirstName',
+    'LastName',
+    'Email',
+    'PhoneNumber',
+    'Experience',
+    'CurrentSalary',
+    'ExpectedSalary',
+    'Qualification',
+    'Resume',
+    'KeySkills',
+    'StatusId',
+    'Portfolio',
+    'Type',
+    'CurrentLocation',
+    'PreferredLocation',
+    'Height',
+    'Weight',
+    'BloodGroup',
+    'Hemoglobin%',
+    'NoticePeriod',
+    'CurrentOrganization',
+    'Certificates',
+    'Remarks',
+    'Feedback',
+    'CreatedOn',
+  ];
 
-    public $timestamps = false; // Disable default timestamps
+  public $timestamps = false; // Disable default timestamps
 
 }
