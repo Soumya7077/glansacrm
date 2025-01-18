@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Session;
 
 class UserController extends Controller
 {
@@ -28,11 +29,18 @@ class UserController extends Controller
 
     if ($user && Hash::check($request->Password, $user->Password)) {
       $token = Auth::guard('user')->login($user);
+
+      session::put('token',$token);
+
+      \Log::info('Session Data: ', Session::all());
+
       return $this->respondWithToken($token);
+      // 
       // return response()->json([
       //     'message' => 'Login successful',
       //     'token' => $token,
       //     'user' => $user,
+      //     'email'=>  $user->FirstName
       // ]);
 
     }

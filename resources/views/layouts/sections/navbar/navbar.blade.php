@@ -77,7 +77,11 @@
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0">John Doe</h6>
+@if (session()->has('token'))
+<h6 class="mb-0">{{session('token')}}</h6>
+@endif
+
+                      
                       <small class="text-muted">Admin</small>
                     </div>
                   </div>
