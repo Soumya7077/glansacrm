@@ -82,7 +82,7 @@
 
 <script>
   // document.addEventListener("DOMContentLoaded", () => {
-  //   var table = $('#table').DataTable();
+  //   var table = $('#table').();
   //   function fetchJobs() {
   //     $('#loading-spinner').show();
 
