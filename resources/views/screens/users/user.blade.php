@@ -22,7 +22,7 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tbody">
 
       </tbody>
     </table>
@@ -84,8 +84,8 @@
               <div class="form-floating form-floating-outline mb-4">
                 <select id="role_id" name="role_id" class="form-select" required>
                   <option hidden value="">Select Role</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
+                  <option value="1">Admin</option>
+                  <option value="2">Recruiter</option>
                 </select>
                 <label for="role_id">Role</label>
                 <div class="invalid-feedback">Please select a role.</div>
@@ -100,6 +100,65 @@
     </div>
   </div>
 </div>
+
+
+<!-- Edit Form Start -->
+<div class="col-lg-4 col-md-6">
+  <div class="mt-3">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditBackdrop"
+      aria-labelledby="offcanvasEditBackdropLabel">
+      <div class="offcanvas-header">
+        <h5 id="offcanvasEditBackdropLabel" class="offcanvas-titleedit"></h5>
+        <button type="button" class="btn-close text-reset"></button>
+      </div>
+      <hr>
+      <div class="offcanvas-body mx-0 flex-grow-0">
+        <form id="updateUserForm" method="POST" action="{{ route('user.store') }}">
+          @csrf
+          <input type="hidden" id="userId">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-floating form-floating-outline mb-4">
+                <input type="text" class="form-control" id="firstname" name="username" placeholder="First Name"
+                  required />
+                <label for="first_name">First Name</label>
+                <div class="invalid-feedback">Please provide a First Name.</div>
+              </div>
+
+              <div class="form-floating form-floating-outline mb-4">
+                <input type="text" class="form-control" id="lastname" name="last_name" placeholder="Last Name"
+                  required />
+                <label for="last_name">Last Name</label>
+                <div class="invalid-feedback">Please provide a Last Name.</div>
+              </div>
+
+              <div class="form-floating form-floating-outline mb-4">
+                <input type="email" class="form-control" id="Email" name="email" placeholder="Email" required />
+                <label for="email">Email</label>
+                <div class="invalid-feedback">Please provide a valid email.</div>
+              </div>
+
+              <div class="form-floating form-floating-outline mb-4">
+                <select id="roleid" name="role_id" class="form-select" required>
+                  <option hidden value="">Select Role</option>
+                  <option value="1">Admin</option>
+                  <option value="2">Recruiter</option>
+                </select>
+                <label for="roleid">Role</label>
+                <div class="invalid-feedback">Please select a role.</div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 mb-2">Update</button>
+        </form>
+
+        <button type="button" class="btn btn-outline-secondary d-grid w-100" id="cancelButton">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Form End -->
+
 </div>
 
 
@@ -169,6 +228,9 @@
 
 
     function fetchUsers() {
+
+      var table = $('#table').DataTable();
+
       $.ajax({
       url: 'http://127.0.0.1:8000/api/getuser',
       type: 'GET',
@@ -177,19 +239,25 @@
         console.log('Response:', response);
         let rows = '';
         if (response.status === 200) {
+        var tableBody = $('#tbody');
+        tableBody.empty();
         $.each(response.data, function (index, user) {
           rows += `<tr class="text-center align-middle">
       <td>${index + 1}</td>
-      <td>${user.Name}</td>
+      <td>${user.FirstName}</td>
+      <td>${user.LastName}</td>
       <td>${user.Email}</td>
-      <td>${user.RoleId}</td>
+      <td>${user.RoleId == 1 ? "Admin" : "Recruiter"}</td>
       <td>
       <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
       <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
       </td>
       </tr>`;
+
         });
-        $('#table tbody').html(rows);
+        tableBody.append(rows);
+        table.clear(); // Clear any previous DataTable data
+        table.rows.add(tableBody.find('tr')).draw();
         } else {
         console.error('Error fetching users:', response.message);
         }
@@ -232,23 +300,23 @@
 
 
 
-
     $(document).on('click', '.editBtn', function () {
       const userId = $(this).data('id');
       $.ajax({
-      url: `http://127.0.0.1:8000/api/getuser/${userId}`,
+      url: `/api/getuser/${userId}`,
       type: 'GET',
       dataType: 'json',
       success: function (response) {
-        if (response.status === 200) {
+        console.log(response)
+        if (response.status == 200) {
         const user = response.data;
         $('#userId').val(user.id);
-        $('#first_name').val(user.Name);
-        $('#last_name').val(user.last_name);
-        $('#email').val(user.email);
-        $('#role_id').val(user.RoleId);
-        $('#offcanvasBackdrop').offcanvas('show');
-        $('.offcanvas-title').text('Edit User');
+        $('#firstname').val(user.FirstName);
+        $('#lastname').val(user.LastName);
+        $('#Email').val(user.Email);
+        $('#roleid').val(user.RoleId);
+        $('#offcanvasEditBackdrop').offcanvas('show');
+        $('.offcanvas-titleedit').text('Edit User');
         }
       },
       error: function (error) {
@@ -256,6 +324,8 @@
       }
       });
     });
+
+
 
 
 
@@ -291,23 +361,7 @@
       $('.offcanvas-title').text('Add User');
     });
 
-    // $('#addUserForm').on('submit', function (e) {
-    //   e.preventDefault();
 
-    //   $.ajax({
-    //   url: "{{ route('user.store') }}",
-    //   type: "POST",
-    //   data: $(this).serialize(),
-    //   success: function (response) {
-    //     console.log(response);
-    //     $('#successModal').modal('show');
-    //     $('#addUserForm')[0].reset();
-    //   },
-    //   error: function (error) {
-    //     console.log(error.responseJSON);
-    //   }
-    //   });
-    // });
 
     $('#cancelButton').on('click', function () {
       $('#addUserForm')[0].reset();

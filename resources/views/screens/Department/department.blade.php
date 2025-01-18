@@ -80,7 +80,7 @@
     <script>
         $(document).ready(function () {
             fetchDepartments();
-
+            var table = $('#table').DataTable();
             function fetchDepartments() {
                 $('#tbody').html('<tr id="loading" class="text-center"><td colspan="3">Loading...</td></tr>');
                 $.ajax({
@@ -90,16 +90,21 @@
                     success: function (response) {
                         let rows = '';
                         if (response.data.length > 0) {
+                            var tableBody = $('#tbody');
+                            tableBody.empty();
                             $.each(response.data, function (index, department) {
                                 rows += `<tr class="text-center align-middle">
-                                            <td>${index + 1}</td>
-                                            <td>${department.Name}</td>
-                                            <td>
-                                                <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
-                                                <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
-                                            </td>
-                                        </tr>`;
+                                                <td>${index + 1}</td>
+                                                <td>${department.Name}</td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
+                                                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
+                                                </td>
+                                            </tr>`;
                             });
+                            tableBody.append(rows);
+                            table.clear(); // Clear any previous DataTable data
+                            table.rows.add(tableBody.find('tr')).draw();
                         } else {
                             rows = '<tr class="text-center"><td colspan="3">No Data Found</td></tr>';
                         }
