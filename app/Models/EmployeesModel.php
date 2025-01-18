@@ -7,13 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmployeesModel extends Model
 {
-    use HasFactory;
-    protected $table = 'employees';
-    protected $fillable = [
-        'Name',
-        'Email',
-        'Phone',
-        'Location',
-    ];
+  use HasFactory;
+  protected $table = 'employees';
+  protected $fillable = [
+    'OrganizationName',
+    'FirstContactPersonName',
+    'FirstContactPhoneNumber',
+    'FirstContactEmail',
+    'FirstContactLocation',
+    'FirstContactDesignation',
+    'SecondContactPersonName',
+    'SecondContactPhoneNumber',
+    'SecondContactEmail',
+    'SecondContactLocation',
+    'SecondContactDesignation',
+    'created_at',
+    'updated_at'
+  ];
 
 }

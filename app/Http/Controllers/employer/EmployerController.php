@@ -26,8 +26,8 @@ class EmployerController extends Controller
   {
     try {
 
-      $existingMobile = EmployeesModel::where('Phone', $request->phone)->first();
-      $existingEmail = EmployeesModel::where('Email', $request->email)->first();
+      $existingMobile = EmployeesModel::where('FirstContactPhoneNumber', $request->phone)->first();
+      $existingEmail = EmployeesModel::where('FirstContactEmail', $request->email)->first();
 
       if ($existingMobile) {
         return response()->json([
@@ -41,10 +41,19 @@ class EmployerController extends Controller
         ], 400);
       } else {
         $employer = EmployeesModel::create([
-          'Name' => $request->name,
-          'Email' => $request->email,
-          'Phone' => $request->phone,
-          'Location' => $request->location,
+          'OrganizationName' => $request->OrganizationName,
+          'FirstContactPersonName' => $request->FirstContactPersonName,
+          'FirstContactPhoneNumber' => $request->FirstContactPhoneNumber,
+          'FirstContactEmail' => $request->FirstContactEmail,
+          'FirstContactLocation' => $request->FirstContactLocation,
+          'FirstContactDesignation' => $request->FirstContactDesignation,
+          'SecondContactPersonName' => $request->SecondContactPersonName,
+          'SecondContactPhoneNumber' => $request->SecondContactPhoneNumber,
+          'SecondContactEmail' => $request->SecondContactEmail,
+          'SecondContactLocation' => $request->SecondContactLocation,
+          'SecondContactDesignation' => $request->SecondContactDesignation,
+          'created_at' => now(),
+
         ]);
 
         return response()->json([
@@ -139,10 +148,18 @@ class EmployerController extends Controller
         return response()->json(['error' => 'Employer not found'], 404);
       }
 
-      $employer->Name = $request->input('name');
-      $employer->Email = $request->input('email');
-      $employer->Phone = $request->input('phone');
-      $employer->Location = $request->input('location');
+
+      $employer->OrganizationName = $request->input('OrganizationName');
+      $employer->FirstContactPersonName = $request->input('FirstContactPersonName');
+      $employer->FirstContactPhoneNumber = $request->input('FirstContactPhoneNumber');
+      $employer->FirstContactEmail = $request->input('FirstContactEmail');
+      $employer->FirstContactLocation = $request->input('FirstContactLocation');
+      $employer->FirstContactDesignation = $request->input('FirstContactDesignation');
+      $employer->SecondContactPersonName = $request->input('SecondContactPersonName');
+      $employer->SecondContactPhoneNumber = $request->input('SecondContactPhoneNumber');
+      $employer->SecondContactEmail = $request->input('SecondContactEmail');
+      $employer->SecondContactLocation = $request->input('SecondContactLocation');
+      $employer->SecondContactDesignation = $request->input('SecondContactDesignation');
 
       $employer->save();
 
