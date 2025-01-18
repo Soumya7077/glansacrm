@@ -11,4 +11,8 @@ class ForgotPasswordBasic extends Controller
   {
     return view('content.authentications.auth-forgot-password-basic');
   }
+  public function resetPassword()
+  {
+    return view('content.authentications.reset-password');
+  }
 }
