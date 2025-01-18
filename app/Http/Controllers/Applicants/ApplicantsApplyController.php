@@ -31,8 +31,13 @@ class ApplicantsApplyController extends Controller
   {
     try {
       // Check if phone or email already exists
-      $existingMobile = ApplicantModel::where('PhoneNumber', $request->PhoneNumber)->where('jobpost_id', $request->jobpost_id)->get();
-      $existingEmail = ApplicantModel::where('Email', $request->email)->where('jobpost_id', $request->jobpost_id)->get();
+      $existingMobile = ApplicantModel::where('PhoneNumber', $request->phone)
+        ->where('jobpost_id', $request->jobpost_id)
+        ->exists();
+
+      $existingEmail = ApplicantModel::where('Email', $request->email)
+        ->where('jobpost_id', $request->jobpost_id)
+        ->exists();
       // $existingJob = ApplicantModel::where('jobpost_id', $request->jobpost_id)->first();
 
 
@@ -97,7 +102,7 @@ class ApplicantsApplyController extends Controller
           'Certificates' => $request->Certificates,
           'Remarks' => $request->Remarks,
           'Feedback' => $request->Feedback,
-          'CreatedOn' => $request->CreatedOn,
+          'CreatedOn' => now(),
         ]);
 
         return response()->json([
