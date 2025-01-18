@@ -7,40 +7,40 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobPostModel extends Model
 {
-    use HasFactory;
-    protected $table = 'job_post';
-    protected $fillable = [
-        'EmployerId',
-        'Title',
-        'Description',
-        'Opening',
-        'MaxSalary',
-        'MinSalary',
-        'JobsLocation',
-        'Education',
-        'KeySkills',
-        'MaxExerience',
-        'MinExperience',
-        'DepartmentId',
-        'Shift',
-        'Month/Year',
-        'EmploymentType',
-        'Timeline',
-        'Location',
-        'Benefits',
-        'Gender',
-        'Remarks',
-        'CreatedOn',
-        'CreatedBy',
-        'ModifyOn',
-        'ModifyBy',
+  use HasFactory;
+  protected $table = 'job_post';
+  protected $fillable = [
+    'EmployerId',
+    'Title',
+    'Description',
+    'Opening',
+    'MaxSalary',
+    'MinSalary',
+    'JobsLocation',
+    'Education',
+    'KeySkills',
+    'MaxExerience',
+    'MinExperience',
+    'Department',
+    'Shift',
+    'Month/Year',
+    'EmploymentType',
+    'Timeline',
+    'Location',
+    'Benefits',
+    'Gender',
+    'Remarks',
+    'CreatedOn',
+    'CreatedBy',
+    'ModifyOn',
+    'ModifyBy',
 
-    ];
-    // Disable default timestamps (created_at, updated_at)
-    public $timestamps = false;
+  ];
+  // Disable default timestamps (created_at, updated_at)
+  public $timestamps = false;
 
-    // Use custom timestamp fields
-    const CREATED_AT = 'CreatedOn';
-    const UPDATED_AT = 'ModifyOn';
+  // Use custom timestamp fields
+  const CREATED_AT = 'CreatedOn';
+  const UPDATED_AT = 'ModifyOn';
 
 }
