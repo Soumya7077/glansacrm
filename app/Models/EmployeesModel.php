@@ -21,8 +21,8 @@ class EmployeesModel extends Model
     'SecondContactEmail',
     'SecondContactLocation',
     'SecondContactDesignation',
-    'CreatedOn',
-    'CreatedBy'
+    'created_at',
+    'updated_at'
   ];
 
 }

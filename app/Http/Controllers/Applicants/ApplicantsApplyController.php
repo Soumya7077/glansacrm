@@ -31,9 +31,11 @@ class ApplicantsApplyController extends Controller
   {
     try {
       // Check if phone or email already exists
-      $existingMobile = ApplicantModel::where('PhoneNumber', $request->PhoneNumber)->first();
-      $existingEmail = ApplicantModel::where('Email', $request->email)->first();
-      $existingJob = ApplicantModel::where('jobpost_id', $request->jobpost_id)->first();
+      $existingMobile = ApplicantModel::where('PhoneNumber', $request->PhoneNumber)->where('jobpost_id', $request->jobpost_id)->get();
+      $existingEmail = ApplicantModel::where('Email', $request->email)->where('jobpost_id', $request->jobpost_id)->get();
+      // $existingJob = ApplicantModel::where('jobpost_id', $request->jobpost_id)->first();
+
+
 
       if ($existingMobile) {
         return response()->json([
@@ -58,12 +60,44 @@ class ApplicantsApplyController extends Controller
           'message' => 'Email already exists!'
         ], 400);
       } else {
+
+        $resumePath = $request->Resume; // Preserve current resume
+        if ($request->hasFile('Resume')) {
+          // Create a folder with the applicant's name (sanitize the name to avoid invalid characters)
+          $applicantName = preg_replace('/[^A-Za-z0-9]/', '_', $request->Name);
+          $folderPath = "resumes/{$applicantName}";
+
+          // Store the new resume file in the specific folder
+          $resumePath = $request->file('Resume')->store($folderPath, 'public');
+        }
         $applicants = ApplicantModel::create([
           // 'job'
-          'Name' => $request->name,
+          'jobpost_id' => $request->jobpost_id,
+          'Source' => $request->Source,
+          'FirstName' => $request->FirstName,
+          'LastName' => $request->LastName,
           'Email' => $request->email,
-          'Phone' => $request->phone,
-          'Location' => $request->location,
+          'PhoneNumber' => $request->phone,
+          'Experience' => $request->Experience,
+          'CurrentSalary' => $request->CurrentSalary,
+          'ExpectedSalary' => $request->ExpectedSalary,
+          'Resume' => $resumePath,
+          'KeySkills' => $request->KeySkills,
+          'StatusId' => $request->StatusId,
+          'Portfolio' => $request->Portfolio,
+          'Type' => $request->Type,
+          'CurrentLocation' => $request->CurrentLocation,
+          'PreferredLocation' => $request->PreferredLocation,
+          'Height' => $request->Height,
+          'Weight' => $request->Weight,
+          'BloodGroup' => $request->BloodGroup,
+          'Hemoglobin%' => $request->Hemoglobin,
+          'NoticePeriod' => $request->NoticePeriod,
+          'CurrentOrganization' => $request->CurrentOrganization,
+          'Certificates' => $request->Certificates,
+          'Remarks' => $request->Remarks,
+          'Feedback' => $request->Feedback,
+          'CreatedOn' => $request->CreatedOn,
         ]);
 
         return response()->json([
@@ -188,16 +222,30 @@ class ApplicantsApplyController extends Controller
       $applicant->update([
         'jobpost_id' => $request->jobpost_id,
         'Source' => $request->Source,
-        'Name' => $request->Name,
-        'Email' => $request->Email,
-        'PhoneNumber' => $request->PhoneNumber,
+        'FirstName' => $request->FirstName,
+        'LastName' => $request->LastName,
+        'Email' => $request->email,
+        'PhoneNumber' => $request->phone,
         'Experience' => $request->Experience,
         'CurrentSalary' => $request->CurrentSalary,
         'ExpectedSalary' => $request->ExpectedSalary,
-        'Qualification' => $request->Qualification,
-        'Resume' => $resumePath, // Save the updated file path
+        'Resume' => $resumePath,
         'KeySkills' => $request->KeySkills,
         'StatusId' => $request->StatusId,
+        'Portfolio' => $request->Portfolio,
+        'Type' => $request->Type,
+        'CurrentLocation' => $request->CurrentLocation,
+        'PreferredLocation' => $request->PreferredLocation,
+        'Height' => $request->Height,
+        'Weight' => $request->Weight,
+        'BloodGroup' => $request->BloodGroup,
+        'Hemoglobin%' => $request->Hemoglobin,
+        'NoticePeriod' => $request->NoticePeriod,
+        'CurrentOrganization' => $request->CurrentOrganization,
+        'Certificates' => $request->Certificates,
+        'Remarks' => $request->Remarks,
+        'Feedback' => $request->Feedback,
+        'CreatedOn' => $request->CreatedOn,
       ]);
 
       return response()->json([
