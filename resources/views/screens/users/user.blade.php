@@ -15,8 +15,8 @@
       <thead class="table-dark text-center small">
         <tr class="text-center align-middle">
           <th>S No.</th>
-          <th>Name</th>
-          <!-- <th>Last Name</th> -->
+          <th>First Name</th>
+          <th>Last Name</th>
           <th>Email</th>
           <th>Role</th>
           <th>Actions</th>
@@ -225,14 +225,12 @@
   <script>
     $(document).ready(function () {
 
-
-
     function fetchUsers() {
 
       var table = $('#table').DataTable();
 
       $.ajax({
-      url: 'http://127.0.0.1:8000/api/getuser',
+      url: '/api/getuser',
       type: 'GET',
       dataType: 'json',
       success: function (response) {
@@ -248,7 +246,7 @@
       <td>${user.LastName}</td>
       <td>${user.Email}</td>
       <td>${user.RoleId == 1 ? "Admin" : "Recruiter"}</td>
-      <td>
+      <td class="d-flex gap-2 justify-content-center align-items-center">
       <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
       <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
       </td>
@@ -256,7 +254,7 @@
 
         });
         tableBody.append(rows);
-        table.clear(); // Clear any previous DataTable data
+        table.clear();
         table.rows.add(tableBody.find('tr')).draw();
         } else {
         console.error('Error fetching users:', response.message);
@@ -279,7 +277,7 @@
 
     $('#confirmDeleteButton').on('click', function () {
       $.ajax({
-      url: `http://127.0.0.1:8000/api/delete/${userIdToDelete}`,
+      url: `/api/delete/${userIdToDelete}`,
       type: 'DELETE',
       dataType: 'json',
       success: function (response) {
@@ -297,8 +295,6 @@
       }
       });
     });
-
-
 
     $(document).on('click', '.editBtn', function () {
       const userId = $(this).data('id');
@@ -325,11 +321,6 @@
       });
     });
 
-
-
-
-
-
     $('#addUserForm').on('submit', function (e) {
       e.preventDefault();
 
@@ -353,15 +344,12 @@
       });
     });
 
-
     $('#cancelButton, .btn-close').on('click', function () {
       $('#offcanvasBackdrop').offcanvas('hide');
       $('#addUserForm')[0].reset();
       $('#userId').val('');
       $('.offcanvas-title').text('Add User');
     });
-
-
 
     $('#cancelButton').on('click', function () {
       $('#addUserForm')[0].reset();
@@ -381,5 +369,4 @@
 
   </script>
 @endpush
-
 @endsection

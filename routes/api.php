@@ -52,6 +52,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 Route::put('/resetpassword', [UserController::class, 'resetpassword']);
 Route::post('/forgotPassword', [UserController::class, 'forgotPassword']);
 
+
 /**===================================User API End=============================================== */
 
 

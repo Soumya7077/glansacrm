@@ -56,6 +56,7 @@ Route::get('/department  ', [DepartmentController::class, 'department'])->name('
 Route::get('/', [LoginBasic::class, 'index'])->name('auth-login-basic');
 Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
+Route::get('/reset-password', [ForgotPasswordBasic::class, 'resetpassword'])->name('resetpassword');
 
 
 // Enquiry APIs
