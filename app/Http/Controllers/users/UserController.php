@@ -132,7 +132,8 @@ class UserController extends Controller
   public function changePassword(Request $request)
   {
 
-    $user = UserModel::where('Email', $request->Email)->first();
+    try{
+      $user = UserModel::where('Email', $request->Email)->first();
 
 
     if ($user) {
@@ -150,6 +151,13 @@ class UserController extends Controller
       return response()->json(['error' => 'Provided email not found'], 400);
     }
 
+    }catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500);
+    }
     // // Validate the request
     // $request->validate([
     //   'currentPass' => 'required',

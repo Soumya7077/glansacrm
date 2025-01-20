@@ -10,7 +10,7 @@
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="authentication-wrapper authentication-basic container">
         <div class="authentication-inner py-4 w-100" style="max-width: 450px;">
-            <div class="card p-4">
+            <div class="card p-4" style="margin-top: -150px">
                 <!-- Logo -->
                 <div class="app-brand justify-content-center mt-3">
                     <a href="{{url('/')}}" class="app-brand-link gap-2">
@@ -30,7 +30,7 @@
                         <div class="mb-3">
                             <div class="form-password-toggle">
                                 <div class="input-group input-group-merge">
-                                    <div class="form-floating">
+                                    <div class="form-floating form-floating-outline">
                                         <input type="password" id="currentPassword" class="form-control"
                                             name="currentPassword" placeholder="Enter Old Password" required>
                                         <label for="currentPassword">Current Password</label>
@@ -44,7 +44,7 @@
                         <div class="mb-3">
                             <div class="form-password-toggle">
                                 <div class="input-group input-group-merge">
-                                    <div class="form-floating">
+                                    <div class="form-floating form-floating-outline">
                                         <input type="password" id="newPassword" class="form-control" name="newPassword"
                                             placeholder="Enter New Password" required>
                                         <label for="newPassword">New Password</label>
@@ -58,7 +58,7 @@
                         <div class="mb-3">
                             <div class="form-password-toggle">
                                 <div class="input-group input-group-merge">
-                                    <div class="form-floating">
+                                    <div class="form-floating form-floating-outline">
                                         <input type="password" id="confirmPassword" class="form-control"
                                             name="confirmPassword" placeholder="Confirm New Password" required>
                                         <label for="confirmPassword">Confirm New Password</label>
@@ -78,9 +78,27 @@
                         </div>
 
                         <!-- Error Message -->
-                        <div id="error-message" class="alert alert-danger d-none"></div>
+                        <div id="errorMessage" class="alert alert-danger d-none"></div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Password Changed Successfully</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your password has been updated successfully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -90,63 +108,99 @@
 
 @section('page-script')
 <script>
-    // Handle password change
     document.getElementById('changePasswordForm').addEventListener('submit', function (event) {
-        event.preventDefault();
+        event.preventDefault(); // Prevent form from submitting normally
 
+        // Clear previous error messages
+        document.getElementById('errorMessage').classList.add('d-none');
+        document.getElementById('errorMessage').innerHTML = '';
+
+        // Get form data
         const currentPassword = document.getElementById('currentPassword').value;
         const newPassword = document.getElementById('newPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
 
-        const userData = JSON.parse(localStorage.getItem('userData')); // Get user data from local storage
+        // Get user data from local storage
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (!userData) {
+            alert('User data not found in localStorage');
+            return;
+        }
 
-        // Form validation
+        // Validate form inputs
         if (!currentPassword || !newPassword || !confirmPassword) {
-            showError('All fields are required!');
+            showError('All fields are required.');
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            showError('New password and Confirm password must match!');
+            showError('New password and confirmation do not match.');
             return;
         }
 
-        // Send the request to change the password
-        const formData = new FormData();
-        formData.append('currentPass', currentPassword);
-        formData.append('newPass', newPassword);
-        formData.append('Email', userData.Email);
+        if (currentPassword === newPassword) {
+            showError('New password cannot be the same as the current password.');
+            return;
+        }
 
-        document.getElementById('submitBtn').disabled = true;
+        console.log(userData.Email, 'fdfddffd');
+
+        const data = {
+            "Email": userData.Email,
+            "currentPass": currentPassword,
+            "newPass": newPassword
+        }
+
+        document.getElementById('btnText').classList.add('d-none');
         document.getElementById('btnLoader').classList.remove('d-none');
 
-        fetch('/changePassword', {
-            method: 'PUT',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('submitBtn').disabled = false;
+        $.ajax({
+            url: '/api/changePassword',
+            method: 'PUT',  // HTTP Method
+            data: data,  // Data to send
+
+            beforeSend: function () {
+                document.getElementById('btnText').classList.add('d-none');
+                document.getElementById('btnLoader').classList.remove('d-none');
+            },
+            success: function (data) {
+                document.getElementById('btnText').classList.remove('d-none');
                 document.getElementById('btnLoader').classList.add('d-none');
 
                 if (data.success) {
-                    alert(data.success);
-                    // window.location.href = '/login';
+                    // Show success modal
+                    $('#successModal').modal('show');
+
+                    $('#successModal').on('hidden.bs.modal', function () {
+                        // Reset form fields
+                        document.getElementById('changePasswordForm').reset();
+
+                        // Hide error message if any
+                        document.getElementById('errorMessage').classList.add('d-none');
+                        document.getElementById('errorMessage').innerHTML = '';
+
+                        // Optionally, reset other UI elements like the loader button
+                        document.getElementById('btnText').classList.remove('d-none');
+                        document.getElementById('btnLoader').classList.add('d-none');
+                    });
                 } else {
-                    showError(data.error || 'An error occurred, please try again.');
+                    showError(data.error || 'An error occurred while changing the password.');
                 }
-            })
-            .catch(error => {
-                document.getElementById('submitBtn').disabled = false;
+            },
+            error: function (xhr, status, error) {
+                console.log('Error:', error);  // Logging the actual error
+                document.getElementById('btnText').classList.remove('d-none');
                 document.getElementById('btnLoader').classList.add('d-none');
-                showError('An error occurred, please try again.');
-            });
+                showError('An error occurred. Please try again later.');
+            }
+        });
+
     });
 
     function showError(message) {
-        const errorMessage = document.getElementById('error-message');
-        errorMessage.textContent = message;
+        const errorMessage = document.getElementById('errorMessage');
         errorMessage.classList.remove('d-none');
+        errorMessage.innerHTML = message;
     }
 </script>
 @endsection
