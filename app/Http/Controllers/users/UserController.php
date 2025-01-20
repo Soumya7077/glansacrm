@@ -131,25 +131,42 @@ class UserController extends Controller
 
   public function changePassword(Request $request)
   {
-    // Validate the request
-    $request->validate([
-      'currentPass' => 'required',
-      'newPass' => 'required|min:8|confirmed', // Laravel automatically checks confirmPass
-    ]);
 
-    // Get the currently authenticated user
-    $user = Auth::user();
+    $user = UserModel::where('Email', $request->Email)->first();
 
-    // Verify the current password
-    if (!Hash::check($request->currentPass, $user->Password)) {
-      return response()->json(['error' => 'Current password is incorrect.'], 400);
+
+    if ($user) {
+      $currentPass = $request->currentPass;
+      $newPass = $request->newPass;
+
+      if (!Hash::check($currentPass, $user->Password)) {
+        return response()->json(['error' => 'Current password is incorrect.'], 400);
+      } else {
+        $user->Password = Hash::make($newPass);
+        $user->save();
+        return response()->json(['success' => 'Password updated successfully.']);
+      }
+    } else {
+      return response()->json(['error' => 'Provided email not found'], 400);
     }
 
-    // Update the user's password
-    $user->Password = Hash::make($request->newPass);
-    $user->save();
+    // // Validate the request
+    // $request->validate([
+    //   'currentPass' => 'required',
+    //   'newPass' => 'required|min:8|confirmed', // Laravel automatically checks confirmPass
+    // ]);
 
-    return response()->json(['success' => 'Password updated successfully.']);
+
+    // // Verify the current password
+    // if (!Hash::check($request->currentPass, $user->Password)) {
+    //   return response()->json(['error' => 'Current password is incorrect.'], 400);
+    // }
+
+    // // Update the user's password
+    // $user->Password = Hash::make($request->newPass);
+    // $user->save();
+
+
   }
 
   public function emailpage()
