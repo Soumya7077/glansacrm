@@ -98,6 +98,8 @@ Route::put('/deleteassignuser/{id}', [AssigningUserController::class, 'deleteAss
 Route::post('/applicant', [ApplicantsApplyController::class, 'createApplicant']);
 Route::get('/getapplicant', [ApplicantsApplyController::class, 'getApplicant']);
 Route::get('/getapplicant/{id}', [ApplicantsApplyController::class, 'getApplicantById']);
+Route::get('/getapplicantbyjob/{id}', [ApplicantsApplyController::class, 'getApplicantByJobId']);
+Route::get('/getsmapplicant', [ApplicantsApplyController::class, 'getSocialMediaApplicant']);
 Route::put('/updateApplicant/{id}', [ApplicantsApplyController::class, 'updateApplicant']);
 Route::delete('/deleteApplicant/{id}', [ApplicantsApplyController::class, 'deleteApplicant']);
 

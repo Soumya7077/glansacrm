@@ -52,13 +52,7 @@
         <!-- /Search -->
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
-          <!-- Place this tag where you want the button to render. -->
-          <!-- <li class="nav-item lh-1 me-3">
-            <a class="github-button"
-              href="https://github.com/themeselection/materio-bootstrap-html-laravel-admin-template-free"
-              data-icon="octicon-star" data-size="large" data-show-count="true"
-              aria-label="Star themeselection/materio-bootstrap-html-laravel-admin-template-free on GitHub">Star</a>
-          </li> -->
+
 
           <!-- User -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -67,15 +61,10 @@
                 <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
               </div>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
+            <ul class="dropdown-menu dropdown-menu-end mt-3 py-2" data-bs-auto-close="outside">
               <li>
                 <a class="dropdown-item pb-2 mb-1" href="javascript:void(0);">
                   <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0 me-2 pe-1">
-                      <!-- <div class="avatar avatar-online">
-                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
-                      </div> -->
-                    </div>
                     <div class="flex-grow-1">
                       <span id="user-name" class="fw-semibold"></span>
                       <small id="roleId" class="text-muted"></small>
@@ -84,13 +73,26 @@
                 </a>
               </li>
               <li>
-                <div class="dropdown-divider my-1"></div>
+                <div class="dropdown-divider my-1"> </div>
+              </li>
+              <li>
+                <a class="dropdown-item" href="javascript:void(0);" id="changepass-btn">
+                  <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                      <i class='mdi mdi-key me-1 mdi-20px'></i>
+                      <span>Change Password</span>
+                    </div>
+                  </div>
+                </a>
               </li>
 
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
+                <a class="dropdown-item" href="javascript:void(0);" id="logout-btn">
                   <i class='mdi mdi-power me-1 mdi-20px'></i>
-                  <span class="align-middle">Log Out</span>
+                  <span class="align-middle" id="logout-text">Log Out</span>
+                  <span id="logout-spinner" class="spinner-border spinner-border-sm ms-2 d-none text-primary"
+                    role="status" aria-hidden="true"></span>
+                </a>
                 </a>
               </li>
             </ul>
@@ -117,8 +119,8 @@
             'Content-Type': 'application/json'
           },
           success: function (data) {
-            console.log(data,'kkkkkkkk');
-            
+            console.log(data, 'kkkkkkkk');
+            localStorage.setItem('userData', JSON.stringify(data));
             if (data) {
               $('#user-name').text(data.FirstName);
               let roleName = data.RoleId === 1 ? 'Admin' : data.RoleId === 2 ? 'Recruiter' : 'Unknown';
@@ -130,6 +132,40 @@
           }
         });
       }
+      $('#logout-btn').click(function (event) {
+        event.stopPropagation();
+        $('#logout-text').text('Logging out...');
+        $('#logout-spinner').removeClass('d-none'); // Show spinner
+        $('#logout-btn').addClass('disabled'); // Disable button
+
+        $.ajax({
+          url: '/api/logout',
+          type: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token.access_token,
+            'Content-Type': 'application/json'
+          },
+          success: function (response) {
+            console.log(response.message);
+
+            localStorage.removeItem('token');
+
+            // Redirect to sign-in page
+            window.location.href = '/'; // Change to your actual sign-in page URL
+          },
+          error: function (xhr, status, error) {
+            console.error('Error logging out:', error);
+            $('#logout-text').text('Log Out');
+            $('#logout-spinner').addClass('d-none'); // Hide spinner
+            $('#logout-btn').removeClass('disabled'); // Enable button
+          }
+        });
+      });
+
+      $('#changepass-btn').click(function () {
+        window.location.href = '/changepassword'; // Update with the actual Change Password URL
+      });
+
     });
   </script>
 
