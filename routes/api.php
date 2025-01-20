@@ -6,6 +6,7 @@ use App\Http\Controllers\authentications\AuthController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
+use App\Http\Controllers\SocialMedia\SmController;
 use App\Http\Controllers\users\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -127,6 +128,12 @@ Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'delete
 
 /**==================================Assign recruiter to job======================================== */
 
+
+/**=====================================Assign sm applicant to recruiter=========================== */
+
+Route::post('/assignsmapplicant', [SmController::class, 'assignSocialMediaApplicantsToRecruiter']);
+
+/**=====================================Assign sm applicant to recruiter=========================== */
 
 
 
