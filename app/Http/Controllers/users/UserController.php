@@ -111,7 +111,7 @@ class UserController extends Controller
       $user = UserModel::where('Email', $request->Email)->first();
 
       if ($user) {
-        // Generate a reset link (Here we are just encoding the email, you can add a token for added security)
+        // Generate a reset link
         $resetLink = url('/reset-password?email=' . urlencode($user->Email));
 
         // Send the password reset email with the link
@@ -121,20 +121,20 @@ class UserController extends Controller
       } else {
         return response()->json(['message' => 'Email not found.'], 404);
       }
-
     } catch (\Exception $e) {
       return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
     }
   }
 
-/**===================================Change Password functionality========================== */
 
-public function changePassword(Request $request)
-{
+  /**===================================Change Password functionality========================== */
+
+  public function changePassword(Request $request)
+  {
     // Validate the request
     $request->validate([
-        'currentPass' => 'required',
-        'newPass' => 'required|min:8|confirmed', // Laravel automatically checks confirmPass
+      'currentPass' => 'required',
+      'newPass' => 'required|min:8|confirmed', // Laravel automatically checks confirmPass
     ]);
 
     // Get the currently authenticated user
@@ -142,7 +142,7 @@ public function changePassword(Request $request)
 
     // Verify the current password
     if (!Hash::check($request->currentPass, $user->Password)) {
-        return response()->json(['error' => 'Current password is incorrect.'], 400);
+      return response()->json(['error' => 'Current password is incorrect.'], 400);
     }
 
     // Update the user's password
@@ -150,10 +150,13 @@ public function changePassword(Request $request)
     $user->save();
 
     return response()->json(['success' => 'Password updated successfully.']);
-}
+  }
 
   public function emailpage()
   {
+
+
+
     return view('screens.email.password_reset');
   }
 

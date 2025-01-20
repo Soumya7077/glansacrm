@@ -4,27 +4,25 @@ namespace App\Mail;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Bus\Queueable;
 
 class PasswordResetMail extends Mailable
 {
-    use SerializesModels;
+  use Queueable, SerializesModels;
 
-    public $token;
+  public $resetLink;
 
-    // Constructor to inject the token into the email
-    public function __construct($token)
-    {
-        $this->token = $token;
-    }
+  // Constructor to inject the token into the email
+  public function __construct($resetLink)
+  {
+    $this->resetLink = $resetLink;
+  }
 
-    // Build the email message
-    public function build()
-    {
-        return $this->subject('Password Reset Request')
-                    ->view('email.password_reset')
-                    ->with([
-                        'token' => $this->token,
-                        'url' => url('password/reset/'.$this->token), // Generate the password reset URL
-                    ]);
-    }
+  // Build the email message
+  public function build()
+  {
+    return $this->subject('Password Reset Request')
+      ->view('email.password_reset', )
+      ->with(['resetLink' => $this->resetLink]);
+  }
 }

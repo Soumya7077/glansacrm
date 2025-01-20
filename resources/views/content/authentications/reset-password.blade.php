@@ -113,7 +113,7 @@
         };
 
         $.ajax({
-            url: '{{ url("/resetpassword") }}',
+            url: '{{ url("/api/resetpassword") }}',
             type: 'PUT',
             data: JSON.stringify(data),
             contentType: 'application/json',
