@@ -14,15 +14,15 @@ class JobsController extends Controller
     return view('screens.Jobs.joblist');
   }
 
-  public function editJob($id)
-  {
-    $job = Job::find($id);
-    if ($job) {
-      return view('jobpost', compact('job'));
-    } else {
-      return redirect('/joblist')->with('error', 'Job not found');
-    }
-  }
+  // public function editJob($id)
+  // {
+  //   $job = Job::find($id);
+  //   if ($job) {
+  //     return view('jobpost', compact('job'));
+  //   } else {
+  //     return redirect('/joblist')->with('error', 'Job not found');
+  //   }
+  // }
 
 
   public function jobs()

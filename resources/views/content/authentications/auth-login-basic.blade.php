@@ -13,7 +13,7 @@
     <div class="authentication-inner py-4">
 
       <!-- Login -->
-       
+
       <div class="card p-2">
         <!-- Logo -->
         <div class="app-brand justify-content-center mt-5">
@@ -63,8 +63,8 @@
             <div class="mb-3">
               <button id="signInBtn" class="btn btn-primary d-grid w-100" type="submit">
                 <span id="btnText">Sign in</span>
-                <span id="btnLoader" class="spinner-border spinner-border-sm d-none text-primary text-center text-bold" role="status"
-                  aria-hidden="true"></span>
+                <span id="btnLoader" class="spinner-border spinner-border-sm d-none text-primary text-center text-bold"
+                  role="status" aria-hidden="true"></span>
               </button>
             </div>
 
