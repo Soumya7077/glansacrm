@@ -12,17 +12,15 @@ class PasswordResetMail extends Mailable
 
   public $resetLink;
 
-  // Constructor to inject the token into the email
   public function __construct($resetLink)
   {
     $this->resetLink = $resetLink;
   }
 
-  // Build the email message
   public function build()
   {
     return $this->subject('Password Reset Request')
-      ->view('email.password_reset', )
+      ->view('email.password_reset')
       ->with(['resetLink' => $this->resetLink]);
   }
 }

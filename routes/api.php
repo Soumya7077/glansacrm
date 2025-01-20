@@ -73,8 +73,10 @@ Route::delete('/deleteEmployer/{id}', [EmployerController::class, 'deleteEmploye
 
 Route::post('/createJob', [JobsController::class, 'createJob']);
 Route::get('/getJob', [JobsController::class, 'getAllJobs']);
-Route::get('/getJob/{id}', [JobsController::class, 'getJobsById']);
-Route::put('/updateJob/{id}', [JobsController::class, 'updateJobs']);
+// Route::get('/getJob/{id}', [JobsController::class, 'getJobsById']);
+// Route::put('/updateJob/{id}', [JobsController::class, 'updateJobs']);
+Route::get('/jobpost/{id}/edit', [JobsController::class, 'editJob'])->name('job.edit');
+Route::put('/updateJob/{id}', [JobsController::class, 'updateJob'])->name('job.update');
 Route::delete('/deleteJob/{id}', [JobsController::class, 'deleteJobs']);
 
 /**===================================Jobs API End=============================================== */
@@ -96,6 +98,8 @@ Route::put('/deleteassignuser/{id}', [AssigningUserController::class, 'deleteAss
 Route::post('/applicant', [ApplicantsApplyController::class, 'createApplicant']);
 Route::get('/getapplicant', [ApplicantsApplyController::class, 'getApplicant']);
 Route::get('/getapplicant/{id}', [ApplicantsApplyController::class, 'getApplicantById']);
+Route::get('/getapplicantbyjob/{id}', [ApplicantsApplyController::class, 'getApplicantByJobId']);
+Route::get('/getsmapplicant', [ApplicantsApplyController::class, 'getSocialMediaApplicant']);
 Route::put('/updateApplicant/{id}', [ApplicantsApplyController::class, 'updateApplicant']);
 Route::delete('/deleteApplicant/{id}', [ApplicantsApplyController::class, 'deleteApplicant']);
 

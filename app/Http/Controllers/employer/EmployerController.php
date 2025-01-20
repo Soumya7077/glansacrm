@@ -26,42 +26,42 @@ class EmployerController extends Controller
   {
     try {
 
-      $existingMobile = EmployeesModel::where('FirstContactPhoneNumber', $request->phone)->first();
-      $existingEmail = EmployeesModel::where('FirstContactEmail', $request->email)->first();
+      // $existingMobile = EmployeesModel::where('FirstContactPhoneNumber', $request->phone)->first();
+      // $existingEmail = EmployeesModel::where('FirstContactEmail', $request->email)->first();
 
-      if ($existingMobile) {
-        return response()->json([
-          'status' => 'error',
-          'message' => 'Phone Number already exists!'
-        ], 400);
-      } else if ($existingEmail) {
-        return response()->json([
-          'status' => 'error',
-          'message' => 'Email already exists!'
-        ], 400);
-      } else {
-        $employer = EmployeesModel::create([
-          'OrganizationName' => $request->OrganizationName,
-          'FirstContactPersonName' => $request->FirstContactPersonName,
-          'FirstContactPhoneNumber' => $request->FirstContactPhoneNumber,
-          'FirstContactEmail' => $request->FirstContactEmail,
-          'FirstContactLocation' => $request->FirstContactLocation,
-          'FirstContactDesignation' => $request->FirstContactDesignation,
-          'SecondContactPersonName' => $request->SecondContactPersonName,
-          'SecondContactPhoneNumber' => $request->SecondContactPhoneNumber,
-          'SecondContactEmail' => $request->SecondContactEmail,
-          'SecondContactLocation' => $request->SecondContactLocation,
-          'SecondContactDesignation' => $request->SecondContactDesignation,
-          'created_at' => now(),
+      // if ($existingMobile) {
+      //   return response()->json([
+      //     'status' => 'error',
+      //     'message' => 'Phone Number already exists!'
+      //   ], 400);
+      // } else if ($existingEmail) {
+      //   return response()->json([
+      //     'status' => 'error',
+      //     'message' => 'Email already exists!'
+      //   ], 400);
+      // } else {
+      $employer = EmployeesModel::create([
+        'OrganizationName' => $request->OrganizationName,
+        'FirstContactPersonName' => $request->FirstContactPersonName,
+        'FirstContactPhoneNumber' => $request->FirstContactPhoneNumber,
+        'FirstContactEmail' => $request->FirstContactEmail,
+        'FirstContactLocation' => $request->FirstContactLocation,
+        'FirstContactDesignation' => $request->FirstContactDesignation,
+        'SecondContactPersonName' => $request->SecondContactPersonName,
+        'SecondContactPhoneNumber' => $request->SecondContactPhoneNumber,
+        'SecondContactEmail' => $request->SecondContactEmail,
+        'SecondContactLocation' => $request->SecondContactLocation,
+        'SecondContactDesignation' => $request->SecondContactDesignation,
+        'created_at' => now(),
 
-        ]);
+      ]);
 
-        return response()->json([
-          'status' => 'success',
-          'message' => 'Employer created successfully!',
-          'data' => $employer
-        ], 201);
-      }
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Employer created successfully!',
+        'data' => $employer
+      ], 201);
+      // }
 
 
     } catch (Exception $e) {
