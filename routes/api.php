@@ -73,10 +73,10 @@ Route::delete('/deleteEmployer/{id}', [EmployerController::class, 'deleteEmploye
 
 Route::post('/createJob', [JobsController::class, 'createJob']);
 Route::get('/getJob', [JobsController::class, 'getAllJobs']);
-// Route::get('/getJob/{id}', [JobsController::class, 'getJobsById']);
-// Route::put('/updateJob/{id}', [JobsController::class, 'updateJobs']);
-Route::get('/jobpost/{id}/edit', [JobsController::class, 'editJob'])->name('job.edit');
-Route::put('/updateJob/{id}', [JobsController::class, 'updateJob'])->name('job.update');
+Route::get('/getJob/{id}', [JobsController::class, 'getJobsById']);
+Route::put('/updateJob/{id}', [JobsController::class, 'updateJobs']);
+// Route::get('/jobpost/{id}/edit', [JobsController::class, 'editJob'])->name('job.edit');
+// Route::put('/updateJob/{id}', [JobsController::class, 'updateJob'])->name('job.update');
 Route::delete('/deleteJob/{id}', [JobsController::class, 'deleteJobs']);
 
 /**===================================Jobs API End=============================================== */

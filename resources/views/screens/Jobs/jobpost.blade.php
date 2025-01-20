@@ -299,6 +299,35 @@
   fetchEmployers();
 
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const jobId = urlParams.get('job_id');
+
+  if (jobId) {
+    $.ajax({
+      url: `/api/getJob/${jobId}`,
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        console.log(response);
+        // const selectElement = $('#organisation-name');
+        // selectElement.empty();
+        // selectElement.append('<option value="" hidden>Select Organisation</option>');
+
+        // if (response && response.status === 'success' && response.data?.length > 0) {
+        //   response.data.forEach((employer) => {
+        //     selectElement.append(`<option value="${employer.id}">${employer.OrganizationName}</option>`);
+        //   });
+        // } else {
+        //   selectElement.append('<option value="">No employers found</option>');
+        // }
+      },
+      error: function () {
+        $('#deleteErrorModal').modal('show');
+      }
+    });
+  }
+
+
   $(document).ready(function () {
     $('#jobPostForm').on('submit', function (e) {
       e.preventDefault();

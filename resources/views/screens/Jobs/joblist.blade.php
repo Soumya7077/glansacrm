@@ -143,7 +143,7 @@
                   <td>
                     <div class="d-inline-flex gap-2">
                       <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-xs">View</a>
-                      <a href="/jobpost/${job.id}" class="btn btn-info btn-xs">Edit</a>
+                      <a href="/jobpost?job_id=${job.id}" class="btn btn-info btn-xs">Edit</a>
                       <button class="btn btn-danger btn-xs delete-btn" data-id="${job.id}">Delete</button>
                     </div>
                   </td>
