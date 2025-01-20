@@ -72,13 +72,13 @@
                 <a class="dropdown-item pb-2 mb-1" href="javascript:void(0);">
                   <div class="d-flex align-items-center">
                     <div class="flex-shrink-0 me-2 pe-1">
-                      <div class="avatar avatar-online">
+                      <!-- <div class="avatar avatar-online">
                         <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
-                      </div>
+                      </div> -->
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0">John Doe</h6>
-                      <small class="text-muted">Admin</small>
+                      <span id="user-name" class="fw-semibold"></span>
+                      <small id="roleId" class="text-muted"></small>
                     </div>
                   </div>
                 </a>
@@ -86,30 +86,7 @@
               <li>
                 <div class="dropdown-divider my-1"></div>
               </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);">
-                  <i class="mdi mdi-account-outline me-1 mdi-20px"></i>
-                  <span class="align-middle">My Profile</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);">
-                  <i class='mdi mdi-cog-outline me-1 mdi-20px'></i>
-                  <span class="align-middle">Settings</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);">
-                  <span class="d-flex align-items-center align-middle">
-                    <i class="flex-shrink-0 mdi mdi-credit-card-outline me-1 mdi-20px"></i>
-                    <span class="flex-grow-1 align-middle ms-1">Billing</span>
-                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider my-1"></div>
-              </li>
+
               <li>
                 <a class="dropdown-item" href="javascript:void(0);">
                   <i class='mdi mdi-power me-1 mdi-20px'></i>
@@ -126,4 +103,34 @@
     </div>
   @endif
   </nav>
+
+  <script>
+    $(document).ready(function () {
+      let token = JSON.parse(localStorage.getItem('token'));
+
+      if (token) {
+        $.ajax({
+          url: '/api/me',
+          type: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token.access_token,
+            'Content-Type': 'application/json'
+          },
+          success: function (data) {
+            console.log(data,'kkkkkkkk');
+            
+            if (data) {
+              $('#user-name').text(data.FirstName);
+              let roleName = data.RoleId === 1 ? 'Admin' : data.RoleId === 2 ? 'Recruiter' : 'Unknown';
+              $('#roleId').text(roleName);
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error('Error fetching user details:', error);
+          }
+        });
+      }
+    });
+  </script>
+
   <!-- / Navbar -->
