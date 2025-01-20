@@ -131,6 +131,8 @@
           _token: csrfToken // Include CSRF token
         },
         success: function (response) {
+          console.log(response);
+          localStorage.setItem('token', JSON.stringify(response));
           window.location.href = "{{ url('/dashboard') }}"; // Redirect to dashboard on success
         },
         error: function (xhr) {

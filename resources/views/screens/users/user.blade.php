@@ -5,12 +5,12 @@
 @section('content')
 
 @php
-$hh = session('token');
-  
+$hh =  session()->get('token');;
+  echo $hh;
 @endphp
 <div class="d-flex justify-content-between align-items-center py-3">
   <h3 class="mb-0">User Master List</h3>
-  <button id="addbtn" class="btn btn-primary" type="button">Add</button>
+  <button id="addbtn" class="btn btn-primary" type="button">Add </button>
 </div>
 
 <div>
@@ -229,6 +229,12 @@ $hh = session('token');
 @push('scripts')
   <script>
     $(document).ready(function () {
+
+      const token = <?= $hh?>;
+
+
+
+
 
     function fetchUsers() {
 

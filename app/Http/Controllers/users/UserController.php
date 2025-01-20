@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Session;
 
 class UserController extends Controller
 {
@@ -29,18 +28,11 @@ class UserController extends Controller
 
     if ($user && Hash::check($request->Password, $user->Password)) {
       $token = Auth::guard('user')->login($user);
-
-      session::put('token',$token);
-
-      \Log::info('Session Data: ', Session::all());
-
       return $this->respondWithToken($token);
-      // 
       // return response()->json([
       //     'message' => 'Login successful',
       //     'token' => $token,
       //     'user' => $user,
-      //     'email'=>  $user->FirstName
       // ]);
 
     }
@@ -135,30 +127,6 @@ class UserController extends Controller
     }
   }
 
-/**===================================Change Password functionality========================== */
-
-public function changePassword(Request $request)
-{
-    // Validate the request
-    $request->validate([
-        'currentPass' => 'required',
-        'newPass' => 'required|min:8|confirmed', // Laravel automatically checks confirmPass
-    ]);
-
-    // Get the currently authenticated user
-    $user = Auth::user();
-
-    // Verify the current password
-    if (!Hash::check($request->currentPass, $user->Password)) {
-        return response()->json(['error' => 'Current password is incorrect.'], 400);
-    }
-
-    // Update the user's password
-    $user->Password = Hash::make($request->newPass);
-    $user->save();
-
-    return response()->json(['success' => 'Password updated successfully.']);
-}
 
   public function emailpage()
   {
