@@ -169,6 +169,10 @@ class UserController extends Controller
 
   }
 
+  public function changepassview(){
+    return view('screens.ChangePassword.changepassword');
+  }
+
   public function emailpage()
   {
 

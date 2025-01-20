@@ -13,6 +13,7 @@
     <div class="authentication-inner py-4">
 
       <!-- Login -->
+       
       <div class="card p-2">
         <!-- Logo -->
         <div class="app-brand justify-content-center mt-5">
@@ -23,7 +24,7 @@
         </div>
         <!-- /Logo -->
 
-        <div class="card-body mt-2">
+        <div class="card-body mt-2 text-center">
           <h4 class="mb-2">Welcome to Glansa Health Care! 👋</h4>
           <p class="mb-4">Please sign-in to your account and start the adventure</p>
           <form id="loginForm" class="mb-3">
