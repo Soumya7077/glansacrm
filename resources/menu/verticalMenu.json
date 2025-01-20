@@ -10,7 +10,8 @@
       "url": "/jobs",
       "name": "Jobs",
       "icon": "menu-icon tf-icons mdi mdi-account-tie",
-      "slug": "Jobs"
+      "slug": "Jobs",
+      "role": 1
     },
     {
       "menuHeader": "Master List"
@@ -19,19 +20,22 @@
       "url": "/user",
       "name": "User Master List",
       "icon": "menu-icon tf-icons mdi mdi-account-check",
-      "slug": "User Creation"
+      "slug": "User Creation",
+      "role": 1
     },
     {
       "url": "/department",
       "name": "Department",
       "icon": "menu-icon tf-icons mdi mdi-file-document",
-      "slug": "Department"
+      "slug": "Department",
+      "role": 1
     },
     {
       "url": "/employerlist",
       "name": "Employer Master List",
       "icon": "menu-icon tf-icons mdi mdi-domain",
-      "slug": "Employer"
+      "slug": "Employer",
+      "role": 1
     },
     {
       "url": "/joblist",
@@ -43,13 +47,15 @@
       "url": "/assigninguser",
       "name": "Assigning User",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "Assigning User"
+      "slug": "Assigning User",
+      "role": 1
     },
     {
       "url": "/enquiry",
       "name": "Enquiry",
       "icon": "menu-icon tf-icons mdi mdi-frequently-asked-questions",
-      "slug": "Enquiry"
+      "slug": "Enquiry",
+      "role": 1
     },
     {
       "url": "/smapplicantslist",
@@ -61,19 +67,22 @@
       "url": "/socialMediaForm",
       "name": "Social media form",
       "icon": "menu-icon tf-icons mdi mdi-clipboard-text",
-      "slug": "social Media Form"
+      "slug": "social Media Form",
+      "role": 1
     },
     {
       "url": "/applicantsapply",
       "name": "Applicant's Apply",
       "icon": "menu-icon tf-icons mdi mdi-briefcase-check",
-      "slug": "Applicants Apply"
+      "slug": "Applicants Apply",
+      "role": 1
     },
     {
       "url": "/formatdetails",
       "name": "Format Details",
       "icon": "menu-icon tf-icons mdi mdi-account-box-outline",
-      "slug": "Formatted Details"
+      "slug": "Formatted Details",
+      "role": 1
     },
     {
       "url": "/formattedapplicantslist",

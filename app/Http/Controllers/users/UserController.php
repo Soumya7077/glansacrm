@@ -61,8 +61,8 @@ class UserController extends Controller
 
     return response()->json([
       'access_token' => $token,
-      'token_type' => 'bearer',
-      'expires_in' => auth()->factory()->getTTL() * 60
+      'token_type' => 'bearer'
+      // 'expires_in' => auth()->factory()->getTTL() * 60
     ]);
   }
 
@@ -169,7 +169,8 @@ class UserController extends Controller
 
   }
 
-  public function changepassview(){
+  public function changepassview()
+  {
     return view('screens.ChangePassword.changepassword');
   }
 
