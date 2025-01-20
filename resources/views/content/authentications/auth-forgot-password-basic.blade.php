@@ -53,6 +53,44 @@
   </div>
 </div>
 
+
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Password reset link has been sent to your email.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="errorMessage">
+        An error occurred. Please try again.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <script>
   document.getElementById('sendResetLink').addEventListener('click', function () {
     const email = document.getElementById('email').value;
@@ -65,11 +103,14 @@
       },
       success: function (response) {
         console.log(response);
-        alert('Password reset link has been sent to your email.');
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
       },
       error: function (xhr, status, error) {
         console.error(xhr, status, error);
-        alert('An error occurred: ' + error);
+        document.getElementById('errorMessage').textContent = 'An error occurred: ' + error;
+        var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
       }
     });
   });

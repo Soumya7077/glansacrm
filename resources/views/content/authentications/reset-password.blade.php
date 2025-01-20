@@ -60,21 +60,79 @@
     </div>
 </div>
 
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                The password has been reset successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Failed to reset password. Please try again.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    // document.getElementById('sendResetLink').addEventListener('click', function () {
-    //     const password = document.getElementById('password').value;
-    //     const confirmPassword = document.getElementById('confirmPassword').value;
+    document.getElementById('sendResetLink').addEventListener('click', function () {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
 
-    //     if (password !== confirmPassword) {
-    //         alert('Passwords do not match!');
-    //         return;
-    //     }
+        if (password !== confirmPassword) {
+            // alert('Passwords do not match!');
+            $('#errorModal').modal('show');
+            return;
+        }
+        const data = {
+            password: password,
+            confirmPassword: confirmPassword
+        };
 
+        $.ajax({
+            url: '{{ url("/resetpassword") }}',
+            type: 'PUT',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                $('#successModal').modal('show');
+                // alert('Password reset successful!');
+                window.location.href = '/';
+            },
+            error: function (error) {
+                console.error('There was an error resetting the password!', error);
+                // alert('Failed to reset password. Please try again.');
+                $('#errorModal').modal('show');
+            }
+        });
+    });
 
-
-    //     console.log('Password:', password);
-    //     console.log('Confirm Password:', confirmPassword);
-    // });
 </script>
 
 @endsection
