@@ -135,6 +135,14 @@
           console.log(response);
           localStorage.setItem('token', JSON.stringify(response));
           window.location.href = "{{ url('/dashboard') }}"; // Redirect to dashboard on success
+          setTimeout(function () {
+            if (window.history && window.history.pushState) {
+              window.history.pushState(null, null, window.location.href);
+              window.onpopstate = function () {
+                window.history.pushState(null, null, window.location.href);
+              };
+            }
+          }, 100);
         },
         error: function (xhr) {
           let errorMessage = "Invalid email or password";
@@ -156,6 +164,18 @@
       let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return regex.test(email);
     }
+
+    window.onload = function () {
+      // Prevent back navigation after login
+      if (window.history && window.history.pushState) {
+        // Push a new state to prevent going back
+        window.history.pushState(null, null, window.location.href);
+        window.onpopstate = function () {
+          window.history.pushState(null, null, window.location.href);
+        };
+      }
+    };
+
   });
 </script>
 
