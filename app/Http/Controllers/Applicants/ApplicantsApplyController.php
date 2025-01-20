@@ -27,6 +27,9 @@ class ApplicantsApplyController extends Controller
     return view('screens.Applicants.applicantlist');
   }
 
+
+  /**==============================New Applicant create======================= */
+
   public function createApplicant(Request $request)
   {
     try {
@@ -121,6 +124,11 @@ class ApplicantsApplyController extends Controller
     }
   }
 
+  /**==============================New Applicant create======================= */
+
+
+  /**===============================Get All applicant list================== */
+
   public function getApplicant()
   {
     try {
@@ -149,7 +157,11 @@ class ApplicantsApplyController extends Controller
     }
   }
 
-  // Get Employer list by id
+  /**==============================Get All applicant List======================= */
+
+
+  /**==============================Get Applicant by id====================== */
+
 
   public function getApplicantById($id)
   {
@@ -178,6 +190,11 @@ class ApplicantsApplyController extends Controller
       ], 500);
     }
   }
+
+  /**==============================Get Applicant by id====================== */
+
+
+  /**==============================Update Applicant ======================= */
 
   public function updateApplicant(Request $request, $id)
   {
@@ -268,7 +285,10 @@ class ApplicantsApplyController extends Controller
     }
   }
 
-  // Delete employer
+  /**==============================Update Applicant ======================= */
+
+
+  /**==========================Delete Applicant============================ */
 
   public function deleteApplicant($id)
   {
@@ -288,5 +308,59 @@ class ApplicantsApplyController extends Controller
       ], 500);
     }
   }
+
+  /**==========================Delete Applicant============================ */
+
+  /**============================Get Applicant list by Job Id==================== */
+
+  public function getApplicantByJobId(Request $request, $id)
+  {
+    try {
+      $applicant = ApplicantModel::where('jobpost_id', $id)->get();
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Applicant fetch by job id successfully!',
+        'data' => $applicant
+      ], 200);
+
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500); // Internal Server Error status code
+    }
+  }
+
+  /**============================Get Applicant list by Job Id==================== */
+
+
+
+
+  /**=====================================Get social media applicant============================== */
+
+
+  public function getSocialMediaApplicant()
+  {
+    try {
+      $applicant = ApplicantModel::where('Source', 'sm')->get();
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Applicant fetch by social media successfully!',
+        'data' => $applicant
+      ], 200);
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500); // Internal Server Error status code
+    }
+  }
+
+
+
+  /**=====================================Get social media applicant============================== */
+
 
 }
