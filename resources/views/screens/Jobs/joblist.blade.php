@@ -41,131 +41,169 @@
         </tr>
       </thead>
       <tbody id="jobList">
-        <td>Apollo</td>
-        <td>Clinical Positions</td>
-        <td>98</td>
-        <td>Develop and maintain healthcare services </td>
-        <td>1</td>
-        <td>Chennai</td>
-        <td>BE (Bachelor of Engineering)</td>
-        <td>Biology, Chemistry (Organic and Inorganic)</td>
-        <td>Healthcare IT</td>
-        <td>₹50,000</td>
-        <td>₹70,000</td>
-        <td>1 year</td>
-        <td>5 years</td>
-        <td>Full-Time</td>
-        <td>Within 2 weeks</td>
-        <td>Chennai</td>
-        <td>Day Shift</td>
-        <td>Health Insurance</td>
-        <td>Male</td>
-        <td>None</td>
-        <td class="text-center">
-          <div class="d-inline-flex gap-2">
-            <a href="/applicantlist" class="btn btn-sm btn-info">
-              <i class="fa fa-edit">View</i>
-            </a>
-            <a href="/jobpost" class="btn btn-sm btn-primary text-white">
-              <i class="fa fa-edit">Edit</i>
-            </a>
-            <a class="btn btn-sm btn-danger text-white">
-              <i class="fa fa-trash">Delete</i>
-            </a>
-          </div>
-        </td>
 
       </tbody>
     </table>
   </div>
 </div>
 
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Delete Job</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this job?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-  // document.addEventListener("DOMContentLoaded", () => {
-  //   var table = $('#table').();
-  //   function fetchJobs() {
-  //     $('#loading-spinner').show();
+  document.addEventListener("DOMContentLoaded", () => {
+    function fetchJobs() {
+      $('#loading-spinner').show();
 
-  //     $.ajax({
-  //       url: '/api/getJob',
-  //       type: 'GET',
-  //       dataType: 'json',
-  //       success: function (response) {
-  //         $('#loading-spinner').hide(); // Hide loading spinner
-  //         $('#table tbody').empty(); // Clear existing table rows
+      $.ajax({
+        url: '/api/getJob',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+          $('#loading-spinner').hide();
+          $('#jobList').empty();
 
-  //         if (response && response.status === 'success' && response.data?.length > 0) {
-  //           console.log(response, 'jobbbbbbbbbbbbb');
-  //           const tableBody = $('#jobList');
-  //           response.data.forEach((job, index) => {
-  //             const row = `
-  //                           <tr class="text-center small">
-  //                               <td>${job.Title || 'N/A'}</td>
-  //                               <td>${job.organisation_name || 'N/A'}</td>
-  //                               <td>${job.Opening || 'N/A'}</td>
-  //                               <td>${job.Salary || 'N/A'}</td>
-  //                               <td>${job.Location || 'N/A'}</td>
-  //                               <td>${job.Education || 'N/A'}</td>
-  //                               <td>${job.Description || 'N/A'}</td>
-  //                               <td>${job.KeySkills || 'N/A'}</td>
-  //                               <td>${job.Department || 'N/A'}</td>
-  //                               <td>${job.Experience || 'N/A'}</td>
-  //                               <td>${job.Shift || 'N/A'}</td>
-  //                               <td class="text-center">
-  //                                 <div class="d-inline-flex gap-2">
-  //                                   <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-xs">View</a>
-  //                                   <a href="/jobpost/${job.id}" class="btn btn-info btn-xs">Edit</a>
-  //                                   <buttton class="btn btn-danger btn-xs" data-id="${job.id}">Delete</button>
-  //                                 </div>
-  //                               </td>
-  //                           </tr>
-  //                       `;
-  //             $('#table tbody').append(row);
-  //           });
-  //           table.clear().rows.add(tableBody.find('tr')).draw();
-  //         } else {
-  //           $('#table tbody').append(`
-  //                       <tr>
-  //                           <td colspan="12" class="text-center">No jobs found.</td>
-  //                       </tr>
-  //                   `);
-  //         }
-  //       },
-  //       error: function () {
-  //         $('#loading-spinner').hide(); // Hide loading spinner
-  //         alert('Failed to fetch job data. Please try again later.');
-  //       },
-  //     });
-  //   }
+          if (response && response.status === 'success' && response.data?.length > 0) {
+            response.data.forEach((job) => {
+              const row = `
+                <tr class="text-center small" data-id="${job.id}">
+                  <td>${job.OrganisationName || 'N/A'}</td>
+                  <td>${job.Title || 'N/A'}</td>
+                  <td>${job.Opening || 'N/A'}</td>
+                  <td>${job.Description || 'N/A'}</td>
+                  <td>${job.Opening || 'N/A'}</td>
+                  <td>${job.JobsLocation || 'N/A'}</td>
+                  <td>${job.Education || 'N/A'}</td>
+                  <td>${job.KeySkills || 'N/A'}</td>
+                  <td>${job.Department || 'N/A'}</td>
+                  <td>${job.MinSalary || 'N/A'}</td>
+                  <td>${job.MaxSalary || 'N/A'}</td>
+                  <td>${job.MinExperience || 'N/A'}</td>
+                  <td>${job.MaxExperience || 'N/A'}</td>
+                  <td>${job.EmploymentType || 'N/A'}</td>
+                  <td>${job.Timeline || 'N/A'}</td>
+                  <td>${job.Location || 'N/A'}</td>
+                  <td>${job.Shift || 'N/A'}</td>
+                  <td>${job.Benefits || 'N/A'}</td>
+                  <td>${job.Gender || 'N/A'}</td>
+                  <td>${job.Remarks || 'N/A'}</td>
+                  <td>
+                    <div class="d-inline-flex gap-2">
+                      <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-xs">View</a>
+                      <a href="/jobpost/${job.id}" class="btn btn-info btn-xs">Edit</a>
+                      <button class="btn btn-danger btn-xs delete-btn" data-id="${job.id}">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              `;
+              $('#jobList').append(row);
+            });
+          } else {
+            $('#jobList').append(`
+              <tr>
+                <td colspan="20" class="text-center">No jobs found.</td>
+              </tr>
+            `);
+          }
+        },
+        error: function () {
+          $('#loading-spinner').hide();
+          showErrorModal('Failed to fetch job data. Please try again later.');
+        }
+      });
+    }
 
-  //   fetchJobs();
+    fetchJobs();
 
-  // $(document).on('click', '.btn-danger', function () {
-  //   const jobId = $(this).data('id');
+    $(document).on('click', '.delete-btn', function () {
+      const jobId = $(this).data('id');
+      $('#confirmationModal').modal('show');
 
-  // Confirm with the user before deletion
-  //   if (confirm('Are you sure you want to delete this job?')) {
-  //     $.ajax({
-  //       url: `/api/deleteJob/${jobId}`, // API endpoint for deletion
-  //       type: 'DELETE',
-  //       success: function (response) {
-  //         // console.log(response,'ererge');
+      $('#confirmDeleteButton').off('click').on('click', function () {
+        $.ajax({
+          url: `/api/deleteJob/${jobId}`,
+          type: 'DELETE',
+          success: function (response) {
+            $('#confirmationModal').modal('hide');
 
-  //         if (response.Status === 'success') {
-  //           alert('Job deleted successfully');
-  //           fetchJobs(); // Re-fetch the job list after deletion
-  //         } else {
-  //           alert('Failed to delete');
-  //         }
-  //       },
-  //       error: function () {
-  //         alert('Failed to delete the job. Please try again later.');
-  //       },
-  //     });
-  //   }
-  // });
+            if (response.status === 'success') {
+              showSuccessModal('Job deleted successfully');
+              $(`#jobList tr[data-id="${jobId}"]`).remove();
+            } else {
+              showErrorModal('Failed to delete the job. Please try again.');
+            }
+          },
+          error: function () {
+            $('#confirmationModal').modal('hide');
+            showErrorModal('An error occurred while trying to delete the job. Please try again later.');
+          }
+        });
+      });
+    });
 
-  // });
+    function showSuccessModal(message) {
+      $('#successModal .modal-body').text(message);
+      $('#successModal').modal('show');
+    }
+
+    function showErrorModal(message) {
+      $('#errorModal .modal-body').text(message);
+      $('#errorModal').modal('show');
+    }
+  });
 </script>
 
 @endsection
