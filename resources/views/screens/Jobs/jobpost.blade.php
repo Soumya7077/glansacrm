@@ -10,7 +10,7 @@
     <small class="text-muted float-end">Fill in the details for the job post</small>
   </div>
   <div class="card-body">
-    <form id="jobPostForm" novalidate method="POST" action="{{ url('/joblist') }}">
+    <form id="jobPostForm" novalidate>
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
@@ -92,7 +92,7 @@
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <select class="form-control" id="department" name="department" required>
+            <select class="form-control" id="department" name="DepartmentId" required>
               <option value="" hidden>Department</option>
               <option value="department">Department</option>
             </select>
@@ -105,7 +105,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="salary-min" name="Salary" placeholder="Salary" required
+            <input type="text" class="form-control" id="salary-min" name="MinSalary" placeholder="Salary" required
               pattern="^[0-9]+(\.[0-9]{1,2})?$" />
             <label for="salary-min">Minimum Salary</label>
             <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
@@ -113,13 +113,13 @@
         </div>
         <div class="col-md-6 d-flex">
           <div class="form-floating form-floating-outline mb-4 w-75">
-            <input type="text" class="form-control" id="salary-max" name="Salary" placeholder="Salary" required
+            <input type="text" class="form-control" id="salary-max" name="MaxSalary" placeholder="Salary" required
               pattern="^[0-9]+(\.[0-9]{1,2})?$" />
             <label for="salary-max">Maximum Salary</label>
             <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
           </div>
           <div class="form-floating form-floating-outline mb-4 w-25">
-            <select class="form-control" id="salary-period" name="month" required>
+            <select class="form-control" id="salary-period" name="MonthYear" required>
               <option value="month">Per Month</option>
               <option value="year">Per Year</option>
             </select>
@@ -131,7 +131,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <select class="form-control" id="employment-type" name="employmenttype" required>
+            <select class="form-control" id="employment-type" name="EmploymentType" required>
               <option value="" hidden>Employment Type</option>
               <option value="Full-Time">Full-Time</option>
               <option value="Part-Time">Part-Time</option>

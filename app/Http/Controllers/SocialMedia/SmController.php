@@ -56,13 +56,13 @@ class SmController extends Controller
 
   /**========================Get All Social media Applicant list========================== */
 
-  public function getAllSocialMediaApplicantList()
+  public function getAllSocialMediaApplicantList($id)
   {
     try {
       $assignedRecruiter = DB::table('social_media_assign')
         ->join('applicant', 'applicant.id', '=', 'social_media_assign.ApplicantId')
-        ->join('user', 'user.id', '=', 'social_media_assign.UserId')
-        ->select('recruiter_assign.*', 'job_post.*', 'user.*')
+        ->where('social_media_assign.UserId', $id)
+        ->select('social_media_assign.*', 'applicant.*')
         ->get();
 
       if ($assignedRecruiter) {
