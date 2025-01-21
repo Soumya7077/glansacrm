@@ -120,7 +120,7 @@
             response.data.forEach((job) => {
               const row = `
                 <tr class="text-center small" data-id="${job.id}">
-                  <td>${job.OrganisationName || 'N/A'}</td>
+                  <td>${job.EmployerId || 'N/A'}</td>
                   <td>${job.Title || 'N/A'}</td>
                   <td>${job.Opening || 'N/A'}</td>
                   <td>${job.Description || 'N/A'}</td>
