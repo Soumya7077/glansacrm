@@ -120,10 +120,29 @@
           </div>
           <div class="form-floating form-floating-outline mb-4 w-25">
             <select class="form-control" id="salary-period" name="MonthYear" required>
-              <option value="month">Per Month</option>
-              <option value="year">Per Year</option>
+              <option value="M">Per Month</option>
+              <option value="Y">Per Year</option>
             </select>
             <div class="invalid-feedback">Please select this field.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-floating form-floating-outline mb-4">
+            <input type="text" class="form-control" id="experience-min" name="Minexperience" placeholder="Experience"
+              required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+            <label for="experience-min">Minimum Experience</label>
+            <div class="invalid-feedback">Please enter a valid Experience</div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex">
+          <div class="form-floating form-floating-outline mb-4 w-100">
+            <input type="text" class="form-control" id="experience-max" name="Maxexperience" placeholder="Experience"
+              required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+            <label for="experience-max">Maximum Experience</label>
+            <div class="invalid-feedback">Please enter a valid Experience</div>
           </div>
         </div>
       </div>
@@ -154,8 +173,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="job-location" name="Location" placeholder="Job Location"
-              required minlength="3" />
+            <input type="text" class="form-control" id="location" name="Location" placeholder="Job Location" required
+              minlength="3" />
             <label for="job-location">Location</label>
             <div class="invalid-feedback">Please enter the job location (at least 3 characters).</div>
           </div>
@@ -311,6 +330,7 @@
         console.log("==========", response);
         if (response && response.status === 'success') {
           $('#job-title').val(response.data.Title);
+          $('#organisation-name').val(response.data.EmployerId);
           $('#job-description').val(response.data.Description);
           $('#openings').val(response.data.Opening);
           $('#shift').val(response.data.Shift);
@@ -318,9 +338,10 @@
           $('#education').val(response.data.Education);
           $('#key-skills').val(response.data.KeySkills);
           $('#department').val(response.data.Department);
-          $('#salary-min').val(response.data.SalaryMin);
-          $('#salary-max').val(response.data.SalaryMax);
-          $('#salary-period').val(response.data.month);
+          $('#salary-min').val(response.data.MinSalary);
+          $('#salary-max').val(response.data.MaxSalary);
+          $('#experience-min').val(response.data.MinExperience);
+          $('#experience-max').val(response.data.MaxExperience);
           $('#employment-type').val(response.data.employmenttype);
           $('#timeline').val(response.data.Timeline);
           $('#location').val(response.data.Location);
@@ -328,6 +349,8 @@
           $('#gender').val(response.data.Gender);
           $('#remarks').val(response.data.Remarks);
           $('#employer-id').val(response.data.EmployerId);
+          $('#salary-period').val(response.data.Month / Year);
+
 
         } else {
           $('#deleteErrorModal').modal('show');
