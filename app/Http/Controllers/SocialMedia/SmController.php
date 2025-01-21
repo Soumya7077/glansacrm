@@ -56,7 +56,7 @@ class SmController extends Controller
 
   /**========================Get All Social media Applicant list========================== */
 
-  public function getAllSocialMediaApplicantList($id)
+  public function getAllSocialMediaApplicantListByRecruiter($id)
   {
     try {
       $assignedRecruiter = DB::table('social_media_assign')
@@ -81,5 +81,35 @@ class SmController extends Controller
   }
 
   /**========================Get All Social media Applicant list========================== */
+
+
+  /**==============================Get All Sm applicant list============================= */
+
+  public function getAllSocialMediaApplicantList()
+  {
+    try {
+      $assignedRecruiter = DB::table('social_media_assign')
+        ->join('applicant', 'applicant.id', '=', 'social_media_assign.ApplicantId')
+        ->select('social_media_assign.*', 'applicant.*')
+        ->get();
+
+      if ($assignedRecruiter) {
+        return response()->json([
+          'status' => 'success',
+          'message' => 'Get Assigned Recruiter',
+          'data' => $assignedRecruiter,
+        ], 200);
+      }
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong, ' . $e->getMessage(),
+      ], 500);
+    }
+  }
+
+  /**==============================Get All Sm applicant list============================= */
+
+
 
 }
