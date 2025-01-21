@@ -103,6 +103,7 @@ Route::get('/getapplicantbyjob/{id}', [ApplicantsApplyController::class, 'getApp
 Route::get('/getsmapplicant', [ApplicantsApplyController::class, 'getSocialMediaApplicant']);
 Route::put('/updateApplicant/{id}', [ApplicantsApplyController::class, 'updateApplicant']);
 Route::delete('/deleteApplicant/{id}', [ApplicantsApplyController::class, 'deleteApplicant']);
+Route::put('/updateapplicantstatus/{id}', [ApplicantsApplyController::class, 'applicantStatusUpdate']);
 
 /**===================================Applicant API End=============================================== */
 
@@ -132,7 +133,9 @@ Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'delete
 /**=====================================Assign sm applicant to recruiter=========================== */
 
 Route::post('/assignsmapplicant', [SmController::class, 'assignSocialMediaApplicantsToRecruiter']);
-Route::get('/getassignsmapplicant/{id}', [SmController::class, 'getAllSocialMediaApplicantList']);
+Route::get('/getassignsmapplicant/{id}', [SmController::class, 'getAllSocialMediaApplicantListByRecruiter']);
+Route::get('/getallsmapplicantlist', [SmController::class, 'getAllSocialMediaApplicantList']);
+
 
 /**=====================================Assign sm applicant to recruiter=========================== */
 

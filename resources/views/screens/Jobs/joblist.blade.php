@@ -179,7 +179,7 @@
           success: function (response) {
             $('#confirmationModal').modal('hide');
 
-            if (response.status === 'success') {
+            if (response) {
               showSuccessModal('Job deleted successfully');
               $(`#jobList tr[data-id="${jobId}"]`).remove();
             } else {

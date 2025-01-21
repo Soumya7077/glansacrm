@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JobPostModel;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
@@ -128,7 +129,12 @@ class JobsController extends Controller
   public function getAllJobs()
   {
     try {
-      $jobs = JobPostModel::all();
+      // $jobs = JobPostModel::all();
+
+      $jobs = DB::table('job_post')
+        ->join('employees', 'job_post.EmployerId', '=', 'employees.id')
+        ->select('job_post.*', 'employees.OrganizationName')
+        ->get();
 
       if ($jobs) {
         return response()->json([
