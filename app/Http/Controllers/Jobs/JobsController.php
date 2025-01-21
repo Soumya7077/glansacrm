@@ -133,8 +133,8 @@ class JobsController extends Controller
 
       $jobs = DB::table('job_post')
         ->join('employees', 'employees.id', '=', 'job_post.EmployerId')
-        // ->join('departments', 'job_post.')
-        ->select('job_post.*', 'employees.OrganizationName')->orderBy('job_post.id', 'desc')
+        ->join('departments', 'departments.id', "=", 'job_post.Department')
+        ->select('job_post.*', 'employees.OrganizationName', 'departments.Name as DepartmentName')->orderBy('job_post.id', 'desc')
         ->get();
 
       if ($jobs) {
