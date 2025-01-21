@@ -23,7 +23,7 @@ class JobPostModel extends Model
     'MinExperience',
     'Department',
     'Shift',
-    'Month/Year',
+    'MonthYear',
     'EmploymentType',
     'Timeline',
     'Location',
