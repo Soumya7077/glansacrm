@@ -26,9 +26,9 @@ class AssigningUserController extends Controller
 
       if ($getRecruiter) {
         return response()->json([
-          'status' => 'success',
+          'status' => 'error',
           'message' => 'This job already assign to one recruiter',
-        ], 200);
+        ], 409);
       }
 
 
