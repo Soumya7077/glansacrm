@@ -402,7 +402,7 @@
           $('#gender').val(response.data.Gender);
           $('#remarks').val(response.data.Remarks);
           $('#employer-id').val(response.data.EmployerId);
-          $('#salary-period').val(response.data.Month / Year);
+          $('#salary-period').val(response.data.MonthYear);
 
 
         } else {
