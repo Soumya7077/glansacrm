@@ -22,6 +22,16 @@ class AssigningUserController extends Controller
   {
     try {
 
+      $getRecruiter = RecruiterAssignsModel::where('JobId', '=', $request->jobId)->first();
+
+      if ($getRecruiter) {
+        return response()->json([
+          'status' => 'success',
+          'message' => 'This job already assign to one recruiter',
+        ], 200);
+      }
+
+
       $assignRecruiter = RecruiterAssignsModel::create([
         'JobId' => $request->jobId,
         'UserId' => $request->userId,
@@ -51,13 +61,16 @@ class AssigningUserController extends Controller
 
   /**=============================Get assigned recruiter=====================================*/
 
-  public function getAssignedRecruiter()
+  public function getAssignedRecruiter($id)
   {
     try {
       $assignedRecruiter = DB::table('recruiter_assign')
         ->join('job_post', 'job_post.id', '=', 'recruiter_assign.JobId')
         ->join('user', 'user.id', '=', 'recruiter_assign.UserId')
-        ->select('recruiter_assign.*', 'job_post.*', 'user.*')
+        ->join('employees', 'job_post.EmployerId', '=', 'employees.id') // Fixed this line
+        ->join('departments', 'departments.id', '=', 'job_post.Department')
+        ->where('recruiter_assign.UserId', '=', $id)
+        ->select('recruiter_assign.*', 'job_post.*', 'user.*', 'employees.OrganizationName', 'departments.Name as DepartmentName')
         ->get();
 
       if ($assignedRecruiter) {
