@@ -40,6 +40,12 @@
       "slug": "Job List"
     },
     {
+      "url": "/allapplicantlist",
+      "name": "Applicant Master List",
+      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
+      "slug": "All Applicant List"
+    },
+    {
       "url": "/assigninguser",
       "name": "Assigning User",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",

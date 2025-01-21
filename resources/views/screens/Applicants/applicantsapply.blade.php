@@ -16,7 +16,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="first-name" placeholder="First Name" required />
+                        <input type="text" class="form-control" id="first-name" placeholder="First Name" required
+                            pattern="[A-Za-z\s]+" />
                         <label for="first-name">First Name</label>
                         <div class="invalid-feedback">Please enter your First name.</div>
                     </div>
@@ -58,12 +59,10 @@
                 <div class="col-md-6">
 
                     <div class="form-floating form-floating-outline mb-4">
-                        <select name="" id="" class="form-select">
-                            <option value=""></option>
-                            <option value="">Medical Assistant</option>
-                            <option value="">Surgeon</option>
+                        <select name="" id="applyingfor" class="form-select">
+                            <option value="">Select Job Post</option>
                         </select>
-                        <label for="Applying-For">Applying For</label>
+                        <label for="applyingfor">Applying For</label>
                     </div>
                 </div>
             </div>
@@ -79,11 +78,11 @@
                 <div class="col-md-6">
 
                     <div class="form-floating form-floating-outline mb-4">
-                        <select name="" id="" class="form-select">
-                            <option value="">Fresher</option>
-                            <option value="">Experience</option>
+                        <select name="" id="type" class="form-select">
+                            <option value="Fresher">Fresher</option>
+                            <option value="Experience">Experience</option>
                         </select>
-                        <label for="Type">Type</label>
+                        <label for="type">Type</label>
                     </div>
                 </div>
             </div>
@@ -135,14 +134,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
-                        <select name="" id="" class="form-select">
-                            <option value=""></option>
-                            <option value="">Immediate</option>
-                            <option value="">15 days</option>
-                            <option value="">1 month</option>
-                            <option value="">more than one month</option>
+                        <select name="" id="noticeperiod" class="form-select">
+                            <option value="" hidden>Select Notice Period</option>
+                            <option value="Immediate">Immediate</option>
+                            <option value="15 days">15 days</option>
+                            <option value="1 month">1 month</option>
+                            <option value="more than one month">more than one month</option>
                         </select>
-                        <label for="Notice-Period">Notice Period</label>
+                        <label for="noticeperiod">Notice Period</label>
                     </div>
 
                 </div>
@@ -153,6 +152,7 @@
                         <label for="current-organisation">Current Organisation</label>
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -172,6 +172,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
@@ -191,17 +192,8 @@
                 <div class="col-md-6">
 
                     <div class="form-floating form-floating-outline mb-4">
-                        <select name="" id="" class="form-select">
-                            <option value=""></option>
-                            <option value="">0-1</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                            <option value="">4</option>
-                            <option value="">5</option>
-                            <option value="">6</option>
-                        </select>
-                        <label for="Work-Experience">Work Experience</label>
+                        <input type="text" class="form-control" id="experience" placeholder="Experience" />
+                        <label for="experience">Work Experience</label>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -211,11 +203,18 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-floating form-floating-outline mb-4">
+                    <input type="text" class="form-control" id="KeySkills" placeholder="Skills" />
+                    <label for="KeySkills">Key Skills</label>
+                </div>
+            </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
     </div>
 
-    </form>
 </div>
 </div>
 
@@ -242,13 +241,256 @@
 
 @push('scripts')
     <script>
+        $(document).ready(function () {
 
-        $('#jobApplicationForm').on('submit', function (e) {
-            e.preventDefault();
-            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
-            $('#jobApplicationForm')[0].reset();
+            $.ajax({
+                url: '/api/getJob',
+                type: 'GET',
+                success: function (response) {
+                    if (response.status === 'success' && response.data) {
+                        const jobData = response.data; // Array of job objects
+                        const $dropdown = $('#applyingfor');
+
+                        // Loop through the job data and add options to the dropdown
+                        jobData.forEach(function (job) {
+                            const option = $('<option></option>')
+                                .val(job.id) // Set the value as the job ID
+                                .text(job.Title); // Display the job title
+                            $dropdown.append(option);
+                        });
+                    } else {
+                        console.error('Error fetching job data:', response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.error('Failed to fetch jobs:', xhr.responseText);
+                }
+            });
+
+            $('#jobApplicationForm').on('submit', function (e) {
+                e.preventDefault();
+                let isValid = true;
+
+                // First Name Validation (Only alphabets and spaces allowed)
+                let firstName = $('#first-name').val().trim();
+                if (!/^[A-Za-z\s]+$/.test(firstName)) {
+                    $('#first-name').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#first-name').removeClass('is-invalid');
+                }
+
+                // Last Name Validation (Only alphabets and spaces allowed)
+                let lastName = $('#last-name').val().trim();
+                if (!/^[A-Za-z\s]+$/.test(lastName)) {
+                    $('#last-name').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#last-name').removeClass('is-invalid');
+                }
+
+                // Phone Number Validation (Exactly 10 digits)
+                let phoneNumber = $('#phone-number').val().trim();
+                if (!/^\d{10}$/.test(phoneNumber)) {
+                    $('#phone-number').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#phone-number').removeClass('is-invalid');
+                }
+
+                // Email Validation
+                let email = $('#email').val().trim();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    $('#email').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#email').removeClass('is-invalid');
+                }
+
+                // Portfolio/LinkedIn Profile URL Validation
+                let portfolio = $('#portfolio').val().trim();
+                if (portfolio && !/^https?:\/\/[^\s]+$/.test(portfolio)) {
+                    $('#portfolio').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#portfolio').removeClass('is-invalid');
+                }
+
+                // Job Post Selection Validation
+                if ($('#applyingfor').val() === '') {
+                    $('#applyingfor').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#applyingfor').removeClass('is-invalid');
+                }
+
+                let typeValue = $('#type').val().trim();
+                if (!typeValue || typeValue === '' || typeValue === '0') { // Check if it's empty or default
+                    $('#type').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#type').removeClass('is-invalid');
+                }
+
+                // Qualification Validation
+                if ($('#highest-qualification').val().trim() === '') {
+                    $('#highest-qualification').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#highest-qualification').removeClass('is-invalid');
+                }
+
+                // Current Salary Validation (Positive Number)
+                let currentSalary = $('#current-salary').val().trim();
+                if (!/^\d+(\.\d{1,2})?$/.test(currentSalary) || currentSalary <= 0) {
+                    $('#current-salary').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#current-salary').removeClass('is-invalid');
+                }
+
+                // Expected Salary Validation (Positive Number)
+                let expectedSalary = $('#expected-salary').val().trim();
+                if (!/^\d+(\.\d{1,2})?$/.test(expectedSalary) || expectedSalary <= 0) {
+                    $('#expected-salary').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#expected-salary').removeClass('is-invalid');
+                }
+
+                // // Height Validation (Non-negative number)
+                // let height = $('#height').val().trim();
+                // if (height && (!/^\d+(\.\d{1,2})?$/.test(height) || height < 0)) {
+                //     $('#height').addClass('is-invalid');
+                //     isValid = false;
+                // } else {
+                //     $('#height').removeClass('is-invalid');
+                // }
+
+                // // Weight Validation (Non-negative number)
+                // let weight = $('#weight').val().trim();
+                // if (weight && (!/^\d+(\.\d{1,2})?$/.test(weight) || weight < 0)) {
+                //     $('#weight').addClass('is-invalid');
+                //     isValid = false;
+                // } else {
+                //     $('#weight').removeClass('is-invalid');
+                // }
+
+                // // Blood Group Validation (A+, A-, B+, B-, O+, O-, AB+, AB-)
+                // let bloodGroup = $('#blood-group').val().trim();
+                // if (bloodGroup && !/^(A|B|O|AB)[+-]$/.test(bloodGroup)) {
+                //     $('#blood-group').addClass('is-invalid');
+                //     isValid = false;
+                // } else {
+                //     $('#blood-group').removeClass('is-invalid');
+                // }
+
+                // // Hemoglobin Validation (Non-negative number)
+                // let hemoglobin = $('#hemoglobin').val().trim();
+                // if (hemoglobin && (!/^\d+(\.\d{1,2})?$/.test(hemoglobin) || hemoglobin < 0)) {
+                //     $('#hemoglobin').addClass('is-invalid');
+                //     isValid = false;
+                // } else {
+                //     $('#hemoglobin').removeClass('is-invalid');
+                // }
+
+                // Notice Period Validation
+                if ($('#noticeperiod').val() === '') {
+                    $('#noticeperiod').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#noticeperiod').removeClass('is-invalid');
+                }
+
+                // Resume Upload Validation
+                if ($('#resume')[0].files.length === 0) {
+                    $('#resume').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#resume').removeClass('is-invalid');
+                }
+
+                if (isValid) {
+                    var formData = new FormData(this);
+                    formData.append('jobpost_id', $('#applyingfor').val());
+                    formData.append('Source', 'Website');
+                    formData.append('FirstName', $('#first-name').val());
+                    formData.append('LastName', $('#last-name').val());
+                    formData.append('email', $('#email').val());
+                    formData.append('phone', $('#phone-number').val());
+                    formData.append('Qualification', $('#highest-qualification').val());
+                    // formData.append('Applying For', $('#applyingfor').val());
+                    formData.append('Experience', $('#experience').val());
+                    formData.append('CurrentSalary', $('#current-salary').val());
+                    formData.append('ExpectedSalary', $('#expected-salary').val());
+                    formData.append('Resume', $('#resume')[0].files[0]); // Get the file input
+                    formData.append('KeySkills', $('#KeySkills').val());
+                    formData.append('StatusId', 1);
+                    formData.append('Portfolio', $('#portfolio').val());
+                    formData.append('Type', $('#type').val());
+                    formData.append('CurrentLocation', $('#current-location').val());
+                    formData.append('PreferredLocation', $('#preferred-location').val());
+                    formData.append('Height', $('#height').val());
+                    formData.append('Weight', $('#weight').val());
+                    formData.append('BloodGroup', $('#blood-group').val());
+                    formData.append('Hemoglobin', $('#hemoglobin').val());
+                    formData.append('NoticePeriod', $('#noticeperiod').val());
+                    formData.append('CurrentOrganization', $('#current-organisation').val());
+                    formData.append('Certificates', $('#certificates')[0].files[0]);
+                    formData.append('Remarks', $('#remarks').val());
+                    // formData.append('Feedback', $('#Feedback').val());
+
+                    $.ajax({
+                        url: '/api/applicant', // Your API endpoint
+                        type: 'POST',
+                        data: formData,
+                        processData: false, // Important: Prevent jQuery from converting the data into a query string
+                        contentType: false, // Important: Let the browser set the correct Content-Type
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Ensure CSRF token is included
+                        },
+                        beforeSend: function () {
+                            // Disable submit button to prevent multiple clicks
+                            $('button[type="submit"]').prop('disabled', true);
+                        },
+                        success: function (response) {
+                            if (response.status === 'success') {
+                                // Show success modal
+                                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                                successModal.show();
+
+                                // Reset the form
+                                $('#jobApplicationForm')[0].reset();
+                            } else {
+                                // Show error message (if any)
+                                console.log(response.message, 'wewgwefwe');
+                            }
+                        },
+                        error: function (xhr) {
+                            var errors = xhr.responseJSON;
+
+                            if (errors && errors.message) {
+                                console.log(errors.message);
+                            } else {
+                                console.log('Something went wrong. Please try again.');
+                            }
+                        },
+                        complete: function () {
+                            // Re-enable submit button
+                            $('button[type="submit"]').prop('disabled', false);
+                        }
+                    });
+                }
+
+            });
         });
+
+        // $('#jobApplicationForm').on('submit', function (e) {
+        //     e.preventDefault();
+        //     var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        //     successModal.show();
+        //     $('#jobApplicationForm')[0].reset();
+        // });
 
     </script>
 @endpush

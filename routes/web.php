@@ -38,6 +38,7 @@ Route::get('/applicantsapply', [ApplicantsApplyController::class, 'applicantsapp
 Route::get('/smapplicantslist', [ApplicantsApplyController::class, 'smapplicantslist'])->name('Assign Social Media Applicants');
 Route::get('/socialMediaForm', [ApplicantsApplyController::class, 'socialMediaForm'])->name('social Media Form');
 Route::get('/applicantlist', [ApplicantsApplyController::class, 'applicantlist'])->name('Applicant List');
+Route::get('/allapplicantlist', [ApplicantsApplyController::class, 'allapplicantlist'])->name('All Applicant List');
 Route::get('/assigninguser', [AssigningUserController::class, 'assigninguser'])->name('Assigning User');
 
 Route::get('/employerlist', [EmployerController::class, 'index'])->name('Employer');
