@@ -108,13 +108,16 @@
     var table = $('#table').DataTable();
     function fetchJobs() {
       $('#loading-spinner').show();
+      let userData = JSON.parse(localStorage.getItem('userData'));
+
+
 
       $.ajax({
-        url: '/api/getJob',
+        url: userData?.RoleId == 1 ? '/api/getJob' : `/api/assignedrecruiter/${userData?.id}`,
         type: 'GET',
         dataType: 'json',
         success: function (response) {
-          console.log(response);
+          // console.log(response);
           $('#loading-spinner').hide();
           // $('#jobList').empty();
           var tableBody = $('#tbody');
