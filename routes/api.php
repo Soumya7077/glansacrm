@@ -6,6 +6,7 @@ use App\Http\Controllers\authentications\AuthController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
+use App\Http\Controllers\SocialMedia\SmController;
 use App\Http\Controllers\users\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -73,10 +74,10 @@ Route::delete('/deleteEmployer/{id}', [EmployerController::class, 'deleteEmploye
 
 Route::post('/createJob', [JobsController::class, 'createJob']);
 Route::get('/getJob', [JobsController::class, 'getAllJobs']);
-// Route::get('/getJob/{id}', [JobsController::class, 'getJobsById']);
-// Route::put('/updateJob/{id}', [JobsController::class, 'updateJobs']);
-Route::get('/jobpost/{id}/edit', [JobsController::class, 'editJob'])->name('job.edit');
-Route::put('/updateJob/{id}', [JobsController::class, 'updateJob'])->name('job.update');
+Route::get('/getJob/{id}', [JobsController::class, 'getJobsById']);
+Route::put('/updateJob/{id}', [JobsController::class, 'updateJobs']);
+// Route::get('/jobpost/{id}/edit', [JobsController::class, 'editJob'])->name('job.edit');
+// Route::put('/updateJob/{id}', [JobsController::class, 'updateJob'])->name('job.update');
 Route::delete('/deleteJob/{id}', [JobsController::class, 'deleteJobs']);
 
 /**===================================Jobs API End=============================================== */
@@ -102,6 +103,7 @@ Route::get('/getapplicantbyjob/{id}', [ApplicantsApplyController::class, 'getApp
 Route::get('/getsmapplicant', [ApplicantsApplyController::class, 'getSocialMediaApplicant']);
 Route::put('/updateApplicant/{id}', [ApplicantsApplyController::class, 'updateApplicant']);
 Route::delete('/deleteApplicant/{id}', [ApplicantsApplyController::class, 'deleteApplicant']);
+Route::put('/updateapplicantstatus/{id}', [ApplicantsApplyController::class, 'applicantStatusUpdate']);
 
 /**===================================Applicant API End=============================================== */
 
@@ -127,6 +129,15 @@ Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'delete
 
 /**==================================Assign recruiter to job======================================== */
 
+
+/**=====================================Assign sm applicant to recruiter=========================== */
+
+Route::post('/assignsmapplicant', [SmController::class, 'assignSocialMediaApplicantsToRecruiter']);
+Route::get('/getassignsmapplicant/{id}', [SmController::class, 'getAllSocialMediaApplicantListByRecruiter']);
+Route::get('/getallsmapplicantlist', [SmController::class, 'getAllSocialMediaApplicantList']);
+
+
+/**=====================================Assign sm applicant to recruiter=========================== */
 
 
 

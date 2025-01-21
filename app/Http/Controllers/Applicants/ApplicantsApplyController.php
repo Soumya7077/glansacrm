@@ -367,4 +367,33 @@ class ApplicantsApplyController extends Controller
   /**=====================================Get social media applicant============================== */
 
 
+  /**====================================Update Applicant Status================================ */
+
+  public function applicantStatusUpdate(Request $request, $id)
+  {
+    try {
+      $applicant = ApplicantModel::find($id)->first();
+
+      $applicant->StatusId = $request->status;
+      $applicant->Feedback = $request->feedback;
+
+      $applicant->save();
+
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Applicant Status Updated successfully',
+        'data' => $applicant
+      ], 200);
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500); // Internal Server Error status code
+    }
+  }
+
+  /**====================================Update Applicant Status================================ */
+
+
 }

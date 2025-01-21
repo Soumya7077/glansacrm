@@ -40,7 +40,7 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody id="jobList">
+      <tbody id="tbody">
 
       </tbody>
     </table>
@@ -105,6 +105,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    var table = $('#table').DataTable();
     function fetchJobs() {
       $('#loading-spinner').show();
 
@@ -113,14 +114,16 @@
         type: 'GET',
         dataType: 'json',
         success: function (response) {
+          console.log(response);
           $('#loading-spinner').hide();
-          $('#jobList').empty();
-
-          if (response && response.status === 'success' && response.data?.length > 0) {
+          // $('#jobList').empty();
+          var tableBody = $('#tbody');
+          tableBody.empty();
+          if (response) {
             response.data.forEach((job) => {
-              const row = `
+              const rows = `
                 <tr class="text-center small" data-id="${job.id}">
-                  <td>${job.OrganisationName || 'N/A'}</td>
+                  <td>${job.OrganizationName || 'N/A'}</td>
                   <td>${job.Title || 'N/A'}</td>
                   <td>${job.Opening || 'N/A'}</td>
                   <td>${job.Description || 'N/A'}</td>
@@ -128,7 +131,7 @@
                   <td>${job.JobsLocation || 'N/A'}</td>
                   <td>${job.Education || 'N/A'}</td>
                   <td>${job.KeySkills || 'N/A'}</td>
-                  <td>${job.Department || 'N/A'}</td>
+                  <td>${job.DepartmentName || 'N/A'}</td>
                   <td>${job.MinSalary || 'N/A'}</td>
                   <td>${job.MaxSalary || 'N/A'}</td>
                   <td>${job.MinExperience || 'N/A'}</td>
@@ -143,14 +146,17 @@
                   <td>
                     <div class="d-inline-flex gap-2">
                       <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-xs">View</a>
-                      <a href="/jobpost/${job.id}" class="btn btn-info btn-xs">Edit</a>
+                      <a href="/jobpost?job_id=${job.id}" class="btn btn-info btn-xs">Edit</a>
                       <button class="btn btn-danger btn-xs delete-btn" data-id="${job.id}">Delete</button>
                     </div>
                   </td>
                 </tr>
               `;
-              $('#jobList').append(row);
+              tableBody.append(rows);
+
             });
+            table.clear(); // Clear any previous DataTable data
+            table.rows.add(tableBody.find('tr')).draw();
           } else {
             $('#jobList').append(`
               <tr>
@@ -179,7 +185,7 @@
           success: function (response) {
             $('#confirmationModal').modal('hide');
 
-            if (response.status === 'success') {
+            if (response) {
               showSuccessModal('Job deleted successfully');
               $(`#jobList tr[data-id="${jobId}"]`).remove();
             } else {

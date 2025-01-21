@@ -132,26 +132,26 @@ class UserController extends Controller
   public function changePassword(Request $request)
   {
 
-    try{
+    try {
       $user = UserModel::where('Email', $request->Email)->first();
 
 
-    if ($user) {
-      $currentPass = $request->currentPass;
-      $newPass = $request->newPass;
+      if ($user) {
+        $currentPass = $request->currentPass;
+        $newPass = $request->newPass;
 
-      if (!Hash::check($currentPass, $user->Password)) {
-        return response()->json(['error' => 'Current password is incorrect.'], 400);
+        if (!Hash::check($currentPass, $user->Password)) {
+          return response()->json(['error' => 'Current password is incorrect.'], 400);
+        } else {
+          $user->Password = Hash::make($newPass);
+          $user->save();
+          return response()->json(['success' => 'Password updated successfully.']);
+        }
       } else {
-        $user->Password = Hash::make($newPass);
-        $user->save();
-        return response()->json(['success' => 'Password updated successfully.']);
+        return response()->json(['error' => 'Provided email not found'], 400);
       }
-    } else {
-      return response()->json(['error' => 'Provided email not found'], 400);
-    }
 
-    }catch (Exception $e) {
+    } catch (Exception $e) {
       return response()->json([
         'status' => 'error',
         'message' => 'Something went wrong! Please try again.',
@@ -177,7 +177,8 @@ class UserController extends Controller
 
   }
 
-  public function changepassview(){
+  public function changepassview()
+  {
     return view('screens.ChangePassword.changepassword');
   }
 

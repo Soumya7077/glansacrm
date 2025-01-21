@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JobPostModel;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
@@ -13,17 +14,6 @@ class JobsController extends Controller
   {
     return view('screens.Jobs.joblist');
   }
-
-  public function editJob($id)
-  {
-    $job = Job::find($id);
-    if ($job) {
-      return view('jobpost', compact('job'));
-    } else {
-      return redirect('/joblist')->with('error', 'Job not found');
-    }
-  }
-
 
   public function jobs()
   {
@@ -101,11 +91,11 @@ class JobsController extends Controller
         'JobsLocation' => $request->JobsLocation,
         'Education' => $request->Education,
         'KeySkills' => $request->KeySkills,
-        'MaxExerience' => $request->MaxExerience,
-        'MinExperience' => $request->MinExerience,
+        'MaxExperience' => $request->MaxExperience,
+        'MinExperience' => $request->MinExperience,
         'Department' => $request->DepartmentId,
         'Shift' => $request->Shift,
-        'Month/Year' => $request->MonthYear,
+        'MonthYear' => $request->MonthYear,
         'EmploymentType' => $request->EmploymentType,
         'Timeline' => $request->Timeline,
         'Location' => $request->Location,
@@ -139,7 +129,13 @@ class JobsController extends Controller
   public function getAllJobs()
   {
     try {
-      $jobs = JobPostModel::all();
+      // $jobs = JobPostModel::all();
+
+      $jobs = DB::table('job_post')
+        ->join('employees', 'employees.id', '=', 'job_post.EmployerId')
+        ->join('departments', 'departments.id', "=", 'job_post.Department')
+        ->select('job_post.*', 'employees.OrganizationName', 'departments.Name as DepartmentName')->orderBy('job_post.id', 'desc')
+        ->get();
 
       if ($jobs) {
         return response()->json([
@@ -215,11 +211,11 @@ class JobsController extends Controller
         'JobsLocation' => $request->JobsLocation,
         'Education' => $request->Education,
         'KeySkills' => $request->KeySkills,
-        'MaxExerience' => $request->MaxExerience,
-        'MinExperience' => $request->MinExerience,
+        'MaxExperience' => $request->MaxExperience,
+        'MinExperience' => $request->MinExperience,
         'Department' => $request->DepartmentId,
         'Shift' => $request->Shift,
-        'Month/Year' => $request->MonthYear,
+        'MonthYear' => $request->MonthYear,
         'EmploymentType' => $request->EmploymentType,
         'Timeline' => $request->Timeline,
         'Location' => $request->Location,
