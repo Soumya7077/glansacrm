@@ -3,8 +3,6 @@
 @section('title', 'Enquiry List')
 
 @section('content')
-<!-- <h4 class="py-3 mb-4"><span class="text-muted fw-light">Home /</span> Enquiry List</h4> -->
-
 <div class="d-flex justify-content-between align-items-center py-3">
   <h3 class="mb-0">Enquiry List</h3>
   <a href="/enquiryForm" class="btn btn-primary">Add Enquiry </a>
@@ -12,6 +10,14 @@
 
 <div>
   <div class="table-responsive">
+    <div id="loading" class="text-center py-4">
+      <span class="spinner-border text-primary" role="status"></span>
+      <span class="ml-2">Loading...</span>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="alert alert-danger d-none text-center"></div>
+
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
         <tr class="text-center align-middle">
@@ -30,38 +36,62 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="text-center align-middle">
-          <td>01</td>
-          <td>John</td>
-          <td>Doe</td>
-          <td>9876543210</td>
-          <td>john@example.com</td>
-          <td>BE</td>
-          <td>Clinical Positions</td>
-          <td>3 Years</td>
-          <td>50000</td>
-          <td>70000</td>
-          <td></td>
-          <td><a class="btn btn-info text-white btn-sm">View</a></td>
-
-        </tr>
-        <tr class="text-center align-middle">
-          <td>02</td>
-          <td>Jane</td>
-          <td>Doe</td>
-          <td>9123456789</td>
-          <td>jane@example.com</td>
-          <td>BE</td>
-          <td>Clinical Positions</td>
-          <td>5 Years</td>
-          <td>60000</td>
-          <td>80000</td>
-          <td></td>
-          <td><a class="btn btn-info text-white btn-sm">View</a></td>
-        </tr>
       </tbody>
     </table>
   </div>
 </div>
 
+<script>
+  $(document).ready(function () {
+    $("#loading").show(); // Show loading indicator
+    $("#error-message").hide(); // Hide error message initially
+
+    $.ajax({
+      url: "/api/getapplicant",
+      method: "GET",
+      dataType: "json",
+      success: function (response) {
+        if (response.status === "success") {
+          let applicants = response.data.filter(applicant => applicant.Source === "Enquiry");
+          let tableBody = $("#table tbody");
+          tableBody.empty(); // Clear previous data
+
+          if (applicants.length === 0) {
+            $("#error-message").removeClass("d-none").text("No Enquiry Data Available");
+          } else {
+            applicants.forEach((applicant, index) => {
+              let resumeLink = applicant.Resume ? `<a href="/${applicant.Resume}" target="_blank">View Resume</a>` : "N/A";
+              let row = `<tr class="text-center align-middle">
+                <td>${index + 1}</td>
+                <td>${applicant.FirstName}</td>
+                <td>${applicant.LastName}</td>
+                <td>${applicant.PhoneNumber}</td>
+                <td>${applicant.Email}</td>
+                <td>${applicant.Qualification ?? "N/A"}</td>
+                <td>${applicant.jobpost_id}</td>
+                <td>${applicant.Experience}</td>
+                <td>${applicant.CurrentSalary}</td>
+                <td>${applicant.ExpectedSalary}</td>
+                <td>${applicant.Remarks ?? "N/A"}</td>
+                <td>${resumeLink}</td>
+              </tr>`;
+              tableBody.append(row);
+            });
+
+            $("#table").removeClass("d-none"); // Show the table
+          }
+        } else {
+          $("#error-message").removeClass("d-none").text(response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("AJAX error:", error);
+        $("#error-message").removeClass("d-none").text("Failed to load data. Please try again later.");
+      },
+      complete: function () {
+        $("#loading").hide(); // Hide loading indicator once AJAX completes
+      }
+    });
+  });
+</script>
 @endsection

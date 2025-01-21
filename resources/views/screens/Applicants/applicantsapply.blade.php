@@ -6,8 +6,7 @@
 
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Applicants Apply</h5> <small class="text-muted float-end">Please provide your details
-            below</small>
+        <h5 class="mb-0">Applicants Apply</h5> <small class="text-muted float-end">* - Mandatory Fields</small>
     </div>
     <div class="card-body">
         <form id="jobApplicationForm" class="needs-validation" novalidate>
@@ -18,14 +17,14 @@
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="text" class="form-control" id="first-name" placeholder="First Name" required
                             pattern="[A-Za-z\s]+" />
-                        <label for="first-name">First Name</label>
+                        <label for="first-name">First Name *</label>
                         <div class="invalid-feedback">Please enter your First name.</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="text" class="form-control" id="last-name" placeholder="Last Name" required />
-                        <label for="last-name">Last Name</label>
+                        <label for="last-name">Last Name *</label>
                         <div class="invalid-feedback">Please enter your Last name.</div>
                     </div>
                 </div>
@@ -35,14 +34,14 @@
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="tel" class="form-control" id="phone-number" placeholder="Phone Number"
                             maxlength="10" required />
-                        <label for="phone-number">Phone Number</label>
+                        <label for="phone-number">Phone Number *</label>
                         <div class="invalid-feedback">Please enter a valid phone number.</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="email" class="form-control" id="email" placeholder="Email" required />
-                        <label for="email">Email</label>
+                        <label for="email">Email *</label>
                         <div class="invalid-feedback">Please enter a valid email address.</div>
                     </div>
                 </div>
@@ -62,7 +61,7 @@
                         <select name="" id="applyingfor" class="form-select">
                             <option value="">Select Job Post</option>
                         </select>
-                        <label for="applyingfor">Applying For</label>
+                        <label for="applyingfor">Applying For *</label>
                     </div>
                 </div>
             </div>
@@ -71,7 +70,7 @@
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="text" class="form-control" id="highest-qualification"
                             placeholder="Highest Qualification" required />
-                        <label for="highest-qualification">Highest Qualification</label>
+                        <label for="highest-qualification">Highest Qualification *</label>
                         <div class="invalid-feedback">Please enter your highest qualification.</div>
                     </div>
                 </div>
@@ -141,7 +140,7 @@
                             <option value="1 month">1 month</option>
                             <option value="more than one month">more than one month</option>
                         </select>
-                        <label for="noticeperiod">Notice Period</label>
+                        <label for="noticeperiod">Notice Period *</label>
                     </div>
 
                 </div>
@@ -159,7 +158,7 @@
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="number" class="form-control" id="current-salary" placeholder="Current Salary"
                             required />
-                        <label for="current-salary">Current Salary</label>
+                        <label for="current-salary">Current Salary*</label>
                         <div class="invalid-feedback">Please enter your current salary.</div>
                     </div>
                 </div>
@@ -167,7 +166,7 @@
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="number" class="form-control" id="expected-salary" placeholder="Expected Salary"
                             required />
-                        <label for="expected-salary">Expected Salary</label>
+                        <label for="expected-salary">Expected Salary *</label>
                         <div class="invalid-feedback">Please enter your expected salary.</div>
                     </div>
                 </div>
@@ -177,7 +176,7 @@
                 <div class="col-md-6">
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="file" class="form-control" id="resume" required />
-                        <label for="resume">Resume</label>
+                        <label for="resume">Resume *</label>
                         <div class="invalid-feedback">Please upload your resume.</div>
                     </div>
                 </div>
@@ -202,11 +201,12 @@
                         <label for="remarks">Remarks</label>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" class="form-control" id="KeySkills" placeholder="Skills" />
-                    <label for="KeySkills">Key Skills</label>
+                <div class="col-md-6">
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" class="form-control" id="KeySkills" placeholder="Skills" />
+                        <label for="KeySkills">Key Skills</label>
+                    </div>
+
                 </div>
             </div>
 
@@ -308,13 +308,13 @@
                 }
 
                 // Portfolio/LinkedIn Profile URL Validation
-                let portfolio = $('#portfolio').val().trim();
-                if (portfolio && !/^https?:\/\/[^\s]+$/.test(portfolio)) {
-                    $('#portfolio').addClass('is-invalid');
-                    isValid = false;
-                } else {
-                    $('#portfolio').removeClass('is-invalid');
-                }
+                // let portfolio = $('#portfolio').val().trim();
+                // if (portfolio && !/^https?:\/\/[^\s]+$/.test(portfolio)) {
+                //     $('#portfolio').addClass('is-invalid');
+                //     isValid = false;
+                // } else {
+                //     $('#portfolio').removeClass('is-invalid');
+                // }
 
                 // Job Post Selection Validation
                 if ($('#applyingfor').val() === '') {
