@@ -2,10 +2,14 @@
 @section('title', 'Applicants - Social Media applicants list')
 
 @section('content')
-<!-- <h4><span class="text-muted fw-light">Home /</span> SM applicants list</h4> -->
 <div class="container-fluid mt-3 px-0">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">Social Media Applicants list</h3>
+    </div>
+    <div id="loading-spinner" style="display: none;">
+        <span>
+            <h4 class="text-primary">Loading...</h4>
+        </span>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
@@ -15,90 +19,10 @@
                     <th>Applicant's Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Applying For</th>
                     <th>Upload</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="text-center align-middle">
-                    <td><input type="checkbox" /></td>
-                    <td>Rahul</td>
-                    <td>rahul@gmail.com</td>
-                    <td>8985558851</td>
-                    <td>Surgeon</td>
-                    <td>
-                        <div class="btn btn-sm">
-                            <label for="fileInput" class="mb-0" style="cursor: pointer;">Upload</label>
-                            <input type="file" id="fileInput" class="d-none" />
-                        </div>
-                    </td>
-
-                </tr>
-                <tr class="text-center align-middle">
-                    <td><input type="checkbox" /></td>
-                    <td>Hemanth</td>
-                    <td>hema@gmail.com</td>
-                    <td>9122415421</td>
-                    <td>Anesthesiologist</td>
-                    <td>
-                        <div class="btn btn-sm">
-                            <label for="fileInput" class="mb-0" style="cursor: pointer;">Upload</label>
-                            <input type="file" id="fileInput" class="d-none" />
-                        </div>
-                    </td>
-                </tr>
-                <tr class="text-center align-middle">
-                    <td><input type="checkbox" /></td>
-                    <td>Mamatha</td>
-                    <td>virat@gmail.com</td>
-                    <td>6569854717</td>
-                    <td>Radiologist</td>
-                    <td>
-                        <div class="btn btn-sm">
-                            <label for="fileInput" class="mb-0" style="cursor: pointer;">Upload</label>
-                            <input type="file" id="fileInput" class="d-none" />
-                        </div>
-                    </td>
-                </tr>
-                <tr class="text-center align-middle">
-                    <td><input type="checkbox" /></td>
-                    <td>Rahul</td>
-                    <td>rahul@gmail.com</td>
-                    <td>8985558851</td>
-                    <td>Surgeon</td>
-                    <td>
-                        <div class="btn btn-sm">
-                            <label for="fileInput" class="mb-0" style="cursor: pointer;">Upload</label>
-                            <input type="file" id="fileInput" class="d-none" />
-                        </div>
-                    </td>
-                </tr>
-                <tr class="text-center align-middle">
-                    <td><input type="checkbox" /></td>
-                    <td>Hemanth</td>
-                    <td>hema@gmail.com</td>
-                    <td>9122415421</td>
-                    <td>Anesthesiologist</td>
-                    <td>
-                        <div class="btn btn-sm">
-                            <label for="fileInput" class="mb-0" style="cursor: pointer;">Upload</label>
-                            <input type="file" id="fileInput" class="d-none" />
-                        </div>
-                    </td>
-                </tr>
-                <tr class="text-center align-middle">
-                    <td><input type="checkbox" /></td>
-                    <td>Mamatha</td>
-                    <td>virat@gmail.com</td>
-                    <td>6569854717</td>
-                    <td>Radiologist</td>
-                    <td>
-                        <div class="btn btn-sm">
-                            <label for="fileInput" class="mb-0" style="cursor: pointer;">Upload</label>
-                            <input type="file" id="fileInput" class="d-none" />
-                        </div>
-                    </td>
-                </tr>
+            <tbody id="tbody">
 
 
             </tbody>
@@ -143,7 +67,6 @@
     </div>
 </div>
 
-
 <!-- Success Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -162,34 +85,74 @@
     </div>
 </div>
 
-
 @endsection
 
 @push('scripts')
     <script>
         $(document).ready(function () {
 
+            function fetchApplicants() {
+                $('#loading-spinner').show();
+
+                $.ajax({
+                    url: '/api/getsmapplicant',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log("resssss", response)
+                        $('#loading-spinner').hide();
+                        var tableBody = $('#tbody');
+                        tableBody.empty();
+                        if (response.status === 'success' && response.data.length > 0) {
+                            response.data.forEach((applicant) => {
+                                const rows =
+                                    `<tr class="text-center small" data-id="${applicant.id}">
+                                         <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
+                                         <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
+                                         <td>${applicant.Email || 'N/A'}</td>
+                                        <td>${applicant.PhoneNumber || 'N/A'}</td>
+                                        <td><button class="btn btn-info btn-xs">Upload</button></td>
+                                     </tr>`;
+                                tableBody.append(rows);
+                            });
+                        } else {
+                            tableBody.append(`<tr>
+                    <td colspan="6" class="text-center">No applicants found.</td>
+                                             </tr> `);
+                        }
+                    },
+                    error: function () {
+                        $('#loading-spinner').hide();
+                        showErrorModal('Failed to fetch applicants. Please try again later.');
+                    }
+                });
+            }
+
+            fetchApplicants();
+
             $(document).on('click', '#clearForm', function () {
                 $('#offcanvasBackdrop').offcanvas('show');
-                $('.offcanvas-title').text('Assign Social Media applicants');
-                $('#SubBtn').text('Add');
             });
 
             $('#assignUserForm').on('submit', function (e) {
                 e.preventDefault();
                 $('#offcanvasBackdrop').offcanvas('hide');
-
-                $('#successModal').modal('show');
-
-                $('#assignUserForm')[0].reset();
+                showSuccessModal('Applicants assigned successfully');
             });
-
 
             $('#cancelButton').on('click', function () {
                 $('#assignUserForm')[0].reset();
-                $('#recruiter, #Job-Title').removeClass('is-valid is-invalid');
             });
-        });
 
+            function showSuccessModal(message) {
+                $('#successModal .modal-body').text(message);
+                $('#successModal').modal('show');
+            }
+
+            function showErrorModal(message) {
+                $('#errorModal .modal-body').text(message);
+                $('#errorModal').modal('show');
+            }
+        });
     </script>
 @endpush
