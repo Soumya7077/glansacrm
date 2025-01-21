@@ -257,6 +257,23 @@
     </div>
   </div>
 </div>
+<!-- updateSuccessModal Modal -->
+<div class="modal fade" id="updateSuccessModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Job updated successfully
+      </div>
+      <div class="modal-footer">
+        <a href="/joblist" class="btn btn-primary">OK</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Delete Success Modal -->
 <div class="modal fade" id="deleteSuccessModal">
@@ -378,7 +395,7 @@
           $('#salary-max').val(response.data.MaxSalary);
           $('#experience-min').val(response.data.MinExperience);
           $('#experience-max').val(response.data.MaxExperience);
-          $('#employment-type').val(response.data.employmenttype);
+          $('#employment-type').val(response.data.EmploymentType);
           $('#timeline').val(response.data.Timeline);
           $('#location').val(response.data.Location);
           $('#benefits').val(response.data.Benefits);
@@ -425,8 +442,17 @@
           type: jobId ? 'PUT' : 'POST',
           data: formData,
           success: function (response) {
-            $('#successModal').modal('show');
-            console.log('Job updated successfully:', response);
+
+            if (jobId) {
+              $('#updateSuccessModal').modal('show');
+              console.log('Job updated successfully:', response);
+            } else {
+              $('#successModal').modal('show');
+              console.log('Job posted successfully:', response);
+            }
+
+            // $('#successModal').modal('show');
+            // console.log('Job updated successfully:', response);
           },
           error: function (xhr, status, error) {
             $('#deleteErrorModal').modal('show');
