@@ -32,7 +32,7 @@
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
                                         <input type="password" id="currentPassword" class="form-control"
-                                            name="currentPassword" placeholder="Enter Old Password" required>
+                                            name="currentPassword" placeholder="Enter Current Password" required>
                                         <label for="currentPassword">Current Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i

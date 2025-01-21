@@ -4,7 +4,6 @@
 @section('content')
 <h4><span class="text-muted fw-light">Home /</span> Applicant List</h4>
 
-
 <div class="offcanvas-body mx-0 flex-grow-0">
     <div class="card">
         <div class="card-header">
@@ -59,7 +58,6 @@
                     </div>
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-primary w-25 mb-3">Filter</button>
-
                     </div>
                 </div>
             </form>
@@ -67,7 +65,13 @@
     </div>
 </div>
 
-
+<!-- Loader -->
+<div class="text-center mt-3" id="loading" style="display: none;">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Fetching Applicants...</p>
+</div>
 
 <div class="container-fluid mt-3 px-0">
     <div class="table-responsive">
@@ -90,166 +94,124 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="text-center small align-middle">
-                    <td><input type="checkbox" /></td>
-                    <td>Naveen Nagam</td>
-                    <td>5 years</td>
-                    <td>9133913522</td>
-                    <td>M.Tech</td>
-                    <td>Hyderabad</td>
-                    <td>Bangalore</td>
-                    <td>30 days</td>
-                    <td>Glansa</td>
-                    <td>12 LPA</td>
-                    <td>15 LPA</td>
-                    <td><a href="#">View Resume</a></td>
-                    <td class="text-success">Shortlisted</td>
-                    <td><button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#applicantDetailsModal">View</button></td>
-                </tr>
+            <tbody id="tbody">
             </tbody>
         </table>
     </div>
-
     <div class="d-flex justify-content-end mt-3">
         <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Format details </button>
     </div>
 </div>
+</div>
 
-<!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+<!-- Modal for Applicant Details -->
+<div class="modal fade" id="applicantDetailsModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <h5 class="modal-title" id="modalTitle">Applicant Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                Details formatted successfully
-
-            </div>
-            <div class="modal-footer">
-                <a href="/formattedapplicantslist" class="btn btn-primary">OK</a>
+            <div class="modal-body" id="modalBody">
+                <p>Loading...</p>
             </div>
         </div>
     </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="applicantDetailsModal" tabindex="-1" aria-labelledby="applicantDetailsModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="applicantDetailsModalLabel">Applicant Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xl">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p><strong>Name:</strong> Anita Seth </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Phone Number:</strong> 9658741235 </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Email:</strong> anita@gmail.com </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Portfolio/LinkedIn Profile:</strong> <a href="#"> linkedin.com/anita </a>
-                                    </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Applying For:</strong> Medical </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Highest Qualification:</strong> MBBS </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Current Location:</strong> Hyderabad </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Preferred Location:</strong> Hyderabad </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Height:</strong> 5.4 ft </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Weight:</strong> 58 kg </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Blood Group:</strong> O+ </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Hemoglobin:</strong> 14.5% </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Notice Period:</strong> 1 month </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Work Experience:</strong> 5 years </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Current Salary:</strong> 3,00,000 </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Expected Salary:</strong> 6,20,000 </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Current Organisation:</strong> Glansa </p>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <p><strong>Resume:</strong> <a href="#"> Download Resume </a></p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Certificates:</strong> <a href="#"> Download Certificates </a></p>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <p><strong>Remarks:</strong> Demonstrates exceptional dedication and compassion
-                                        towards patients, providing holistic care and support.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
     $(document).ready(function () {
-        $('#clearForm').on('click', function () {
-            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
-        });
+        // Get the job_id from the query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const jobId = urlParams.get('job_id');
 
-        $('#emailForm').on('submit', function (e) {
-            e.preventDefault();
+        if (jobId) {
+            $("#loading").show();
+            // Fetch the applicants for this job
+            $.ajax({
+                url: `/api/getapplicantbyjob/${jobId}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response, 'erge');
+                    $("#loading").hide();
+                    if (response.status === 'success') {
+                        populateApplicantTable(response.data);
+                    } else {
+                        alert('Error fetching applicants: ' + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $("#loading").hide();
+                    console.error('AJAX Error:', error);
+                }
+            });
+        }
 
-            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
-            $('#emailForm')[0].reset();
+        function populateApplicantTable(applicants) {
+            var table = $('#table').DataTable();
+            var tableBody = $('#tbody');
+            tableBody.empty();
+
+            $.each(applicants, function (index, applicant) {
+                var rows = `
+          <tr class="text-center small align-middle">
+            <td><input type="checkbox" /></td>
+            <td>${applicant.FirstName} ${applicant.LastName}</td>
+            <td>${applicant.Experience}</td>
+            <td>${applicant.PhoneNumber}</td>
+            <td>${applicant.Qualification || "N/A"}</td>
+            <td>${applicant.CurrentLocation}</td>
+            <td>${applicant.PreferredLocation}</td>
+            <td>${applicant.NoticePeriod}</td>
+            <td>${applicant.CurrentOrganization || "N/A"}</td>
+            <td>${applicant.CurrentSalary}</td>
+            <td>${applicant.ExpectedSalary}</td>
+            <td>${applicant.Resume ? `<a href="${applicant.Resume}" target="_blank">View Resume</a>` : "N/A"}</td>
+            <td class="text-success">${applicant.StatusId === "1" ? "Pending" : "Shortlisted"}</td>
+            <td>
+              <button type="button" class="btn btn-primary view-details" data-id="${applicant.id}">View</button>
+            </td>
+          </tr>
+        `;
+                tableBody.append(rows);
+                table.clear(); // Clear any previous DataTable data
+                table.rows.add(tableBody.find('tr')).draw();
+            });
+        }
+
+        $(document).on("click", ".view-details", function () {
+            var applicantId = $(this).data("id");
+            $("#modalBody").html("<p>Loading...</p>");
+            $.ajax({
+                url: `/api/getapplicant/${applicantId}`,
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    if (response.status === "success") {
+                        var applicant = response.data;
+                        $("#modalBody").html(`
+              <p><strong>Name:</strong> ${applicant.FirstName} ${applicant.LastName}</p>
+              <p><strong>Email:</strong> ${applicant.Email}</p>
+              <p><strong>Phone:</strong> ${applicant.PhoneNumber}</p>
+              <p><strong>Experience:</strong> ${applicant.Experience}</p>
+              <p><strong>Current Location:</strong> ${applicant.CurrentLocation}</p>
+              <p><strong>Preferred Location:</strong> ${applicant.PreferredLocation}</p>
+              <p><strong>Current Salary:</strong> ${applicant.CurrentSalary}</p>
+              <p><strong>Expected Salary:</strong> ${applicant.ExpectedSalary}</p>
+              <p><strong>Notice Period:</strong> ${applicant.NoticePeriod}</p>
+              <p><strong>Skills:</strong> ${applicant.KeySkills}</p>
+            `);
+                        $("#applicantDetailsModal").modal("show");
+                    } else {
+                        $("#modalBody").html("Error fetching applicant details.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", error);
+                }
+            });
         });
     });
 </script>

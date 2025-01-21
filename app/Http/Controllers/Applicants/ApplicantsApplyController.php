@@ -26,7 +26,10 @@ class ApplicantsApplyController extends Controller
   {
     return view('screens.Applicants.applicantlist');
   }
-
+  public function allapplicantlist()
+  {
+    return view('screens.Applicants.allApplicantlist');
+  }
 
   /**==============================New Applicant create======================= */
 
@@ -91,6 +94,7 @@ class ApplicantsApplyController extends Controller
           'ExpectedSalary' => $request->ExpectedSalary,
           'Resume' => $resumePath,
           'KeySkills' => $request->KeySkills,
+          'Qualification' => $request->Qualification,
           'StatusId' => $request->StatusId,
           'Portfolio' => $request->Portfolio,
           'Type' => $request->Type,
