@@ -2,11 +2,18 @@
 @section('title', 'Jobs - Job Post')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span> Job Post</h4>
+<!-- <h4><span class="text-muted fw-light">Home /</span> Job Post</h4> -->
+<h4><span class="text-muted fw-light">Home /</span>
+  {{ isset($job) && !empty($job->id) ? 'Update Job' : 'Post Job' }}
+</h4>
 
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Job Post</h5>
+    <!-- <h5 class="mb-0">Job Post</h5> -->
+    <h5 class="mb-0">
+      {{ isset($job) && !empty($job->id) ? 'Update Job' : 'Post Job' }}
+
+    </h5>
     <small class="text-muted float-end">Fill in the details for the job post</small>
   </div>
   <div class="card-body">
@@ -131,7 +138,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="experience-min" name="Minexperience" placeholder="Experience"
+            <input type="text" class="form-control" id="experience-min" name="MinExperience" placeholder="Experience"
               required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
             <label for="experience-min">Minimum Experience</label>
             <div class="invalid-feedback">Please enter a valid Experience</div>
@@ -139,7 +146,7 @@
         </div>
         <div class="col-md-6 d-flex">
           <div class="form-floating form-floating-outline mb-4 w-100">
-            <input type="text" class="form-control" id="experience-max" name="Maxexperience" placeholder="Experience"
+            <input type="text" class="form-control" id="experience-max" name="MaxExperience" placeholder="Experience"
               required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
             <label for="experience-max">Maximum Experience</label>
             <div class="invalid-feedback">Please enter a valid Experience</div>
@@ -230,7 +237,12 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Post Job</button>
+      <!-- <button type="submit" class="btn btn-primary">Post Job</button> -->
+      <button type="submit" class="btn btn-primary">
+        {{ isset($job) && !empty($job->id) ? 'Update Job' : 'Post Job' }}
+      </button>
+
+
     </form>
   </div>
 </div>
@@ -364,6 +376,44 @@
 
 
 
+  // $(document).ready(function () {
+  //   $('#jobPostForm').on('submit', function (e) {
+  //     e.preventDefault();
+
+  //     var isValid = true;
+
+  //     $('#jobPostForm .form-control').each(function () {
+  //       if (!this.checkValidity()) {
+  //         $(this).addClass('is-invalid');
+  //         isValid = false;
+  //       } else {
+  //         $(this).removeClass('is-invalid');
+  //       }
+  //     });
+
+  //     if (isValid) {
+  //       $.ajax({
+  //         url: '/api/createJob',
+  //         type: 'POST',
+  //         data: $('#jobPostForm').serialize(),
+  //         success: function (response) {
+  //           $('#successModal').modal('show');
+  //           console.log('Job posted successfully:', response);
+  //         },
+  //         error: function (xhr, status, error) {
+  //           $('#deleteErrorModal').modal('show');
+  //           console.error('Error:', error);
+  //         }
+  //       });
+  //     }
+  //   });
+
+  //   $('#jobPostForm .form-control').on('input change', function () {
+  //     if (this.checkValidity()) {
+  //       $(this).removeClass('is-invalid');
+  //     }
+  //   });
+  // });
   $(document).ready(function () {
     $('#jobPostForm').on('submit', function (e) {
       e.preventDefault();
@@ -380,19 +430,25 @@
       });
 
       if (isValid) {
-        $.ajax({
-          url: '/api/createJob',
-          type: 'POST',
-          data: $('#jobPostForm').serialize(),
+        var formData = $('#jobPostForm').serialize();
+        // var jobId = $('#jobId').val();
+
+        var requestConfig = {
+          url: jobId ? `/api/updateJob/${jobId}` : '/api/createJob',
+          type: jobId ? 'PUT' : 'POST',
+          data: formData,
           success: function (response) {
             $('#successModal').modal('show');
-            console.log('Job posted successfully:', response);
+            console.log('Job updated successfully:', response);
           },
           error: function (xhr, status, error) {
             $('#deleteErrorModal').modal('show');
             console.error('Error:', error);
+            console.error('Response:', xhr.responseText);
           }
-        });
+        };
+
+        $.ajax(requestConfig);
       }
     });
 
@@ -402,6 +458,8 @@
       }
     });
   });
+
+
 </script>
 
 

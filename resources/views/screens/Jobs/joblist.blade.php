@@ -40,7 +40,7 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody id="jobList">
+      <tbody id="tbody">
 
       </tbody>
     </table>
@@ -105,6 +105,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    var table = $('#table').DataTable();
     function fetchJobs() {
       $('#loading-spinner').show();
 
@@ -113,14 +114,16 @@
         type: 'GET',
         dataType: 'json',
         success: function (response) {
+          console.log(response);
           $('#loading-spinner').hide();
-          $('#jobList').empty();
-
+          // $('#jobList').empty();
+          var tableBody = $('#tbody');
+          tableBody.empty();
           if (response && response.status === 'success' && response.data?.length > 0) {
             response.data.forEach((job) => {
-              const row = `
+              const rows = `
                 <tr class="text-center small" data-id="${job.id}">
-                  <td>${job.EmployerId || 'N/A'}</td>
+                  <td>${job.OrganizationName || 'N/A'}</td>
                   <td>${job.Title || 'N/A'}</td>
                   <td>${job.Opening || 'N/A'}</td>
                   <td>${job.Description || 'N/A'}</td>
@@ -149,7 +152,9 @@
                   </td>
                 </tr>
               `;
-              $('#jobList').append(row);
+              tableBody.append(rows);
+              table.clear(); // Clear any previous DataTable data
+              table.rows.add(tableBody.find('tr')).draw();
             });
           } else {
             $('#jobList').append(`
@@ -179,7 +184,7 @@
           success: function (response) {
             $('#confirmationModal').modal('hide');
 
-            if (response.status === 'success') {
+            if (response) {
               showSuccessModal('Job deleted successfully');
               $(`#jobList tr[data-id="${jobId}"]`).remove();
             } else {

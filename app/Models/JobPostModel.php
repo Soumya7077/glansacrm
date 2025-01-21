@@ -19,7 +19,7 @@ class JobPostModel extends Model
     'JobsLocation',
     'Education',
     'KeySkills',
-    'MaxExerience',
+    'MaxExperience',
     'MinExperience',
     'Department',
     'Shift',
