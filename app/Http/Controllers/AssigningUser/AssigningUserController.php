@@ -61,32 +61,49 @@ class AssigningUserController extends Controller
 
   /**=============================Get assigned recruiter=====================================*/
 
-  public function getAssignedRecruiter($id)
+  public function getAssignedRecruiter($id = null)
   {
     try {
-      $assignedRecruiter = DB::table('recruiter_assign')
+      $query = DB::table('recruiter_assign')
         ->join('job_post', 'job_post.id', '=', 'recruiter_assign.JobId')
         ->join('user', 'user.id', '=', 'recruiter_assign.UserId')
         ->join('employees', 'job_post.EmployerId', '=', 'employees.id') // Fixed this line
         ->join('departments', 'departments.id', '=', 'job_post.Department')
-        ->where('recruiter_assign.UserId', '=', $id)
-        ->select('recruiter_assign.*', 'job_post.*', 'user.*', 'employees.OrganizationName', 'departments.Name as DepartmentName')
-        ->get();
+        ->select(
+          'recruiter_assign.*',
+          'job_post.*',
+          'user.*',
+          'employees.OrganizationName',
+          'departments.Name as DepartmentName'
+        );
 
-      if ($assignedRecruiter) {
+      // Add where condition only if $id is not null
+      if ($id !== null) {
+        $query->where('recruiter_assign.UserId', '=', $id);
+      }
+
+      $assignedRecruiter = $query->get();
+
+      if ($assignedRecruiter->isNotEmpty()) {
         return response()->json([
           'status' => 'success',
           'message' => 'Get Assigned Recruiter',
           'data' => $assignedRecruiter,
         ], 200);
       }
+
+      return response()->json([
+        'status' => 'success',
+        'message' => 'No recruiters found',
+        'data' => [],
+      ], 200);
+
     } catch (Exception $e) {
       return response()->json([
         'status' => 'error',
         'message' => 'Something went wrong, ' . $e->getMessage(),
       ], 500);
     }
-
   }
 
   /**=============================Get assigned recruiter=====================================*/

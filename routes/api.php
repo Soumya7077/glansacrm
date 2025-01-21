@@ -85,7 +85,7 @@ Route::delete('/deleteJob/{id}', [JobsController::class, 'deleteJobs']);
 
 /**==================================Assign recruiter to job======================================== */
 
-Route::get('/assignedrecruiter/{id}', [AssigningUserController::class, 'getAssignedRecruiter']);
+Route::get('/assignedrecruiter/{id?}', [AssigningUserController::class, 'getAssignedRecruiter']);
 Route::post('/assignrecruitertojob', [AssigningUserController::class, 'assignRecruiterToJob']);
 Route::get('/getassignedrecruiter/{id}', [AssigningUserController::class, 'getAssignedRecruiterById']);
 Route::put('/updateassignuser/{id}', [AssigningUserController::class, 'updateAssignUser']);

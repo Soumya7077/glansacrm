@@ -110,6 +110,10 @@
     $(document).ready(function () {
       let token = JSON.parse(localStorage.getItem('token'));
 
+
+      
+
+
       if (token) {
         $.ajax({
           url: '/api/me',
