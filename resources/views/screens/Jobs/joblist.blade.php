@@ -119,7 +119,7 @@
           // $('#jobList').empty();
           var tableBody = $('#tbody');
           tableBody.empty();
-          if (response && response.status === 'success' && response.data?.length > 0) {
+          if (response) {
             response.data.forEach((job) => {
               const rows = `
                 <tr class="text-center small" data-id="${job.id}">
@@ -131,7 +131,7 @@
                   <td>${job.JobsLocation || 'N/A'}</td>
                   <td>${job.Education || 'N/A'}</td>
                   <td>${job.KeySkills || 'N/A'}</td>
-                  <td>${job.Department || 'N/A'}</td>
+                  <td>${job.DepartmentName || 'N/A'}</td>
                   <td>${job.MinSalary || 'N/A'}</td>
                   <td>${job.MaxSalary || 'N/A'}</td>
                   <td>${job.MinExperience || 'N/A'}</td>
@@ -153,9 +153,10 @@
                 </tr>
               `;
               tableBody.append(rows);
-              table.clear(); // Clear any previous DataTable data
-              table.rows.add(tableBody.find('tr')).draw();
+
             });
+            table.clear(); // Clear any previous DataTable data
+            table.rows.add(tableBody.find('tr')).draw();
           } else {
             $('#jobList').append(`
               <tr>

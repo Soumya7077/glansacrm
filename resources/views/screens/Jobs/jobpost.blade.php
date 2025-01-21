@@ -94,8 +94,7 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <select class="form-control" id="department" name="DepartmentId" required>
-              <option value="" hidden>Department</option>
-              <option value="department">Department</option>
+              <option value="" hidden>Select Department</option>
             </select>
             <label for="department">Department</label>
             <div class="invalid-feedback">Please select a Department.</div>
@@ -121,8 +120,8 @@
           </div>
           <div class="form-floating form-floating-outline mb-4 w-25">
             <select class="form-control" id="salary-period" name="MonthYear" required>
-              <option value="M">Per Month</option>
-              <option value="Y">Per Year</option>
+              <option value="month">Per Month</option>
+              <option value="year">Per Year</option>
             </select>
             <div class="invalid-feedback">Please select this field.</div>
           </div>
@@ -321,6 +320,33 @@
     });
   }
   fetchEmployers();
+
+
+  function fetchDepartment() {
+    $.ajax({
+      url: '/api/getdepartment',
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        console.log("ressssss", response)
+        const selectElement = $('#department');
+        selectElement.empty();
+        selectElement.append('<option value="" hidden>Select Department</option>');
+
+        if (response) {
+          response.data.forEach((department) => {
+            selectElement.append(`<option value="${department.id}">${department.Name}</option>`);
+          });
+        } else {
+          selectElement.append('<option value="">No department found</option>');
+        }
+      },
+      error: function () {
+        $('#deleteErrorModal').modal('show');
+      }
+    });
+  }
+  fetchDepartment();
 
 
   const urlParams = new URLSearchParams(window.location.search);
