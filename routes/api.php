@@ -50,6 +50,7 @@ Route::get('/getrecruiter', [UserController::class, 'getRecruiter']);
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/me', [UserController::class, 'me']);
 Route::get('/logout', [UserController::class, 'logout']);
+Route::post('/refresh-token', [UserController::class, 'refreshToken']);
 Route::put('/resetpassword', [UserController::class, 'resetpassword']);
 Route::post('/forgotPassword', [UserController::class, 'forgotPassword']);
 Route::put('/changePassword', [UserController::class, 'changePassword']);
