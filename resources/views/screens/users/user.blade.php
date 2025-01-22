@@ -42,15 +42,15 @@
       </div>
       <hr>
       <div class="offcanvas-body mx-0 flex-grow-0">
-        <form id="addUserForm" method="POST" action="{{ route('user.store') }}">
+        <form id="addUserForm" class="needs-validation" novalidate>
           @csrf
-          <input type="hidden" id="userId">
+          <!-- <input type="hidden" id="userId"> -->
           <div class="row">
             <div class="col-md-12">
 
 
               <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="first_name" name="username" placeholder="First Name"
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
                   required />
                 <label for="first_name">First Name</label>
                 <div class="invalid-feedback">Please provide a First Name.</div>
@@ -97,7 +97,7 @@
           <button type="submit" class="btn btn-primary w-100 mb-2">Add</button>
         </form>
 
-        <button type="button" class="btn btn-outline-secondary d-grid w-100" id="cancelButton">Cancel</button>
+        <button type="button" class="btn btn-outline-secondary d-grid w-100 cancelButton">Cancel</button>
       </div>
     </div>
   </div>
@@ -115,13 +115,14 @@
       </div>
       <hr>
       <div class="offcanvas-body mx-0 flex-grow-0">
-        <form id="updateUserForm" method="POST" action="{{ route('user.store') }}">
+        <form id="updateUserForm" class="needs-validation" novalidate>
+
           @csrf
           <input type="hidden" id="userId">
           <div class="row">
             <div class="col-md-12">
               <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="firstname" name="username" placeholder="First Name"
+                <input type="text" class="form-control" id="firstname" name="first_name" placeholder="First Name"
                   required />
                 <label for="first_name">First Name</label>
                 <div class="invalid-feedback">Please provide a First Name.</div>
@@ -153,8 +154,7 @@
           </div>
           <button type="submit" class="btn btn-primary w-100 mb-2">Update</button>
         </form>
-
-        <button type="button" class="btn btn-outline-secondary d-grid w-100" id="cancelButton">Cancel</button>
+        <button type="button" class="btn btn-outline-secondary d-grid w-100 cancelButton">Cancel</button>
       </div>
     </div>
   </div>
@@ -175,6 +175,38 @@
       </div>
       <div class="modal-body">
         The user has been successfully added!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="successModalupdate">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        The user has been successfully updated!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="successModaldelete">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        The user has been successfully deleted!
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
@@ -225,13 +257,8 @@
 
 @push('scripts')
   <script>
+
     $(document).ready(function () {
-
-
-
-
-
-
 
     function fetchUsers() {
 
@@ -291,7 +318,7 @@
       success: function (response) {
         $('#confirmModal').modal('hide');
         $('#successMessage').text('User deleted successfully.');
-        $('#successModal').modal('show');
+        $('#successModaldelete').modal('show');
         $('#successModal').on('hidden.bs.modal', function () {
         fetchUsers();
         });
@@ -328,40 +355,82 @@
       }
       });
     });
+    $(document).ready(function () {
 
-    $('#addUserForm').on('submit', function (e) {
+      $('#addUserForm').on('submit', function (e) {
       e.preventDefault();
 
-      const userId = $('#userId').val();
-      const url = userId ? `http://127.0.0.1:8000/api/update/${userId}` : "{{ route('user.store') }}";
-      const method = userId ? 'PUT' : 'POST';
+      var form = $(this);
+      form.addClass('was-validated');
 
-      $.ajax({
-      url: url,
-      type: method,
-      data: $(this).serialize(),
-      success: function (response) {
-        $('#offcanvasBackdrop').offcanvas('hide');
-        $('#successModal').modal('show');
-        $('#addUserForm')[0].reset();
-        fetchUsers();
-      },
-      error: function (error) {
-        console.error('Error:', error.responseJSON);
+      if (form[0].checkValidity() === false) {
+        e.stopPropagation();
+      } else {
+        $.ajax({
+        url: `/api/users`,
+        type: 'POST',
+        data: form.serialize(),
+        success: function (response) {
+          $('#offcanvasBackdrop').offcanvas('hide');
+          $('#successModal').modal('show');
+          $('#addUserForm')[0].reset();
+          fetchUsers();
+        },
+        error: function (error) {
+          console.error('Error:', error.responseJSON);
+        }
+        });
       }
       });
+
     });
 
-    $('#cancelButton, .btn-close').on('click', function () {
+
+    $(document).ready(function () {
+
+      $('#updateUserForm').on('submit', function (e) {
+      e.preventDefault();
+
+      var form = $(this);
+      form.addClass('was-validated');
+
+      if (form[0].checkValidity() === false) {
+        e.stopPropagation();
+      } else {
+        const userId = $('#userId').val();
+
+        $.ajax({
+        url: `/api/update/${userId}`,
+        type: 'PUT',
+        data: form.serialize(),
+        success: function (response) {
+          $('#offcanvasBackdrop').offcanvas('hide');
+          $('#successModalupdate').modal('show');
+          $('#updateUserForm')[0].reset();
+          fetchUsers();
+        },
+        error: function (error) {
+          console.error('Error:', error.responseJSON);
+        }
+        });
+      }
+      });
+
+    });
+
+
+    $('.cancelButton, .btn-close').on('click', function () {
       $('#offcanvasBackdrop').offcanvas('hide');
       $('#addUserForm')[0].reset();
       $('#userId').val('');
       $('.offcanvas-title').text('Add User');
     });
 
-    $('#cancelButton').on('click', function () {
+    $('.cancelButton, .btn-close').on('click', function () {
       $('#addUserForm')[0].reset();
       $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
+      // $('#updateUserForm')[0].reset();
+      // $('#updateUserForm').find('.is-invalid').removeClass('is-invalid');
     });
 
     $(document).on('click', '#addbtn', function () {
@@ -369,9 +438,13 @@
       $('.offcanvas-title').text('Add User');
     });
 
-    $(document).on('click', '.btn-close', function () {
+    // $(document).on('click', '.btn-close', function () {
+    $('.cancelButton, .btn-close').on('click', function () {
+
       $('#offcanvasBackdrop').offcanvas('hide');
+      $('#offcanvasEditBackdrop').offcanvas('hide');
       $('#addUserForm')[0].reset();
+      $('#updateUserForm')[0].reset();
     });
     });
 

@@ -72,13 +72,49 @@
         <div class="row">
           <div class="col-md-6">
             <div class="text-start">
-              <button type="submit" class="btn btn-primary">Add</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
           <div class="col-md-6">
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        The social media form has been successfully submitted!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="errorMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>
@@ -93,19 +129,21 @@
         method: 'POST',
         data: $(this).serialize(),
         success: function (response) {
-          alert(response.message);
+          $('#successModal').modal('show');
         },
         error: function (xhr) {
-          const errors = xhr.responseJSON.errors;
-          $.each(errors, function (key, value) {
-            alert(value);
-          });
+          console.log("xhrrrr", xhr);
+          const error = xhr.responseJSON.message;
+          // let errorMessage = '';
+          // $.each(errors, function (key, value) {
+          //   errorMessage += value + '<br>';
+          // });
+          $('#errorMessage').html(error);
+          $('#errorModal').modal('show');
         }
       });
     });
-  });
 
-  $(function () {
     const phoneInput = $('#phoneNumber');
     const phoneRegex = /^[6-9]\d{9}$/;
 

@@ -11,11 +11,15 @@
             <h4 class="text-primary">Loading...</h4>
         </span>
     </div>
+    <div class="d-flex align-items-center">
+        <input type="checkbox" id="select-all" class="select-all-checkbox m-2">
+        <h4 class="m-0">Select All Applicant's</h4>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
                 <tr class="text-center align-middle">
-                    <th>Select Applicant</th>
+                    <th>Select Applicant's</th>
                     <th>Applicant's Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -23,8 +27,6 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-
-
             </tbody>
         </table>
     </div>
@@ -99,26 +101,24 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function (response) {
-                        console.log("resssss", response)
                         $('#loading-spinner').hide();
                         var tableBody = $('#tbody');
                         tableBody.empty();
                         if (response.status === 'success' && response.data.length > 0) {
                             response.data.forEach((applicant) => {
-                                const rows =
-                                    `<tr class="text-center small" data-id="${applicant.id}">
-                                         <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
-                                         <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
-                                         <td>${applicant.Email || 'N/A'}</td>
-                                        <td>${applicant.PhoneNumber || 'N/A'}</td>
-                                        <td><button class="btn btn-info btn-xs">Upload</button></td>
-                                     </tr>`;
+                                const rows = `
+                                            <tr class="text-center small" data-id="${applicant.id}">
+                                                <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
+                                                <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
+                                                <td>${applicant.Email || 'N/A'}</td>
+                                                <td>${applicant.PhoneNumber || 'N/A'}</td>
+                                                <td><button class="btn btn-info btn-xs">Upload</button></td>
+                                            </tr>
+                                        `;
                                 tableBody.append(rows);
                             });
                         } else {
-                            tableBody.append(`<tr>
-                    <td colspan="6" class="text-center">No applicants found.</td>
-                                             </tr> `);
+                            tableBody.append(`<tr><td colspan="5" class="text-center">No applicants found.</td></tr>`);
                         }
                     },
                     error: function () {
@@ -128,7 +128,33 @@
                 });
             }
 
+            function fetchRecruiters() {
+                $.ajax({
+                    url: '/api/getrecruiter',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status === 'success' && response.data.length > 0) {
+                            const recruiterSelect = $('#recruiter');
+                            recruiterSelect.empty();
+                            recruiterSelect.append('<option value="" hidden>Select Recruiter</option>');
+                            response.data.forEach((recruiter) => {
+                                recruiterSelect.append(`
+                                            <option value="${recruiter.id}">
+                                                ${recruiter.FirstName} ${recruiter.LastName}
+                                            </option>
+                                        `);
+                            });
+                        }
+                    },
+                    error: function () {
+                        showErrorModal('Failed to fetch recruiters. Please try again later.');
+                    }
+                });
+            }
+
             fetchApplicants();
+            fetchRecruiters();
 
             $(document).on('click', '#clearForm', function () {
                 $('#offcanvasBackdrop').offcanvas('show');
@@ -148,6 +174,16 @@
                 $('#successModal .modal-body').text(message);
                 $('#successModal').modal('show');
             }
+
+            $('#select-all').on('change', function () {
+                var isChecked = $(this).prop('checked');
+                $('.select-applicant').prop('checked', isChecked);
+            });
+
+            $(document).on('change', '.select-applicant', function () {
+                var allChecked = $('.select-applicant').length === $('.select-applicant:checked').length;
+                $('#select-all').prop('checked', allChecked);
+            });
 
             function showErrorModal(message) {
                 $('#errorModal .modal-body').text(message);
