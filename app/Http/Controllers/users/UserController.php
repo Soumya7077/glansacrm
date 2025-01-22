@@ -53,11 +53,30 @@ class UserController extends Controller
   }
 
 
+  public function refreshToken()
+  {
+    try {
+      // Refresh the token
+      $newToken = Auth::guard('user')->refresh();
 
+      // Return the new token in the response
+      return $this->respondWithToken($newToken);
+    } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Token is invalid or expired',
+      ], 401);
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Could not refresh token: ' . $e->getMessage(),
+      ], 500);
+    }
+  }
   protected function respondWithToken($token)
   {
 
-    session('token', $token);
+    // session('token', $token);
 
     return response()->json([
       'access_token' => $token,

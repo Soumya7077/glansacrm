@@ -108,7 +108,29 @@
 
   <script>
     $(document).ready(function () {
+
       let token = JSON.parse(localStorage.getItem('token'));
+
+
+      function refreshToken() {
+        $.ajax({
+          url: '/api/refresh-token',
+          type: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + token.access_token,
+            'Content-Type': 'application/json'
+          },
+          success: function (data) {
+            localStorage.setItem('token', JSON.stringify(data));
+          },
+          error: function (xhr, status, error) {
+            console.error('Error fetching user details:', error);
+          }
+        })
+      }
+
+
+
 
       if (token) {
         $.ajax({
@@ -121,10 +143,12 @@
           success: function (data) {
             console.log(data, 'kkkkkkkk');
             localStorage.setItem('userData', JSON.stringify(data));
-            if (data) {
+            if (Object.keys(data).length > 0) {
               $('#user-name').text(data.FirstName);
               let roleName = data.RoleId === 1 ? 'Admin' : data.RoleId === 2 ? 'Recruiter' : 'Unknown';
               $('#roleId').text(roleName);
+            } else {
+              refreshToken();
             }
           },
           error: function (xhr, status, error) {
