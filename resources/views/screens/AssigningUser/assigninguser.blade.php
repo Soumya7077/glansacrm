@@ -92,20 +92,6 @@
 @push('scripts')
     <script>
 
-        // $('#assignUserForm').on('submit', function (e) {
-        //     e.preventDefault(); // Prevent default form submission
-
-        //     // Show success modal
-        //     var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-        //     successModal.show(); // Show modal
-
-        //     // Hide the offcanvas form
-        //     $('#offcanvasBackdrop').offcanvas('hide');
-
-        //     // Reset form after showing the success modal
-        //     $('#assignUserForm')[0].reset();
-        // });
-
         // Cancel button behavior (if applicable)
         $('#cancelButton').on('click', function () {
             $('#assignUserForm')[0].reset();
@@ -115,7 +101,7 @@
         // Handle "clear form" button click
         $(document).on('click', '#clearForm', function () {
             $('#offcanvasBackdrop').offcanvas('show');
-            $('.offcanvas-title').text('Add Name');
+            $('.offcanvas-title').text('Assign User');
             $('#SubBtn').text('Add');
         });
 
@@ -125,16 +111,16 @@
             $('#recruiter, #Job-Title').removeClass('is-valid is-invalid');
         });
         function fetchAssignedRecruiter(userId) {
+            var table = $('#table').DataTable();
             let tbody = $("#tbody");
             tbody.html('<tr><td colspan="4" class="text-center">Loading...</td></tr>'); // Show loading text
 
             $.ajax({
-                url: `/api/assignedrecruiter/${userId}`,
+                url: `/api/assignedrecruiter`,
                 method: "GET",
                 dataType: "json",
                 success: function (response) {
-                    console.log(response,'errre');
-                    
+                    console.log(response, 'errre');
                     tbody.empty(); // Clear previous data
 
                     if (response.status === "success") {
@@ -142,22 +128,28 @@
 
                         if (assignedRecruiters.length > 0) {
                             assignedRecruiters.forEach((recruiter, index) => {
-                                let row = `
-                                    <tr class="text-center align-middle">
-                                        <td>${index + 1}</td>
-                                        <td>${recruiter.FirstName} ${recruiter.LastName}</td>
-                                        <td>${recruiter.Title}</td>
-                                        <td>
-                                            <button class="btn btn-danger btn-sm" onclick="removeAssignment(${recruiter.id})">
-                                                Remove
-                                            </button>
-                                        </td>
-                                    </tr>`;
-                                tbody.append(row);
+                                let rows = `
+                                                        <tr class="text-center align-middle">
+                                                            <td>${index + 1}</td>
+                                                            <td>${recruiter.FirstName} ${recruiter.LastName}</td>
+                                                            <td>${recruiter.Title}</td>
+                                                            <td>
+                                                                <button class="btn btn-primary btn-sm editAssignment"  data-id="${recruiter.assignedId}">
+                                                                                                                        Edit
+                                                                                                                    </button>
+                                                                <button class="btn btn-danger btn-sm deleteAssignment"  data-id="${recruiter.assignedId}">
+                                                                                                                        Delete
+                                                            </td>
+                                                        </tr>`;
+                                tbody.append(rows);
+
                             });
+                            table.clear(); // Clear any previous DataTable data
+                            table.rows.add(tbody.find('tr')).draw();
                         } else {
                             tbody.append(`<tr><td colspan="4" class="text-center">No assigned recruiters found.</td></tr>`);
                         }
+                        // $('#tbody').html(rows);
                     } else {
                         tbody.html(`<tr><td colspan="4" class="text-center text-danger">Error: ${response.message}</td></tr>`);
                     }
@@ -222,15 +214,17 @@
                 }
             });
 
+
+
             // Form submission
             $('#assignUserForm').on('submit', function (e) {
                 e.preventDefault();
-                let isValid = true;
 
+                let isValid = true;
                 const recruiter = $('#recruiter').val();
                 const jobTitle = $('#Job-Title').val();
+                const userId = $('#userId').val();  // Get stored ID
 
-                // Validate recruiter selection
                 if (!recruiter) {
                     $('#recruiter').addClass('is-invalid');
                     isValid = false;
@@ -238,7 +232,6 @@
                     $('#recruiter').removeClass('is-invalid').addClass('is-valid');
                 }
 
-                // Validate job title selection
                 if (!jobTitle) {
                     $('#Job-Title').addClass('is-invalid');
                     isValid = false;
@@ -250,14 +243,17 @@
 
                 if (isValid) {
                     const formData = {
-                        jobId: jobTitle,   // Map correctly
-                        userId: recruiter, // Recruiter ID should be 'userId' as per backend
+                        jobId: jobTitle,
+                        userId: recruiter,
                         assignedBy: userData.id
                     };
 
+                    let url = userId ? `/api/updateassignuser/${userId}` : "/api/assignrecruitertojob";
+                    let method = userId ? "PUT" : "POST";
+
                     $.ajax({
-                        url: "/api/assignrecruitertojob",
-                        method: "POST",
+                        url: url,
+                        method: method,
                         contentType: "application/json",
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -266,28 +262,26 @@
                         dataType: "json",
                         success: function (data) {
                             if (data.status === "success") {
-                                console.log('Success:', data);
-                                $('.modal-title').text("Success")
-                                $('.modal-body').text(data.message)
-
+                                $('.modal-title').text("Success");
+                                $('.modal-body').text(data.message);
                                 var successModal = new bootstrap.Modal(document.getElementById('successModal'));
                                 successModal.show();
 
-                                // Optionally, reset the form
+                                // Reset form and close offcanvas
                                 $('#assignUserForm')[0].reset();
                                 $('#recruiter, #Job-Title').removeClass('is-valid');
                                 $('#offcanvasBackdrop').offcanvas('hide');
+                                fetchAssignedRecruiter();
                             } else {
                                 console.error('Error:', data.message);
                             }
                         },
-                        error: function (xhr, status, error) {
+                        error: function (xhr) {
                             console.error('Error:', xhr);
-                            $('.modal-title').text("Error")
+                            $('.modal-title').text("Error");
                             $('.modal-body').text(xhr.responseJSON.message);
-                            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                            successModal.show();
-                            // alert('Error assigning recruiter: ' + xhr.responseText);
+                            var errorModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            errorModal.show();
                         }
                     });
                 }
@@ -295,6 +289,90 @@
 
 
         });
+
+        $(document).on('click', '.editAssignment', function () {
+
+            const id = $(this).data('id');
+
+            $.ajax({
+                url: `/api/getassignedrecruiter/${id}`,
+                method: "GET",
+                dataType: "json",
+                success: function (response) {
+                    if (response.status === "success") {
+                        let data = response.data;
+                        console.log("Edit Data:", data);
+
+                        // Populate form fields
+                        $('#userId').val(id);  // Store ID for update
+                        let checkDropdownsLoaded = setInterval(function () {
+                            if ($('#recruiter option').length > 0 && $('#Job-Title option').length > 0) {
+                                clearInterval(checkDropdownsLoaded);
+
+                                // Set values and trigger change
+                                $('#recruiter').val(data.UserId).trigger('change');
+                                $('#Job-Title').val(data.JobId).trigger('change');
+                            }
+                        }, 100); // Check every 100ms
+
+                        // Change form button text
+                        $('.offcanvas-title').text('Edit Assigned User');
+                        $('#assignUserForm button[type="submit"]').text('Update');
+
+                        // Open the offcanvas
+                        var offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasBackdrop'));
+                        offcanvas.show();
+                    } else {
+                        console.error('Error fetching assignment data:', response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching assignment:', xhr.responseText);
+                    alert('Error fetching assignment details.');
+                }
+            });
+        })
+
+        // function editAssignment(id) {
+
+        // }
+
+        $(document).on('click', '.deleteAssignment', function () {
+            const id = $(this).data('id');
+            console.log("Delete clicked for ID:", id);  // Debugging
+
+            if (!confirm('Are you sure you want to delete this assignment?')) return;
+
+            $.ajax({
+                url: `/api/deleteassignuser/${id}`,
+                method: "DELETE",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    console.log(response, 'delete response');
+
+                    if (response.status === "success") {
+                        alert("Assignment deleted successfully.");
+                        fetchAssignedRecruiter(); // Refresh table
+                    } else {
+                        console.error("Error:", response.message);
+                        alert("Failed to delete assignment.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error deleting assignment:", xhr.responseText);
+                    alert("Failed to delete assignment.");
+                }
+            });
+        });
+
+
+        // function deleteAssignment(id) {
+
+        // }
+
+
 
 
     </script>
