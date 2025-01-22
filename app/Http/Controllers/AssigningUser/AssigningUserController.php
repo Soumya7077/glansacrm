@@ -26,9 +26,9 @@ class AssigningUserController extends Controller
 
       if ($getRecruiter) {
         return response()->json([
-          'status' => 'success',
-          'message' => 'This job already assign to one recruiter',
-        ], 200);
+          'status' => 'error',
+          'message' => 'This job is already assigned.',
+        ], 409);
       }
 
 
@@ -43,7 +43,7 @@ class AssigningUserController extends Controller
       if ($assignRecruiter) {
         return response()->json([
           'status' => 'success',
-          'message' => 'Recruiter assigned successfully',
+          'message' => 'Recruiter assigned successfully.',
           'data' => $assignRecruiter,
         ], 201);
       }
@@ -51,7 +51,7 @@ class AssigningUserController extends Controller
     } catch (Exception $e) {
       return response()->json([
         'status' => 'error',
-        'message' => 'Something went wrong, ' . $e->getMessage(),
+        'message' => 'Something went wrong. ' . $e->getMessage(),
       ], 500);
     }
   }
@@ -70,7 +70,7 @@ class AssigningUserController extends Controller
         ->join('employees', 'job_post.EmployerId', '=', 'employees.id') // Fixed this line
         ->join('departments', 'departments.id', '=', 'job_post.Department')
         ->select(
-          'recruiter_assign.*',
+          'recruiter_assign.id as assignedId',
           'job_post.*',
           'user.*',
           'employees.OrganizationName',
@@ -125,7 +125,7 @@ class AssigningUserController extends Controller
       } else {
         return response()->json([
           'status' => 'error',
-          'message' => 'Can not find the assign recruiter with this id',
+          'message' => 'Cannot find the assign recruiter with this id',
           'data' => $assignedRecruiter
         ], 400);
       }
@@ -154,13 +154,18 @@ class AssigningUserController extends Controller
 
       $assignUser->JobId = $request->jobId;
       $assignUser->UserId = $request->userId;
-      $assignUser->UpdatedBy = $request->updatedBy;
+      $assignUser->UpdatedBy = $request->assignedBy;
       $assignUser->UpdatedOn = now();
       $assignUser->updated_at = now();
 
       $assignUser->save();
 
-      return response()->json(['message' => 'Recruiter assign updated successfully', 'data' => $assignUser], 200);
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Recruiter assign updated successfully',
+        'data' => $assignUser
+      ], 200);
+
     } catch (Exception $e) {
       return response()->json([
         'status' => 'error',
