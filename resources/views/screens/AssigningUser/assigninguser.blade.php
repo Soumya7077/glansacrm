@@ -129,18 +129,18 @@
                         if (assignedRecruiters.length > 0) {
                             assignedRecruiters.forEach((recruiter, index) => {
                                 let rows = `
-                                                        <tr class="text-center align-middle">
-                                                            <td>${index + 1}</td>
-                                                            <td>${recruiter.FirstName} ${recruiter.LastName}</td>
-                                                            <td>${recruiter.Title}</td>
-                                                            <td>
-                                                                <button class="btn btn-primary btn-sm editAssignment"  data-id="${recruiter.assignedId}">
-                                                                                                                        Edit
-                                                                                                                    </button>
-                                                                <button class="btn btn-danger btn-sm deleteAssignment"  data-id="${recruiter.assignedId}">
-                                                                                                                        Delete
-                                                            </td>
-                                                        </tr>`;
+                                                            <tr class="text-center align-middle">
+                                                                <td>${index + 1}</td>
+                                                                <td>${recruiter.FirstName} ${recruiter.LastName}</td>
+                                                                <td>${recruiter.Title}</td>
+                                                                <td>
+                                                                    <button class="btn btn-primary btn-sm editAssignment"  data-id="${recruiter.assignedId}">
+                                                                                                                            Edit
+                                                                                                                        </button>
+                                                                    <button class="btn btn-danger btn-sm deleteAssignment"  data-id="${recruiter.assignedId}">
+                                                                                                                            Delete
+                                                                </td>
+                                                            </tr>`;
                                 tbody.append(rows);
 
                             });
@@ -262,6 +262,7 @@
                         dataType: "json",
                         success: function (data) {
                             if (data.status === "success") {
+                                console.log(data, 'rwewerq');
                                 $('.modal-title').text("Success");
                                 $('.modal-body').text(data.message);
                                 var successModal = new bootstrap.Modal(document.getElementById('successModal'));
@@ -352,20 +353,33 @@
                 success: function (response) {
                     console.log(response, 'delete response');
 
-                    if (response.status === "success") {
-                        alert("Assignment deleted successfully.");
-                        fetchAssignedRecruiter(); // Refresh table
+                    if (response) {
+                        $('#successModalLabel').text("Success");
+                        $('.modal-body').text("Assignment deleted successfully.");
+                        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+
+                        // Refresh the assigned recruiters list after modal is closed
+                        $('#successModal').on('hidden.bs.modal', function () {
+                            fetchAssignedRecruiter();
+                        });
                     } else {
-                        console.error("Error:", response.message);
-                        alert("Failed to delete assignment.");
+                        $('#successModalLabel').text("Error");
+                        $('.modal-body').text("Failed to delete assignment.");
+                        var errorModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        errorModal.show();
                     }
                 },
                 error: function (xhr, status, error) {
                     console.error("Error deleting assignment:", xhr.responseText);
-                    alert("Failed to delete assignment.");
+                    $('#successModalLabel').text("Error");
+                    $('.modal-body').text("Failed to delete assignment.");
+                    var errorModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    errorModal.show();
                 }
             });
         });
+
 
 
         // function deleteAssignment(id) {

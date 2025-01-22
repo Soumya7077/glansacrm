@@ -154,13 +154,18 @@ class AssigningUserController extends Controller
 
       $assignUser->JobId = $request->jobId;
       $assignUser->UserId = $request->userId;
-      $assignUser->UpdatedBy = $request->updatedBy;
+      $assignUser->UpdatedBy = $request->assignedBy;
       $assignUser->UpdatedOn = now();
       $assignUser->updated_at = now();
 
       $assignUser->save();
 
-      return response()->json(['message' => 'Recruiter assign updated successfully', 'data' => $assignUser], 200);
+      return response()->json([
+        'status' => 'success',
+        'message' => 'Recruiter assign updated successfully',
+        'data' => $assignUser
+      ], 200);
+
     } catch (Exception $e) {
       return response()->json([
         'status' => 'error',
