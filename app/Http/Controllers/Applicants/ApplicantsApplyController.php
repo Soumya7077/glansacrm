@@ -138,12 +138,18 @@ class ApplicantsApplyController extends Controller
   {
     try {
       $applicantlist = DB::table('applicant')
-        ->join('job_post', 'job_post.id', '=', 'applicant.jobpost_id')
+        ->join('job_post', 'applicant.jobpost_id', '=', 'job_post.id')
+        ->where('applicant.Source', '=', 'Website')
+        ->orWhere('applicant.Source', '=', 'Enquiry')
         ->select(
           'applicant.*',
           'job_post.Title',
           'job_post.Description'
-        );
+        )->get();
+
+
+
+
 
       if ($applicantlist) {
         return response()->json([
