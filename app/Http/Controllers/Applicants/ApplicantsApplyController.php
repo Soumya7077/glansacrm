@@ -141,7 +141,8 @@ class ApplicantsApplyController extends Controller
         ->join('job_post', 'job_post.id', '=', 'applicant.jobpost_id')
         ->select(
           'applicant.*',
-          'job_post.Title, job_post.Description'
+          'job_post.Title',
+          'job_post.Description'
         );
 
       if ($applicantlist) {
