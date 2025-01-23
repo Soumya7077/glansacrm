@@ -270,10 +270,13 @@
                             <td>${employer.SecondContactEmail || 'N/A'}</td>
                             <td>${employer.SecondContactLocation || 'N/A'}</td>
                             <td>${employer.SecondContactDesignation || 'N/A'}</td>
-                            <td class="text-center d-flex justify-content-between">
-                                <button class="btn btn-primary btn-sm edit-btn" data-id="${employer.id}">Edit</button>
-                                <button class="btn btn-danger btn-sm delete-btn" data-id="${employer.id}">Delete</button>
+                           <td class="text-center">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <button class="btn btn-primary btn-sm edit-btn" data-id="${employer.id}">Edit</button>
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="${employer.id}">Delete</button>
+                                </div>
                             </td>
+
 
                         </tr>
                     `;
