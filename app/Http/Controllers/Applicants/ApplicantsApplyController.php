@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ApplicantModel;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApplicantsApplyController extends Controller
 {
@@ -136,7 +137,12 @@ class ApplicantsApplyController extends Controller
   public function getApplicant()
   {
     try {
-      $applicantlist = ApplicantModel::all();
+      $applicantlist = DB::table('applicant')
+        ->join('job_post', 'job_post.id', '=', 'applicant.jobpost_id')
+        ->select(
+          'applicant.*',
+          'job_post.Title, job_post.Description'
+        );
 
       if ($applicantlist) {
         return response()->json([
@@ -348,7 +354,7 @@ class ApplicantsApplyController extends Controller
   public function getSocialMediaApplicant()
   {
     try {
-      $applicant = ApplicantModel::where('Source', '=','sm')->get();
+      $applicant = ApplicantModel::where('Source', '=', 'sm')->get();
       return response()->json([
         'status' => 'success',
         'message' => 'Applicant fetch by social media successfully!',
