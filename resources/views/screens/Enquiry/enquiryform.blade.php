@@ -14,6 +14,7 @@
       </div>
       <div class="card-body">
         <form id="enquiryForm" novalidate>
+          <input type="text" hidden id="smid">
           <!-- First Row -->
           <div class="row mb-3">
             <div class="col-md-6 mb-3">
@@ -168,6 +169,149 @@
     </div>
 
     <script>
+
+      $('#enquiryForm').on('submit', function (e) {
+        e.preventDefault();
+
+        let isValid = true;
+
+        let firstName = $('#firstname').val().trim();
+        if (!/^[A-Za-z\s]+$/.test(firstName)) {
+          $('#firstname').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#firstname').removeClass('is-invalid');
+        }
+
+        let lastName = $('#lastname').val().trim();
+        if (!/^[A-Za-z\s]+$/.test(lastName)) {
+          $('#lastname').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#lastname').removeClass('is-invalid');
+        }
+
+        let phoneNumber = $('#phone').val().trim();
+        if (!/^\d{10}$/.test(phoneNumber)) {
+          $('#phone').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#phone').removeClass('is-invalid');
+        }
+
+        let email = $('#email').val().trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          $('#email').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#email').removeClass('is-invalid');
+        }
+
+        if ($('#job-post').val() === '') {
+          $('#job-post').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#job-post').removeClass('is-invalid');
+        }
+
+        if ($('#qualification').val().trim() === '') {
+          $('#qualification').addClass('is-invalid');
+          isValid = false;
+        } else {
+          $('#qualification').removeClass('is-invalid');
+        }
+
+        let currentSalary = $('#current-salary').val().trim();
+        let expectedSalary = $('#expected-salary').val().trim();
+        let remarks = $('#remarks').val().trim();
+        let noticePeriod = $('#noticeperiod').val();
+        let jobPost = $('#job-post').val();
+        let applicantId = new URLSearchParams(window.location.search).get('applicant_id');
+
+        if (!isValid) return;
+
+        const updatedData = {
+          FirstName: firstName,
+          LastName: lastName,
+          PhoneNumber: phoneNumber,
+          Source: 'Enquiry',
+          Email: email,
+          Qualification: $('#qualification').val().trim(),
+          Experience: $('#experience').val().trim(),
+          CurrentSalary: currentSalary,
+          ExpectedSalary: expectedSalary,
+          Remarks: remarks,
+          NoticePeriod: noticePeriod,
+          JobPostId: jobPost
+        };
+
+        if (applicantId) {
+          $.ajax({
+            url: '/api/updateApplicant/' + applicantId,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedData),
+            success: function (response) {
+              if (response) {
+                $('#successModal').modal('show');
+              } else {
+                console.error('Error updating data:', response.message);
+                alert('Failed to update enquiry form. Please try again.');
+              }
+            },
+            error: function (xhr) {
+              console.error('Failed to update enquiry data:', xhr.responseText);
+              // alert('An error occurred while updating the enquiry form.');
+            }
+          });
+        } else {
+          alert('Applicant ID not found.');
+        }
+      });
+
+
+
+      $(document).ready(function () {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const applicantId = urlParams.get('applicant_id');
+        console.log("Applicant Idddddd", applicantId);
+
+        if (applicantId) {
+          $.ajax({
+            url: '/api/getapplicant/' + applicantId,
+            type: 'GET',
+            success: function (response) {
+              console.log("response=======", response)
+              if (response) {
+                const data = response.data;
+
+                $('#firstname').val(data.FirstName);
+                $('#lastname').val(data.LastName);
+                $('#phone').val(data.PhoneNumber);
+                $('#email').val(data.Email);
+                $('#qualification').val(data.Qualification);
+                $('#experience').val(data.Experience);
+                $('#current-salary').val(data.CurrentSalary);
+                $('#expected-salary').val(data.ExpectedSalary);
+                $('#remarks').val(data.Remarks);
+                $('#noticeperiod').val(data.NoticePeriod);
+                $('#job-post').val(data.JobPostId);
+
+                if (data.Resume) {
+                  $('#uploadResume').val(data.Resume);
+                }
+              } else {
+                console.error('Error fetching enquiry data:', response.message);
+              }
+            },
+            error: function (xhr) {
+              console.error('Failed to fetch enquiry data:', xhr.responseText);
+            }
+          });
+        }
+      });
+
 
 
       $(document).ready(function () {

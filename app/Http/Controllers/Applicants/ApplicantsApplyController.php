@@ -271,8 +271,8 @@ class ApplicantsApplyController extends Controller
         'Certificates' => $request->Certificates,
         'Remarks' => $request->Remarks,
         'Feedback' => $request->Feedback,
-        'CreatedOn' => $request->CreatedOn,
-        
+        // 'CreatedOn' => $request->CreatedOn,
+
       ]);
 
       return response()->json([
