@@ -395,5 +395,16 @@ class ApplicantsApplyController extends Controller
 
   /**====================================Update Applicant Status================================ */
 
+  
+
+  /**===================================Get Formatted Applicant List=========================== */
+
+  public function getFormattedApplicantList()
+  {
+
+  }
+
+  /**===================================Get Formatted Applicant List=========================== */
+
 
 }
