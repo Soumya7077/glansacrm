@@ -103,6 +103,7 @@ Route::get('/getapplicant/{id}', [ApplicantsApplyController::class, 'getApplican
 Route::get('/getapplicantbyjob/{id}', [ApplicantsApplyController::class, 'getApplicantByJobId']);
 Route::get('/getsmapplicant', [ApplicantsApplyController::class, 'getSocialMediaApplicant']);
 Route::put('/updateApplicant/{id}', [ApplicantsApplyController::class, 'updateApplicant']);
+Route::put('/applicantStatusUpdate/{id}', [ApplicantsApplyController::class, 'applicantStatusUpdate']);
 Route::delete('/deleteApplicant/{id}', [ApplicantsApplyController::class, 'deleteApplicant']);
 
 /**===================================Applicant API End=============================================== */
