@@ -316,8 +316,9 @@
                 url: `/api/deleteEmployer/${employerId}`,
                 method: 'DELETE',
                 success: function (response) {
-                    if (response.status === 'success') {
+                    if (response) {
                         row.remove();
+                        alert('Employer deleteed successfully.');
                     } else {
                         alert('Failed to delete employer.');
                     }
