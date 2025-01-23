@@ -50,8 +50,8 @@
               <th>Experience</th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="text-center align-middle">
+          <tbody id="employerTableBody">
+            <!-- <tr class="text-center align-middle">
               <td>Naveen Nagam</td>
               <td>Medical Assistant, Surgeon</td>
               <td>Frontend Developer</td>
@@ -62,7 +62,7 @@
               <td>Medical Assistant, Surgeon</td>
               <td>Backend Developer</td>
               <td>4 Years</td>
-            </tr>
+            </tr> -->
             <!-- Add more rows as needed -->
           </tbody>
         </table>
@@ -93,6 +93,44 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+  $(document).ready(function () {
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    let applicants = urlParams.get('applicants');
+    if (!applicants) {
+      console.log("No data found in sessionStorage");
+      $("#employerTableBody").html('<tr><td colspan="4" class="text-center text-muted py-3">No applicants selected.</td></tr>');
+      return;
+    }
+
+    applicants = JSON.parse(applicants);
+    console.log("Retrieved Data:", applicants)
+
+    function populateEmployerTable() {
+      let tbody = $("#employerTableBody");
+      tbody.empty();
+
+      if (applicants.length === 0) {
+        tbody.append('<tr><td colspan="4" class="text-center text-muted py-3">No applicants selected.</td></tr>');
+        return;
+      }
+
+      applicants.forEach(applicant => {
+
+        let row = `<tr class="text-center align-middle">
+          <td>${applicant.name}</td>
+          <td>${applicant.keySkills}</td>
+          <td>${applicant.jobDescription}</td>
+          <td>${applicant.experience} years</td>
+        </tr>`;
+        tbody.append(row);
+      });
+    }
+
+    populateEmployerTable();
+  });
+
   // Form submission handler
   $('#emailForm').on('submit', function (e) {
     e.preventDefault(); // Prevent the default form submission
