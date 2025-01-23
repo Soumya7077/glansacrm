@@ -137,6 +137,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="applicantDetailsModal" tabindex="-1" aria-labelledby="applicantDetailsModalLabel"
+<<<<<<< HEAD
   aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -154,6 +155,95 @@
                 </div>
                 <div class="col-md-6">
                   <p><strong>Phone Number:</strong> 9658741235 </p>
+=======
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applicantDetailsModalLabel">Applicant Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl">
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- <div class="col-md-6">
+                                    <p><strong>Name:</strong> Anita Seth </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Phone Number:</strong> 9658741235 </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Email:</strong> anita@gmail.com </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Portfolio/LinkedIn Profile:</strong> <a href="#"> linkedin.com/anita </a>
+                                    </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Applying For:</strong> Medical </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Highest Qualification:</strong> MBBS </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Current Location:</strong> Hyderabad </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Preferred Location:</strong> Hyderabad </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Height:</strong> 5.4 ft </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Weight:</strong> 58 kg </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Blood Group:</strong> O+ </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Hemoglobin:</strong> 14.5% </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Notice Period:</strong> 1 month </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Work Experience:</strong> 5 years </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Current Salary:</strong> 3,00,000 </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Expected Salary:</strong> 6,20,000 </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Current Organisation:</strong> Glansa </p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p><strong>Resume:</strong> <a href="#"> Download Resume </a></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Certificates:</strong> <a href="#"> Download Certificates </a></p>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <p><strong>Remarks:</strong> Demonstrates exceptional dedication and compassion
+                                        towards patients, providing holistic care and support.</p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+>>>>>>> e7b380cf01dcd6e012beb130d18aa709b58e84f1
                 </div>
 
                 <div class="col-md-6">
@@ -223,7 +313,13 @@
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
           </div>
+=======
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+>>>>>>> e7b380cf01dcd6e012beb130d18aa709b58e84f1
         </div>
 
       </div>
@@ -284,8 +380,27 @@
                                     ${applicant.StatusId === "1" ? 'Shortlisted' : 'Pending'}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#applicantDetailsModal">View</button>
+                                    <button type="button" class="btn btn-primary viewApplicantBtn" data-bs-toggle="modal"
+                                        data-bs-target="#applicantDetailsModal" data-name="${applicant.FirstName} ${applicant.LastName}"
+        data-phone="${applicant.PhoneNumber || 'N/A'}"
+        data-email="${applicant.Email || 'N/A'}"
+        data-linkedin="${applicant.LinkedIn || '#'}"
+        data-applying="${applicant.ApplyingFor || 'N/A'}"
+        data-qualification="${applicant.Qualification || 'N/A'}"
+        data-current-location="${applicant.CurrentLocation || 'N/A'}"
+        data-preferred-location="${applicant.PreferredLocation || 'N/A'}"
+        data-height="${applicant.Height || 'N/A'}"
+        data-weight="${applicant.Weight || 'N/A'}"
+        data-blood="${applicant.BloodGroup || 'N/A'}"
+        data-hemoglobin="${applicant.Hemoglobin || 'N/A'}"
+        data-notice="${applicant.NoticePeriod || 'N/A'}"
+        data-experience="${applicant.Experience || 'N/A'}"
+        data-current-salary="${applicant.CurrentSalary || 'N/A'}"
+        data-expected-salary="${applicant.ExpectedSalary || 'N/A'}"
+        data-organization="${applicant.CurrentOrganization || 'N/A'}"
+        data-resume="${applicant.Resume || '#'}"
+        data-certificates="${applicant.Certificates || '#'}"
+        data-remarks="${applicant.Remarks || 'N/A'}">View</button>
                                 </td>
                             </tr>
                         `;
@@ -373,6 +488,47 @@
         console.log(filteredApplicant);
         break;
     }
+<<<<<<< HEAD
+=======
+    $(document).on("click", ".viewApplicantBtn", function () {
+        $("#applicantDetailsModalLabel").text("Applicant Details");
+
+        $("#applicantDetailsModal .modal-body").html(`
+        <div class="row">
+            <div class="col-md-6"><p><strong>Name:</strong> ${$(this).data("name")}</p></div>
+            <div class="col-md-6"><p><strong>Phone Number:</strong> ${$(this).data("phone")}</p></div>
+            <div class="col-md-6"><p><strong>Email:</strong> ${$(this).data("email")}</p></div>
+            <div class="col-md-6"><p><strong>Portfolio/LinkedIn Profile:</strong>
+                <a href="${$(this).data("linkedin")}" target="_blank"> ${$(this).data("linkedin")} </a>
+            </p></div>
+            <div class="col-md-6"><p><strong>Applying For:</strong> ${$(this).data("applying")}</p></div>
+            <div class="col-md-6"><p><strong>Highest Qualification:</strong> ${$(this).data("qualification")}</p></div>
+            <div class="col-md-6"><p><strong>Current Location:</strong> ${$(this).data("current-location")}</p></div>
+            <div class="col-md-6"><p><strong>Preferred Location:</strong> ${$(this).data("preferred-location")}</p></div>
+            <div class="col-md-6"><p><strong>Height:</strong> ${$(this).data("height")}</p></div>
+            <div class="col-md-6"><p><strong>Weight:</strong> ${$(this).data("weight")}</p></div>
+            <div class="col-md-6"><p><strong>Blood Group:</strong> ${$(this).data("blood")}</p></div>
+            <div class="col-md-6"><p><strong>Hemoglobin:</strong> ${$(this).data("hemoglobin")}</p></div>
+            <div class="col-md-6"><p><strong>Notice Period:</strong> ${$(this).data("notice")}</p></div>
+            <div class="col-md-6"><p><strong>Work Experience:</strong> ${$(this).data("experience")}</p></div>
+            <div class="col-md-6"><p><strong>Current Salary:</strong> ${$(this).data("current-salary")}</p></div>
+            <div class="col-md-6"><p><strong>Expected Salary:</strong> ${$(this).data("expected-salary")}</p></div>
+            <div class="col-md-6"><p><strong>Current Organisation:</strong> ${$(this).data("organization")}</p></div>
+            <div class="col-md-6"><p><strong>Resume:</strong>
+                <a href="${$(this).data("resume")}" target="_blank"> Download Resume </a>
+            </p></div>
+            <div class="col-md-6"><p><strong>Certificates:</strong>
+                <a href="${$(this).data("certificates")}" target="_blank"> Download Certificates </a>
+            </p></div>
+            <div class="col-md-12"><p><strong>Remarks:</strong> ${$(this).data("remarks")}</p></div>
+        </div>
+    `);
+    });
+    $('#clearForm').on('click', function () {
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+    });
+>>>>>>> e7b380cf01dcd6e012beb130d18aa709b58e84f1
 
   });
 

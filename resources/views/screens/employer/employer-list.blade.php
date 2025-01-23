@@ -55,6 +55,7 @@
                             <div class="card-header p-0 mb-3">
                                 <h6 class="text-primary mb-0">Organization Details</h6>
                             </div>
+                            <input type="hidden" id="empId">
                             <div class="form-floating mb-5">
                                 <input type="text" class="form-control" id="organization-name"
                                     placeholder="Organization Name" required />
@@ -153,6 +154,91 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="successModalupdate" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                The Employer has been updated successfully
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deletemodalsuccess" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Employer deleteed successfully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Error deleting employer.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="errorModaldelete" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Failed to delete employer.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this employer?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -161,7 +247,7 @@
             method: 'GET',
             success: function (response) {
                 console.log("hdvh zhjgzv dhzjnbcvf", response.data)
-                if (response.status === "success") {
+                if (response) {
                     let employers = response.data;
                     let tableBody = $('#tbody');
                     tableBody.empty();
@@ -217,68 +303,71 @@
 
 
 
+    $(document).ready(function () {
 
-    $('#addUserForm').on('submit', function (e) {
-        e.preventDefault();
+        $('#addUserForm').on('submit', function (e) {
+            e.preventDefault();
 
-        const formData = {
-            OrganizationName: $('#organization-name').val(),
-            FirstContactPersonName: $('#contact-person-1-name').val(),
-            FirstContactPhoneNumber: $('#contact-person-1-phone').val(),
-            FirstContactEmail: $('#contact-person-1-email').val(),
-            FirstContactLocation: $('#contact-person-1-location').val(),
-            FirstContactDesignation: $('#contact-person-1-designation').val(),
-            SecondContactPersonName: $('#contact-person-2-name').val(),
-            SecondContactPhoneNumber: $('#contact-person-2-phone').val(),
-            SecondContactEmail: $('#contact-person-2-email').val(),
-            SecondContactLocation: $('#contact-person-2-location').val(),
-            SecondContactDesignation: $('#contact-person-2-designation').val(),
-        };
+            const formData = {
+                OrganizationName: $('#organization-name').val(),
+                FirstContactPersonName: $('#contact-person-1-name').val(),
+                FirstContactPhoneNumber: $('#contact-person-1-phone').val(),
+                FirstContactEmail: $('#contact-person-1-email').val(),
+                FirstContactLocation: $('#contact-person-1-location').val(),
+                FirstContactDesignation: $('#contact-person-1-designation').val(),
+                SecondContactPersonName: $('#contact-person-2-name').val(),
+                SecondContactPhoneNumber: $('#contact-person-2-phone').val(),
+                SecondContactEmail: $('#contact-person-2-email').val(),
+                SecondContactLocation: $('#contact-person-2-location').val(),
+                SecondContactDesignation: $('#contact-person-2-designation').val(),
+            };
 
 
-        const employerId = $(this).data('id');
+            const employerId = $('#empId').val();
 
-        const method = employerId ? 'PUT' : 'POST';
-        const url = employerId ? `/api/updateEmployer/${employerId}` : '/api/createEmployer';
+            const method = employerId ? 'PUT' : 'POST';
+            const url = employerId ? `/api/updateEmployer/${employerId}` : '/api/createEmployer';
 
-        $.ajax({
-            url: url,
-            method: method,
-            data: formData,
-            success: function (response) {
-                console.log("Response:", response);
-                if (response.status === 'success') {
-                    $('#offcanvasBackdrop').offcanvas('hide');
-                    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                    successModal.show();
-                    $('#addUserForm')[0].reset();
-                }
-            },
-            error: function (xhr) {
-                if (xhr.status === 422) {
-                    const errors = xhr.responseJSON.errors;
-                    for (const key in errors) {
-                        const input = $(`#${key.replace('_', '-')}`);
-                        input.addClass('is-invalid');
-                        input.next('.invalid-feedback').text(errors[key][0]);
+            $.ajax({
+                url: url,
+                method: method,
+                data: formData,
+                success: function (response) {
+                    console.log("Response:", response);
+                    if (response) {
+                        $('#offcanvasBackdrop').offcanvas('hide');
+                        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+                        $('#addUserForm')[0].reset();
                     }
-                } else {
-                    alert('An error occurred. Please try again.');
-                }
-            },
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        const errors = xhr.responseJSON.errors;
+                        for (const key in errors) {
+                            const input = $(`#${key.replace('_', '-')}`);
+                            input.addClass('is-invalid');
+                            input.next('.invalid-feedback').text(errors[key][0]);
+                        }
+                    } else {
+                        alert('An error occurred. Please try again.');
+                    }
+                },
+            });
         });
     });
+
 
 
     $(document).on('click', '.edit-btn', function () {
         const employerId = $(this).data('id');
         $('#edit-loading').show();
-
+        $('#empId').val(employerId);
         $.ajax({
             url: `/api/getEmployer/${employerId}`,
             method: 'GET',
             success: function (response) {
-                if (response.status === 'success') {
+                if (response) {
                     const employer = response.data;
 
                     $('#organization-name').val(employer.OrganizationName);
@@ -310,24 +399,27 @@
     $(document).on('click', '.delete-btn', function () {
         const employerId = $(this).data('id');
         const row = $(this).closest('tr');
+        $('#confirmModal').modal('show');
 
-        if (confirm('Are you sure you want to delete this employer?')) {
+        $('#confirmDeleteButton').off('click').on('click', function () {
             $.ajax({
                 url: `/api/deleteEmployer/${employerId}`,
                 method: 'DELETE',
                 success: function (response) {
                     if (response) {
                         row.remove();
-                        alert('Employer deleteed successfully.');
+                        $('#deletemodalsuccess').modal('show');
                     } else {
-                        alert('Failed to delete employer.');
+                        $('#errorModal').modal('show');
                     }
                 },
                 error: function () {
-                    alert('Error deleting employer.');
+                    $('#errorModaldelete').modal('show');
                 }
             });
-        }
+            $('#confirmModal').modal('hide');
+
+        });
     });
 
 
