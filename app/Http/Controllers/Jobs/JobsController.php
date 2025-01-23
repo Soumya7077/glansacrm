@@ -18,44 +18,11 @@ class JobsController extends Controller
   public function jobs()
   {
     // return view('screens.Jobs.jobpost');
-    $jobs = [
-      [
-        'id' => 1,
-        'title' => 'Medical Assistant',
-        'company' => 'CyberPoint Pvt. Ltd',
-        'location' => 'Gurugram, Haryana',
-        'salary' => '₹45,000 - ₹60,000 a month',
-        'type' => 'Full-time',
-        'schedule' => 'Monday to Friday',
-      ],
-      [
-        'id' => 2,
-        'title' => 'Medical Assistant',
-        'company' => 'CyberPoint Pvt. Ltd',
-        'location' => 'Gurugram, Haryana',
-        'salary' => '₹45,000 - ₹60,000 a month',
-        'type' => 'Full-time',
-        'schedule' => 'Monday to Friday',
-      ],
-      [
-        'id' => 3,
-        'title' => 'Medical Assistant',
-        'company' => 'CyberPoint Pvt. Ltd',
-        'location' => 'Gurugram, Haryana',
-        'salary' => '₹45,000 - ₹60,000 a month',
-        'type' => 'Full-time',
-        'schedule' => 'Monday to Friday',
-      ],
-      [
-        'id' => 4,
-        'title' => 'Medical Assistant',
-        'company' => 'CyberPoint Pvt. Ltd',
-        'location' => 'Gurugram, Haryana',
-        'salary' => '₹45,000 - ₹60,000 a month',
-        'type' => 'Full-time',
-        'schedule' => 'Monday to Friday',
-      ],
-    ];
+    $jobs = DB::table('job_post')
+      ->join('employees', 'employees.id', '=', 'job_post.EmployerId')
+      ->join('departments', 'departments.id', "=", 'job_post.Department')
+      ->select('job_post.*', 'employees.OrganizationName', 'departments.Name as DepartmentName')->orderBy('job_post.id', 'desc')
+      ->get();
     return view('screens.Jobs.jobs', compact('jobs'));
   }
 
