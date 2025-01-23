@@ -16,7 +16,6 @@
                 <tr class="text-center align-middle">
                     <th>Sr No</th>
                     <th>Organisation Name</th>
-                    <th>Job Count</th>
                     <th>Date</th>
                     <th>First Contact Person Name</th>
                     <th>Phone Number</th>
@@ -28,63 +27,11 @@
                     <th>Email</th>
                     <th>Location</th>
                     <th>Designation</th>
-                    <th>Remarks</th>
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody id="empList">
-                <tr class="text-center align-middle">
-                    <td>1</td>
-                    <td>Apollo</td>
-                    <td>43</td>
-                    <td>01/06/2025</td>
-                    <td>Soumya Ranjan</td>
-                    <td>1234567890</td>
-                    <td>abc@apollo.com</td>
-                    <td>Delhi</td>
-                    <td>Operation Head</td>
-                    <td>Anita</td>
-                    <td>1234567890</td>
-                    <td>anita@apollo.com</td>
-                    <td>Delhi</td>
-                    <td>Operation Head</td>
-                    <td>Data alignment</td>
-                    <td class="text-center">
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-sm btn-primary edit-btn" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</button>
-                            <button class="btn btn-sm btn-danger delete-btn ms-2" type="button"
-                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBackdrop"
-                                aria-controls="offcanvasBackdrop">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="text-center align-middle">
-                    <td>2</td>
-                    <td>Apollo</td>
-                    <td>25</td>
-                    <td>01/06/2025</td>
-                    <td>Naveen Nagam</td>
-                    <td>1234567890</td>
-                    <td>abc@apollo.com</td>
-                    <td>Hyderabad</td>
-                    <td>Operation Head</td>
-                    <td>Anita</td>
-                    <td>1234567890</td>
-                    <td>anita@apollo.com</td>
-                    <td>Hyderabad</td>
-                    <td>Operation Head</td>
-                    <td>Data alignment</td>
-                    <td class="text-center">
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-sm btn-primary edit-btn" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop">Edit</button>
-                            <button class="btn btn-sm btn-danger delete-btn ms-2" type="button"
-                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBackdrop"
-                                aria-controls="offcanvasBackdrop">Delete</button>
-                        </div>
-                    </td>
-                </tr>
+            <tbody id="tbody">
+
             </tbody>
         </table>
     </div>
@@ -102,28 +49,22 @@
             <hr>
             <h4 id="edit-loading" class="text-primary" style="display: none; padding:0px 25px;">Loading...</h4>
             <div class="offcanvas-body mx-0 flex-grow-0">
-                <form class="needs-validation" id="addUserForm" novalidate>
-                    {{-- Organization Details --}}
+                <form id="addUserForm">
                     <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 class="text-primary mb-0">Organization Details</h6>
-                        </div>
                         <div class="card-body">
-                            <div class="form-floating mb-4">
+                            <div class="card-header p-0 mb-3">
+                                <h6 class="text-primary mb-0">Organization Details</h6>
+                            </div>
+                            <div class="form-floating mb-5">
                                 <input type="text" class="form-control" id="organization-name"
                                     placeholder="Organization Name" required />
                                 <label for="organization-name">Organization Name</label>
                                 <div class="invalid-feedback">Please provide the organization name.</div>
                             </div>
-                        </div>
-                    </div>
 
-                    {{-- Contact Person 1 Section --}}
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 class="text-primary mb-0">Contact Person 1 Details</h6>
-                        </div>
-                        <div class="card-body">
+                            <div class="card-header  p-0 mb-3 ">
+                                <h6 class="text-primary mb-0">Contact Person 1 Details</h6>
+                            </div>
                             <div class="form-floating mb-4">
                                 <input type="text" class="form-control" id="contact-person-1-name"
                                     placeholder="Contact Person Name" required />
@@ -148,21 +89,16 @@
                                 <label for="contact-person-1-location">Location</label>
                                 <div class="invalid-feedback">Please provide a location.</div>
                             </div>
-                            <div class="form-floating mb-4">
-                                <input type="text" class="form-control" id="contact-person-1-Designation"
+                            <div class="form-floating mb-5">
+                                <input type="text" class="form-control" id="contact-person-1-designation"
                                     placeholder="Designation" required />
                                 <label for="contact-person-1-location">Designation</label>
                                 <div class="invalid-feedback">Please provide a Designation.</div>
                             </div>
-                        </div>
-                    </div>
 
-                    {{-- Contact Person 2 Section --}}
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 class="text-primary mb-0">Contact Person 2 Details</h6>
-                        </div>
-                        <div class="card-body">
+                            <div class="card-header  p-0 mb-3">
+                                <h6 class="text-primary mb-0">Contact Person 2 Details</h6>
+                            </div>
                             <div class="form-floating mb-4">
                                 <input type="text" class="form-control" id="contact-person-2-name"
                                     placeholder="Contact Person Name" />
@@ -184,20 +120,21 @@
                                 <label for="contact-person-2-location">Location</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="text" class="form-control" id="contact-person-1-Designation"
-                                    placeholder="Designation" required />
-                                <label for="contact-person-1-location">Designation</label>
-                                <div class="invalid-feedback">Please provide a Designation.</div>
+                                <input type="text" class="form-control" id="contact-person-2-designation"
+                                    placeholder="Designation" />
+                                <label for="contact-person-2-location">Designation</label>
                             </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+                <h4 id="edit-loading" class="text-primary" style="display: none;">Loading...</h4>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Success Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -217,22 +154,191 @@
     </div>
 </div>
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/api/getEmployer',
+            method: 'GET',
+            success: function (response) {
+                console.log("hdvh zhjgzv dhzjnbcvf", response.data)
+                if (response.status === "success") {
+                    let employers = response.data;
+                    let tableBody = $('#tbody');
+                    tableBody.empty();
+                    if (employers.length === 0) {
+                        tableBody.append('<tr><td colspan="14" class="text-center">No employers found</td></tr>');
+                    }
+                    employers.forEach((employer, index) => {
+                        let row = `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${employer.OrganizationName}</td>
+                            <td>${new Date(employer.created_at).toLocaleDateString()}</td>
+                            <td>${employer.FirstContactPersonName}</td>
+                            <td>${employer.FirstContactPhoneNumber}</td>
+                            <td>${employer.FirstContactEmail}</td>
+                            <td>${employer.FirstContactLocation}</td>
+                            <td>${employer.FirstContactDesignation}</td>
+                            <td>${employer.SecondContactPersonName || 'N/A'}</td>
+                            <td>${employer.SecondContactPhoneNumber || 'N/A'}</td>
+                            <td>${employer.SecondContactEmail || 'N/A'}</td>
+                            <td>${employer.SecondContactLocation || 'N/A'}</td>
+                            <td>${employer.SecondContactDesignation || 'N/A'}</td>
+                            <td class="text-center d-flex justify-content-between">
+                                <button class="btn btn-primary btn-sm edit-btn" data-id="${employer.id}">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="${employer.id}">Delete</button>
+                            </td>
+
+                        </tr>
+                    `;
+                        tableBody.append(row);
+                    });
+                } else {
+                    alert('Failed to fetch employer data.');
+                }
+            },
+            error: function () {
+                alert('Error fetching employer data.');
+            }
+        });
+
+
+        $('#clearForm').on('click', function () {
+            $('#addUserForm')[0].reset();
+            $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
+        });
+
+        $('#offcanvasBackdrop').on('hidden.bs.offcanvas', function () {
+            $('#addUserForm')[0].reset();
+            $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
+        });
+
+    });
+
+
+
+
+    $('#addUserForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const formData = {
+            OrganizationName: $('#organization-name').val(),
+            FirstContactPersonName: $('#contact-person-1-name').val(),
+            FirstContactPhoneNumber: $('#contact-person-1-phone').val(),
+            FirstContactEmail: $('#contact-person-1-email').val(),
+            FirstContactLocation: $('#contact-person-1-location').val(),
+            FirstContactDesignation: $('#contact-person-1-designation').val(),
+            SecondContactPersonName: $('#contact-person-2-name').val(),
+            SecondContactPhoneNumber: $('#contact-person-2-phone').val(),
+            SecondContactEmail: $('#contact-person-2-email').val(),
+            SecondContactLocation: $('#contact-person-2-location').val(),
+            SecondContactDesignation: $('#contact-person-2-designation').val(),
+        };
+
+
+        const employerId = $(this).data('id');
+
+        const method = employerId ? 'PUT' : 'POST';
+        const url = employerId ? `/api/updateEmployer/${employerId}` : '/api/createEmployer';
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: formData,
+            success: function (response) {
+                console.log("Response:", response);
+                if (response.status === 'success') {
+                    $('#offcanvasBackdrop').offcanvas('hide');
+                    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                    $('#addUserForm')[0].reset();
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 422) {
+                    const errors = xhr.responseJSON.errors;
+                    for (const key in errors) {
+                        const input = $(`#${key.replace('_', '-')}`);
+                        input.addClass('is-invalid');
+                        input.next('.invalid-feedback').text(errors[key][0]);
+                    }
+                } else {
+                    alert('An error occurred. Please try again.');
+                }
+            },
+        });
+    });
+
+
+    $(document).on('click', '.edit-btn', function () {
+        const employerId = $(this).data('id');
+        $('#edit-loading').show();
+
+        $.ajax({
+            url: `/api/getEmployer/${employerId}`,
+            method: 'GET',
+            success: function (response) {
+                if (response.status === 'success') {
+                    const employer = response.data;
+
+                    $('#organization-name').val(employer.OrganizationName);
+                    $('#contact-person-1-name').val(employer.FirstContactPersonName);
+                    $('#contact-person-1-phone').val(employer.FirstContactPhoneNumber);
+                    $('#contact-person-1-email').val(employer.FirstContactEmail);
+                    $('#contact-person-1-location').val(employer.FirstContactLocation);
+                    $('#contact-person-1-designation').val(employer.FirstContactDesignation);
+                    $('#contact-person-2-name').val(employer.SecondContactPersonName || '');
+                    $('#contact-person-2-phone').val(employer.SecondContactPhoneNumber || '');
+                    $('#contact-person-2-email').val(employer.SecondContactEmail || '');
+                    $('#contact-person-2-location').val(employer.SecondContactLocation || '');
+                    $('#contact-person-2-designation').val(employer.SecondContactDesignation || '');
+
+                    $('#offcanvasBackdrop').offcanvas('show');
+                } else {
+                    alert('Failed to fetch employer details.');
+                }
+            },
+            error: function () {
+                alert('Error fetching employer data.');
+            },
+            complete: function () {
+                $('#edit-loading').hide();
+            }
+        });
+    });
+
+    $(document).on('click', '.delete-btn', function () {
+        const employerId = $(this).data('id');
+        const row = $(this).closest('tr');
+
+        if (confirm('Are you sure you want to delete this employer?')) {
+            $.ajax({
+                url: `/api/deleteEmployer/${employerId}`,
+                method: 'DELETE',
+                success: function (response) {
+                    if (response) {
+                        row.remove();
+                        alert('Employer deleteed successfully.');
+                    } else {
+                        alert('Failed to delete employer.');
+                    }
+                },
+                error: function () {
+                    alert('Error deleting employer.');
+                }
+            });
+        }
+    });
+
+
+
+
+
     $(document).ready(function () {
         $(document).on('click', '.btn-close', function () {
             $('#offcanvasBackdrop').offcanvas('hide');
             $('#addUserForm')[0].reset();
             $('#userId').val('');
-        });
-
-        $('#addUserForm').on('submit', function (e) {
-            e.preventDefault();
-            $('#offcanvasBackdrop').offcanvas('hide');
-
-            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
-            $('#addUserForm')[0].reset();
         });
 
         $(document).on('click', '#addbtn', function () {

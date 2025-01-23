@@ -40,7 +40,7 @@ class EmployerController extends Controller
       //     'message' => 'Email already exists!'
       //   ], 400);
       // } else {
-      $employer = EmployeesModel::create([
+      $employer = EmployeesModel::create(attributes: [
         'OrganizationName' => $request->OrganizationName,
         'FirstContactPersonName' => $request->FirstContactPersonName,
         'FirstContactPhoneNumber' => $request->FirstContactPhoneNumber,

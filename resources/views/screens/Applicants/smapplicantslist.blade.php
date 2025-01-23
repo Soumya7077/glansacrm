@@ -11,11 +11,15 @@
             <h4 class="text-primary">Loading...</h4>
         </span>
     </div>
+    <div class="d-flex align-items-center">
+        <input type="checkbox" id="select-all" class="select-all-checkbox m-2">
+        <h4 class="m-0">Select All Applicant's</h4>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
                 <tr class="text-center align-middle">
-                    <th>Select Applicant</th>
+                    <th>Select Applicant's</th>
                     <th>Applicant's Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -23,8 +27,6 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-
-
             </tbody>
         </table>
     </div>
@@ -90,7 +92,7 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-
+            var table = $('#table').DataTable();
             function fetchApplicants() {
                 $('#loading-spinner').show();
 
@@ -99,49 +101,147 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function (response) {
-                        console.log("resssss", response)
                         $('#loading-spinner').hide();
                         var tableBody = $('#tbody');
                         tableBody.empty();
                         if (response.status === 'success' && response.data.length > 0) {
                             response.data.forEach((applicant) => {
-                                const rows =
-                                    `<tr class="text-center small" data-id="${applicant.id}">
-                                         <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
-                                         <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
-                                         <td>${applicant.Email || 'N/A'}</td>
-                                        <td>${applicant.PhoneNumber || 'N/A'}</td>
-                                        <td><button class="btn btn-info btn-xs">Upload</button></td>
-                                     </tr>`;
+                                const rows = `
+                                                        <tr class="text-center small" data-id="${applicant.id}">
+                                                            <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
+                                                            <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
+                                                            <td>${applicant.Email || 'N/A'}</td>
+                                                            <td>${applicant.PhoneNumber || 'N/A'}</td>
+                                                            <td><button class="btn btn-info btn-xs">Upload</button></td>
+                                                        </tr>
+                                                    `;
                                 tableBody.append(rows);
+                                table.clear(); // Clear any previous DataTable data
+                                table.rows.add(tableBody.find('tr')).draw();
                             });
                         } else {
-                            tableBody.append(`<tr>
-                    <td colspan="6" class="text-center">No applicants found.</td>
-                                             </tr> `);
+                            tableBody.append(`<tr><td colspan="5" class="text-center">No applicants found.</td></tr>`);
                         }
                     },
                     error: function () {
                         $('#loading-spinner').hide();
                         showErrorModal('Failed to fetch applicants. Please try again later.');
                     }
+
+                });
+            }
+
+            function fetchRecruiters() {
+                $.ajax({
+                    url: '/api/getrecruiter',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status === 'success' && response.data.length > 0) {
+                            const recruiterSelect = $('#recruiter');
+                            recruiterSelect.empty();
+                            recruiterSelect.append('<option value="" hidden>Select Recruiter</option>');
+                            response.data.forEach((recruiter) => {
+                                recruiterSelect.append(`
+                                              <option value="${recruiter.id}">
+                                                    ${recruiter.FirstName} ${recruiter.LastName}
+                                                </option>                                          
+                                            `);
+                            });
+                        }
+                    },
+                    error: function () {
+                        showErrorModal('Failed to fetch recruiters. Please try again later.');
+                    }
                 });
             }
 
             fetchApplicants();
-
-            $(document).on('click', '#clearForm', function () {
-                $('#offcanvasBackdrop').offcanvas('show');
-            });
+            fetchRecruiters();
 
             $('#assignUserForm').on('submit', function (e) {
                 e.preventDefault();
-                $('#offcanvasBackdrop').offcanvas('hide');
-                showSuccessModal('Applicants assigned successfully');
+
+                let form = this;
+                if (!form.checkValidity()) {
+                    $(form).addClass('was-validated');
+                    return;
+                }
+
+                let selectedApplicants = [];
+                $('.select-applicant:checked').each(function () {
+                    selectedApplicants.push($(this).attr('data-id'));
+                });
+
+                let userData = JSON.parse(localStorage.getItem('userData'));
+
+                let recruiterId = $('#recruiter').val();
+                let assignedBy = userData.id;
+
+
+                // Validation: Check if at least one applicant is selected
+                if (selectedApplicants.length === 0) {
+                    showErrorModal('Please select at least one applicant.');
+                    return;
+                }
+
+                // Validation: Ensure a recruiter is selected
+                if (!recruiterId) {
+                    showErrorModal('Please select a recruiter.');
+                    return;
+                }
+
+                // Validation: Ensure logged-in user ID exists
+                if (!assignedBy) {
+                    showErrorModal('Invalid session. Please refresh and try again.');
+                    return;
+                }
+
+                let totalApplicants = selectedApplicants.length;
+                let completedRequests = 0;
+                let failedRequests = 0;
+
+                selectedApplicants.forEach((applicantId) => {
+                    $.ajax({
+                        url: '/api/assignsmapplicant',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        processData: false,
+                        data: JSON.stringify({
+                            applicantId: applicantId,
+                            userId: recruiterId,
+                            assignedBy: assignedBy,
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        }),
+                        success: function (response) {
+                            console.log(`Applicant ${applicantId} assigned successfully`);
+                            $(`tr[data-id="${applicantId}"]`).remove();
+                            completedRequests++;
+
+                            if (completedRequests === totalApplicants) {
+                                showSuccessModal('Applicants assigned successfully!');
+                            }
+                        },
+                        error: function (xhr) {
+                            console.error(`Failed to assign applicant ${applicantId}`);
+                        }
+                    });
+                });
+
             });
 
             $('#cancelButton').on('click', function () {
                 $('#assignUserForm')[0].reset();
+            });
+
+            $('#select-all').on('change', function () {
+                var isChecked = $(this).prop('checked');
+                $('.select-applicant').prop('checked', isChecked);
+            });
+
+            $(document).on('change', '.select-applicant', function () {
+                var allChecked = $('.select-applicant').length === $('.select-applicant:checked').length;
+                $('#select-all').prop('checked', allChecked);
             });
 
             function showSuccessModal(message) {
