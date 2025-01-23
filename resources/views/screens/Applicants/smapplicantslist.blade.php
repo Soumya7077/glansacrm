@@ -92,7 +92,7 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-
+            var table = $('#table').DataTable();
             function fetchApplicants() {
                 $('#loading-spinner').show();
 
@@ -107,15 +107,17 @@
                         if (response.status === 'success' && response.data.length > 0) {
                             response.data.forEach((applicant) => {
                                 const rows = `
-                                            <tr class="text-center small" data-id="${applicant.id}">
-                                                <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
-                                                <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
-                                                <td>${applicant.Email || 'N/A'}</td>
-                                                <td>${applicant.PhoneNumber || 'N/A'}</td>
-                                                <td><button class="btn btn-info btn-xs">Upload</button></td>
-                                            </tr>
-                                        `;
+                                                        <tr class="text-center small" data-id="${applicant.id}">
+                                                            <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
+                                                            <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
+                                                            <td>${applicant.Email || 'N/A'}</td>
+                                                            <td>${applicant.PhoneNumber || 'N/A'}</td>
+                                                            <td><button class="btn btn-info btn-xs">Upload</button></td>
+                                                        </tr>
+                                                    `;
                                 tableBody.append(rows);
+                                table.clear(); // Clear any previous DataTable data
+                                table.rows.add(tableBody.find('tr')).draw();
                             });
                         } else {
                             tableBody.append(`<tr><td colspan="5" class="text-center">No applicants found.</td></tr>`);
@@ -125,6 +127,7 @@
                         $('#loading-spinner').hide();
                         showErrorModal('Failed to fetch applicants. Please try again later.');
                     }
+
                 });
             }
 
@@ -140,10 +143,10 @@
                             recruiterSelect.append('<option value="" hidden>Select Recruiter</option>');
                             response.data.forEach((recruiter) => {
                                 recruiterSelect.append(`
-                                            <option value="${recruiter.id}">
-                                                ${recruiter.FirstName} ${recruiter.LastName}
-                                            </option>
-                                        `);
+                                              <option value="${recruiter.id}">
+                                                    ${recruiter.FirstName} ${recruiter.LastName}
+                                                </option>                                          
+                                            `);
                             });
                         }
                     },
@@ -156,24 +159,80 @@
             fetchApplicants();
             fetchRecruiters();
 
-            $(document).on('click', '#clearForm', function () {
-                $('#offcanvasBackdrop').offcanvas('show');
-            });
-
             $('#assignUserForm').on('submit', function (e) {
                 e.preventDefault();
-                $('#offcanvasBackdrop').offcanvas('hide');
-                showSuccessModal('Applicants assigned successfully');
+
+                let form = this;
+                if (!form.checkValidity()) {
+                    $(form).addClass('was-validated');
+                    return;
+                }
+
+                let selectedApplicants = [];
+                $('.select-applicant:checked').each(function () {
+                    selectedApplicants.push($(this).attr('data-id'));
+                });
+
+                let userData = JSON.parse(localStorage.getItem('userData'));
+
+                let recruiterId = $('#recruiter').val();
+                let assignedBy = userData.id;
+
+
+                // Validation: Check if at least one applicant is selected
+                if (selectedApplicants.length === 0) {
+                    showErrorModal('Please select at least one applicant.');
+                    return;
+                }
+
+                // Validation: Ensure a recruiter is selected
+                if (!recruiterId) {
+                    showErrorModal('Please select a recruiter.');
+                    return;
+                }
+
+                // Validation: Ensure logged-in user ID exists
+                if (!assignedBy) {
+                    showErrorModal('Invalid session. Please refresh and try again.');
+                    return;
+                }
+
+                let totalApplicants = selectedApplicants.length;
+                let completedRequests = 0;
+                let failedRequests = 0;
+
+                selectedApplicants.forEach((applicantId) => {
+                    $.ajax({
+                        url: '/api/assignsmapplicant',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        processData: false,
+                        data: JSON.stringify({
+                            applicantId: applicantId,
+                            userId: recruiterId,
+                            assignedBy: assignedBy,
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        }),
+                        success: function (response) {
+                            console.log(`Applicant ${applicantId} assigned successfully`);
+                            $(`tr[data-id="${applicantId}"]`).remove();
+                            completedRequests++;
+
+                            if (completedRequests === totalApplicants) {
+                                showSuccessModal('Applicants assigned successfully!');
+                            }
+                        },
+                        error: function (xhr) {
+                            console.error(`Failed to assign applicant ${applicantId}`);
+                        }
+                    });
+                });
+
             });
 
             $('#cancelButton').on('click', function () {
                 $('#assignUserForm')[0].reset();
             });
-
-            function showSuccessModal(message) {
-                $('#successModal .modal-body').text(message);
-                $('#successModal').modal('show');
-            }
 
             $('#select-all').on('change', function () {
                 var isChecked = $(this).prop('checked');
@@ -184,6 +243,11 @@
                 var allChecked = $('.select-applicant').length === $('.select-applicant:checked').length;
                 $('#select-all').prop('checked', allChecked);
             });
+
+            function showSuccessModal(message) {
+                $('#successModal .modal-body').text(message);
+                $('#successModal').modal('show');
+            }
 
             function showErrorModal(message) {
                 $('#errorModal .modal-body').text(message);
