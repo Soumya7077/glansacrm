@@ -35,7 +35,7 @@
           <th>Resume</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tbody">
       </tbody>
     </table>
   </div>
@@ -43,9 +43,9 @@
 
 <script>
   $(document).ready(function () {
-    $("#loading").show(); // Show loading indicator
-    $("#error-message").hide(); // Hide error message initially
-
+    $("#loading").show();
+    $("#error-message").hide();
+    var table = $('#table').DataTable();
     $.ajax({
       url: "/api/getapplicant",
       method: "GET",
@@ -53,9 +53,8 @@
       success: function (response) {
         if (response.status === "success") {
           let applicants = response.data.filter(applicant => applicant.Source === "Enquiry");
-          let tableBody = $("#table tbody");
-          tableBody.empty(); // Clear previous data
-
+          var tableBody = $('#tbody');
+          tableBody.empty();
           if (applicants.length === 0) {
             $("#error-message").removeClass("d-none").text("No Enquiry Data Available");
           } else {
@@ -76,9 +75,11 @@
                 <td>${resumeLink}</td>
               </tr>`;
               tableBody.append(row);
+              table.clear();
+              table.rows.add(tableBody.find('tr')).draw();
             });
 
-            $("#table").removeClass("d-none"); // Show the table
+            $("#table").removeClass("d-none");
           }
         } else {
           $("#error-message").removeClass("d-none").text(response.message);

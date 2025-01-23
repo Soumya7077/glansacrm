@@ -27,59 +27,13 @@
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-          <tr class="text-center small align-middle">
-            <th><input type="checkbox"></th>
-            <td>Nagam</td>
-            <td>Physician Assistant</td>
-            <td>Physician Assistant</td>
-            <td>5 years</td>
-            <td>Communication Skills</td>
-            <td>200000</td>
-            <td>400000</td>
-            <td>15 days</td>
-            <td>BSc Nursing</td>
-            <td>-</td>
-            <td class="text-success">Shortlisted</td>
-            <td><button id="addbtn" class="btn btn-primary">Update</button></td>
-          </tr>
-          <tr class="text-center small align-middle">
-            <th><input type="checkbox"></th>
-            <td>Ranjan</td>
-            <td>Physician Assistant</td>
-            <td>Physician Assistant</td>
-            <td>5 years</td>
-            <td>Communication Skills</td>
-            <td>200000</td>
-            <td>400000</td>
-            <td>15 days</td>
-            <td>BSc Nursing</td>
-            <td>-</td>
-            <td class="text-warning">Pending Review</td>
-            <td><button id="addbtn" class="btn btn-primary">Update</button></td>
+        <tbody id="tableBody">
 
-          </tr>
-          <tr class="text-center small align-middle">
-            <th><input type="checkbox"></th>
-            <td>seth</td>
-            <td>Physician Assistant</td>
-            <td>Physician Assistant</td>
-            <td>5 years</td>
-            <td>Communication Skills</td>
-            <td>200000</td>
-            <td>400000</td>
-            <td>15 days</td>
-            <td>BSc Nursing</td>
-            <td>-</td>
-            <td class="text-danger">Rejected</td>
-            <td><button id="addbtn" class="btn btn-primary">Update</button></td>
-
-          </tr>
         </tbody>
       </table>
     </div>
     <div class="d-flex justify-content-end mt-3">
-      <a href="{{url('formattedapplicantstoemployer')}}" class="btn btn-primary me-2">Send</a>
+      <a  class="btn btn-primary me-2" id="sendButton">Send</a>
       <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
     </div>
   </div>
@@ -136,60 +90,102 @@
 
 @push('scripts')
   <script>
-    
-    // $(document).ready(function () {
-
-    // $(document).on('click', '#addbtn', function () {
-    //   $('#offcanvasBackdrop').offcanvas('show');
-    //   $('.offcanvas-title').text('Feedback');
-    //   $('#SubBtn').text('Add');
-    // });
-
-    // $('#cancelButton').on('click', function () {
-    //   $('#addUserForm')[0].reset();
-    //   $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
-    // });
-
-    // $('#clearForm').on('click', function () {
-    //   $('#addUserForm')[0].reset();
-    //   $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
-    // });
-    // });
     $(document).ready(function () {
-    // Close offcanvas when close button is clicked
-    $(document).on('click', '.btn-close', function () {
-      $('#offcanvasBackdrop').offcanvas('hide');
-      $('#addUserForm')[0].reset();
-      $('#userId').val('');
+    let selectedApplicants = [];
+
+    function fetchApplicants() {
+      $("#tableBody").html('<tr id="loadingRow"><td colspan="13" class="text-center text-muted py-3">Loading data, please wait...</td></tr>');
+
+      $.ajax({
+      url: '/api/getapplicant',
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        if (response.status === "success") {
+        let filteredApplicants = response.data.filter(applicant => applicant.StatusId == "2");
+
+        if (filteredApplicants.length > 0) {
+          populateTable(filteredApplicants);
+        } else {
+          $("#tableBody").html('<tr><td colspan="13" class="text-center text-muted py-3">No applicants found.</td></tr>');
+        }
+        } else {
+        $("#tableBody").html('<tr><td colspan="13" class="text-center text-muted py-3">No applicants found.</td></tr>');
+        }
+      },
+      error: function () {
+        $("#tableBody").html('<tr><td colspan="13" class="text-center text-danger py-3">Error loading data! Please try again.</td></tr>');
+      }
+      });
+    }
+
+    function populateTable(applicants) {
+      let tbody = $("#table tbody");
+      tbody.empty(); // Clear existing rows
+
+      applicants.forEach(applicant => {
+      let row = `<tr class="text-center small align-middle">
+    <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>     
+     <td>${applicant.FirstName} ${applicant.LastName}</td>
+      <td>Physician Assistant</td>
+      <td>Physician Assistant</td>
+      <td>${applicant.Experience} years</td>
+      <td>${applicant.KeySkills}</td>
+      <td>${applicant.CurrentSalary}</td>
+      <td>${applicant.ExpectedSalary}</td>
+      <td>${applicant.NoticePeriod} days</td>
+      <td>${applicant.Qualification}</td>
+      <td>${applicant.Feedback || "-"}</td>
+      <td class="text-success">Shortlisted</td>
+      <td><button class="btn btn-primary update-btn" data-id="${applicant.id}">Update</button></td>
+      </tr>`;
+      tbody.append(row);
+      });
+    }
+
+    // Fetch applicants when the page loads
+    fetchApplicants();
+
+    $(document).on('change', '.applicant-checkbox', function () {
+      let applicantData = {
+      id: $(this).data('id'),
+      name: $(this).data('name'),
+      keySkills: $(this).data('keyskills'),
+      jobDescription: $(this).data('jobdesc'),
+      experience: $(this).data('exp')
+      };
+
+      if ($(this).is(':checked')) {
+      selectedApplicants.push(applicantData);
+      } else {
+      selectedApplicants = selectedApplicants.filter(app => app.id !== applicantData.id);
+      }
+    });
+
+    $("#sendButton").click(function () {
+      if (selectedApplicants.length === 0) {
+      alert("Please select at least one applicant.");
+      return;
+      }
+
+      
+      window.location.href = "/formattedapplicantstoemployer?applicants=" + encodeURI(JSON.stringify(selectedApplicants));
+    });
+
+    // Show offcanvas when Update button is clicked
+    $(document).on('click', '.update-btn', function () {
+      let applicantId = $(this).data('id');
+      $('#offcanvasBackdrop').offcanvas('show');
+      $('.offcanvas-title').text('Update Feedback');
+      $('#userId').val(applicantId);
     });
 
     // Handle form submission
     $('#addUserForm').on('submit', function (e) {
       e.preventDefault();
-      // Hide offcanvas and show success modal
       $('#offcanvasBackdrop').offcanvas('hide');
       $('#successModal').modal('show');
-      // Reset form after showing success modal
       $('#addUserForm')[0].reset();
-    });
-
-    // Show offcanvas when add button is clicked
-    $(document).on('click', '#addbtn', function () {
-      $('#offcanvasBackdrop').offcanvas('show');
-      $('.offcanvas-title').text('Update feedback');
-      $('#SubBtn').text('Add');
-    });
-
-    // Cancel button behavior
-    $('#cancelButton').on('click', function () {
-      $('#addUserForm')[0].reset();
-      $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
-    });
-
-    // Clear form behavior
-    $('#clearForm').on('click', function () {
-      $('#addUserForm')[0].reset();
-      $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
     });
     });
   </script>

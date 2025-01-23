@@ -23,7 +23,7 @@
                     <th>Applicant's Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Upload</th>
+                    <th>Update</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -91,6 +91,23 @@
 
 @push('scripts')
     <script>
+
+
+
+        $(document).ready(function () {
+            // Handle the "Update" button click
+            $(document).on('click', '.update-btn', function (e) {
+                e.preventDefault();  // Prevent default link behavior
+
+                var applicantId = $(this).data('id');  // Get applicant ID from data-id attribute
+
+                // Dynamically set the href to include the applicant_id in the query string
+                var href = '/enquiryForm?applicant_id=' + applicantId;
+
+                // Redirect the user to the enquiry form page
+                window.location.href = href;
+            });
+        });
         $(document).ready(function () {
             var table = $('#table').DataTable();
             function fetchApplicants() {
@@ -107,14 +124,14 @@
                         if (response.status === 'success' && response.data.length > 0) {
                             response.data.forEach((applicant) => {
                                 const rows = `
-                                                        <tr class="text-center small" data-id="${applicant.id}">
-                                                            <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
-                                                            <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
-                                                            <td>${applicant.Email || 'N/A'}</td>
-                                                            <td>${applicant.PhoneNumber || 'N/A'}</td>
-                                                            <td><button class="btn btn-info btn-xs">Upload</button></td>
-                                                        </tr>
-                                                    `;
+                                                    <tr class="text-center small" data-id="${applicant.id}">
+                                                        <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
+                                                        <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
+                                                        <td>${applicant.Email || 'N/A'}</td>
+                                                        <td>${applicant.PhoneNumber || 'N/A'}</td>
+                                                        <td><a href="/enquiryForm?applicant_id=${applicant.id}" class="btn btn-info btn-xs">Update</a></td>
+                                                    </tr>
+                                                `;
                                 tableBody.append(rows);
                                 table.clear(); // Clear any previous DataTable data
                                 table.rows.add(tableBody.find('tr')).draw();
@@ -143,10 +160,10 @@
                             recruiterSelect.append('<option value="" hidden>Select Recruiter</option>');
                             response.data.forEach((recruiter) => {
                                 recruiterSelect.append(`
-                                              <option value="${recruiter.id}">
-                                                    ${recruiter.FirstName} ${recruiter.LastName}
-                                                </option>                                          
-                                            `);
+                                                        <option value="${recruiter.id}">
+                                                            ${recruiter.FirstName} ${recruiter.LastName}
+                                                        </option>                                          
+                                                    `);
                             });
                         }
                     },
@@ -178,20 +195,14 @@
                 let recruiterId = $('#recruiter').val();
                 let assignedBy = userData.id;
 
-
-                // Validation: Check if at least one applicant is selected
                 if (selectedApplicants.length === 0) {
                     showErrorModal('Please select at least one applicant.');
                     return;
                 }
-
-                // Validation: Ensure a recruiter is selected
                 if (!recruiterId) {
                     showErrorModal('Please select a recruiter.');
                     return;
                 }
-
-                // Validation: Ensure logged-in user ID exists
                 if (!assignedBy) {
                     showErrorModal('Invalid session. Please refresh and try again.');
                     return;
