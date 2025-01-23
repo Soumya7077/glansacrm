@@ -348,7 +348,7 @@ class ApplicantsApplyController extends Controller
   public function getSocialMediaApplicant()
   {
     try {
-      $applicant = ApplicantModel::where('Source', 'sm')->get();
+      $applicant = ApplicantModel::where('Source', '=','sm')->get();
       return response()->json([
         'status' => 'success',
         'message' => 'Applicant fetch by social media successfully!',
@@ -373,7 +373,7 @@ class ApplicantsApplyController extends Controller
   public function applicantStatusUpdate(Request $request, $id)
   {
     try {
-      $applicant = ApplicantModel::find($id)->first();
+      $applicant = ApplicantModel::find($id);
 
       $applicant->StatusId = $request->status;
       $applicant->Feedback = $request->feedback;

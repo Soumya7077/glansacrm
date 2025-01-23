@@ -97,8 +97,8 @@
     </table>
   </div>
   <div class="d-flex justify-content-end mt-3">
-    <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Format details </button>
+    <button id="clearForm" class="btn btn-primary" type="button" aria-controls="offcanvasBackdrop"> Format details
+    </button>
   </div>
 </div>
 </div>
@@ -118,6 +118,24 @@
   </div>
 </div>
 
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Formatting completed successfully!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function () {
 
@@ -126,31 +144,34 @@
     var filterApplicantsData;
     const urlParams = new URLSearchParams(window.location.search);
     const jobId = urlParams.get('job_id');
-
-    if (jobId) {
-      $("#loading").show();
-      // Fetch the applicants for this job
-      $.ajax({
-        url: `/api/getapplicantbyjob/${jobId}`,
-        type: 'GET',
-        dataType: 'json',
-        success: function (response) {
-          console.log(response, 'erge');
-          $("#loading").hide();
-          if (response.status === 'success') {
-            applicantsData = response.data;
-            filterApplicantsData = response.data;
-            populateApplicantTable(response.data);
-          } else {
-            alert('Error fetching applicants: ' + response.message);
+    getJob();
+    function getJob() {
+      if (jobId) {
+        $("#loading").show();
+        // Fetch the applicants for this job
+        $.ajax({
+          url: `/api/getapplicantbyjob/${jobId}`,
+          type: 'GET',
+          dataType: 'json',
+          success: function (response) {
+            console.log(response, 'erge');
+            $("#loading").hide();
+            if (response.status === 'success') {
+              applicantsData = response.data;
+              filterApplicantsData = response.data;
+              populateApplicantTable(response.data);
+            } else {
+              alert('Error fetching applicants: ' + response.message);
+            }
+          },
+          error: function (xhr, status, error) {
+            $("#loading").hide();
+            console.error('AJAX Error:', error);
           }
-        },
-        error: function (xhr, status, error) {
-          $("#loading").hide();
-          console.error('AJAX Error:', error);
-        }
-      });
+        });
+      }
     }
+
 
     function populateApplicantTable(applicants) {
       var table = $('#table').DataTable();
@@ -158,9 +179,12 @@
       tableBody.empty();
 
       $.each(applicants, function (index, applicant) {
+        let statusText = applicant.StatusId === "1" ? "Pending" : "Shortlisted";
+        let statusColor = applicant.StatusId === "1" ? "color: orange; " : "color: green; ";
+
         var rows = `
           <tr class="text-center small align-middle">
-            <td><input type="checkbox" /></td>
+             <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" /></td>
             <td>${applicant.FirstName} ${applicant.LastName}</td>
             <td>${applicant.Experience}</td>
             <td>${applicant.PhoneNumber}</td>
@@ -172,7 +196,7 @@
             <td>${applicant.CurrentSalary}</td>
             <td>${applicant.ExpectedSalary}</td>
             <td>${applicant.Resume ? `<a href="${applicant.Resume}" target="_blank">View Resume</a>` : "N/A"}</td>
-            <td class="text-success">${applicant.StatusId === "1" ? "Pending" : "Shortlisted"}</td>
+           <td style="${statusColor}">${statusText}</td>
             <td>
               <button type="button" class="btn btn-primary view-details" data-id="${applicant.id}">View</button>
             </td>
@@ -183,6 +207,35 @@
         table.rows.add(tableBody.find('tr')).draw();
       });
     }
+
+    $("#clearForm").click(function () {
+      var selectedApplicants = $(".applicant-checkbox:checked").map(function () {
+        return $(this).data("id");
+      }).get();
+
+      if (selectedApplicants.length === 0) {
+        alert("Please select at least one applicant.");
+        return;
+      }
+
+      // Send AJAX request to update status for selected applicants
+      let requests = selectedApplicants.map(applicantId => {
+        return $.ajax({
+          url: `/api/applicantStatusUpdate/${applicantId}`,
+          type: 'PUT',
+          contentType: 'application/json',
+          data: JSON.stringify({ status: 2 }),
+        });
+      });
+
+      // Execute all AJAX calls and show the modal when complete
+      $.when.apply($, requests).done(function () {
+        $("#successModal").modal("show"); // Show success modal after completion
+        getJob();
+      }).fail(function () {
+        alert("Error updating applicants. Please try again.");
+      });
+    });
 
     $(document).on("click", ".view-details", function () {
       var applicantId = $(this).data("id");
@@ -206,7 +259,8 @@
               <p><strong>Notice Period:</strong> ${applicant.NoticePeriod}</p>
               <p><strong>Skills:</strong> ${applicant.KeySkills}</p>
             `);
-            $("#applicantDetailsModal").modal("show");
+            var modalInstance = new bootstrap.Modal(document.getElementById("applicantDetailsModal"));
+            modalInstance.show();
           } else {
             $("#modalBody").html("Error fetching applicant details.");
           }
