@@ -16,9 +16,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <select class="form-control" id="to" required>
               <option value="" hidden>Select Recipient</option>
-              <option value="1">abc@appolo.com</option>
-              <option value="2">soumya@gmail.com</option>
-              <option value="3">sourav@gmail.com</option>
+             
             </select>
             <label for="to">To</label>
             <div class="invalid-feedback">Please select a recipient.</div>
@@ -37,6 +35,11 @@
             <label for="Subject-description">Subject </label>
             <div class="invalid-feedback">Please provide a subject description.</div>
           </div>
+          <div class="form-floating form-floating-outline mb-4">
+            <input type="text" id="Message" class="form-control" placeholder="Message" required />
+            <label for="Message">Message </label>
+            <div class="invalid-feedback">Please provide a Message.</div>
+          </div>
         </div>
       </div>
 
@@ -51,19 +54,7 @@
             </tr>
           </thead>
           <tbody id="employerTableBody">
-            <!-- <tr class="text-center align-middle">
-              <td>Naveen Nagam</td>
-              <td>Medical Assistant, Surgeon</td>
-              <td>Frontend Developer</td>
-              <td>3 Years</td>
-            </tr>
-            <tr class="text-center align-middle">
-              <td>Anita Seth</td>
-              <td>Medical Assistant, Surgeon</td>
-              <td>Backend Developer</td>
-              <td>4 Years</td>
-            </tr> -->
-            <!-- Add more rows as needed -->
+          
           </tbody>
         </table>
       </div>
@@ -91,7 +82,6 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
   $(document).ready(function () {
@@ -144,6 +134,31 @@
     populateEmployerTable();
   });
 
+  $.ajax({
+    url: '/api/getEmployer', // Replace with your actual API endpoint
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      if (response.status === "success") {
+        let select = $('#to');
+        select.empty(); // Clear existing options
+
+        select.append('<option value="" hidden>Select Recipient</option>');
+
+        response.data.forEach(employer => {
+          select.append(`<option value="${employer.FirstContactEmail}">${employer.OrganizationName}  - ${employer.FirstContactEmail}</option>`);
+        });
+      } else {
+        console.error("Error fetching employers:", response.message);
+        // Handle error, e.g., display an error message to the user
+      }
+    },
+    error: function () {
+      console.error("Error fetching employers from server.");
+      // Handle error, e.g., display an error message to the user
+    }
+  });
+
   // Form submission handler
   $('#emailForm').on('submit', function (e) {
     e.preventDefault(); // Prevent the default form submission
@@ -156,42 +171,6 @@
     $('#emailForm')[0].reset();
   });
 
-  // Example of validation if needed:
-  // $(document).ready(function () {
-  //     $('#emailForm').on('submit', function (event) {
-  //         let isValid = true;
-  //         const toField = $('#to');
-  //         if (toField.val() === '') {
-  //             toField.addClass('is-invalid');
-  //             isValid = false;
-  //         } else {
-  //             toField.removeClass('is-invalid').addClass('is-valid');
-  //         }
-
-  //         const applicantsField = $('#Applicants');
-  //         if (applicantsField.val() === '') {
-  //             applicantsField.addClass('is-invalid');
-  //             isValid = false;
-  //         } else {
-  //             applicantsField.removeClass('is-invalid').addClass('is-valid');
-  //         }
-
-  //         const subjectDescription = $('#Subject-description');
-  //         if (subjectDescription.val().trim() === '') {
-  //             subjectDescription.addClass('is-invalid');
-  //             isValid = false;
-  //         } else {
-  //             subjectDescription.removeClass('is-invalid').addClass('is-valid');
-  //         }
-
-  //         if (!isValid) {
-  //             event.preventDefault();
-  //             event.stopPropagation();
-  //         }
-
-  //         $(this).addClass('was-validated');
-  //     });
-  // });
 </script>
 
 @endsection

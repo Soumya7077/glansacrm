@@ -15,7 +15,7 @@
             <th>Select Applicant</th>
             <th>Applicant Name</th>
             <th>Job Title</th>
-            <th>Job Description</th>
+            <!-- <th>Job Description</th> -->
             <th>Experience(In Years)</th>
             <th>Key Skills</th>
             <th>Current Salary</th>
@@ -101,6 +101,8 @@
       type: 'GET',
       dataType: 'json',
       success: function (response) {
+        console.log(response, 'resssssss');
+
         if (response.status === "success") {
         let filteredApplicants = response.data.filter(applicant => applicant.StatusId == "2");
 
@@ -122,13 +124,13 @@
     function populateTable(applicants) {
       let tbody = $("#table tbody");
       tbody.empty(); // Clear existing rows
+      console.log(applicants);
 
       applicants.forEach(applicant => {
       let row = `<tr class="text-center small align-middle">
     <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>     
      <td>${applicant.FirstName} ${applicant.LastName}</td>
-      <td>Physician Assistant</td>
-      <td>Physician Assistant</td>
+      <td>${applicant.Title}</td>
       <td>${applicant.Experience}</td>
       <td>${applicant.KeySkills}</td>
       <td>${applicant.CurrentSalary}</td>
@@ -145,6 +147,8 @@
 
     // Fetch applicants when the page loads
     fetchApplicants();
+
+    
 
     $(document).on('change', '.applicant-checkbox', function () {
       let applicantData = {
@@ -170,7 +174,7 @@
       const applicantsJSON = JSON.stringify(selectedApplicants);
 
       // Encode the JSON string to base64
-      const encodedApplicants = btoa(applicantsJSON);
+      const encodedApplicants = encodeURIComponent(applicantsJSON);
 
       // Redirect with the base64 encoded data as a URL parameter
       window.location.href = "/formattedapplicantstoemployer?applicants=" + encodedApplicants;
