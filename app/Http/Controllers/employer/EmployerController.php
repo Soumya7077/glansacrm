@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\EmployeesModel;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CustomMail;
 
 class EmployerController extends Controller
 {
@@ -194,4 +197,33 @@ class EmployerController extends Controller
       ], 500);
     }
   }
+
+ 
+
+  public function sendFormattedEmailToEmployer(Request $request)
+    {
+        // Validate input
+        $request->validate([
+            'to' => 'required|email',
+            'subject' => 'required|string',
+            'message' => 'required|string',
+            'cc' => 'nullable|array',
+            'cc.*' => 'email',
+            'table' => 'nullable|string',
+        ]);
+
+        // Prepare email details
+        $details = [
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+            'table' => $request->input('table'), // Include the raw HTML table
+            'cc' => $request->input('cc'),
+        ];
+
+        // Send email
+        Mail::to($request->input('to'))->send(new CustomMail($details));
+
+        return response()->json(['message' => 'Email sent successfully!']);
+    }
+
 }

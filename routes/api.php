@@ -138,7 +138,11 @@ Route::get('/getassignsmapplicant/{id}', [SmController::class, 'getAllSocialMedi
 
 /**=====================================Assign sm applicant to recruiter=========================== */
 
+/**=====================================Send candidate details through mail to Employer=========================== */
 
+Route::post('/send-formatted-email', [EmployerController::class, 'sendFormattedEmailToEmployer']);
+
+/**=====================================Send candidate details through mail to Employer=========================== */
 
 
 // Route::group([
