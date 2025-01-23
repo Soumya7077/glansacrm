@@ -148,9 +148,9 @@
                   <td>${job.Remarks || 'N/A'}</td>
                   <td>
                     <div class="d-inline-flex gap-2">
-                      <a href="/applicantlist?job_id=${job.id}" class="btn btn-primary btn-xs">View</a>
-                      <a href="/jobpost?job_id=${job.id}" class="btn btn-info btn-xs">Edit</a>
-                      <button class="btn btn-danger btn-xs delete-btn" data-id="${job.id}">Delete</button>
+                      <a href="/applicantlist?job_id=${userData?.RoleId == 1 ? job.id : job.assignedId}" class="btn btn-primary btn-xs">View</a>
+                      <a href="/jobpost?job_id=${userData?.RoleId == 1 ? job.id : job.assignedId}" class="btn btn-info btn-xs">Edit</a>
+                      <button class="btn btn-danger btn-xs delete-btn" data-id="${userData?.RoleId == 1 ? job.id : job.assignedId}">Delete</button>
                     </div>
                   </td>
                 </tr>

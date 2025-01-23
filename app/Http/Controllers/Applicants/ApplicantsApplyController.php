@@ -272,6 +272,7 @@ class ApplicantsApplyController extends Controller
         'Remarks' => $request->Remarks,
         'Feedback' => $request->Feedback,
         'CreatedOn' => $request->CreatedOn,
+        
       ]);
 
       return response()->json([
@@ -395,7 +396,7 @@ class ApplicantsApplyController extends Controller
 
   /**====================================Update Applicant Status================================ */
 
-  
+
 
   /**===================================Get Formatted Applicant List=========================== */
 
