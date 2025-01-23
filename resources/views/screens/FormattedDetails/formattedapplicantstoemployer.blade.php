@@ -95,39 +95,52 @@
 <script>
 
   $(document).ready(function () {
-    
+    // Get the URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     let applicants = urlParams.get('applicants');
+
+    // If no applicants data is found in the URL, show a message
     if (!applicants) {
-      console.log("No data found in sessionStorage");
+      console.log("No data found in URL");
       $("#employerTableBody").html('<tr><td colspan="4" class="text-center text-muted py-3">No applicants selected.</td></tr>');
       return;
     }
 
-    applicants = JSON.parse(applicants);
-    console.log("Retrieved Data:", applicants)
+    // Decode the URL-encoded applicants data (if it's base64 encoded)
+    try {
+      applicants = JSON.parse(decodeURIComponent(applicants)); // Decode URL component and parse JSON
+    } catch (error) {
+      console.error("Failed to decode or parse applicants data", error);
+      $("#employerTableBody").html('<tr><td colspan="4" class="text-center text-muted py-3">Failed to retrieve applicants data.</td></tr>');
+      return;
+    }
 
+    console.log("Retrieved Data:", applicants);
+
+    // Function to populate the employer table
     function populateEmployerTable() {
       let tbody = $("#employerTableBody");
       tbody.empty();
 
+      // If no applicants, show the "No applicants" message
       if (applicants.length === 0) {
         tbody.append('<tr><td colspan="4" class="text-center text-muted py-3">No applicants selected.</td></tr>');
         return;
       }
 
+      // Loop through the applicants and create rows for the table
       applicants.forEach(applicant => {
-
         let row = `<tr class="text-center align-middle">
-          <td>${applicant.name}</td>
-          <td>${applicant.keySkills}</td>
-          <td>${applicant.jobDescription}</td>
-          <td>${applicant.experience} years</td>
-        </tr>`;
+        <td>${applicant.name}</td>
+        <td>${applicant.keySkills}</td>
+        <td>${applicant.jobDescription}</td>
+        <td>${applicant.experience} years</td>
+      </tr>`;
         tbody.append(row);
       });
     }
 
+    // Populate the table with data
     populateEmployerTable();
   });
 

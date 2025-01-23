@@ -16,11 +16,11 @@
             <th>Applicant Name</th>
             <th>Job Title</th>
             <th>Job Description</th>
-            <th>Experience</th>
+            <th>Experience(In Years)</th>
             <th>Key Skills</th>
             <th>Current Salary</th>
             <th>Expected Salary</th>
-            <th>Notice Period</th>
+            <th>Notice Period(In Days)</th>
             <th>Highest Qualification</th>
             <th>Feedback</th>
             <th>Status</th>
@@ -33,7 +33,7 @@
       </table>
     </div>
     <div class="d-flex justify-content-end mt-3">
-      <a  class="btn btn-primary me-2" id="sendButton">Send</a>
+      <a class="btn btn-primary text-white me-2" id="sendButton">Send</a>
       <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
     </div>
   </div>
@@ -129,11 +129,11 @@
      <td>${applicant.FirstName} ${applicant.LastName}</td>
       <td>Physician Assistant</td>
       <td>Physician Assistant</td>
-      <td>${applicant.Experience} years</td>
+      <td>${applicant.Experience}</td>
       <td>${applicant.KeySkills}</td>
       <td>${applicant.CurrentSalary}</td>
       <td>${applicant.ExpectedSalary}</td>
-      <td>${applicant.NoticePeriod} days</td>
+      <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
       <td>${applicant.Feedback || "-"}</td>
       <td class="text-success">Shortlisted</td>
@@ -167,9 +167,13 @@
       alert("Please select at least one applicant.");
       return;
       }
+      const applicantsJSON = JSON.stringify(selectedApplicants);
 
-      
-      window.location.href = "/formattedapplicantstoemployer?applicants=" + encodeURI(JSON.stringify(selectedApplicants));
+      // Encode the JSON string to base64
+      const encodedApplicants = btoa(applicantsJSON);
+
+      // Redirect with the base64 encoded data as a URL parameter
+      window.location.href = "/formattedapplicantstoemployer?applicants=" + encodedApplicants;
     });
 
     // Show offcanvas when Update button is clicked
