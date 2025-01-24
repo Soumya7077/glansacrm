@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\ScheduleInterview;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApplicantModel;
+use App\Models\ScheduleInterviewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -11,55 +13,74 @@ class ScheduleInterview extends Controller
     public function scheduleInterview()
     {
         return view('screens.ScheduleInterview.scheduleInterview');
-    }
-
+    }    
     public function sendInterviewEmail(Request $request)
 {
-    // Validate incoming request
     $request->validate([
-        'candidate.email' => 'required|email', // Validate candidate's email
-        'candidate.name' => 'required|string', // Validate candidate's name
-        'interviewDate' => 'required|date', // Validate interview date
-        'timeSlots' => 'required|array|min:1', // Ensure time slots are provided
-        'mode' => 'required|string', // Validate interview mode (e.g., 'Virtual' or 'Walk-in')
-        'bcc' => 'nullable|email', // Validate BCC email
-        'cc' => 'nullable|email', // Validate CC email
-        'description' => 'required|string', // Validate description
-        'location' => 'required|string', // Validate location/virtual link
+        'EmployerId' => 'required|integer',
+        'ApplicantId' => 'required|integer',
+        'JobId' => 'required|integer',
+        'Type' => 'required|string',
+        'Link/Location' => 'required|string',
+        'InterviewDate' => 'required|date',
+        'ApplicantEmail' => 'required|email',
+        'BCC' => 'nullable|email',
+        'CC' => 'nullable|email',
+        'Description' => 'required|string',
+        'FirstTimeSlot' => 'required|string',
+        'SecondTimeSlot' => 'nullable|string',
+        'ThirdTimeSlot' => 'nullable|string',
+        'Status' => 'required|integer',
+        'CreatedBy' => 'required|integer',
     ]);
 
-    $candidate = $request->input('candidate');
-    $interviewDate = $request->input('interviewDate');
-    $timeSlots = $request->input('timeSlots');
-    $mode = $request->input('mode');
-    $bcc = $request->input('bcc');
-    $cc = $request->input('cc'); // Fetch CC email
-    $description = $request->input('description');
-    $location = $request->input('location');
+    $data = $request->only([
+        'EmployerId',
+        'ApplicantId',
+        'JobId',
+        'Type',
+        'Link/Location',
+        'InterviewDate',
+        'BCC',
+        'CC',
+        'Description',
+        'FirstTimeSlot',
+        'SecondTimeSlot',
+        'ThirdTimeSlot',
+        'Status',
+        'CreatedBy',
+    ]);
 
-    // Send email to the candidate
+    $data['CreatedOn'] = now();
+    $data['UpdatedOn'] = now();
+    $data['UpdatedBy'] = $data['CreatedBy'];
+
+    $applicantEmail = $request->input('ApplicantEmail');
+    $applicant = ApplicantModel::find($data['ApplicantId']);
+    $applicantName = $applicant ? $applicant->FirstName : 'Applicant';
+
+    // Send email
     Mail::send('email.interview_schedule', [
-        'name' => $candidate['name'],
-        'interviewDate' => $interviewDate,
-        'timeSlots' => $timeSlots,
-        'mode' => $mode,
-        'description' => $description,
-        'location' => $location,
-    ], function ($message) use ($candidate, $bcc, $cc) {
-        $message->to($candidate['email'], $candidate['name'])
-            ->subject('Interview Invitation');
-
-        if ($bcc) {
-            $message->bcc($bcc); // Add BCC email if provided
-        }
-
-        if ($cc) {
-            $message->cc($cc); // Add CC email if provided
-        }
+        'ApplicantName' => $applicantName,
+        'InterviewDate' => $data['InterviewDate'],
+        'FirstTimeSlot' => $data['FirstTimeSlot'],
+        'SecondTimeSlot' => $data['SecondTimeSlot'],
+        'ThirdTimeSlot' => $data['ThirdTimeSlot'],
+        'Type' => $data['Type'],
+        'Link' => $data['Link/Location'],
+        'Description' => $data['Description'],
+    ], function ($message) use ($applicantEmail, $data) {
+        $message->to($applicantEmail)
+                ->bcc($data['BCC'] ?? null)
+                ->cc($data['CC'] ?? null)
+                ->subject('Interview Invitation');
     });
 
-    return response()->json(['message' => 'Email sent successfully'], 200);
+    // Save the interview schedule to the database
+    ScheduleInterviewModel::create($data);
+
+    return response()->json(['message' => 'Email sent and interview scheduled successfully'], 200);
 }
 
-    
+   
 }

@@ -92,7 +92,8 @@
   <script>
 
     $(document).on('dblclick', '.status-text', function () {
-    let currentStatus = $(this).text();
+    let currentStatus = $(this).data('sid');
+    console.log(currentStatus);
     let selectDropdown = $(this).siblings('.status-dropdown');
 
     $(this).hide();
@@ -177,13 +178,17 @@
       <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
       <td>${applicant.Feedback && applicant.Feedback.length > 30 ? applicant.Feedback.substring(0, 30) + '...' : applicant.Feedback || "-"}</td>
-     <td class="status-cell" data-id="${applicant.id}" data-current-status="${applicant.sname}">
-    <span class="status-text">${applicant.sname}</span>
+     <td class="status-cell" data-id="${applicant.id}" data-current-status="${applicant.Status}">
+    <span class="status-text" data-sid="${applicant.sid}">${applicant.sname}</span>
     <select class="form-select status-dropdown" style="width: 150px; display: none;">
-    <option value="Shortlisted" class="text-success">Shortlisted</option>
-    <option value="Rejected" class="text-danger">Rejected</option>
-    <option value="Pending" class="text-warning">Pending</option>
-    <option value="Interview Scheduled" class="text-primary">Interview Scheduled</option>
+    <option value="1" class="text-warning">Pending</option>
+    <option value="2" class="text-warning">Formatted</option>
+    <option value="3" class="text-warning">Mail Sent to Employer</option>
+    <option value="4" class="text-success">Shortlisted</option>
+    <option value="5" class="text-warning">Not Shortlisted</option>
+    <option value="6" class="text-primary">Mail Sent to Candidate</option>
+    <option value="7" class="text-primary">Selected</option>
+    <option value="8" class="text-danger">Rejected</option>
     </select>
     </td>
 
