@@ -111,5 +111,37 @@ class SmController extends Controller
   /**==============================Get All Sm applicant list============================= */
 
 
+  /**==================================Get Social media applicant by recruiter id================= */
+
+
+
+  public function getSocialMediaApplicantByRecruiter($id)
+  {
+    try {
+      $assignedData = DB::table('social_media_assign')
+        ->join('applicant', 'applicant.id', '=', 'social_media_assign.ApplicantId')
+        ->where('social_media_assign.UserId', '=', $id)
+        ->select('social_media_assign.*', 'applicant.*')
+        ->get();
+
+
+      if ($assignedData) {
+        return response()->json([
+          'status' => 'success',
+          'message' => 'Get Assigned Recruiter',
+          'data' => $assignedData,
+        ], 200);
+      }
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong, ' . $e->getMessage(),
+      ], 500);
+    }
+  }
+
+
+  /**==================================Get Social media applicant by recruiter id================= */
+
 
 }

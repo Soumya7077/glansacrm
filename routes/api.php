@@ -135,6 +135,7 @@ Route::delete('/deleteassignuser/{id}', [AssigningUserController::class, 'delete
 
 Route::post('/assignsmapplicant', [SmController::class, 'assignSocialMediaApplicantsToRecruiter']);
 Route::get('/getassignsmapplicant/{id}', [SmController::class, 'getAllSocialMediaApplicantList']);
+Route::get('/getsmapplicantbyrecruiter/{id}', [SmController::class, 'getSocialMediaApplicantByRecruiter']);
 
 /**=====================================Assign sm applicant to recruiter=========================== */
 
