@@ -139,12 +139,15 @@ class ApplicantsApplyController extends Controller
     try {
       $applicantlist = DB::table('applicant')
         ->join('job_post', 'applicant.jobpost_id', '=', 'job_post.id')
+        ->join('status', 'status.id', '=', 'applicant.StatusId')
         ->where('applicant.Source', '=', 'Website')
         ->orWhere('applicant.Source', '=', 'Enquiry')
         ->select(
           'applicant.*',
           'job_post.Title',
-          'job_post.Description'
+          'job_post.Description',
+          'status.id as sid',
+          'status.name as sname'
         )->get();
 
 

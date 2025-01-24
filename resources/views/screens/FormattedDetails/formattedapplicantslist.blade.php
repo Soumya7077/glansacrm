@@ -139,7 +139,7 @@
         console.log(response, 'resssssss');
 
         if (response.status === "success") {
-        let filteredApplicants = response.data.filter(applicant => applicant.StatusId == "2");
+        let filteredApplicants = response.data.filter(applicant => (applicant.StatusId == "2" || applicant.StatusId == "3" || applicant.StatusId == "4" || applicant.StatusId == "6" || applicant.StatusId == "7"));
 
         if (filteredApplicants.length > 0) {
           populateTable(filteredApplicants);
@@ -163,7 +163,7 @@
 
       applicants.forEach(applicant => {
       let row = `<tr class="text-center small align-middle">
-    <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>     
+    <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>
      <td>${applicant.FirstName} ${applicant.LastName}</td>
       <td>${applicant.Title}</td>
       <td>${applicant.Experience}</td>

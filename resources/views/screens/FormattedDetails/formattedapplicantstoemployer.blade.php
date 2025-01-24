@@ -23,7 +23,7 @@
           </div>
 
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" name="" id="" class="form-control" placeholder="Enter email">
+            <input type="text" name="" id="cc" class="form-control" placeholder="Enter email">
             <label for="Applicants">CC</label>
             <div class="invalid-feedback">Please select an applicant.</div>
           </div>
