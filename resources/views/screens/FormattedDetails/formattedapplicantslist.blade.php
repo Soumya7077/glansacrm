@@ -138,7 +138,7 @@
       <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
       <td>${applicant.Feedback && applicant.Feedback.length > 30 ? applicant.Feedback.substring(0, 30) + '...' : applicant.Feedback || "-"}</td>
-      <td class="text-success">Shortlisted</td>
+      <td>${applicant.sname}</td>
       <td><button class="btn btn-primary update-btn" data-id="${applicant.id}">Update</button></td>
       </tr>`;
       tbody.append(row);
@@ -166,18 +166,58 @@
       }
     });
 
-    $("#sendButton").click(function () {
+    // $("#sendButton").click(function () {
+    //   if (selectedApplicants.length === 0) {
+    //   alert("Please select at least one applicant.");
+    //   return;
+    //   }
+    //   const applicantsJSON = JSON.stringify(selectedApplicants);
+
+    //   // Encode the JSON string to base64
+    //   const encodedApplicants = encodeURIComponent(applicantsJSON);
+
+    //   // Redirect with the base64 encoded data as a URL parameter
+    //   window.location.href = "/formattedapplicantstoemployer?applicants=" + encodedApplicants;
+    // });
+
+    $("#sendButton").click(async function () {
       if (selectedApplicants.length === 0) {
       alert("Please select at least one applicant.");
       return;
       }
-      const applicantsJSON = JSON.stringify(selectedApplicants);
 
-      // Encode the JSON string to base64
+      $("#sendButton").prop("disabled", true).text("Sending...");
+
+      try {
+      for (let applicant of selectedApplicants) {
+        await $.ajax({
+        url: `/api/applicantStatusUpdate/${applicant.id}`,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({ status: 3 }),
+        success: function (response) {
+          console.log(`Applicant ${applicant.id} status updated successfully.`);
+        },
+        error: function (xhr) {
+          console.error(`Error updating status for applicant ${applicant.id}:`, xhr.responseText);
+        }
+        });
+      }
+
+      // Proceed with redirection after updating status
+      const applicantsJSON = JSON.stringify(selectedApplicants);
       const encodedApplicants = encodeURIComponent(applicantsJSON);
 
-      // Redirect with the base64 encoded data as a URL parameter
-      window.location.href = "/formattedapplicantstoemployer?applicants=" + encodedApplicants;
+      setTimeout(()=>{
+        window.location.href = "/formattedapplicantstoemployer?applicants=" + encodedApplicants;
+      })
+
+      } catch (error) {
+      console.error("An error occurred:", error);
+      alert("Failed to update applicant status. Please try again.");
+      }finally{
+        $("#sendButton").prop("disabled",false).text("Send");
+      }
     });
 
     // Show offcanvas when Update button is clicked
