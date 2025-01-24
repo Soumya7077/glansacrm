@@ -129,11 +129,11 @@
                   <td>${job.OrganizationName || 'N/A'}</td>
                   <td>${job.Title || 'N/A'}</td>
                   <td>${job.Opening || 'N/A'}</td>
-                  <td>${job.Description || 'N/A'}</td>
+                  <td>${job.Description && job.Description.length > 30 ? job.Description.substring(0, 30) + '...' : job.Description || 'N/A'}</td>
                   <td>${job.Opening || 'N/A'}</td>
                   <td>${job.JobsLocation || 'N/A'}</td>
-                  <td>${job.Education || 'N/A'}</td>
-                  <td>${job.KeySkills || 'N/A'}</td>
+                  <td>${job.Education && job.Education.length > 30 ? job.Education.substring(0, 30) + '...' : job.Education || 'N/A'}</td>
+                  <td>${job.KeySkills && job.KeySkills.length > 30 ? job.KeySkills.substring(0, 30) + '...' : job.KeySkills || 'N/A'}</td>
                   <td>${job.DepartmentName || 'N/A'}</td>
                   <td>${job.MinSalary || 'N/A'}</td>
                   <td>${job.MaxSalary || 'N/A'}</td>
@@ -145,7 +145,7 @@
                   <td>${job.Shift || 'N/A'}</td>
                   <td>${job.Benefits || 'N/A'}</td>
                   <td>${job.Gender || 'N/A'}</td>
-                  <td>${job.Remarks || 'N/A'}</td>
+                  <td>${job.Remarks && job.Remarks.length > 30 ? job.Remarks.substring(0, 30) + '...' : job.Remarks || 'N/A'}</td>
                   <td>
                     <div class="d-inline-flex gap-2">
                       <a href="/applicantlist?job_id=${userData?.RoleId == 1 ? job.id : job.assignedId}" class="btn btn-primary btn-xs">View</a>

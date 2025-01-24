@@ -137,7 +137,7 @@
       <td>${applicant.ExpectedSalary}</td>
       <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
-      <td>${applicant.Feedback || "-"}</td>
+      <td>${applicant.Feedback && applicant.Feedback.length > 30 ? applicant.Feedback.substring(0, 30) + '...' : applicant.Feedback || "-"}</td>
       <td class="text-success">Shortlisted</td>
       <td><button class="btn btn-primary update-btn" data-id="${applicant.id}">Update</button></td>
       </tr>`;
@@ -148,7 +148,7 @@
     // Fetch applicants when the page loads
     fetchApplicants();
 
-    
+
 
     $(document).on('change', '.applicant-checkbox', function () {
       let applicantData = {
