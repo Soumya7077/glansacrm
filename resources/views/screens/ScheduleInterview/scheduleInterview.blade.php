@@ -98,15 +98,44 @@
   </div>
 </div>
 
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="errorMessage">
+        <!-- Error message will be inserted here dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function () {
+    let applicants;
     const urlParams = new URLSearchParams(window.location.search);
-    let applicants = urlParams.get('applicants');
+    applicants = urlParams.get('applicants');
 
     if (applicants) {
       try {
         applicants = JSON.parse(decodeURIComponent(applicants)); // Convert back to array
         console.log("Received Applicants:", applicants);
+
+        $('#emailForm').on('submit', function (e) {
+          e.preventDefault();
+          for (let i = 0; i < applicants.length; i++) {
+            sendMail(applicants[i]);
+            // let email = applicants[i].email;
+            // console.log("Email:", email);
+            // sendMail(email);
+          }
+        });
 
         // Extract only emails from the applicants array
         let emails = applicants.map(applicant => applicant.email);
@@ -120,57 +149,80 @@
     }
   });
 
-  // Form submission via AJAX
-  $('#emailForm').on('submit', function (e) {
-    e.preventDefault(); // Prevent the default form submission
+  function sendMail(e) {
 
-    // Collect the form data
-    const formData = {
-      candidate: {
-        email: $("#toField").val(),
-        name: "Candidate", // Adjust with the name you want to use for the candidate
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    const type = $('#option').val();
+    const link = $('#location').val();
+    const date = $('#interviewDate').val();
+    const bcc = $('#bcc').val();
+    const cc = $('#cc').val();
+    const description = $('#description').val();
+    const timeslotone = $('#timeslotone').val();
+    const timeslottwo = $('#timeslottwo').val();
+    const timeslotthree = $('#timeslotthree').val();
+    const status = 1;
+    const createdBy = userData?.id;
+
+
+    $.ajax({
+      url: '/api/send-interview-mail',
+      type: 'POST',
+      data: {
+        "EmployerId": e.empId,
+        "ApplicantId": e.id,
+        "JobId": e.jobId,
+        "Type": type,
+        "Link/Location": link,
+        "InterviewDate": date,
+        "ApplicantEmail": e.email,
+        "BCC": bcc,
+        "CC": cc,
+        "Description": description,
+        "FirstTimeSlot": timeslotone,
+        "SecondTimeSlot": timeslottwo,
+        "ThirdTimeSlot": timeslotthree,
+        "Status": 1,
+        "CreatedBy": userData?.id
       },
-      interviewDate: $("#interviewDate").val(),
-      timeSlots: [
-        $("#timeslotone").val(),
-        $("#timeslottwo").val(),
-        $("#timeslotthree").val()
-      ],
-      mode: $("select").val(),
-      bcc: $("#bcc").val(),
-      cc: $("#cc").val(),
-      description: $("#description").val(),
-      location: $("#location").val()
-    };
-
-    let emailArray = $("#toField").val().split(",").map(email => email.trim());
-
-    emailArray.forEach((email) => {
-      formData.candidate.email = email;
-
-      $.ajax({
-        url: '/api/send-interview-mail',
-        type: 'POST',
-        data: formData,
-        success: function (response) {
-          console.log(`Email sent to: ${email}`);
-        },
-        error: function (xhr, status, error) {
-          // On failure
-          console.error("Error sending email:", error);
-          alert("Error sending email. Please try again.");
+      success: function (response) {
+        // console.log(`Email sent to: ${email}`);
+        updateApplicantStatus(e.id);
+      },
+      error: function (xhr, status, error) {
+        // On failure
+        console.error("Error sending email:", xhr);
+        if (xhr.status === 400 && xhr.responseJSON?.message) {
+          $("#errorMessage").text(xhr.responseJSON.message);
+          $("#errorModal").modal("show");
+        } else {
+          $("#errorMessage").text("An error occurred while sending the email. Please try again.");
+          $("#errorModal").modal("show");
         }
-      });
-    })
+      }
+    });
 
-    setTimeout(()=>{
-      $('#successModal').modal('show');
+  }
+  function updateApplicantStatus(applicantId) {
+    $.ajax({
+      url: `/api/applicantStatusUpdate/${applicantId}`,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        status: 6, // Set status to 6
+      }),
+      success: function (response) {
+        console.log("Applicant status updated successfully:", response);
+        $('#successModal').modal('show');
+      },
+      error: function (xhr, status, error) {
+        console.error("Error updating applicant status:", xhr);
+        console.error("Error updating applicant status:", error);
+      }
+    });
+  }
 
-    // Optionally reset the form
-    $('#emailForm')[0].reset();
-    },2000)
-   
-  });
 </script>
 
 
