@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SocialMedia;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApplicantModel;
 use App\Models\SocialMediaAssignModel;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,32 +24,55 @@ class SmController extends Controller
   /**===================Assign Social media candidates to recruiter====================== */
 
   public function assignSocialMediaApplicantsToRecruiter(Request $request)
-  {
+{
     try {
+        // Initialize an array to store failed assignments
+        $failedAssignments = [];
 
-      $assignRecruiter = SocialMediaAssignModel::create([
-        'ApplicantId' => $request->applicantId,
-        'UserId' => $request->userId,
-        'AssignedBy' => $request->assignedBy,
-        'AssignOn' => now(),
-        'created_at' => now(),
-      ]);
+        // Loop through each applicant
+        foreach ($request->applicantIds as $applicantId) {
+            // Check if the applicant is already assigned to a recruiter
+            $existingAssignment = SocialMediaAssignModel::where('ApplicantId', $applicantId)->first();
 
-      if ($assignRecruiter) {
+            if ($existingAssignment) {
+                // If already assigned, add to the failedAssignments array
+                $failedAssignments[] = $applicantId;
+                $applicantName[] = ApplicantModel::where('id', $applicantId)->first()->FirstName;
+            } else {
+                // Otherwise, create a new assignment
+                SocialMediaAssignModel::create([
+                    'ApplicantId' => $applicantId,
+                    'UserId' => $request->userId,
+                    'AssignedBy' => $request->assignedBy,
+                    'AssignOn' => now(),
+                    'created_at' => now(),
+                ]);
+            }
+        }
+
+        // If there are failed assignments, return an error message with the applicants that were already assigned
+        if (!empty($failedAssignments)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'The following applicants are already assigned to a recruiter: ' . implode(', ', $applicantName),
+            ], 400);
+        }
+
+        // If no applicants are failed, return success
         return response()->json([
-          'status' => 'success',
-          'message' => 'Recruiter assigned successfully',
-          'data' => $assignRecruiter,
+            'status' => 'success',
+            'message' => 'Applicants assigned successfully.',
         ], 201);
-      }
 
     } catch (Exception $e) {
-      return response()->json([
-        'status' => 'error',
-        'message' => 'Something went wrong, ' . $e->getMessage(),
-      ], 500);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Something went wrong: ' . $e->getMessage(),
+        ], 500);
     }
-  }
+}
+
+
 
   /**===================Assign Social media candidates to recruiter====================== */
 
