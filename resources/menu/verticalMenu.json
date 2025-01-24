@@ -97,12 +97,6 @@
       "slug": "Formatted Applicants List"
     },
     {
-      "url": "/formattedapplicantstoemployer",
-      "name": "Formatted Applicants to Employer",
-      "icon": "menu-icon tf-icons mdi mdi-email",
-      "slug": "Formatted Applicants to Employer"
-    },
-    {
       "url": "/schedule",
       "name": "Candidate Interview",
       "icon": "menu-icon tf-icons mdi mdi-calendar",
