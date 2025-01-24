@@ -416,9 +416,49 @@ class ApplicantsApplyController extends Controller
 
   /**===================================Get Formatted Applicant List=========================== */
 
-  public function getFormattedApplicantList()
+  public function getFormattedApplicantListByRecruiter($id)
   {
+    try {
+      $applicantlist = DB::table('applicant')
+        ->join('job_post', 'applicant.jobpost_id', '=', 'job_post.id')
+        ->join('status', 'status.id', '=', 'applicant.StatusId')
+        ->join('recruiter_assign', 'recruiter_assign.JobId', '=', 'applicant.jobpost_id')
+        ->where('recruiter_assign.UserId', '=', $id)
+        ->where('applicant.Source', '=', 'Website')
+        ->orWhere('applicant.Source', '=', 'Enquiry')
+        ->select(
+          'applicant.*',
+          'job_post.Title',
+          'job_post.Description',
+          'status.id as sid',
+          'status.name as sname'
+        )->get();
 
+
+
+
+
+      if ($applicantlist) {
+        return response()->json([
+          'status' => 'success',
+          'message' => 'Applicant List Fetch successfully!',
+          'data' => $applicantlist
+        ], 200);
+      } else {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'No data found!',
+          'data' => $applicantlist
+        ], 400);
+      }
+
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Something went wrong! Please try again.',
+        'error' => $e->getMessage()
+      ], 500);
+    }
   }
 
   /**===================================Get Formatted Applicant List=========================== */

@@ -6,6 +6,7 @@ use App\Http\Controllers\authentications\AuthController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
+use App\Http\Controllers\ScheduleInterview\ScheduleInterview;
 use App\Http\Controllers\SocialMedia\SmController;
 use App\Http\Controllers\users\UserController;
 use Illuminate\Http\Request;
@@ -101,6 +102,7 @@ Route::post('/applicant', [ApplicantsApplyController::class, 'createApplicant'])
 Route::get('/getapplicant', [ApplicantsApplyController::class, 'getApplicant']);
 Route::get('/getapplicant/{id}', [ApplicantsApplyController::class, 'getApplicantById']);
 Route::get('/getapplicantbyjob/{id}', [ApplicantsApplyController::class, 'getApplicantByJobId']);
+Route::get('/getformattedapplicantbyrecruiter/{id}', [ApplicantsApplyController::class, 'getFormattedApplicantListByRecruiter']);
 Route::get('/getsmapplicant', [ApplicantsApplyController::class, 'getSocialMediaApplicant']);
 Route::put('/updateApplicant/{id}', [ApplicantsApplyController::class, 'updateApplicant']);
 Route::put('/applicantStatusUpdate/{id}', [ApplicantsApplyController::class, 'applicantStatusUpdate']);
@@ -142,6 +144,7 @@ Route::get('/getsmapplicantbyrecruiter/{id}', [SmController::class, 'getSocialMe
 /**=====================================Send candidate details through mail to Employer=========================== */
 
 Route::post('/send-formatted-email', [EmployerController::class, 'sendFormattedEmailToEmployer']);
+Route::post('/send-interview-mail', [ScheduleInterview::class, 'sendInterviewEmail']);
 
 /**=====================================Send candidate details through mail to Employer=========================== */
 
