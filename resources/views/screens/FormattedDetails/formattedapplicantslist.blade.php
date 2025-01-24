@@ -90,21 +90,60 @@
 
 @push('scripts')
   <script>
+
+    $(document).on('dblclick', '.status-text', function () {
+    let currentStatus = $(this).text();
+    let selectDropdown = $(this).siblings('.status-dropdown');
+
+    $(this).hide();
+    selectDropdown.show().val(currentStatus);
+    });
+
+    $(document).on('change', '.status-dropdown', function () {
+    let newStatus = $(this).val();
+    let applicantId = $(this).closest('.status-cell').data('id');
+
+    $(this).hide();
+    $(this).siblings('.status-text').text(newStatus).show();
+
+    $.ajax({
+      url: '/api/applicantStatusUpdate/' + applicantId,
+      type: 'PUT',
+      data: { status: newStatus },
+      success: function (response) {
+      if (response.status === "success") {
+        console.log('Status updated successfully!');
+      } else {
+        console.log('Failed to update status!');
+      }
+      },
+      error: function () {
+      console.log('Error updating status');
+      }
+    });
+    });
+
+
+
     $(document).ready(function () {
     let selectedApplicants = [];
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+
 
     function fetchApplicants() {
       $("#tableBody").html('<tr id="loadingRow"><td colspan="13" class="text-center text-muted py-3">Loading data, please wait...</td></tr>');
 
       $.ajax({
-      url: '/api/getapplicant',
+      url: userData.RoleId == 1 ? '/api/getapplicant' : `/api/getformattedapplicantbyrecruiter/${userData.id}`,
       type: 'GET',
       dataType: 'json',
       success: function (response) {
         console.log(response, 'resssssss');
 
         if (response.status === "success") {
-        let filteredApplicants = response.data.filter(applicant => applicant.StatusId == "2");
+        let filteredApplicants = response.data.filter(applicant => (applicant.StatusId == "2" || applicant.StatusId == "3" || applicant.StatusId == "4" || applicant.StatusId == "6" || applicant.StatusId == "7"));
 
         if (filteredApplicants.length > 0) {
           populateTable(filteredApplicants);
@@ -123,12 +162,12 @@
 
     function populateTable(applicants) {
       let tbody = $("#table tbody");
-      tbody.empty(); // Clear existing rows
+      tbody.empty();
       console.log(applicants);
 
       applicants.forEach(applicant => {
       let row = `<tr class="text-center small align-middle">
-    <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>     
+    <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>
      <td>${applicant.FirstName} ${applicant.LastName}</td>
       <td>${applicant.Title}</td>
       <td>${applicant.Experience}</td>
@@ -138,14 +177,22 @@
       <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
       <td>${applicant.Feedback && applicant.Feedback.length > 30 ? applicant.Feedback.substring(0, 30) + '...' : applicant.Feedback || "-"}</td>
-      <td class="text-success">Shortlisted</td>
+     <td class="status-cell" data-id="${applicant.id}" data-current-status="${applicant.Status}">
+    <span class="status-text">${applicant.Status}</span>
+    <select class="form-select status-dropdown" style="width: 150px; display: none;">
+    <option value="Shortlisted" class="text-success">Shortlisted</option>
+    <option value="Rejected" class="text-danger">Rejected</option>
+    <option value="Pending" class="text-warning">Pending</option>
+    <option value="Interview Scheduled" class="text-primary">Interview Scheduled</option>
+    </select>
+    </td>
+
       <td><button class="btn btn-primary update-btn" data-id="${applicant.id}">Update</button></td>
       </tr>`;
       tbody.append(row);
       });
     }
 
-    // Fetch applicants when the page loads
     fetchApplicants();
 
 

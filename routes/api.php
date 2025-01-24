@@ -102,6 +102,7 @@ Route::post('/applicant', [ApplicantsApplyController::class, 'createApplicant'])
 Route::get('/getapplicant', [ApplicantsApplyController::class, 'getApplicant']);
 Route::get('/getapplicant/{id}', [ApplicantsApplyController::class, 'getApplicantById']);
 Route::get('/getapplicantbyjob/{id}', [ApplicantsApplyController::class, 'getApplicantByJobId']);
+Route::get('/getformattedapplicantbyrecruiter/{id}', [ApplicantsApplyController::class, 'getFormattedApplicantListByRecruiter']);
 Route::get('/getsmapplicant', [ApplicantsApplyController::class, 'getSocialMediaApplicant']);
 Route::put('/updateApplicant/{id}', [ApplicantsApplyController::class, 'updateApplicant']);
 Route::put('/applicantStatusUpdate/{id}', [ApplicantsApplyController::class, 'applicantStatusUpdate']);
