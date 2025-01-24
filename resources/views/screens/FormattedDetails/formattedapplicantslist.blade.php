@@ -34,7 +34,7 @@
     </div>
     <div class="d-flex justify-content-end mt-3">
       <a class="btn btn-primary text-white me-2" id="sendButton">Send</a>
-      <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
+      <a id="scheduleButton" class="btn btn-primary text-white">Schedule an interview</a>
     </div>
   </div>
 </div>
@@ -170,7 +170,7 @@
 
       applicants.forEach(applicant => {
       let row = `<tr class="text-center small align-middle">
-    <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>
+    <td><input type="checkbox" class="applicant-checkbox" data-email="${applicant.Email}" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>
      <td>${applicant.FirstName} ${applicant.LastName}</td>
       <td>${applicant.Title}</td>
       <td>${applicant.Experience}</td>
@@ -180,7 +180,7 @@
       <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
       <td>${applicant.Feedback && applicant.Feedback.length > 30 ? applicant.Feedback.substring(0, 30) + '...' : applicant.Feedback || "-"}</td>
-     <td class="status-cell" data-id="${applicant.id}" data-current-status="${applicant.Status}">
+     <td class="status-cell text-primary" data-id="${applicant.id}" data-current-status="${applicant.Status}">
     <span class="status-text" data-sid="${applicant.sid}">${applicant.sname}</span>
     <select class="form-select status-dropdown" style="width: 150px; display: none;">
     <option value="1" class="text-warning">Pending</option>
@@ -202,15 +202,14 @@
 
     fetchApplicants();
 
-
-
     $(document).on('change', '.applicant-checkbox', function () {
       let applicantData = {
       id: $(this).data('id'),
       name: $(this).data('name'),
       keySkills: $(this).data('keyskills'),
       jobDescription: $(this).data('jobdesc'),
-      experience: $(this).data('exp')
+      experience: $(this).data('exp'),
+      email: $(this).data('email')
       };
 
       if ($(this).is(':checked')) {
@@ -220,19 +219,16 @@
       }
     });
 
-    // $("#sendButton").click(function () {
-    //   if (selectedApplicants.length === 0) {
-    //   alert("Please select at least one applicant.");
-    //   return;
-    //   }
-    //   const applicantsJSON = JSON.stringify(selectedApplicants);
+    $("#scheduleButton").click(function () {
+      if (selectedApplicants.length === 0) {
+      alert("Please select at least one applicant.");
+      return;
+      }
+      const applicantsJSON = JSON.stringify(selectedApplicants);
+      const encodedApplicants = encodeURIComponent(applicantsJSON);
+      window.location.href = "/schedule?applicants=" + encodedApplicants;
 
-    //   // Encode the JSON string to base64
-    //   const encodedApplicants = encodeURIComponent(applicantsJSON);
-
-    //   // Redirect with the base64 encoded data as a URL parameter
-    //   window.location.href = "/formattedapplicantstoemployer?applicants=" + encodedApplicants;
-    // });
+    });
 
     $("#sendButton").click(async function () {
       if (selectedApplicants.length === 0) {
