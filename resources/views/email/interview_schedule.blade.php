@@ -7,12 +7,12 @@
     <p>Dear {{ $ApplicantName }},</p>
 
     <p>
-        We are pleased to invite you to an interview for the position you applied for. Please find the details below:
+        We are pleased to invite you to an interview for the position of <strong>{{ $JobTitle }}</strong>. Please find the details below:
     </p>
 
     <p>
         <strong>Interview Type:</strong> {{ $Type }}<br>
-        <strong>Link/Location:</strong> {{ $Link }}/Location<br>
+        <strong>Link/Location:</strong> {{ $Link }}<br>
         <strong>Interview Date:</strong> {{ \Carbon\Carbon::parse($InterviewDate)->format('F d, Y') }}
     </p>
 
