@@ -16,6 +16,29 @@ class ScheduleInterview extends Controller
     {
         return view('screens.ScheduleInterview.scheduleInterview');
     }    
+
+    public function getAllInterviews()
+{
+    try {
+        // Fetch all records from ScheduleInterviewModel
+        $interviews = ScheduleInterviewModel::all();
+
+        // Return a success response with the data
+        return response()->json([
+            'success' => true,
+            'message' => 'Interview schedules retrieved successfully.',
+            'data' => $interviews,
+        ], 200);
+    } catch (\Exception $e) {
+        // Handle any errors
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to retrieve interview schedules. Please try again later.',
+            'error' => $e->getMessage(),
+        ], 500);
+    }
+}
+
     public function sendInterviewEmail(Request $request)
 {
     try {
