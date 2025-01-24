@@ -91,6 +91,80 @@
 
 @push('scripts')
   <script>
+    $(document).ready(function () {
+
+    $('#addUserForm').on('submit', function (e) {
+      e.preventDefault();
+
+      const applicantId = $('#applicantId').val();
+      const feedback = $('#feedback').val();
+      const status = $('#sid').val();
+
+      if (!feedback) {
+      alert('Please enter feedback.');
+      return;
+      }
+
+      $.ajax({
+      url: `/api/applicantStatusUpdate/${applicantId}`,
+      type: 'PUT',
+      data: {
+        feedback: feedback,
+        status: status
+      },
+      success: function (response) {
+        if (response.success) {
+        $('#successModal').modal('show');
+        $('#addUserForm')[0].reset();
+        $('#offcanvasBackdrop').offcanvas('hide');
+        } else {
+        console.log('Error updating feedback.');
+        }
+      },
+      error: function () {
+        alert('Error occurred. Please try again later.');
+      }
+      });
+    });
+    });
+
+
+
+
+
+    $(document).on('dblclick', '.status-text', function () {
+    let currentStatus = $(this).data('sid');
+    console.log(currentStatus);
+    let selectDropdown = $(this).siblings('.status-dropdown');
+
+    $(this).hide();
+    selectDropdown.show().val(currentStatus);
+    });
+
+    $(document).on('change', '.status-dropdown', function () {
+    let newStatus = $(this).val();
+    let applicantId = $(this).closest('.status-cell').data('id');
+    let statusText = $(this).find('option:selected').text();
+
+    $(this).hide();
+    $(this).siblings('.status-text').text(statusText).show();
+
+    $.ajax({
+      url: '/api/applicantStatusUpdate/' + applicantId,
+      type: 'PUT',
+      data: { status: newStatus },
+      success: function (response) {
+      if (response) {
+        console.log('Status updated successfully!');
+      } else {
+        console.log('Failed to update status!');
+      }
+      },
+      error: function () {
+      console.log('Error updating status');
+      }
+    });
+    });
 
 
 
