@@ -144,10 +144,16 @@ Route::get('/getsmapplicantbyrecruiter/{id}', [SmController::class, 'getSocialMe
 /**=====================================Send candidate details through mail to Employer=========================== */
 
 Route::post('/send-formatted-email', [EmployerController::class, 'sendFormattedEmailToEmployer']);
-Route::post('/send-interview-mail', [ScheduleInterview::class, 'sendInterviewEmail']);
 
 /**=====================================Send candidate details through mail to Employer=========================== */
 
+/**=====================================Schedule Interview and send mail to Applicant=========================== */
+
+Route::post('/send-interview-mail', [ScheduleInterview::class, 'sendInterviewEmail']);
+Route::get('interview/{id}/edit', [ScheduleInterview::class, 'getInterviewForEdit']);
+Route::put('interview/update/{id}', [ScheduleInterview::class, 'updateInterviewDetails']);
+
+/**=====================================Schedule Interview and send mail to Applicant=========================== */
 
 // Route::group([
 
