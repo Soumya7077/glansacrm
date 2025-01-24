@@ -91,6 +91,8 @@
 @push('scripts')
   <script>
 
+
+
     $(document).on('dblclick', '.status-text', function () {
     let currentStatus = $(this).data('sid');
     console.log(currentStatus);
