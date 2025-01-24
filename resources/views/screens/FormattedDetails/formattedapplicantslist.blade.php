@@ -34,7 +34,7 @@
     </div>
     <div class="d-flex justify-content-end mt-3">
       <a class="btn btn-primary text-white me-2" id="sendButton">Send</a>
-      <a href="{{ url('schedule') }}" class="btn btn-primary">Schedule an interview</a>
+      <a id="scheduleButton" class="btn btn-primary text-white">Schedule an interview</a>
     </div>
   </div>
 </div>
@@ -50,12 +50,13 @@
       <div class="offcanvas-body mx-0 flex-grow-0">
         <form id="addUserForm" novalidate>
           @csrf
-          <input type="hidden" id="userId">
+          <input type="hidden" id="applicantId">
+          <input type="hidden" id="sid">
           <div class="row">
             <div class="col-md-12">
 
               <div class="form-floating form-floating-outline mb-4">
-                <input type="text" class="form-control" id="fullname" placeholder="Feedback" required />
+                <input type="text" class="form-control" id="feedback" placeholder="Feedback" required />
                 <label for="basic-default-fullname">Feedback</label>
                 <div class="invalid-feedback">Please fill .</div>
               </div>
@@ -90,6 +91,44 @@
 
 @push('scripts')
   <script>
+    $(document).ready(function () {
+
+    $('#addUserForm').on('submit', function (e) {
+      e.preventDefault();
+
+      const applicantId = $('#applicantId').val();
+      const feedback = $('#feedback').val();
+      const status = $('#sid').val();
+
+      if (!feedback) {
+      alert('Please enter feedback.');
+      return;
+      }
+
+      $.ajax({
+      url: `/api/applicantStatusUpdate/${applicantId}`,
+      type: 'PUT',
+      data: {
+        feedback: feedback,
+        status: status
+      },
+      success: function (response) {
+        if (response.success) {
+        $('#successModal').modal('show');
+        $('#addUserForm')[0].reset();
+        $('#offcanvasBackdrop').offcanvas('hide');
+        } else {
+        console.log('Error updating feedback.');
+        }
+      },
+      error: function () {
+        alert('Error occurred. Please try again later.');
+      }
+      });
+    });
+    });
+
+
 
     $(document).on('dblclick', '.status-text', function () {
     let currentStatus = $(this).data('sid');
@@ -103,9 +142,10 @@
     $(document).on('change', '.status-dropdown', function () {
     let newStatus = $(this).val();
     let applicantId = $(this).closest('.status-cell').data('id');
+    let statusText = $(this).find('option:selected').text();
 
     $(this).hide();
-    $(this).siblings('.status-text').text(newStatus).show();
+    $(this).siblings('.status-text').text(statusText).show();
 
     $.ajax({
       url: '/api/applicantStatusUpdate/' + applicantId,
@@ -162,13 +202,14 @@
     }
 
     function populateTable(applicants) {
+      var table = $('#table').DataTable();
       let tbody = $("#table tbody");
       tbody.empty();
       console.log(applicants);
 
       applicants.forEach(applicant => {
       let row = `<tr class="text-center small align-middle">
-    <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>
+    <td><input type="checkbox" class="applicant-checkbox" data-email="${applicant.Email}" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>
      <td>${applicant.FirstName} ${applicant.LastName}</td>
       <td>${applicant.Title}</td>
       <td>${applicant.Experience}</td>
@@ -178,7 +219,7 @@
       <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
       <td>${applicant.Feedback && applicant.Feedback.length > 30 ? applicant.Feedback.substring(0, 30) + '...' : applicant.Feedback || "-"}</td>
-     <td class="status-cell" data-id="${applicant.id}" data-current-status="${applicant.Status}">
+     <td class="status-cell text-primary" data-id="${applicant.id}" data-current-status="${applicant.Status}">
     <span class="status-text" data-sid="${applicant.sid}">${applicant.sname}</span>
     <select class="form-select status-dropdown" style="width: 150px; display: none;">
     <option value="1" class="text-warning">Pending</option>
@@ -192,15 +233,15 @@
     </select>
     </td>
 
-      <td><button class="btn btn-primary update-btn" data-id="${applicant.id}">Update</button></td>
+      <td><button class="btn btn-primary update-btn" data-id="${applicant.id}" data-status="${applicant.sid}">Update</button></td>
       </tr>`;
       tbody.append(row);
+      table.clear();
+      table.rows.add(tbody.find('tr')).draw();
       });
     }
 
     fetchApplicants();
-
-
 
     $(document).on('change', '.applicant-checkbox', function () {
       let applicantData = {
@@ -208,7 +249,8 @@
       name: $(this).data('name'),
       keySkills: $(this).data('keyskills'),
       jobDescription: $(this).data('jobdesc'),
-      experience: $(this).data('exp')
+      experience: $(this).data('exp'),
+      email: $(this).data('email')
       };
 
       if ($(this).is(':checked')) {
@@ -218,19 +260,16 @@
       }
     });
 
-    // $("#sendButton").click(function () {
-    //   if (selectedApplicants.length === 0) {
-    //   alert("Please select at least one applicant.");
-    //   return;
-    //   }
-    //   const applicantsJSON = JSON.stringify(selectedApplicants);
+    $("#scheduleButton").click(function () {
+      if (selectedApplicants.length === 0) {
+      alert("Please select at least one applicant.");
+      return;
+      }
+      const applicantsJSON = JSON.stringify(selectedApplicants);
+      const encodedApplicants = encodeURIComponent(applicantsJSON);
+      window.location.href = "/schedule?applicants=" + encodedApplicants;
 
-    //   // Encode the JSON string to base64
-    //   const encodedApplicants = encodeURIComponent(applicantsJSON);
-
-    //   // Redirect with the base64 encoded data as a URL parameter
-    //   window.location.href = "/formattedapplicantstoemployer?applicants=" + encodedApplicants;
-    // });
+    });
 
     $("#sendButton").click(async function () {
       if (selectedApplicants.length === 0) {
@@ -275,9 +314,11 @@
     // Show offcanvas when Update button is clicked
     $(document).on('click', '.update-btn', function () {
       let applicantId = $(this).data('id');
+      let sid = $(this).data('status');
       $('#offcanvasBackdrop').offcanvas('show');
       $('.offcanvas-title').text('Update Feedback');
-      $('#userId').val(applicantId);
+      $('#applicantId').val(applicantId);
+      $('#sid').val(sid);
     });
 
     // Handle form submission
