@@ -71,7 +71,7 @@
                 <td>${applicant.Experience}</td>
                 <td>${applicant.CurrentSalary}</td>
                 <td>${applicant.ExpectedSalary}</td>
-                <td>${applicant.Remarks ?? "N/A"}</td>
+                <td>${applicant.Remarks && applicant.Remarks.length > 30 ? applicant.Remarks.substring(0, 30) + '...' : applicant.Remarks ?? "N/A"}</td>
                 <td>${resumeLink}</td>
               </tr>`;
               tableBody.append(row);

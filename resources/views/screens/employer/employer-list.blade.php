@@ -242,6 +242,7 @@
 
 <script>
     $(document).ready(function () {
+        var table = $('#table').DataTable();
         $.ajax({
             url: '/api/getEmployer',
             method: 'GET',
@@ -277,10 +278,11 @@
                                 </div>
                             </td>
 
-
                         </tr>
                     `;
                         tableBody.append(row);
+                        table.clear();
+                        table.rows.add(tableBody.find('tr')).draw();
                     });
                 } else {
                     alert('Failed to fetch employer data.');
