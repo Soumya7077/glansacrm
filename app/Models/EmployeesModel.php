@@ -25,4 +25,9 @@ class EmployeesModel extends Model
     'updated_at'
   ];
 
+  public function interviews()
+    {
+        return $this->hasMany(ScheduleInterviewModel::class, 'EmployerId');
+    }
+
 }

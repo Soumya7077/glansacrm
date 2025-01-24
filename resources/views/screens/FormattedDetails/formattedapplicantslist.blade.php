@@ -213,7 +213,7 @@
 
       applicants.forEach(applicant => {
       let row = `<tr class="text-center small align-middle">
-    <td><input type="checkbox" class="applicant-checkbox" data-email="${applicant.Email}" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobdesc="Physician Assistant" data-exp="${applicant.Experience}"></td>
+    <td><input type="checkbox" class="applicant-checkbox" data-email="${applicant.Email}" data-id="${applicant.id}" data-name="${applicant.FirstName} ${applicant.LastName}" data-keyskills="${applicant.KeySkills}" data-jobid="${applicant.jobpost_id}" data-empid="${applicant.empId}" data-jobdesc="${applicant.Title}" data-exp="${applicant.Experience}"></td>
      <td>${applicant.FirstName} ${applicant.LastName}</td>
       <td>${applicant.Title}</td>
       <td>${applicant.Experience}</td>
@@ -328,8 +328,12 @@
       keySkills: $(this).data('keyskills'),
       jobDescription: $(this).data('jobdesc'),
       experience: $(this).data('exp'),
-      email: $(this).data('email')
+      email: $(this).data('email'),
+      jobId:$(this).data('jobid'),
+      empId:$(this).data('empid')
       };
+
+      console.log(applicantData);
 
       if ($(this).is(':checked')) {
       selectedApplicants.push(applicantData);
