@@ -90,6 +90,41 @@
 
 @push('scripts')
   <script>
+
+    $(document).on('dblclick', '.status-text', function () {
+    let currentStatus = $(this).text();
+    let selectDropdown = $(this).siblings('.status-dropdown');
+
+    $(this).hide();
+    selectDropdown.show().val(currentStatus);
+    });
+
+    $(document).on('change', '.status-dropdown', function () {
+    let newStatus = $(this).val();
+    let applicantId = $(this).closest('.status-cell').data('id');
+
+    $(this).hide();
+    $(this).siblings('.status-text').text(newStatus).show();
+
+    $.ajax({
+      url: '/api/applicantStatusUpdate/' + applicantId,
+      type: 'PUT',
+      data: { status: newStatus },
+      success: function (response) {
+      if (response.status === "success") {
+        console.log('Status updated successfully!');
+      } else {
+        console.log('Failed to update status!');
+      }
+      },
+      error: function () {
+      console.log('Error updating status');
+      }
+    });
+    });
+
+
+
     $(document).ready(function () {
     let selectedApplicants = [];
 
@@ -123,7 +158,7 @@
 
     function populateTable(applicants) {
       let tbody = $("#table tbody");
-      tbody.empty(); // Clear existing rows
+      tbody.empty();
       console.log(applicants);
 
       applicants.forEach(applicant => {
@@ -138,14 +173,22 @@
       <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
       <td>${applicant.Feedback && applicant.Feedback.length > 30 ? applicant.Feedback.substring(0, 30) + '...' : applicant.Feedback || "-"}</td>
-      <td class="text-success">Shortlisted</td>
+     <td class="status-cell" data-id="${applicant.id}" data-current-status="${applicant.Status}">
+    <span class="status-text">${applicant.Status}</span>
+    <select class="form-select status-dropdown" style="width: 150px; display: none;">
+    <option value="Shortlisted" class="text-success">Shortlisted</option>
+    <option value="Rejected" class="text-danger">Rejected</option>
+    <option value="Pending" class="text-warning">Pending</option>
+    <option value="Interview Scheduled" class="text-primary">Interview Scheduled</option>
+    </select>
+    </td>
+
       <td><button class="btn btn-primary update-btn" data-id="${applicant.id}">Update</button></td>
       </tr>`;
       tbody.append(row);
       });
     }
 
-    // Fetch applicants when the page loads
     fetchApplicants();
 
 
