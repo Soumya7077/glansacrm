@@ -140,6 +140,7 @@ class ApplicantsApplyController extends Controller
       $applicantlist = DB::table('applicant')
         ->join('job_post', 'applicant.jobpost_id', '=', 'job_post.id')
         ->join('status', 'status.id', '=', 'applicant.StatusId')
+        ->join('employees', 'employees.id', '=', 'job_post.EmployerId')
         ->where('applicant.Source', '=', 'Website')
         ->orWhere('applicant.Source', '=', 'Enquiry')
         ->select(
@@ -147,7 +148,9 @@ class ApplicantsApplyController extends Controller
           'job_post.Title',
           'job_post.Description',
           'status.id as sid',
-          'status.name as sname'
+          'status.name as sname',
+          'employees.OrganizationName',
+          'employees.id as empId',
         )->get();
 
 
@@ -422,6 +425,7 @@ class ApplicantsApplyController extends Controller
       $applicantlist = DB::table('applicant')
         ->join('job_post', 'applicant.jobpost_id', '=', 'job_post.id')
         ->join('status', 'status.id', '=', 'applicant.StatusId')
+        ->join('employees', 'employees.id', '=', 'job_post.EmployerId')
         ->join('recruiter_assign', 'recruiter_assign.JobId', '=', 'applicant.jobpost_id')
         ->where('recruiter_assign.UserId', '=', $id)
         ->where('applicant.Source', '=', 'Website')
@@ -431,7 +435,9 @@ class ApplicantsApplyController extends Controller
           'job_post.Title',
           'job_post.Description',
           'status.id as sid',
-          'status.name as sname'
+          'status.name as sname',
+          'employees.OrganizationName',
+          'employees.id as empId',
         )->get();
 
 
