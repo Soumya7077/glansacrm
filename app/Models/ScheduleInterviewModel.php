@@ -10,6 +10,9 @@ class ScheduleInterviewModel extends Model
   use HasFactory;
 
   protected $table = 'schedule_interview';
+
+  // Disable automatic timestamps
+  public $timestamps = false;
   protected $fillable = [
     'EmployerId',
     'ApplicantId',

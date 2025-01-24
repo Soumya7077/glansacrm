@@ -12,33 +12,34 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" name="" id=""
-              value="naveen@glansa.in, soumya@glansa.in, anita@glansa.in">
+            <input type="text" class="form-control" name="" id="toField" value="">
             <label for="to">To</label>
             <div class="invalid-feedback">Please select an email address.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="date" class="form-control" id="interviewDate" name="interviewDate" placeholder="Interview Date"
-              required />
+            <input type="text" class="form-control" id="cc" name="interviewDate" placeholder="CC" required />
+            <label for="interviewDate">CC</label>
+            <div class="invalid-feedback">Please choose CC </div>
+          </div>
+          <div class="form-floating form-floating-outline mb-4">
+            <input type="date" class="form-control" id="interviewDate" name="interviewDate" required />
             <label for="interviewDate">Interview Date</label>
             <div class="invalid-feedback">Please choose a valid interview date.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="interviewDate" name="interviewDate" placeholder="Interview Date"
-              required />
-            <label for="interviewDate">Select 1st time slot</label>
+            <input type="time" class="form-control" id="timeslotone" name="timeslotone" required />
+            <label for="timeslotone">Select 1st time slot</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="interviewDate" name="interviewDate" placeholder="Interview Date"
-              required />
-            <label for="interviewDate">Select 3rd time slot</label>
+            <input type="time" class="form-control" id="timeslottwo" name="timeslottwo" required />
+            <label for="timeslottwo">Select 2nd time slot</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <select name="" id="" class="form-select">
-              <option value="">Virtual</option>
-              <option value="">Walk-in</option>
+            <select name="" id="option" class="form-select">
+              <option value="virtual">Virtual</option>
+              <option value="walkin">Walk-in</option>
             </select>
             <label for="interviewDate">Select mode of interview</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
@@ -48,9 +49,8 @@
 
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="interviewDate" name="interviewDate" placeholder="BCC"
-              required />
-            <label for="interviewDate">BCC</label>
+            <input type="text" class="form-control" id="bcc" name="bcc" placeholder="BCC" required />
+            <label for="bcc">BCC</label>
             <div class="invalid-feedback">Please choose BCC </div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
@@ -60,52 +60,21 @@
             <div class="invalid-feedback">Please provide a description.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="interviewDate" name="interviewDate" placeholder="Interview Date"
-              required />
-            <label for="interviewDate">Select 2nd time slot</label>
+            <input type="time" class="form-control" id="timeslotthree" name="timeslotthree" required />
+            <label for="timeslotthree">Select 3rd time slot</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="interviewDate" name="interviewDate"
-              placeholder="Location / Virtual Link" required />
-            <label for="interviewDate">Location / Virtual Link</label>
+            <input type="text" class="form-control" id="location" name="location" placeholder="Location / Virtual Link"
+              required />
+            <label for="location">Location / Virtual Link</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
         </div>
       </div>
 
-      <!-- Table with Applicant Details inside the Form -->
-      <!-- <div class="table-responsive mt-2">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Applicant Name</th>
-              <th>Key Skills</th>
-              <th>Job Description</th>
-              <th>Experience</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Naveen Nagam</td>
-              <td>JavaScript, , Node.js</td>
-              <td>Frontend Developer</td>
-              <td>3 Years</td>
-            </tr>
-            <tr>
-              <td>Anita Seth</td>
-              <td>Python, Django, REST APIs</td>
-              <td>Backend Developer</td>
-              <td>4 Years</td>
-            </tr>
-
-
-          </tbody>
-        </table>
-      </div> -->
       <button type="submit" class="btn btn-primary mt-3">Send Mail</button>
 
-      <!-- <a href="applicantlist" class="btn btn-primary mt-3">Send Mail</a> -->
     </form>
   </div>
 </div>
@@ -129,27 +98,80 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+  $(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    let applicants = urlParams.get('applicants');
+
+    if (applicants) {
+      try {
+        applicants = JSON.parse(decodeURIComponent(applicants)); // Convert back to array
+        console.log("Received Applicants:", applicants);
+
+        // Extract only emails from the applicants array
+        let emails = applicants.map(applicant => applicant.email);
+        console.log("Extracted Emails:", emails);
+
+        // Set the 'To' field with the emails
+        $("#toField").val(emails.join(", "));
+      } catch (error) {
+        console.error("Error parsing applicants:", error);
+      }
+    }
+  });
+
+  // Form submission via AJAX
   $('#emailForm').on('submit', function (e) {
     e.preventDefault(); // Prevent the default form submission
 
-    // Display the success modal
-    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    successModal.show(); // Show the success modal
+    // Collect the form data
+    const formData = {
+      candidate: {
+        email: $("#toField").val(),
+        name: "Candidate", // Adjust with the name you want to use for the candidate
+      },
+      interviewDate: $("#interviewDate").val(),
+      timeSlots: [
+        $("#timeslotone").val(),
+        $("#timeslottwo").val(),
+        $("#timeslotthree").val()
+      ],
+      mode: $("select").val(),
+      bcc: $("#bcc").val(),
+      cc: $("#cc").val(),
+      description: $("#description").val(),
+      location: $("#location").val()
+    };
 
-    // Reset the form after displaying the modal
+    let emailArray = $("#toField").val().split(",").map(email => email.trim());
+
+    emailArray.forEach((email) => {
+      formData.candidate.email = email;
+
+      $.ajax({
+        url: '/api/send-interview-mail',
+        type: 'POST',
+        data: formData,
+        success: function (response) {
+          console.log(`Email sent to: ${email}`);
+        },
+        error: function (xhr, status, error) {
+          // On failure
+          console.error("Error sending email:", error);
+          alert("Error sending email. Please try again.");
+        }
+      });
+    })
+
+    setTimeout(()=>{
+      $('#successModal').modal('show');
+
+    // Optionally reset the form
     $('#emailForm')[0].reset();
+    },2000)
+   
   });
-  // $(document).ready(function () {
-  //   $('#emailForm').on('submit', function (event) {
-  //     if (this.checkValidity() === false) {
-  //       event.preventDefault(); // Prevent form submission
-  //       event.stopPropagation(); // Stop event propagation
-  //     }
-  //     $(this).addClass('was-validated');
-  //   });
-  // });
 </script>
+
 
 @endsection
