@@ -281,7 +281,7 @@
                                     ${applicant.Resume ? `<a href="${applicant.Resume}" target="_blank">View Resume</a>` : 'N/A'}
                                 </td>
                                 <td class="${applicant.StatusId === "1" ? 'text-warning' : 'text-success'}">
-                                    ${applicant.StatusId === "1" ? 'Pending' : 'Shortlisted'}
+                                    ${applicant.sname}
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-primary viewApplicantBtn" data-bs-toggle="modal"
