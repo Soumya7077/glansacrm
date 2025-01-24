@@ -16,7 +16,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <select class="form-control" id="to" required>
               <option value="" hidden>Select Recipient</option>
-             
+
             </select>
             <label for="to">To</label>
             <div class="invalid-feedback">Please select a recipient.</div>
@@ -44,7 +44,7 @@
       </div>
 
       <div class="table-responsive mt-2">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="tableEmail">
           <thead>
             <tr class="text-center align-middle">
               <th>Applicant Name</th>
@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody id="employerTableBody">
-          
+
           </tbody>
         </table>
       </div>
@@ -160,15 +160,45 @@
   });
 
   // Form submission handler
+  // Form submission handler
   $('#emailForm').on('submit', function (e) {
     e.preventDefault(); // Prevent the default form submission
 
-    // Display the success modal
-    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    successModal.show(); // Show the success modal
+    // Get form data
+    const formData = {
+      to: $('#to').val(),
+      subject: $('#Subject-description').val(),
+      message: $('#Message').val(),
+      cc: $('#cc').val() ? $('#cc').val().trim().split(',').map(email => email.trim()) : [],
+      table: $('#tableEmail').html()
+    };
 
-    // Reset the form after displaying the modal
-    $('#emailForm')[0].reset();
+    // Send AJAX request
+    $.ajax({
+      url: '/api/send-formatted-email', // Replace with your actual API endpoint
+      type: 'POST',
+      data: JSON.stringify(formData),
+      contentType: 'application/json',
+      success: function (response) {
+        console.log(response); // Log the response from the server
+        if (response.message === 'Email sent successfully!') {
+          // Display the success modal
+          var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+          successModal.show(); // Show the success modal
+
+          // Reset the form after displaying the modal
+          $('#emailForm')[0].reset();
+        } else {
+          // Handle error, e.g., display an error message to the user
+          alert('Error sending email: ' + response.message);
+        }
+      },
+      error: function () {
+        console.error('Error sending email request.');
+        // Handle error, e.g., display an error message to the user
+        alert('Error sending email.');
+      }
+    });
   });
 
 </script>
