@@ -17,6 +17,11 @@ class ScheduleInterview extends Controller
         return view('screens.ScheduleInterview.scheduleInterview');
     }    
 
+    public function scheduleInterviewCandidate()
+    {
+        return view('screens.ScheduleInterview.scheduleInterview-candidate');
+    }    
+
     public function getAllInterviews()
 {
     try {
