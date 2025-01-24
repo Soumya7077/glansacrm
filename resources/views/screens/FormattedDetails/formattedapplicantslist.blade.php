@@ -93,11 +93,15 @@
     $(document).ready(function () {
     let selectedApplicants = [];
 
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+
+
     function fetchApplicants() {
       $("#tableBody").html('<tr id="loadingRow"><td colspan="13" class="text-center text-muted py-3">Loading data, please wait...</td></tr>');
 
       $.ajax({
-      url: '/api/getapplicant',
+      url: userData.RoleId == 1 ? '/api/getapplicant' : `/api/getformattedapplicantbyrecruiter/${userData.id}`,
       type: 'GET',
       dataType: 'json',
       success: function (response) {
