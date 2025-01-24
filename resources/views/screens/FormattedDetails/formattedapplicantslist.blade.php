@@ -178,7 +178,7 @@
       <td>${applicant.NoticePeriod} </td>
       <td>${applicant.Qualification}</td>
       <td>${applicant.Feedback && applicant.Feedback.length > 30 ? applicant.Feedback.substring(0, 30) + '...' : applicant.Feedback || "-"}</td>
-     <td class="status-cell" data-id="${applicant.id}" data-current-status="${applicant.Status}">
+     <td class="status-cell text-primary" data-id="${applicant.id}" data-current-status="${applicant.Status}">
     <span class="status-text" data-sid="${applicant.sid}">${applicant.sname}</span>
     <select class="form-select status-dropdown" style="width: 150px; display: none;">
     <option value="1" class="text-warning">Pending</option>
