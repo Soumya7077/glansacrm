@@ -43,4 +43,8 @@ class JobPostModel extends Model
   const CREATED_AT = 'CreatedOn';
   const UPDATED_AT = 'ModifyOn';
 
+  public function interviews()
+    {
+        return $this->hasMany(ScheduleInterviewModel::class, 'JobId');
+    }
 }

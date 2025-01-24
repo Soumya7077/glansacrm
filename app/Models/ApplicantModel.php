@@ -41,4 +41,9 @@ class ApplicantModel extends Model
 
   public $timestamps = false; // Disable default timestamps
 
+  public function interviews()
+  {
+      return $this->hasMany(ScheduleInterviewModel::class, 'ApplicantId');
+  }
+  
 }

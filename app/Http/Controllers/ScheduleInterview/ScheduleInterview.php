@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ApplicantModel;
 use App\Models\JobPostModel;
 use App\Models\ScheduleInterviewModel;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -22,20 +23,31 @@ class ScheduleInterview extends Controller
         return view('screens.ScheduleInterview.scheduleInterview-candidate');
     }    
 
-    public function getAllInterviews()
+    public function getAllInterviews(Request $request)
 {
     try {
-        // Fetch all records from ScheduleInterviewModel
-        $interviews = ScheduleInterviewModel::all();
+        
+        $scheduleinterviews = DB::table('schedule_interview')
+        ->join('job_post', 'schedule_interview.JobId', '=', 'job_post.id')
+        ->join('applicant', 'schedule_interview.ApplicantId', '=', 'applicant.id')
+        ->join('employees', 'schedule_interview.EmployerId', '=', 'employees.id')
+        ->select(
+          'schedule_interview.*',
+          'job_post.Title',
+          'job_post.Description',
+          'applicant.FirstName as applicantFirstName',
+          'applicant.LastName as applicantLastName',
+          'employees.OrganizationName'
+        )->get();
 
-        // Return a success response with the data
+        // Return a success response
         return response()->json([
             'success' => true,
             'message' => 'Interview schedules retrieved successfully.',
-            'data' => $interviews,
+            'data' => $scheduleinterviews,
         ], 200);
     } catch (\Exception $e) {
-        // Handle any errors
+        // Handle errors
         return response()->json([
             'success' => false,
             'message' => 'Failed to retrieve interview schedules. Please try again later.',
@@ -43,6 +55,9 @@ class ScheduleInterview extends Controller
         ], 500);
     }
 }
+
+    
+
 
     public function sendInterviewEmail(Request $request)
 {
