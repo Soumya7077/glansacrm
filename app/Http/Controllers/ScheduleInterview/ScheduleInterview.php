@@ -38,6 +38,15 @@ class ScheduleInterview extends Controller
             'CreatedBy' => 'required|integer',
         ]);
 
+        // Check for duplicate applicantId and jobId
+        $existingInterview = ScheduleInterviewModel::where('ApplicantId', $request->input('ApplicantId'))
+            ->where('JobId', $request->input('JobId'))
+            ->first();
+
+        if ($existingInterview) {
+            return response()->json(['message' => 'An interview for this applicant and job already exists.'], 400);
+        }
+
         // Retrieve the data from the request
         $data = $request->only([
             'EmployerId',
@@ -74,13 +83,18 @@ class ScheduleInterview extends Controller
         Log::info('Interview Data:', ['data' => $data]);
         Log::info('Job Title:', ['jobTitle' => $jobTitle]);
 
+        // Prepare time slots
+        $timeSlots = [
+            'FirstTimeSlot' => $data['FirstTimeSlot'],
+            'SecondTimeSlot' => $data['SecondTimeSlot'] ?? null,
+            'ThirdTimeSlot' => $data['ThirdTimeSlot'] ?? null,
+        ];
+
         // Send email with the interview details
         Mail::send('email.interview_schedule', [
             'ApplicantName' => $applicantName,
             'InterviewDate' => $data['InterviewDate'],
-            'FirstTimeSlot' => $data['FirstTimeSlot'],
-            'SecondTimeSlot' => $data['SecondTimeSlot'] ?? null,
-            'ThirdTimeSlot' => $data['ThirdTimeSlot'] ?? null,
+            'TimeSlots' => $timeSlots,
             'Type' => $data['Type'],
             'Link' => $data['Link/Location'],
             'Description' => $data['Description'],
@@ -110,6 +124,7 @@ class ScheduleInterview extends Controller
         return response()->json(['message' => 'Error sending interview email. Please try again later.'], 500);
     }
 }
+
 
     
 
