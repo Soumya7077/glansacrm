@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary mt-3">Send Mail</button>
+      <button type="submit" id="sendMail" class="btn btn-primary mt-3">Send Mail</button>
 
     </form>
   </div>
@@ -165,6 +165,7 @@
     const status = 1;
     const createdBy = userData?.id;
 
+    $("#sendMail").prop("disabled", true).addClass("btn-primary").html('Sending...<span class="spinner-border spinner-border-sm"></span> ');
 
     $.ajax({
       url: '/api/send-interview-mail',
@@ -200,10 +201,11 @@
           $("#errorMessage").text("An error occurred while sending the email. Please try again.");
           $("#errorModal").modal("show");
         }
+        $("#sendMail").prop("disabled", false).html("Send Mail");
       }
     });
-
   }
+
   function updateApplicantStatus(applicantId) {
     $.ajax({
       url: `/api/applicantStatusUpdate/${applicantId}`,
