@@ -111,7 +111,7 @@
       type: 'PUT',
       data: { status: newStatus },
       success: function (response) {
-      if (response.status === "success") {
+      if (response) {
         console.log('Status updated successfully!');
       } else {
         console.log('Failed to update status!');
@@ -138,7 +138,7 @@
       success: function (response) {
         console.log(response, 'resssssss');
 
-        if (response.status === "success") {
+        if (response) {
         let filteredApplicants = response.data.filter(applicant => (applicant.StatusId == "2" || applicant.StatusId == "3" || applicant.StatusId == "4" || applicant.StatusId == "6" || applicant.StatusId == "7"));
 
         if (filteredApplicants.length > 0) {
