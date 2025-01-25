@@ -254,8 +254,8 @@
       _token: $('meta[name="csrf-token"]').attr('content')
       }),
       success: function (response) {
+        fetchApplicants();
       showSuccessModal(response.message);
-      fetchApplicants();
       // $('#table').DataTable().ajax.reload();
 
       // Uncheck all selected checkboxes after submission
