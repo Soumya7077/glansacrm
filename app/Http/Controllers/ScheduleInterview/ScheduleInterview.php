@@ -16,160 +16,159 @@ class ScheduleInterview extends Controller
     public function scheduleInterview()
     {
         return view('screens.ScheduleInterview.scheduleInterview');
-    }    
+    }
 
     public function scheduleInterviewCandidate()
     {
         return view('screens.ScheduleInterview.scheduleInterview-candidate');
-    }    
+    }
 
     public function getAllInterviews(Request $request)
-{
-    try {
-        
-        $scheduleinterviews = DB::table('schedule_interview')
-        ->join('job_post', 'schedule_interview.JobId', '=', 'job_post.id')
-        ->join('applicant', 'schedule_interview.ApplicantId', '=', 'applicant.id')
-        ->join('employees', 'schedule_interview.EmployerId', '=', 'employees.id')
-        ->select(
-          'schedule_interview.*',
-          'job_post.Title',
-          'job_post.Description',
-          'applicant.FirstName as applicantFirstName',
-          'applicant.LastName as applicantLastName',
-          'employees.OrganizationName'
-        )->get();
+    {
+        try {
 
-        // Return a success response
-        return response()->json([
-            'success' => true,
-            'message' => 'Interview schedules retrieved successfully.',
-            'data' => $scheduleinterviews,
-        ], 200);
-    } catch (\Exception $e) {
-        // Handle errors
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to retrieve interview schedules. Please try again later.',
-            'error' => $e->getMessage(),
-        ], 500);
+            $scheduleinterviews = DB::table('schedule_interview')
+                ->join('job_post', 'schedule_interview.JobId', '=', 'job_post.id')
+                ->join('applicant', 'schedule_interview.ApplicantId', '=', 'applicant.id')
+                ->join('employees', 'schedule_interview.EmployerId', '=', 'employees.id')
+                ->select(
+                    'schedule_interview.*',
+                    'job_post.Title',
+                    'job_post.Description',
+                    'applicant.FirstName as applicantFirstName',
+                    'applicant.LastName as applicantLastName',
+                    'employees.OrganizationName'
+                )->get();
+
+            // Return a success response
+            return response()->json([
+                'success' => true,
+                'message' => 'Interview schedules retrieved successfully.',
+                'data' => $scheduleinterviews,
+            ], 200);
+        } catch (\Exception $e) {
+            // Handle errors
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve interview schedules. Please try again later.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+
     }
-}
-
-    
 
 
     public function sendInterviewEmail(Request $request)
-{
-    try {
-        // Validate incoming request
-        $request->validate([
-            'EmployerId' => 'required|integer',
-            'ApplicantId' => 'required|integer',
-            'JobId' => 'required|integer',
-            'Type' => 'required|string',
-            'Link/Location' => 'required|string',
-            'InterviewDate' => 'required|date',
-            'ApplicantEmail' => 'required|email',
-            'BCC' => 'nullable|email', // Optional BCC field
-            'CC' => 'nullable|email',  // Optional CC field
-            'Description' => 'required|string',
-            'FirstTimeSlot' => 'required|string',
-            'SecondTimeSlot' => 'nullable|string', // Optional Second Time Slot
-            'ThirdTimeSlot' => 'nullable|string',  // Optional Third Time Slot
-            'Status' => 'required|integer',
-            'CreatedBy' => 'required|integer',
-        ]);
+    {
+        try {
+            // Validate incoming request
+            $request->validate([
+                'EmployerId' => 'required|integer',
+                'ApplicantId' => 'required|integer',
+                'JobId' => 'required|integer',
+                'Type' => 'required|string',
+                'Link/Location' => 'required|string',
+                'InterviewDate' => 'required|date',
+                'ApplicantEmail' => 'required|email',
+                'BCC' => 'nullable|email', // Optional BCC field
+                'CC' => 'nullable|email',  // Optional CC field
+                'Description' => 'required|string',
+                'FirstTimeSlot' => 'required|string',
+                'SecondTimeSlot' => 'nullable|string', // Optional Second Time Slot
+                'ThirdTimeSlot' => 'nullable|string',  // Optional Third Time Slot
+                'Status' => 'required|integer',
+                'CreatedBy' => 'required|integer',
+            ]);
 
-        // Check for duplicate applicantId and jobId
-        $existingInterview = ScheduleInterviewModel::where('ApplicantId', $request->input('ApplicantId'))
-            ->where('JobId', $request->input('JobId'))
-            ->first();
+            // Check for duplicate applicantId and jobId
+            $existingInterview = ScheduleInterviewModel::where('ApplicantId', $request->input('ApplicantId'))
+                ->where('JobId', $request->input('JobId'))
+                ->first();
 
-        if ($existingInterview) {
-            return response()->json(['message' => 'An interview for this applicant and job already exists.'], 400);
+            if ($existingInterview) {
+                return response()->json(['message' => 'An interview for this applicant and job already exists.'], 400);
+            }
+
+            // Retrieve the data from the request
+            $data = $request->only([
+                'EmployerId',
+                'ApplicantId',
+                'JobId',
+                'Type',
+                'Link/Location',
+                'InterviewDate',
+                'BCC',
+                'CC',
+                'Description',
+                'FirstTimeSlot',
+                'SecondTimeSlot',
+                'ThirdTimeSlot',
+                'Status',
+                'CreatedBy',
+            ]);
+
+            // Add creation and update timestamps
+            $data['CreatedOn'] = now();
+            $data['UpdatedOn'] = now();
+            $data['UpdatedBy'] = $data['CreatedBy'];
+
+            // Get the applicant's email and name
+            $applicantEmail = $request->input('ApplicantEmail');
+            $applicant = ApplicantModel::find($data['ApplicantId']);
+            $applicantName = $applicant ? $applicant->FirstName : 'Applicant';
+
+            // Retrieve the job title based on JobId from the JobPostModel
+            $job = JobPostModel::find($data['JobId']);
+            $jobTitle = $job ? $job->Title : 'Job Post';
+
+            // Log the data for debugging
+            Log::info('Interview Data:', ['data' => $data]);
+            Log::info('Job Title:', ['jobTitle' => $jobTitle]);
+
+            // Prepare time slots
+            $timeSlots = [
+                'FirstTimeSlot' => $data['FirstTimeSlot'],
+                'SecondTimeSlot' => $data['SecondTimeSlot'] ?? null,
+                'ThirdTimeSlot' => $data['ThirdTimeSlot'] ?? null,
+            ];
+
+            // Send email with the interview details
+            Mail::send('email.interview_schedule', [
+                'ApplicantName' => $applicantName,
+                'InterviewDate' => $data['InterviewDate'],
+                'TimeSlots' => $timeSlots,
+                'Type' => $data['Type'],
+                'Link' => $data['Link/Location'],
+                'Description' => $data['Description'],
+                'JobTitle' => $jobTitle,
+            ], function ($message) use ($applicantEmail, $data) {
+                $message->to($applicantEmail);
+
+                // Add BCC and CC if provided
+                if (!empty($data['BCC'])) {
+                    $message->bcc($data['BCC']);
+                }
+
+                if (!empty($data['CC'])) {
+                    $message->cc($data['CC']);
+                }
+
+                $message->subject('Interview Invitation');
+            });
+
+            // Save the interview schedule to the database
+            ScheduleInterviewModel::create($data);
+
+            // Return the success response
+            return response()->json(['message' => 'Email sent and interview scheduled successfully'], 200);
+        } catch (\Exception $e) {
+            Log::error('Error during interview email send: ' . $e->getMessage());
+            return response()->json(['message' => 'Error sending interview email. Please try again later.'], 500);
         }
-
-        // Retrieve the data from the request
-        $data = $request->only([
-            'EmployerId',
-            'ApplicantId',
-            'JobId',
-            'Type',
-            'Link/Location',
-            'InterviewDate',
-            'BCC',
-            'CC',
-            'Description',
-            'FirstTimeSlot',
-            'SecondTimeSlot',
-            'ThirdTimeSlot',
-            'Status',
-            'CreatedBy',
-        ]);
-
-        // Add creation and update timestamps
-        $data['CreatedOn'] = now();
-        $data['UpdatedOn'] = now();
-        $data['UpdatedBy'] = $data['CreatedBy'];
-
-        // Get the applicant's email and name
-        $applicantEmail = $request->input('ApplicantEmail');
-        $applicant = ApplicantModel::find($data['ApplicantId']);
-        $applicantName = $applicant ? $applicant->FirstName : 'Applicant';
-
-        // Retrieve the job title based on JobId from the JobPostModel
-        $job = JobPostModel::find($data['JobId']);
-        $jobTitle = $job ? $job->Title : 'Job Post';
-
-        // Log the data for debugging
-        Log::info('Interview Data:', ['data' => $data]);
-        Log::info('Job Title:', ['jobTitle' => $jobTitle]);
-
-        // Prepare time slots
-        $timeSlots = [
-            'FirstTimeSlot' => $data['FirstTimeSlot'],
-            'SecondTimeSlot' => $data['SecondTimeSlot'] ?? null,
-            'ThirdTimeSlot' => $data['ThirdTimeSlot'] ?? null,
-        ];
-
-        // Send email with the interview details
-        Mail::send('email.interview_schedule', [
-            'ApplicantName' => $applicantName,
-            'InterviewDate' => $data['InterviewDate'],
-            'TimeSlots' => $timeSlots,
-            'Type' => $data['Type'],
-            'Link' => $data['Link/Location'],
-            'Description' => $data['Description'],
-            'JobTitle' => $jobTitle,
-        ], function ($message) use ($applicantEmail, $data) {
-            $message->to($applicantEmail);
-
-            // Add BCC and CC if provided
-            if (!empty($data['BCC'])) {
-                $message->bcc($data['BCC']);
-            }
-
-            if (!empty($data['CC'])) {
-                $message->cc($data['CC']);
-            }
-
-            $message->subject('Interview Invitation');
-        });
-
-        // Save the interview schedule to the database
-        ScheduleInterviewModel::create($data);
-
-        // Return the success response
-        return response()->json(['message' => 'Email sent and interview scheduled successfully'], 200);
-    } catch (\Exception $e) {
-        Log::error('Error during interview email send: ' . $e->getMessage());
-        return response()->json(['message' => 'Error sending interview email. Please try again later.'], 500);
     }
-}
 
 
-    
+
 
     public function updateInterviewDetails(Request $request, $id)
 {
@@ -194,7 +193,7 @@ class ScheduleInterview extends Controller
         ]);
     
         // Retrieve the existing interview by id
-        $interview = ScheduleInterviewModel::find($id);
+        $interview = ScheduleInterviewModel::find($id)->first();
     
         // Check if the interview exists
         if (!$interview) {
@@ -209,6 +208,7 @@ class ScheduleInterview extends Controller
             'Type',
             'Link/Location',
             'InterviewDate',
+            'ApplicantEmail',
             'BCC',
             'CC',
             'Description',
@@ -224,23 +224,30 @@ class ScheduleInterview extends Controller
         $data['UpdatedBy'] = $data['CreatedBy']; // Assuming you want to track who updated the interview
     
         // Update the interview with the new data
-        $interview->update($data);
+        $interview->save($data);
     
         // Get the applicant's email and name (if needed)
         $applicant = ApplicantModel::find($data['ApplicantId']);
+        $applicantEmail = $applicant ? $applicant->Email: 'ApplicantEmail';
         $applicantName = $applicant ? $applicant->FirstName : 'Applicant';
     
+
         // Retrieve the job title based on JobId from the JobPostModel
         $job = JobPostModel::find($data['JobId']);
         $jobTitle = $job ? $job->Title : 'Job Post';
+
+        // Prepare time slots
+        $timeSlots = [
+            'FirstTimeSlot' => $data['FirstTimeSlot'],
+            'SecondTimeSlot' => $data['SecondTimeSlot'] ?? null,
+            'ThirdTimeSlot' => $data['ThirdTimeSlot'] ?? null,
+        ];
     
         // Send updated email with the interview details
         Mail::send('email.interview_schedule', [
             'ApplicantName' => $applicantName,
             'InterviewDate' => $data['InterviewDate'],
-            'FirstTimeSlot' => $data['FirstTimeSlot'],
-            'SecondTimeSlot' => $data['SecondTimeSlot'],
-            'ThirdTimeSlot' => $data['ThirdTimeSlot'],
+            'TimeSlots' => $timeSlots,
             'Type' => $data['Type'],
             'Link' => $data['Link/Location'],
             'Description' => $data['Description'],
@@ -256,31 +263,31 @@ class ScheduleInterview extends Controller
         return response()->json(['message' => 'Interview details updated and email sent successfully'], 200);
     } catch (\Exception $e) {
         Log::error('Error during interview update: ' . $e->getMessage());
-        return response()->json(['message' => 'Error updating interview details. Please try again later.'], 500);
+        return response()->json(['message' => 'Error updating interview details. Please try again later.'. $e->getMessage()], 500);
     }
 }
 
-public function getInterviewForEdit($id)
-{
-    try {
-        // Retrieve the interview data by ID
-        $interview = ScheduleInterviewModel::find($id);
+    public function getInterviewForEdit($id)
+    {
+        try {
+            // Retrieve the interview data by ID
+            $interview = ScheduleInterviewModel::find($id);
 
-        if (!$interview) {
-            return response()->json(['message' => 'Interview not found'], 404);
+            if (!$interview) {
+                return response()->json(['message' => 'Interview not found'], 404);
+            }
+
+            // Return the interview data as response for editing
+            return response()->json(['data' => $interview], 200);
+
+        } catch (\Exception $e) {
+            // Log error if something goes wrong
+            Log::error('Error fetching interview for edit: ' . $e->getMessage());
+            return response()->json(['message' => 'Error fetching interview data. Please try again later.'], 500);
         }
-
-        // Return the interview data as response for editing
-        return response()->json(['data' => $interview], 200);
-
-    } catch (\Exception $e) {
-        // Log error if something goes wrong
-        Log::error('Error fetching interview for edit: ' . $e->getMessage());
-        return response()->json(['message' => 'Error fetching interview data. Please try again later.'], 500);
     }
-}
 
 
 
-   
+
 }
