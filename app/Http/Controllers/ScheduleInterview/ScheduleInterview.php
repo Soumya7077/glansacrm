@@ -194,7 +194,7 @@ class ScheduleInterview extends Controller
         ]);
     
         // Retrieve the existing interview by id
-        $interview = ScheduleInterviewModel::find($id);
+        $interview = ScheduleInterviewModel::find($id)->first();
     
         // Check if the interview exists
         if (!$interview) {
@@ -209,6 +209,7 @@ class ScheduleInterview extends Controller
             'Type',
             'Link/Location',
             'InterviewDate',
+            'ApplicantEmail',
             'BCC',
             'CC',
             'Description',
@@ -224,23 +225,30 @@ class ScheduleInterview extends Controller
         $data['UpdatedBy'] = $data['CreatedBy']; // Assuming you want to track who updated the interview
     
         // Update the interview with the new data
-        $interview->update($data);
+        $interview->save($data);
     
         // Get the applicant's email and name (if needed)
         $applicant = ApplicantModel::find($data['ApplicantId']);
+        $applicantEmail = $applicant ? $applicant->Email: 'ApplicantEmail';
         $applicantName = $applicant ? $applicant->FirstName : 'Applicant';
     
+
         // Retrieve the job title based on JobId from the JobPostModel
         $job = JobPostModel::find($data['JobId']);
         $jobTitle = $job ? $job->Title : 'Job Post';
+
+        // Prepare time slots
+        $timeSlots = [
+            'FirstTimeSlot' => $data['FirstTimeSlot'],
+            'SecondTimeSlot' => $data['SecondTimeSlot'] ?? null,
+            'ThirdTimeSlot' => $data['ThirdTimeSlot'] ?? null,
+        ];
     
         // Send updated email with the interview details
         Mail::send('email.interview_schedule', [
             'ApplicantName' => $applicantName,
             'InterviewDate' => $data['InterviewDate'],
-            'FirstTimeSlot' => $data['FirstTimeSlot'],
-            'SecondTimeSlot' => $data['SecondTimeSlot'],
-            'ThirdTimeSlot' => $data['ThirdTimeSlot'],
+            'TimeSlots' => $timeSlots,
             'Type' => $data['Type'],
             'Link' => $data['Link/Location'],
             'Description' => $data['Description'],
@@ -256,7 +264,7 @@ class ScheduleInterview extends Controller
         return response()->json(['message' => 'Interview details updated and email sent successfully'], 200);
     } catch (\Exception $e) {
         Log::error('Error during interview update: ' . $e->getMessage());
-        return response()->json(['message' => 'Error updating interview details. Please try again later.'], 500);
+        return response()->json(['message' => 'Error updating interview details. Please try again later.'. $e->getMessage()], 500);
     }
 }
 

@@ -150,8 +150,8 @@ Route::post('/send-formatted-email', [EmployerController::class, 'sendFormattedE
 /**=====================================Schedule Interview and send mail to Applicant=========================== */
 Route::get('/interviews', [ScheduleInterview::class, 'getAllInterviews']);
 Route::post('/send-interview-mail', [ScheduleInterview::class, 'sendInterviewEmail']);
-Route::get('interview/{id}/edit', [ScheduleInterview::class, 'getInterviewForEdit']);
-Route::put('interview/update/{id}', [ScheduleInterview::class, 'updateInterviewDetails']);
+Route::get('/interview/{id}/edit', [ScheduleInterview::class, 'getInterviewForEdit']);
+Route::put('/interview/update/{id}', [ScheduleInterview::class, 'updateInterviewDetails']);
 
 /**=====================================Schedule Interview and send mail to Applicant=========================== */
 

@@ -14,6 +14,7 @@ class ScheduleInterviewModel extends Model
   // Disable automatic timestamps
   public $timestamps = false;
   protected $fillable = [
+    'id',
     'EmployerId',
     'ApplicantId',
     'JobId',
