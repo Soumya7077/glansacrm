@@ -141,7 +141,7 @@
             'Content-Type': 'application/json'
           },
           success: function (data) {
-            console.log(data, 'kkkkkkkk');
+            // console.log(data, 'kkkkkkkk');
             localStorage.setItem('userData', JSON.stringify(data));
             if (Object.keys(data).length > 0) {
               $('#user-name').text(data.FirstName);

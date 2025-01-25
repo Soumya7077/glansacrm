@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary mt-3">Send Mail</button>
+      <button type="submit" id="sendMail" class="btn btn-primary mt-3">Send Mail</button>
 
     </form>
   </div>
@@ -165,6 +165,7 @@
     const status = 1;
     const createdBy = userData?.id;
 
+    $("#sendMail").prop("disabled", true).addClass("btn-primary").html('Sending...<span class="spinner-border spinner-border-sm"></span> ');
 
     $.ajax({
       url: '/api/send-interview-mail',
@@ -200,17 +201,18 @@
           $("#errorMessage").text("An error occurred while sending the email. Please try again.");
           $("#errorModal").modal("show");
         }
+        $("#sendMail").prop("disabled", false).html("Send Mail");
       }
     });
-
   }
+
   function updateApplicantStatus(applicantId) {
     $.ajax({
       url: `/api/applicantStatusUpdate/${applicantId}`,
       type: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify({
-        status: 6, // Set status to 6
+        status: 6,
       }),
       success: function (response) {
         console.log("Applicant status updated successfully:", response);
@@ -222,6 +224,92 @@
       }
     });
   }
+
+
+
+
+
+
+
+
+  $(document).ready(function () {
+
+    let applicants;
+    const urlParams = new URLSearchParams(window.location.search);
+    applicants = urlParams.get('applicants');
+    const interviewId = urlParams.get('interview_id');
+    console.log("interviewId:", interviewId);
+
+
+    if (interviewId) {
+      $.ajax({
+        url: `/api/interview/${interviewId}/edit`,
+        type: 'GET',
+        success: function (response) {
+          console.log("Interview Data:", response);
+
+          if (response) {
+            const interviewData = response.data;
+
+            $('#toField').val(interviewData.CC);
+            $('#cc').val(interviewData.CC);
+            $('#interviewDate').val(interviewData.InterviewDate);
+            $('#timeslotone').val(interviewData.FirstTimeSlot);
+            $('#timeslottwo').val(interviewData.SecondTimeSlot);
+            $('#timeslotthree').val(interviewData.ThirdTimeSlot);
+            $('#option').val(interviewData.Type);
+            $('#bcc').val(interviewData.BCC);
+            $('#description').val(interviewData.Description);
+            $('#location').val(interviewData['Link/Location']);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error fetching interview data:", error);
+        }
+      });
+    }
+  });
+
+
+  function updateApplicantStatus(applicantId) {
+    const interviewId = urlParams.get('interview_id');
+    console.log("interview Id to update:", interviewId)
+    if (!interviewId) {
+      console.error("Interview ID is missing");
+      return;
+    }
+
+    const requestData = {
+      status: Status,
+      ApplicantId: applicantId,
+      InterviewDate: $('#interviewDate').val(),
+      FirstTimeSlot: $('#timeslotone').val(),
+      SecondTimeSlot: $('#timeslottwo').val(),
+      ThirdTimeSlot: $('#timeslotthree').val(),
+      Location: $('#location').val(),
+      Type: $('#option').val(),
+      Description: $('#description').val()
+    };
+
+    console.log("Request Data:", requestData);
+
+    $.ajax({
+      url: `/api/interview/update/${interviewId}`,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(requestData),
+      success: function (response) {
+        console.log("Interview updated successfully:", response);
+        $('#successModal').modal('show');
+      },
+      error: function (xhr, status, error) {
+        console.error("Error updating interview:", error);
+        $("#errorMessage").text("An error occurred while updating the interview details. Please try again.");
+        $("#errorModal").modal("show");
+      }
+    });
+  }
+
 
 </script>
 

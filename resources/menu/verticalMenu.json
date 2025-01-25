@@ -107,6 +107,12 @@
       "name": "Offer Letter",
       "icon": "menu-icon tf-icons mdi mdi-clipboard-text",
       "slug": "Offer Letter"
+    },
+    {
+      "url": "/interviews",
+      "name": "Schedule Interview candidate",
+      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
+      "slug": "scheduleInterview-candidate"
     }
   ]
 }

@@ -52,8 +52,8 @@
 
             <div class="mb-3 d-flex justify-content-between">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="remember-me">
-                <label class="form-check-label" for="remember-me">Remember Me</label>
+                <!-- <input class="form-check-input" type="checkbox" id="remember-me"> -->
+                <!-- <label class="form-check-label" for="remember-me">Remember Me</label> -->
               </div>
               <a href="{{ url('auth/forgot-password-basic') }}" class="float-end mb-1">
                 <span>Forgot Password?</span>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="mb-3">
-              <button id="signInBtn" class="btn btn-primary d-grid w-100" type="submit">
+              <button id="signInBtn" class="btn btn-primary d-flex d-grid w-100" type="submit">
                 <span id="btnText">Sign in</span>
                 <span id="btnLoader" class="spinner-border spinner-border-sm d-none text-primary text-center text-bold"
                   role="status" aria-hidden="true"></span>
