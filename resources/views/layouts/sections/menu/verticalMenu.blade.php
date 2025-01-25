@@ -28,12 +28,12 @@
       return;
     }
 
-    console.log('User Data:', userData);
+    // console.log('User Data:', userData);
 
     // Fetch menu data (replace this with your Blade-provided menu JSON if needed)
     const menuData = @json($menuData[0]->menu);
 
-    console.log('Menu Data:', menuData);
+    // console.log('Menu Data:', menuData);
 
     // Filter and render menu
     const menuContainer = document.getElementById('menuContainer');

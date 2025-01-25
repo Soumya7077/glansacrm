@@ -365,22 +365,29 @@ class ApplicantsApplyController extends Controller
 
 
   public function getSocialMediaApplicant()
-  {
+{
     try {
-      $applicant = ApplicantModel::where('Source', '=', 'sm')->get();
-      return response()->json([
-        'status' => 'success',
-        'message' => 'Applicant fetch by social media successfully!',
-        'data' => $applicant
-      ], 200);
+        $applicants = ApplicantModel::where('Source', '=', 'sm')->get();
+
+        foreach ($applicants as $app) {
+            $jobPost = DB::table('social_media_assign')->where('ApplicantId', $app->id)->first();
+            $app->isAssigned = $jobPost ? true : false; // Adding isAssigned dynamically
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Applicants fetched by social media successfully!',
+            'data' => $applicants
+        ], 200);
     } catch (Exception $e) {
-      return response()->json([
-        'status' => 'error',
-        'message' => 'Something went wrong! Please try again.',
-        'error' => $e->getMessage()
-      ], 500); // Internal Server Error status code
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Something went wrong! Please try again.',
+            'error' => $e->getMessage()
+        ], 500);
     }
-  }
+}
+
 
 
 
