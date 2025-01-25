@@ -52,7 +52,7 @@ Route::get('/formattedapplicantstoemployer', [FormatController::class, 'formatte
 Route::get('/offerletter', [OfferController::class, 'offer'])->name('Offer Letter');
 Route::get('/documents', [DocumentsController::class, 'documents'])->name('Documents');
 Route::get('/department  ', [DepartmentController::class, 'department'])->name('Department');
-Route::get('/interviewssc', [ScheduleInterview::class, 'scheduleInterviewCandidate'])->name('scheduleInterview-candidate');
+Route::get('/interviews', [ScheduleInterview::class, 'scheduleInterviewCandidate'])->name('scheduleInterview-candidate');
 
 
 // authentication

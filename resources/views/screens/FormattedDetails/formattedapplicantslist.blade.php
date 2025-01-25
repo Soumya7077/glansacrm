@@ -329,8 +329,8 @@
       jobDescription: $(this).data('jobdesc'),
       experience: $(this).data('exp'),
       email: $(this).data('email'),
-      jobId:$(this).data('jobid'),
-      empId:$(this).data('empid')
+      jobId: $(this).data('jobid'),
+      empId: $(this).data('empid')
       };
 
       console.log(applicantData);
