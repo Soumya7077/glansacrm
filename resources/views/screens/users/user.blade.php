@@ -281,9 +281,11 @@
       <td>${user.LastName}</td>
       <td>${user.Email}</td>
       <td>${user.RoleId == 1 ? "Admin" : "Recruiter"}</td>
-      <td class="d-flex gap-2 justify-content-center align-items-center">
-      <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
-      <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
+      <td class="text-center">
+      <div class="d-flex justify-content-center align-items-center gap-2">
+        <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
+        <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
+      </div>
       </td>
       </tr>`;
 
