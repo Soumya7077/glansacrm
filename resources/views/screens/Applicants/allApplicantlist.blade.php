@@ -149,7 +149,7 @@
           <div class="col-xl">
             <div class="card-body">
               <div class="row">
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <p><strong>Name:</strong> Anita Seth </p>
                 </div>
                 <div class="col-md-6">
@@ -220,7 +220,7 @@
                 <div class="col-md-12">
                   <p><strong>Remarks:</strong> Demonstrates exceptional dedication and compassion
                     towards patients, providing holistic care and support.</p>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -245,7 +245,7 @@
 
     var table = $('#table').DataTable();
     let tableBody = $("#table tbody");
-    tableBody.html(`<tr><td colspan="14" class="text-center">Loading data...</td></tr>`); // Show loading message
+    tableBody.html(`<tr><td colspan="14" class="text-primary">Loading...</td></tr>`); // Show loading message
 
     $.ajax({
       url: "/api/getapplicant",
@@ -259,7 +259,7 @@
           tableBody.empty(); // Clear the loading message
 
           if (applicants.length === 0) {
-            tableBody.html(`<tr><td colspan="14" class="text-center text-danger">No applicants found</td></tr>`);
+            tableBody.html(`<tr><td colspan="14" class=" text-danger">No applicants found</td></tr>`);
             return;
           }
 
@@ -321,6 +321,59 @@
       }
     });
   }
+
+  $(document).on("click", ".viewApplicantBtn", function () {
+    let modal = $("#applicantDetailsModal");
+
+    // Fetch data attributes from the clicked button
+    let name = $(this).data("name");
+    let phone = $(this).data("phone");
+    let email = $(this).data("email");
+    let linkedin = $(this).data("linkedin");
+    let applying = $(this).data("applying");
+    let qualification = $(this).data("qualification");
+    let currentLocation = $(this).data("current-location");
+    let preferredLocation = $(this).data("preferred-location");
+    let height = $(this).data("height");
+    let weight = $(this).data("weight");
+    let blood = $(this).data("blood");
+    let hemoglobin = $(this).data("hemoglobin");
+    let notice = $(this).data("notice");
+    let experience = $(this).data("experience");
+    let currentSalary = $(this).data("current-salary");
+    let expectedSalary = $(this).data("expected-salary");
+    let organization = $(this).data("organization");
+    let resume = $(this).data("resume");
+    let certificates = $(this).data("certificates");
+    let remarks = $(this).data("remarks");
+
+    // Populate modal fields
+    modal.find(".modal-body").html(`
+            <div class="row">
+                <div class="col-md-6"><p><strong>Name:</strong> ${name}</p></div>
+                <div class="col-md-6"><p><strong>Phone Number:</strong> ${phone}</p></div>
+                <div class="col-md-6"><p><strong>Email:</strong> ${email}</p></div>
+                <div class="col-md-6"><p><strong>Portfolio/LinkedIn Profile:</strong> <a href="${linkedin}" target="_blank">${linkedin}</a></p></div>
+                <div class="col-md-6"><p><strong>Applying For:</strong> ${applying}</p></div>
+                <div class="col-md-6"><p><strong>Highest Qualification:</strong> ${qualification}</p></div>
+                <div class="col-md-6"><p><strong>Current Location:</strong> ${currentLocation}</p></div>
+                <div class="col-md-6"><p><strong>Preferred Location:</strong> ${preferredLocation}</p></div>
+                <div class="col-md-6"><p><strong>Height:</strong> ${height}</p></div>
+                <div class="col-md-6"><p><strong>Weight:</strong> ${weight}</p></div>
+                <div class="col-md-6"><p><strong>Blood Group:</strong> ${blood}</p></div>
+                <div class="col-md-6"><p><strong>Hemoglobin:</strong> ${hemoglobin}</p></div>
+                <div class="col-md-6"><p><strong>Notice Period:</strong> ${notice}</p></div>
+                <div class="col-md-6"><p><strong>Work Experience:</strong> ${experience}</p></div>
+                <div class="col-md-6"><p><strong>Current Salary:</strong> ${currentSalary} </p></div>
+                <div class="col-md-6"><p><strong>Expected Salary:</strong> ${expectedSalary} </p></div>
+                <div class="col-md-6"><p><strong>Current Organisation:</strong> ${organization}</p></div>
+                <div class="col-md-6"><p><strong>Resume:</strong> <a href="${resume}" target="_blank">Download Resume</a></p></div>
+                <div class="col-md-6"><p><strong>Certificates:</strong> <a href="${certificates}" target="_blank">Download Certificates</a></p></div>
+                <div class="col-md-12"><p><strong>Remarks:</strong> ${remarks}</p></div>
+            </div>
+        `);
+  });
+
   $('#clearForm').on('click', function () {
     var successModal = new bootstrap.Modal(document.getElementById('successModal'));
     successModal.show();

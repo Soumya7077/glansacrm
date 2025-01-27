@@ -282,7 +282,7 @@
     function fetchUsers() {
       var table = $('#table').DataTable();
       var tableBody = $('#tbody');
-      tableBody.html('<tr><td colspan="6" class="text-center">Loading...</td></tr>');
+      tableBody.html('<tr><td colspan="6" class="text-primary">Loading...</td></tr>');
 
       $.ajax({
       url: '/api/getuser',

@@ -19,11 +19,11 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr id="loading" class="text-center">
+                <!-- <tr id="loading" class="text-primary">
                     <td colspan="3">Loading...</td>
                     <td></td>
                     <td></td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
@@ -82,7 +82,7 @@
             fetchDepartments();
             var table = $('#table').DataTable();
             function fetchDepartments() {
-                $('#tbody').html('<tr id="loading" class="text-center"><td colspan="3">Loading...</td></tr>');
+                $('#tbody').html('<tr><td colspan="3" class="text-primary">Loading...</td></tr>');
                 $.ajax({
                     url: '/api/getdepartment',
                     type: 'GET',
@@ -106,7 +106,7 @@
                             table.clear(); // Clear any previous DataTable data
                             table.rows.add(tableBody.find('tr')).draw();
                         } else {
-                            rows = '<tr class="text-center"><td colspan="3">No Data Found</td></tr>';
+                            rows = '<tr><td colspan="3" class="text-danger">No Data Found</td></tr>';
                         }
                         $('#tbody').html(rows);
                     }

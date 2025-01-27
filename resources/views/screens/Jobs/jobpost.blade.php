@@ -374,7 +374,6 @@
     $('#heading').text('Job Update');
     $('#jobPostButton').text('Update Job');
 
-
     $.ajax({
       url: `/api/getJob/${jobId}`,
       type: 'GET',

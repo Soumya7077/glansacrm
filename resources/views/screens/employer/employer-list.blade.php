@@ -249,7 +249,7 @@
                 method: 'GET',
                 beforeSend: function () {
                     // Show loading message
-                    $('#tbody').html('<tr><td colspan="14" class="text-center">Loading...</td></tr>');
+                    $('#tbody').html('<tr><td colspan="14" class="text-primary">Loading...</td></tr>');
                 },
                 success: function (response) {
                     console.log("hdvh zhjgzv dhzjnbcvf", response.data)

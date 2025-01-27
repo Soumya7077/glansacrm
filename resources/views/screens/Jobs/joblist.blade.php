@@ -105,22 +105,21 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    var table = $('#table').DataTable();
     function fetchJobs() {
-      $('#loading-spinner').show();
+      // $('#loading-spinner').show();
       let userData = JSON.parse(localStorage.getItem('userData'));
+      var tableBody = $('#tbody');
+      var table = $('#table').DataTable();
 
-
-
+      tableBody.html('<tr><td colspan="20" class="text-bold text-primary">Loading...</td></tr>');
       $.ajax({
         url: userData?.RoleId == 1 ? '/api/getJob' : `/api/assignedrecruiter/${userData?.id}`,
         type: 'GET',
         dataType: 'json',
         success: function (response) {
           // console.log(response);
-          $('#loading-spinner').hide();
+          // $('#loading-spinner').hide();
           // $('#jobList').empty();
-          var tableBody = $('#tbody');
           tableBody.empty();
           if (response) {
             response.data.forEach((job) => {
@@ -169,7 +168,8 @@
           }
         },
         error: function () {
-          $('#loading-spinner').hide();
+          // $('#loading-spinner').hide();
+          tableBody.html('<tr><td colspan="20" class="text-center text-danger">Error fetching job data</td></tr>');
           showErrorModal('Failed to fetch job data. Please try again later.');
         }
       });
