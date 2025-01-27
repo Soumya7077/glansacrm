@@ -6,6 +6,7 @@ use App\Http\Controllers\authentications\AuthController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\employer\EmployerController;
 use App\Http\Controllers\Jobs\JobsController;
+use App\Http\Controllers\OfferLetter\OfferController;
 use App\Http\Controllers\ScheduleInterview\ScheduleInterview;
 use App\Http\Controllers\SocialMedia\SmController;
 use App\Http\Controllers\users\UserController;
@@ -154,6 +155,14 @@ Route::get('/interview/{id}/edit', [ScheduleInterview::class, 'getInterviewForEd
 Route::put('/interview/update/{id}', [ScheduleInterview::class, 'updateInterviewDetails']);
 
 /**=====================================Schedule Interview and send mail to Applicant=========================== */
+
+/**=====================================Offer letter send mail to Applicant=========================== */
+Route::post('/send-offer-letter', [OfferController::class, 'offerletter']);
+
+
+
+/**=====================================Offer letter send mail to Applicant=========================== */
+
 
 // Route::group([
 
