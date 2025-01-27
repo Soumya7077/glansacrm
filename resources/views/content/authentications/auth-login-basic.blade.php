@@ -94,6 +94,16 @@
 
 <script>
   $(document).ready(function () {
+
+
+    // let token = JSON.parse(localStorage.getItem('token'));
+
+    // if (token) {
+    //   window.location.href = '/dashboard';
+    // } else {
+    //   window.location.href = '/';
+    // }
+
     $("#loginForm").submit(function (e) {
       e.preventDefault(); // Prevent default form submission
 
