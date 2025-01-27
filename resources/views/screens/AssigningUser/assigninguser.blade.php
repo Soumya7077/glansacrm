@@ -113,7 +113,7 @@
         function fetchAssignedRecruiter(userId) {
             var table = $('#table').DataTable();
             let tbody = $("#tbody");
-            tbody.html('<tr><td colspan="4" class="text-center">Loading...</td></tr>'); // Show loading text
+            tbody.html('<tr><td colspan="4" class="text-primary">Loading...</td></tr>'); // Show loading text
 
             $.ajax({
                 url: `/api/assignedrecruiter`,
