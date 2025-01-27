@@ -56,7 +56,7 @@
                                 <h6 class="text-primary mb-0">Organization Details</h6>
                             </div>
                             <input type="hidden" id="empId">
-                            <div class="form-floating mb-5">
+                            <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="organization-name"
                                     placeholder="Organization Name" required />
                                 <label for="organization-name">Organization Name</label>
@@ -66,31 +66,31 @@
                             <div class="card-header  p-0 mb-3 ">
                                 <h6 class="text-primary mb-0">Contact Person 1 Details</h6>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-1-name"
                                     placeholder="Contact Person Name" required />
                                 <label for="contact-person-1-name">Contact Person Name</label>
                                 <div class="invalid-feedback">Please provide contact person 1's name.</div>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="tel" class="form-control" id="contact-person-1-phone"
                                     placeholder="Phone Number" required pattern="^\d{10}$" maxlength="10" />
                                 <label for="contact-person-1-phone">Phone Number</label>
                                 <div class="invalid-feedback">Please provide a valid 10-digit phone number.</div>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="email" class="form-control" id="contact-person-1-email" placeholder="Email"
                                     required />
                                 <label for="contact-person-1-email">Email</label>
                                 <div class="invalid-feedback">Please provide a valid email address.</div>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-1-location"
                                     placeholder="Location" required />
                                 <label for="contact-person-1-location">Location</label>
                                 <div class="invalid-feedback">Please provide a location.</div>
                             </div>
-                            <div class="form-floating mb-5">
+                            <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="contact-person-1-designation"
                                     placeholder="Designation" required />
                                 <label for="contact-person-1-location">Designation</label>
@@ -100,27 +100,27 @@
                             <div class="card-header  p-0 mb-3">
                                 <h6 class="text-primary mb-0">Contact Person 2 Details</h6>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-2-name"
                                     placeholder="Contact Person Name" />
                                 <label for="contact-person-2-name">Contact Person Name</label>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="tel" class="form-control" id="contact-person-2-phone"
                                     placeholder="Phone Number" pattern="^\d{10}$" maxlength="10" />
                                 <label for="contact-person-2-phone">Phone Number</label>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="email" class="form-control" id="contact-person-2-email"
                                     placeholder="Email" />
                                 <label for="contact-person-2-email">Email</label>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-2-location"
                                     placeholder="Location" />
                                 <label for="contact-person-2-location">Location</label>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-2-designation"
                                     placeholder="Designation" />
                                 <label for="contact-person-2-location">Designation</label>
@@ -243,20 +243,27 @@
 <script>
     $(document).ready(function () {
         var table = $('#table').DataTable();
-        $.ajax({
-            url: '/api/getEmployer',
-            method: 'GET',
-            success: function (response) {
-                console.log("hdvh zhjgzv dhzjnbcvf", response.data)
-                if (response) {
-                    let employers = response.data;
-                    let tableBody = $('#tbody');
-                    tableBody.empty();
-                    if (employers.length === 0) {
-                        tableBody.append('<tr><td colspan="14" class="text-center">No employers found</td></tr>');
-                    }
-                    employers.forEach((employer, index) => {
-                        let row = `
+        function fetchEmployer() {
+            $.ajax({
+                url: '/api/getEmployer',
+                method: 'GET',
+                beforeSend: function () {
+                    // Show loading message
+                    $('#tbody').html('<tr><td colspan="14" class="text-center">Loading...</td></tr>');
+                },
+                success: function (response) {
+                    console.log("hdvh zhjgzv dhzjnbcvf", response.data)
+                    if (response) {
+                        let employers = response.data;
+                        let tableBody = $('#tbody');
+
+                        tableBody.empty();
+
+                        if (employers.length === 0) {
+                            tableBody.append('<tr><td colspan="14" class="text-center">No employers found</td></tr>');
+                        }
+                        employers.forEach((employer, index) => {
+                            let row = `
                         <tr>
                             <td>${index + 1}</td>
                             <td>${employer.OrganizationName}</td>
@@ -280,18 +287,20 @@
 
                         </tr>
                     `;
-                        tableBody.append(row);
-                        table.clear();
-                        table.rows.add(tableBody.find('tr')).draw();
-                    });
-                } else {
-                    alert('Failed to fetch employer data.');
+                            tableBody.append(row);
+                            table.clear();
+                            table.rows.add(tableBody.find('tr')).draw();
+                        });
+                    } else {
+                        alert('Failed to fetch employer data.');
+                    }
+                },
+                error: function () {
+                    alert('Error fetching employer data.');
                 }
-            },
-            error: function () {
-                alert('Error fetching employer data.');
-            }
-        });
+            });
+        }
+        fetchEmployer();
 
 
         $('#clearForm').on('click', function () {
@@ -304,14 +313,58 @@
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
         });
 
-    });
-
-
-
-    $(document).ready(function () {
 
         $('#addUserForm').on('submit', function (e) {
             e.preventDefault();
+
+            let isValid = true;
+            $(this).removeClass('was-validated'); // Reset previous validation styles
+            $('.form-control').removeClass('is-invalid');
+            $('.invalid-feedback').text('');
+
+
+            // Required field validation
+            const requiredFields = [
+                { id: 'organization-name', message: 'Please provide the Organization name.' },
+                { id: 'contact-person-1-name', message: "Please provide Contact person 1's name." },
+                { id: 'contact-person-1-phone', message: 'Please provide a valid 10-digit phone number.', pattern: /^\d{10}$/ },
+                { id: 'contact-person-1-email', message: 'Please provide a valid email address.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+                { id: 'contact-person-1-location', message: 'Please provide a location.' },
+                { id: 'contact-person-1-designation', message: 'Please provide a designation.' }
+            ];
+
+            requiredFields.forEach(field => {
+                const input = $(`#${field.id}`);
+                const value = input.val().trim();
+
+                if (!value || (field.pattern && !field.pattern.test(value))) {
+                    input.addClass('is-invalid');
+                    input.siblings('.invalid-feedback').text(field.message);
+                    isValid = false;
+                }
+            });
+
+            // Validate optional fields if they have values
+            const optionalFields = [
+                { id: 'contact-person-2-phone', message: 'Please provide a valid 10-digit phone number.', pattern: /^\d{10}$/ },
+                { id: 'contact-person-2-email', message: 'Please provide a valid email address.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ }
+            ];
+
+            optionalFields.forEach(field => {
+                const input = $(`#${field.id}`);
+                const value = input.val().trim();
+
+                if (value && field.pattern && !field.pattern.test(value)) {
+                    input.addClass('is-invalid');
+                    input.siblings('.invalid-feedback').text(field.message);
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                $('#addUserForm').addClass('was-validated'); // Apply Bootstrap validation style
+                return;
+            }
 
             const formData = {
                 OrganizationName: $('#organization-name').val(),
@@ -343,6 +396,7 @@
                         $('#offcanvasBackdrop').offcanvas('hide');
                         var successModal = new bootstrap.Modal(document.getElementById('successModal'));
                         successModal.show();
+                        fetchEmployer();
                         $('#addUserForm')[0].reset();
                     }
                 },
@@ -360,78 +414,78 @@
                 },
             });
         });
-    });
 
 
 
-    $(document).on('click', '.edit-btn', function () {
-        const employerId = $(this).data('id');
-        $('#edit-loading').show();
-        $('#empId').val(employerId);
-        $.ajax({
-            url: `/api/getEmployer/${employerId}`,
-            method: 'GET',
-            success: function (response) {
-                if (response) {
-                    const employer = response.data;
 
-                    $('#organization-name').val(employer.OrganizationName);
-                    $('#contact-person-1-name').val(employer.FirstContactPersonName);
-                    $('#contact-person-1-phone').val(employer.FirstContactPhoneNumber);
-                    $('#contact-person-1-email').val(employer.FirstContactEmail);
-                    $('#contact-person-1-location').val(employer.FirstContactLocation);
-                    $('#contact-person-1-designation').val(employer.FirstContactDesignation);
-                    $('#contact-person-2-name').val(employer.SecondContactPersonName || '');
-                    $('#contact-person-2-phone').val(employer.SecondContactPhoneNumber || '');
-                    $('#contact-person-2-email').val(employer.SecondContactEmail || '');
-                    $('#contact-person-2-location').val(employer.SecondContactLocation || '');
-                    $('#contact-person-2-designation').val(employer.SecondContactDesignation || '');
-
-                    $('#offcanvasBackdrop').offcanvas('show');
-                } else {
-                    alert('Failed to fetch employer details.');
-                }
-            },
-            error: function () {
-                alert('Error fetching employer data.');
-            },
-            complete: function () {
-                $('#edit-loading').hide();
-            }
-        });
-    });
-
-    $(document).on('click', '.delete-btn', function () {
-        const employerId = $(this).data('id');
-        const row = $(this).closest('tr');
-        $('#confirmModal').modal('show');
-
-        $('#confirmDeleteButton').off('click').on('click', function () {
+        $(document).on('click', '.edit-btn', function () {
+            const employerId = $(this).data('id');
+            $('#edit-loading').show();
+            $('#empId').val(employerId);
             $.ajax({
-                url: `/api/deleteEmployer/${employerId}`,
-                method: 'DELETE',
+                url: `/api/getEmployer/${employerId}`,
+                method: 'GET',
                 success: function (response) {
                     if (response) {
-                        row.remove();
-                        $('#deletemodalsuccess').modal('show');
+                        const employer = response.data;
+
+                        $('#organization-name').val(employer.OrganizationName);
+                        $('#contact-person-1-name').val(employer.FirstContactPersonName);
+                        $('#contact-person-1-phone').val(employer.FirstContactPhoneNumber);
+                        $('#contact-person-1-email').val(employer.FirstContactEmail);
+                        $('#contact-person-1-location').val(employer.FirstContactLocation);
+                        $('#contact-person-1-designation').val(employer.FirstContactDesignation);
+                        $('#contact-person-2-name').val(employer.SecondContactPersonName || '');
+                        $('#contact-person-2-phone').val(employer.SecondContactPhoneNumber || '');
+                        $('#contact-person-2-email').val(employer.SecondContactEmail || '');
+                        $('#contact-person-2-location').val(employer.SecondContactLocation || '');
+                        $('#contact-person-2-designation').val(employer.SecondContactDesignation || '');
+
+                        $('#offcanvasBackdrop').offcanvas('show');
                     } else {
-                        $('#errorModal').modal('show');
+                        alert('Failed to fetch employer details.');
                     }
                 },
                 error: function () {
-                    $('#errorModaldelete').modal('show');
+                    alert('Error fetching employer data.');
+                },
+                complete: function () {
+                    $('#edit-loading').hide();
                 }
             });
-            $('#confirmModal').modal('hide');
-
         });
-    });
+
+        $(document).on('click', '.delete-btn', function () {
+            const employerId = $(this).data('id');
+            const row = $(this).closest('tr');
+            $('#confirmModal').modal('show');
+
+            $('#confirmDeleteButton').off('click').on('click', function () {
+                $.ajax({
+                    url: `/api/deleteEmployer/${employerId}`,
+                    method: 'DELETE',
+                    success: function (response) {
+                        if (response) {
+                            row.remove();
+                            $('#deletemodalsuccess').modal('show');
+                        } else {
+                            $('#errorModal').modal('show');
+                        }
+                    },
+                    error: function () {
+                        $('#errorModaldelete').modal('show');
+                    }
+                });
+                $('#confirmModal').modal('hide');
+
+            });
+        });
 
 
 
 
 
-    $(document).ready(function () {
+
         $(document).on('click', '.btn-close', function () {
             $('#offcanvasBackdrop').offcanvas('hide');
             $('#addUserForm')[0].reset();
@@ -453,6 +507,7 @@
             $('#addUserForm')[0].reset();
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
         });
+
     });
 </script>
 

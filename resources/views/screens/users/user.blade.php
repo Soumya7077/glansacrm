@@ -281,6 +281,9 @@
     $(document).ready(function () {
     function fetchUsers() {
       var table = $('#table').DataTable();
+      var tableBody = $('#tbody');
+      tableBody.html('<tr><td colspan="6" class="text-center">Loading...</td></tr>');
+
       $.ajax({
       url: '/api/getuser',
       type: 'GET',
@@ -289,7 +292,6 @@
         console.log('Response:', response);
         let rows = '';
         if (response.status === 200) {
-        var tableBody = $('#tbody');
         tableBody.empty();
         $.each(response.data, function (index, user) {
           rows += `<tr class="text-center align-middle">
