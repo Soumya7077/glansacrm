@@ -11,4 +11,9 @@ class OfferController extends Controller
     {
         return view('screens.OfferLetter.offerLetter');
     }
+
+    public function offerletter()
+    {
+        
+    }
 }
