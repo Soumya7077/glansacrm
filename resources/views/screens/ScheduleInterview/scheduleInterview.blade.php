@@ -281,7 +281,7 @@
       const userData = JSON.parse(localStorage.getItem('userData'));
 
       const requestData = {
-        status: 1,
+        Status: 1,
         EmployerId: data.EmployerId,
         ApplicantId: data.ApplicantId,
         JobId: data.JobId,

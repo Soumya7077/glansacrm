@@ -80,7 +80,7 @@
                 <input type="password" class="form-control" id="confirm_password" name="confirm_password"
                   placeholder="Confirm Password" required />
                 <label for="confirm_password">Confirm Password</label>
-                <div class="invalid-feedback">Please confirm your password.</div>
+                <div class="invalid-feedback" id="passwordMatchFeedback">Passwords do not match.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
@@ -247,14 +247,40 @@
 @push('scripts')
   <script>
 
+    document.addEventListener("DOMContentLoaded", function () {
+    const addUserForm = document.getElementById("addUserForm");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm_password");
+    const passwordMatchFeedback = document.getElementById("passwordMatchFeedback");
+
+    addUserForm.addEventListener("submit", function (event) {
+      if (password.value !== confirmPassword.value) {
+      event.preventDefault();
+      passwordMatchFeedback.textContent = "Passwords do not match.";
+      confirmPassword.setCustomValidity("Passwords do not match.");
+      confirmPassword.classList.add("is-invalid");
+      } else {
+      confirmPassword.setCustomValidity("");
+      confirmPassword.classList.remove("is-invalid");
+      }
+    });
+
+    confirmPassword.addEventListener("input", function () {
+      if (password.value === confirmPassword.value) {
+      confirmPassword.setCustomValidity("");
+      confirmPassword.classList.remove("is-invalid");
+      } else {
+      confirmPassword.setCustomValidity("Passwords do not match.");
+      confirmPassword.classList.add("is-invalid");
+      }
+    });
+    });
+
+
+
     $(document).ready(function () {
-
     function fetchUsers() {
-
-
       var table = $('#table').DataTable();
-
-
       $.ajax({
       url: '/api/getuser',
       type: 'GET',
@@ -274,8 +300,8 @@
       <td>${user.RoleId == 1 ? "Admin" : "Recruiter"}</td>
       <td class="text-center">
       <div class="d-flex justify-content-center align-items-center gap-2">
-        <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
-        <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
+      <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
+      <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
       </div>
       </td>
       </tr>`;
