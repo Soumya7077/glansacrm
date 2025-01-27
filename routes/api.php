@@ -157,7 +157,7 @@ Route::put('/interview/update/{id}', [ScheduleInterview::class, 'updateInterview
 /**=====================================Schedule Interview and send mail to Applicant=========================== */
 
 /**=====================================Offer letter send mail to Applicant=========================== */
-Route::post('/send-offer-letter', [OfferController::class, 'sendOfferLetter']);
+Route::post('/send-offer-letter', [OfferController::class, 'offerletter']);
 
 
 
