@@ -11,6 +11,7 @@
     <form id="emailForm" class="needs-validation" novalidate>
       <div class="row">
         <div class="col-md-6">
+          <input type="text" hidden id="EmployerId">
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" name="" id="toField" value="">
             <label for="to">To</label>
@@ -38,8 +39,8 @@
           </div>
           <div class="form-floating form-floating-outline mb-4">
             <select name="" id="option" class="form-select">
-              <option value="virtual">Virtual</option>
-              <option value="walkin">Walk-in</option>
+              <option value="Online">Virtual</option>
+              <option value="Walkin">Walk-in</option>
             </select>
             <label for="interviewDate">Select mode of interview</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
@@ -74,6 +75,9 @@
       </div>
 
       <button type="submit" id="sendMail" class="btn btn-primary mt-3">Send Mail</button>
+
+      <button type="submit" id="updateApplicant" class="btn btn-primary mt-3">Re-schedule
+        Interview</button>
 
     </form>
   </div>
@@ -122,7 +126,11 @@
     const urlParams = new URLSearchParams(window.location.search);
     applicants = urlParams.get('applicants');
 
+
+
     if (applicants) {
+      $('#updateApplicant').addClass('d-none');
+      $('#sendMail').addClass('d-block');
       try {
         applicants = JSON.parse(decodeURIComponent(applicants)); // Convert back to array
         console.log("Received Applicants:", applicants);
@@ -233,83 +241,87 @@
 
 
   $(document).ready(function () {
-
-    let applicants;
+    let data;
     const urlParams = new URLSearchParams(window.location.search);
-    applicants = urlParams.get('applicants');
-    const interviewId = urlParams.get('interview_id');
-    console.log("interviewId:", interviewId);
+    const interview = urlParams.get('interview');
+    data = JSON.parse(interview);
+    console.log(data)
 
 
-    if (interviewId) {
+
+    if (interview) {
+      $('#updateApplicant').addClass('d-block');
+      $('#sendMail').addClass('d-none');
+
+      $('#toField').val(data.ApplicantEmail);
+      $('#cc').val(data.CC);
+      $('#interviewDate').val(data.InterviewDate);
+      $('#timeslotone').val(data.FirstTimeSlot);
+      $('#timeslottwo').val(data.SecondTimeSlot);
+      $('#timeslotthree').val(data.ThirdTimeSlot);
+      $('#option').val(data.Type);
+      $('#bcc').val(data.BCC);
+      $('#description').val(data.Description);
+      $('#location').val(data['Link/Location']);
+    }
+
+
+
+
+    // function updateApplicantData() {
+    // const interviewId = urlParams.get('interview_id');
+    // console.log("interview Id to update:", interviewId)
+    // if (!interviewId) {
+    //   console.error("Interview ID is missing");
+    //   return;
+    // }
+
+    $('#updateApplicant').on('click', function (e) {
+      e.preventDefault();
+      const userData = JSON.parse(localStorage.getItem('userData'));
+
+      const requestData = {
+        Status: 1,
+        EmployerId: data.EmployerId,
+        ApplicantId: data.ApplicantId,
+        JobId: data.JobId,
+        ApplicantEmail: $('#toField').val(),
+        "BCC": $('#bcc').val(),
+        "CC": $('#cc').val(),
+        InterviewDate: $('#interviewDate').val(),
+        FirstTimeSlot: $('#timeslotone').val(),
+        SecondTimeSlot: $('#timeslottwo').val(),
+        ThirdTimeSlot: $('#timeslotthree').val(),
+        'Link/Location': $('#location').val(),
+        Type: $('#option').val(),
+        Description: $('#description').val(),
+        CreatedBy: userData.id
+      };
+
+      console.log("Request Data:", requestData);
+
       $.ajax({
-        url: `/api/interview/${interviewId}/edit`,
-        type: 'GET',
+        url: `/api/interview/update/${data.id}`,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(requestData),
         success: function (response) {
-          console.log("Interview Data:", response);
-
-          if (response) {
-            const interviewData = response.data;
-
-            $('#toField').val(interviewData.CC);
-            $('#cc').val(interviewData.CC);
-            $('#interviewDate').val(interviewData.InterviewDate);
-            $('#timeslotone').val(interviewData.FirstTimeSlot);
-            $('#timeslottwo').val(interviewData.SecondTimeSlot);
-            $('#timeslotthree').val(interviewData.ThirdTimeSlot);
-            $('#option').val(interviewData.Type);
-            $('#bcc').val(interviewData.BCC);
-            $('#description').val(interviewData.Description);
-            $('#location').val(interviewData['Link/Location']);
-          }
+          console.log("Interview updated successfully:", response);
+          $('#successModal').modal('show');
         },
         error: function (xhr, status, error) {
-          console.error("Error fetching interview data:", error);
+          console.log(xhr);
+          console.error("Error updating interview:", error);
+          $("#errorMessage").text("An error occurred while updating the interview details. Please try again.");
+          $("#errorModal").modal("show");
         }
       });
-    }
-  });
-
-
-  function updateApplicantStatus(applicantId) {
-    const interviewId = urlParams.get('interview_id');
-    console.log("interview Id to update:", interviewId)
-    if (!interviewId) {
-      console.error("Interview ID is missing");
-      return;
-    }
-
-    const requestData = {
-      status: Status,
-      ApplicantId: applicantId,
-      InterviewDate: $('#interviewDate').val(),
-      FirstTimeSlot: $('#timeslotone').val(),
-      SecondTimeSlot: $('#timeslottwo').val(),
-      ThirdTimeSlot: $('#timeslotthree').val(),
-      Location: $('#location').val(),
-      Type: $('#option').val(),
-      Description: $('#description').val()
-    };
-
-    console.log("Request Data:", requestData);
-
-    $.ajax({
-      url: `/api/interview/update/${interviewId}`,
-      type: 'PUT',
-      contentType: 'application/json',
-      data: JSON.stringify(requestData),
-      success: function (response) {
-        console.log("Interview updated successfully:", response);
-        $('#successModal').modal('show');
-      },
-      error: function (xhr, status, error) {
-        console.error("Error updating interview:", error);
-        $("#errorMessage").text("An error occurred while updating the interview details. Please try again.");
-        $("#errorModal").modal("show");
-      }
     });
-  }
 
+
+
+    // }
+  });
 
 </script>
 

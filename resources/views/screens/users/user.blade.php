@@ -80,7 +80,7 @@
                 <input type="password" class="form-control" id="confirm_password" name="confirm_password"
                   placeholder="Confirm Password" required />
                 <label for="confirm_password">Confirm Password</label>
-                <div class="invalid-feedback">Please confirm your password.</div>
+                <div class="invalid-feedback" id="passwordMatchFeedback">Passwords do not match.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
@@ -236,33 +236,53 @@
 
 <!-- Confirmation Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete this user?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
-      </div>
-    </div>
-  </div>
+  <x-alert id="alert" title="Delete User" message="Are you sure you want to delete this user?" showCancelButton="true"
+    cancelButtonText="No, Keep User" showConfirmButton="true" confirmButtonText="Yes, Delete"
+    confirmButtonId="deleteUserButton" confirmButtonClass="btn btn-danger" />
 </div>
+
 
 
 
 @push('scripts')
   <script>
 
+    document.addEventListener("DOMContentLoaded", function () {
+    const addUserForm = document.getElementById("addUserForm");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm_password");
+    const passwordMatchFeedback = document.getElementById("passwordMatchFeedback");
+
+    addUserForm.addEventListener("submit", function (event) {
+      if (password.value !== confirmPassword.value) {
+      event.preventDefault();
+      passwordMatchFeedback.textContent = "Passwords do not match.";
+      confirmPassword.setCustomValidity("Passwords do not match.");
+      confirmPassword.classList.add("is-invalid");
+      } else {
+      confirmPassword.setCustomValidity("");
+      confirmPassword.classList.remove("is-invalid");
+      }
+    });
+
+    confirmPassword.addEventListener("input", function () {
+      if (password.value === confirmPassword.value) {
+      confirmPassword.setCustomValidity("");
+      confirmPassword.classList.remove("is-invalid");
+      } else {
+      confirmPassword.setCustomValidity("Passwords do not match.");
+      confirmPassword.classList.add("is-invalid");
+      }
+    });
+    });
+
+
+
     $(document).ready(function () {
-
     function fetchUsers() {
-
       var table = $('#table').DataTable();
+      var tableBody = $('#tbody');
+      tableBody.html('<tr><td colspan="6" class="text-center">Loading...</td></tr>');
 
       $.ajax({
       url: '/api/getuser',
@@ -272,7 +292,6 @@
         console.log('Response:', response);
         let rows = '';
         if (response.status === 200) {
-        var tableBody = $('#tbody');
         tableBody.empty();
         $.each(response.data, function (index, user) {
           rows += `<tr class="text-center align-middle">
@@ -281,9 +300,11 @@
       <td>${user.LastName}</td>
       <td>${user.Email}</td>
       <td>${user.RoleId == 1 ? "Admin" : "Recruiter"}</td>
-      <td class="d-flex gap-2 justify-content-center align-items-center">
+      <td class="text-center">
+      <div class="d-flex justify-content-center align-items-center gap-2">
       <button class="btn btn-primary btn-sm editBtn" data-id="${user.id}">Edit</button>
       <button class="btn btn-danger btn-sm deleteBtn" data-id="${user.id}">Delete</button>
+      </div>
       </td>
       </tr>`;
 
