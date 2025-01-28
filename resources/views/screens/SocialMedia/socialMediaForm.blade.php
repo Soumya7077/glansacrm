@@ -121,57 +121,38 @@
 
 <script>
   $(document).ready(function () {
+
     $('#socialMediaForm').on('submit', function (e) {
       e.preventDefault();
-
+      const form = this;
+      if (!form.checkValidity()) {
+        $(form).addClass('was-validated');
+        return;
+      }
       $.ajax({
         url: '/api/applicant',
         method: 'POST',
         data: $(this).serialize(),
-        success: function (response) {
+        success: function () {
           $('#successModal').modal('show');
         },
         error: function (xhr) {
-          console.log("xhrrrr", xhr);
-          const error = xhr.responseJSON.message;
-          // let errorMessage = '';
-          // $.each(errors, function (key, value) {
-          //   errorMessage += value + '<br>';
-          // });
-          $('#errorMessage').html(error);
+          $('#errorMessage').text(xhr.responseJSON.message);
           $('#errorModal').modal('show');
         }
       });
     });
 
-    const phoneInput = $('#phoneNumber');
-    const phoneRegex = /^[6-9]\d{9}$/;
-
-    phoneInput.on('input', function () {
-      const value = $(this).val();
-      if (phoneRegex.test(value)) {
+    $('#phoneNumber').on('input', function () {
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (phoneRegex.test($(this).val())) {
         $(this).removeClass('is-invalid').addClass('is-valid');
       } else {
         $(this).removeClass('is-valid').addClass('is-invalid');
       }
     });
-
-    $('#socialMediaForm').on('submit', function (e) {
-      const form = this;
-
-      if (!form.checkValidity()) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-
-      if (!phoneRegex.test(phoneInput.val())) {
-        e.preventDefault();
-        phoneInput.addClass('is-invalid');
-      }
-
-      $(form).addClass('was-validated');
-    });
   });
+
 </script>
 
 @endsection

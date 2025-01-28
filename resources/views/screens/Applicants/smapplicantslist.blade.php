@@ -134,7 +134,9 @@
 
     var table = $('#table').DataTable();
     function fetchApplicants() {
-    $('#loading-spinner').show();
+      var tableBody = $('#tbody');
+      tableBody.html('<tr><td colspan="6" class="text-primary">Loading...</td></tr>');
+    // $('#loading-spinner').show();
 
     $.ajax({
       url: userData?.RoleId == 1 ? '/api/getsmapplicant' : `api/getsmapplicantbyrecruiter/${userData.id}`,
@@ -142,8 +144,7 @@
       dataType: 'json',
       success: function (response) {
       console.log(response);
-      $('#loading-spinner').hide();
-      var tableBody = $('#tbody');
+      // $('#loading-spinner').hide();
       tableBody.empty();
       if (response.status === 'success' && response.data.length > 0) {
         response.data.forEach((applicant) => {

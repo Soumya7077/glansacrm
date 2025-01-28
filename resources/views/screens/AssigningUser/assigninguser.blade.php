@@ -113,7 +113,7 @@
         function fetchAssignedRecruiter(userId) {
             var table = $('#table').DataTable();
             let tbody = $("#tbody");
-            tbody.html('<tr><td colspan="4" class="text-center">Loading...</td></tr>'); // Show loading text
+            tbody.html('<tr><td colspan="4" class="text-primary">Loading...</td></tr>'); // Show loading text
 
             $.ajax({
                 url: `/api/assignedrecruiter`,
@@ -334,9 +334,6 @@
             });
         })
 
-        // function editAssignment(id) {
-
-        // }
 
         $(document).on('click', '.deleteAssignment', function () {
             const id = $(this).data('id');
@@ -355,7 +352,7 @@
 
                     if (response) {
                         $('#successModalLabel').text("Success");
-                        $('.modal-body').text("Assignment deleted successfully.");
+                        $('.modal-body').text("Assigned Data deleted successfully.");
                         var successModal = new bootstrap.Modal(document.getElementById('successModal'));
                         successModal.show();
 
@@ -365,7 +362,7 @@
                         });
                     } else {
                         $('#successModalLabel').text("Error");
-                        $('.modal-body').text("Failed to delete assignment.");
+                        $('.modal-body').text("Failed to delete data.");
                         var errorModal = new bootstrap.Modal(document.getElementById('successModal'));
                         errorModal.show();
                     }
@@ -373,20 +370,12 @@
                 error: function (xhr, status, error) {
                     console.error("Error deleting assignment:", xhr.responseText);
                     $('#successModalLabel').text("Error");
-                    $('.modal-body').text("Failed to delete assignment.");
+                    $('.modal-body').text("Failed to delete data.");
                     var errorModal = new bootstrap.Modal(document.getElementById('successModal'));
                     errorModal.show();
                 }
             });
         });
-
-
-
-        // function deleteAssignment(id) {
-
-        // }
-
-
 
 
     </script>

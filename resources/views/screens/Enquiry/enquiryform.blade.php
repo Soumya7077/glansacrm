@@ -169,269 +169,120 @@
     </div>
 
     <script>
-
-      $('#enquiryForm').on('submit', function (e) {
-        e.preventDefault();
-
-        let isValid = true;
-
-        let firstName = $('#firstname').val().trim();
-        if (!/^[A-Za-z\s]+$/.test(firstName)) {
-          $('#firstname').addClass('is-invalid');
-          isValid = false;
-        } else {
-          $('#firstname').removeClass('is-invalid');
-        }
-
-        let lastName = $('#lastname').val().trim();
-        if (!/^[A-Za-z\s]+$/.test(lastName)) {
-          $('#lastname').addClass('is-invalid');
-          isValid = false;
-        } else {
-          $('#lastname').removeClass('is-invalid');
-        }
-
-        let phoneNumber = $('#phone').val().trim();
-        if (!/^\d{10}$/.test(phoneNumber)) {
-          $('#phone').addClass('is-invalid');
-          isValid = false;
-        } else {
-          $('#phone').removeClass('is-invalid');
-        }
-
-        let email = $('#email').val().trim();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          $('#email').addClass('is-invalid');
-          isValid = false;
-        } else {
-          $('#email').removeClass('is-invalid');
-        }
-
-        if ($('#job-post').val() === '') {
-          $('#job-post').addClass('is-invalid');
-          isValid = false;
-        } else {
-          $('#job-post').removeClass('is-invalid');
-        }
-
-        if ($('#qualification').val().trim() === '') {
-          $('#qualification').addClass('is-invalid');
-          isValid = false;
-        } else {
-          $('#qualification').removeClass('is-invalid');
-        }
-
-        let currentSalary = $('#current-salary').val().trim();
-        let expectedSalary = $('#expected-salary').val().trim();
-        let remarks = $('#remarks').val().trim();
-        let noticePeriod = $('#noticeperiod').val();
-        let jobPost = $('#job-post').val();
-        let applicantId = new URLSearchParams(window.location.search).get('applicant_id');
-
-        if (!isValid) return;
-
-        const updatedData = {
-          FirstName: firstName,
-          LastName: lastName,
-          PhoneNumber: phoneNumber,
-          Source: 'Enquiry',
-          Email: email,
-          Qualification: $('#qualification').val().trim(),
-          Experience: $('#experience').val().trim(),
-          CurrentSalary: currentSalary,
-          ExpectedSalary: expectedSalary,
-          Remarks: remarks,
-          NoticePeriod: noticePeriod,
-          JobPostId: jobPost
-        };
-
-        if (applicantId) {
-          $.ajax({
-            url: '/api/updateApplicant/' + applicantId,
-            type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify(updatedData),
-            success: function (response) {
-              if (response) {
-                $('#successModal').modal('show');
-              } else {
-                console.error('Error updating data:', response.message);
-                alert('Failed to update enquiry form. Please try again.');
-              }
-            },
-            error: function (xhr) {
-              console.error('Failed to update enquiry data:', xhr.responseText);
-              // alert('An error occurred while updating the enquiry form.');
-            }
-          });
-        } else {
-          alert('Applicant ID not found.');
-        }
-      });
-
-
-
       $(document).ready(function () {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const applicantId = urlParams.get('applicant_id');
-        console.log("Applicant Idddddd", applicantId);
+        const applicantId = urlParams.get('applicant_id'); // Still fetching but not using it
 
-        if (applicantId) {
-          $.ajax({
-            url: '/api/getapplicant/' + applicantId,
-            type: 'GET',
-            success: function (response) {
-              console.log("response=======", response)
-              if (response) {
-                const data = response.data;
+        console.log("Applicant ID:", applicantId);
 
-                $('#firstname').val(data.FirstName);
-                $('#lastname').val(data.LastName);
-                $('#phone').val(data.PhoneNumber);
-                $('#email').val(data.Email);
-                $('#qualification').val(data.Qualification);
-                $('#experience').val(data.Experience);
-                $('#current-salary').val(data.CurrentSalary);
-                $('#expected-salary').val(data.ExpectedSalary);
-                $('#remarks').val(data.Remarks);
-                $('#noticeperiod').val(data.NoticePeriod);
-                $('#job-post').val(data.JobPostId);
+        // if (applicantId) {
+        //   $.ajax({
+        //     url: '/api/getapplicant/' + applicantId,
+        //     type: 'GET',
+        //     success: function (response) {
+        //       console.log("Response Data:", response);
+        //       if (response) {
+        //         const data = response.data;
 
-                if (data.Resume) {
-                  $('#uploadResume').val(data.Resume);
-                }
-              } else {
-                console.error('Error fetching enquiry data:', response.message);
-              }
-            },
-            error: function (xhr) {
-              console.error('Failed to fetch enquiry data:', xhr.responseText);
-            }
-          });
-        }
-      });
+        //         $('#firstname').val(data.FirstName);
+        //         $('#lastname').val(data.LastName);
+        //         $('#phone').val(data.PhoneNumber);
+        //         $('#email').val(data.Email);
+        //         $('#qualification').val(data.Qualification);
+        //         $('#experience').val(data.Experience);
+        //         $('#current-salary').val(data.CurrentSalary);
+        //         $('#expected-salary').val(data.ExpectedSalary);
+        //         $('#remarks').val(data.Remarks);
+        //         $('#noticeperiod').val(data.NoticePeriod);
+        //         $('#job-post').val(data.JobPostId);
 
+        //         if (data.Resume) {
+        //           $('#uploadResume').val(data.Resume);
+        //         }
+        //       } else {
+        //         console.error('Error fetching applicant data:', response.message);
+        //       }
+        //     },
+        //     error: function (xhr) {
+        //       console.error('Failed to fetch applicant data:', xhr.responseText);
+        //     }
+        //   });
+        // } else {
+          $('#enquiryForm').on('submit', function (e) {
+            e.preventDefault();
+            let isValid = true;
 
-
-      $(document).ready(function () {
-        $.ajax({
-          url: '/api/getJob',
-          type: 'GET',
-          success: function (response) {
-            if (response.status === 'success' && response.data) {
-              const jobData = response.data;
-              const $dropdown = $('#job-post');
-              jobData.forEach(function (job) {
-                const option = $('<option></option>')
-                  .val(job.id)
-                  .text(job.Title);
-                $dropdown.append(option);
-              });
+            let firstName = $('#firstname').val().trim();
+            if (!/^[A-Za-z\s]+$/.test(firstName)) {
+              $('#firstname').addClass('is-invalid');
+              isValid = false;
             } else {
-              console.error('Error fetching job data:', response.message);
+              $('#firstname').removeClass('is-invalid');
             }
-          },
-          error: function (xhr) {
-            console.error('Failed to fetch jobs:', xhr.responseText);
-          }
-        });
 
-        $('#enquiryForm').on('submit', function (e) {
-          e.preventDefault();
-          let isValid = true;
+            let lastName = $('#lastname').val().trim();
+            if (!/^[A-Za-z\s]+$/.test(lastName)) {
+              $('#lastname').addClass('is-invalid');
+              isValid = false;
+            } else {
+              $('#lastname').removeClass('is-invalid');
+            }
 
-          let firstName = $('#firstname').val().trim();
-          if (!/^[A-Za-z\s]+$/.test(firstName)) {
-            $('#firstname').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#firstname').removeClass('is-invalid');
-          }
+            let phoneNumber = $('#phone').val().trim();
+            if (!/^\d{10}$/.test(phoneNumber)) {
+              $('#phone').addClass('is-invalid');
+              isValid = false;
+            } else {
+              $('#phone').removeClass('is-invalid');
+            }
 
-          let lastName = $('#lastname').val().trim();
-          if (!/^[A-Za-z\s]+$/.test(lastName)) {
-            $('#lastname').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#lastname').removeClass('is-invalid');
-          }
+            let email = $('#email').val().trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+              $('#email').addClass('is-invalid');
+              isValid = false;
+            } else {
+              $('#email').removeClass('is-invalid');
+            }
 
-          let phoneNumber = $('#phone').val().trim();
-          if (!/^\d{10}$/.test(phoneNumber)) {
-            $('#phone').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#phone').removeClass('is-invalid');
-          }
+            if ($('#job-post').val() === '') {
+              $('#job-post').addClass('is-invalid');
+              isValid = false;
+            } else {
+              $('#job-post').removeClass('is-invalid');
+            }
 
-          let email = $('#email').val().trim();
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            $('#email').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#email').removeClass('is-invalid');
-          }
-          if ($('#job-post').val() === '') {
-            $('#job-post').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#ajob-post').removeClass('is-invalid');
-          }
+            if ($('#qualification').val().trim() === '') {
+              $('#qualification').addClass('is-invalid');
+              isValid = false;
+            } else {
+              $('#qualification').removeClass('is-invalid');
+            }
 
-          if ($('#qualification').val().trim() === '') {
-            $('#qualification').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#qualification').removeClass('is-invalid');
-          }
+            let currentSalary = $('#current-salary').val().trim();
+            let expectedSalary = $('#expected-salary').val().trim();
+            let remarks = $('#remarks').val().trim();
+            let noticePeriod = $('#noticeperiod').val();
+            let jobPost = $('#job-post').val();
 
-          let currentSalary = $('#current-salary').val().trim();
-          if (!/^\d+(\.\d{1,2})?$/.test(currentSalary) || currentSalary <= 0) {
-            $('#current-salary').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#current-salary').removeClass('is-invalid');
-          }
+            if (!isValid) return;
 
-          let expectedSalary = $('#expected-salary').val().trim();
-          if (!/^\d+(\.\d{1,2})?$/.test(expectedSalary) || expectedSalary <= 0) {
-            $('#expected-salary').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#expected-salary').removeClass('is-invalid');
-          }
-
-          if ($('#noticeperiod').val() === '') {
-            $('#noticeperiod').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#noticeperiod').removeClass('is-invalid');
-          }
-
-          if ($('#uploadResume')[0].files.length === 0) {
-            $('#uploadResume').addClass('is-invalid');
-            isValid = false;
-          } else {
-            $('#uploadResume').removeClass('is-invalid');
-          }
-
-          if (isValid) {
+            // Prepare form data for submission
             var formData = new FormData(this);
-            formData.append('jobpost_id', $('#job-post').val());
+            formData.append('jobpost_id', jobPost);
             formData.append('Source', 'Enquiry');
-            formData.append('FirstName', $('#firstname').val());
-            formData.append('LastName', $('#lastname').val());
-            formData.append('email', $('#email').val());
-            formData.append('phone', $('#phone').val());
-            formData.append('Qualification', $('#qualification').val());
-            // formData.append('Applying For', $('#applyingfor').val());
-            formData.append('Experience', $('#experience').val());
-            formData.append('CurrentSalary', $('#current-salary').val());
-            formData.append('ExpectedSalary', $('#expected-salary').val());
+            formData.append('FirstName', firstName);
+            formData.append('LastName', lastName);
+            formData.append('email', email);
+            formData.append('phone', phoneNumber);
+            formData.append('Qualification', $('#qualification').val().trim());
+            formData.append('Experience', $('#experience').val().trim());
+            formData.append('CurrentSalary', currentSalary);
+            formData.append('ExpectedSalary', expectedSalary);
             formData.append('Resume', $('#uploadResume')[0].files[0]);
-            formData.append('NoticePeriod', $('#noticeperiod').val());
-            formData.append('Remarks', $('#remarks').val());
+            formData.append('NoticePeriod', noticePeriod);
+            formData.append('Remarks', remarks);
+            formData.append('StatusId', 1);
 
             $.ajax({
               url: '/api/applicant',
@@ -449,30 +300,48 @@
                 if (response.status === 'success') {
                   var successModal = new bootstrap.Modal(document.getElementById('successModal'));
                   successModal.show();
-                  $('#jobApplicationForm')[0].reset();
+                  $('#enquiryForm')[0].reset();
                 } else {
-                  console.log(response.message, 'wewgwefwe');
+                  console.error('Error submitting form:', response.message);
                 }
               },
               error: function (xhr) {
                 var errors = xhr.responseJSON;
-
                 if (errors && errors.message) {
-                  console.log(errors.message);
+                  console.error(errors.message);
                 } else {
-                  console.log('Something went wrong. Please try again.');
+                  console.error('Something went wrong. Please try again.');
                 }
               },
               complete: function () {
-                // Re-enable submit button
                 $('button[type="submit"]').prop('disabled', false);
               }
             });
+          });
+        // }
+
+        $.ajax({
+          url: '/api/getJob',
+          type: 'GET',
+          success: function (response) {
+            if (response.status === 'success' && response.data) {
+              const jobData = response.data;
+              const $dropdown = $('#job-post');
+              jobData.forEach(function (job) {
+                const option = $('<option></option>').val(job.id).text(job.Title);
+                $dropdown.append(option);
+              });
+            } else {
+              console.error('Error fetching job data:', response.message);
+            }
+          },
+          error: function (xhr) {
+            console.error('Failed to fetch jobs:', xhr.responseText);
           }
-
         });
-      });
 
+
+      });
 
     </script>
     @endsection

@@ -56,15 +56,12 @@
           </div>
           <div class="col-md-6">
             <button type="submit" class="btn btn-primary w-25 mb-3">Filter</button>
-
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-
-
 
 <div class="container-fluid mt-3 px-0">
   <div class="table-responsive">
@@ -275,8 +272,8 @@
                                 <td>${applicant.PreferredLocation || 'N/A'}</td>
                                 <td>${applicant.NoticePeriod || 'N/A'}</td>
                                 <td>${applicant.CurrentOrganization || 'N/A'}</td>
-                                <td>${applicant.CurrentSalary ? applicant.CurrentSalary + ' LPA' : 'N/A'}</td>
-                                <td>${applicant.ExpectedSalary ? applicant.ExpectedSalary + ' LPA' : 'N/A'}</td>
+                                <td>${applicant.CurrentSalary ? applicant.CurrentSalary  : 'N/A'}</td>
+                                <td>${applicant.ExpectedSalary ? applicant.ExpectedSalary : 'N/A'}</td>
                                 <td>
                                     ${applicant.Resume ? `<a href="${applicant.Resume}" target="_blank">View Resume</a>` : 'N/A'}
                                 </td>
@@ -374,10 +371,10 @@
         `);
   });
 
-  $('#clearForm').on('click', function () {
-    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    successModal.show();
-  });
+  // $('#clearForm').on('click', function () {
+  //   var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+  //   successModal.show();
+  // });
 
   $('#emailForm').on('submit', function (e) {
     e.preventDefault();

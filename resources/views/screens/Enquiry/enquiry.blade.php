@@ -10,11 +10,6 @@
 
 <div>
   <div class="table-responsive">
-    <div id="loading" class="text-center py-4">
-      <span class="spinner-border text-primary" role="status"></span>
-      <span class="ml-2">Loading...</span>
-    </div>
-
     <!-- Error Message -->
     <div id="error-message" class="alert alert-danger d-none text-center"></div>
 
@@ -43,17 +38,22 @@
 
 <script>
   $(document).ready(function () {
-    $("#loading").show();
+    // $("#loading").show();
     $("#error-message").hide();
     var table = $('#table').DataTable();
+    var tableBody = $('#tbody');
+    tableBody.html(`<tr><td colspan="12" class="text-primary">Loading...</td></tr>`); // Show loading message
     $.ajax({
       url: "/api/getapplicant",
       method: "GET",
       dataType: "json",
       success: function (response) {
+        console.log(response,'ressss');
+        
         if (response.status === "success") {
-          let applicants = response.data.filter(applicant => applicant.Source === "Enquiry");
-          var tableBody = $('#tbody');
+          let applicants = response.data.filter(applicant => applicant.Source == "Enquiry");
+          console.log(applicants,'wergw');
+          
           tableBody.empty();
           if (applicants.length === 0) {
             $("#error-message").removeClass("d-none").text("No Enquiry Data Available");
@@ -90,7 +90,7 @@
         $("#error-message").removeClass("d-none").text("Failed to load data. Please try again later.");
       },
       complete: function () {
-        $("#loading").hide(); // Hide loading indicator once AJAX completes
+        // $("#loading").hide(); // Hide loading indicator once AJAX completes
       }
     });
   });
