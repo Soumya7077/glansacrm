@@ -34,7 +34,7 @@
             </div>
             <div class="form-floating form-floating-outline mb-4">
               <input type="number" class="form-control" id="workExperience" placeholder="Work Experience" required />
-              <label for="workExperience">Work Experience</label>
+              <label for="workExperience">Work Experience (in years)</label>
               <div class="invalid-feedback">Please enter the work experience.</div>
             </div>
           </div>

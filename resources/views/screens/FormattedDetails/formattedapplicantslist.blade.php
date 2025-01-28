@@ -178,7 +178,7 @@
 
 
     function fetchApplicants() {
-      $("#tableBody").html('<tr id="loadingRow"><td colspan="13" class="text-center text-muted py-3">Loading data, please wait...</td></tr>');
+      $("#tableBody").html('<tr id="loadingRow"><td colspan="13" class="text-primary text-muted py-3">Loading data...</td></tr>');
 
       $.ajax({
       url: userData.RoleId == 1 ? '/api/getapplicant' : `/api/getformattedapplicantbyrecruiter/${userData.id}`,

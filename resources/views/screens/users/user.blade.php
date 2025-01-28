@@ -4,6 +4,18 @@
 
 @section('content')
 
+<style>
+  .invalid-feedback {
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    font-size: 14px;
+  }
+
+  .form-floating-outline {
+    position: relative;
+  }
+</style>
 
 <div class="d-flex justify-content-between align-items-center py-3">
   <h3 class="mb-0">User Master List</h3>
@@ -69,19 +81,44 @@
                 <div class="invalid-feedback">Please provide a valid email.</div>
               </div>
 
-              <div class="form-floating form-floating-outline mb-4">
+              <div class="form-password-toggle mb-4">
+                <div class="input-group input-group-merge">
+                  <div class="form-floating form-floating-outline">
+                    <input type="password" id="password" class="form-control" name="password" placeholder="Password"
+                      required>
+                    <label for="password">Password</label>
+                    <div class="invalid-feedback">Please provide a password.</div>
+                  </div>
+                  <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
+                </div>
+              </div>
+
+              <div class="form-password-toggle mb-4">
+                <div class="input-group input-group-merge">
+                  <div class="form-floating form-floating-outline">
+                    <input type="password" id="confirm_password" class="form-control" name="password"
+                      placeholder="Confirm Password" required>
+                    <label for="confirm_password">Password</label>
+                    <div class="invalid-feedback" id="passwordMatchFeedback">Password do not match.</div>
+                  </div>
+                  <span class="input-group-text cursor-pointer" style><i class="mdi mdi-eye-off-outline"></i></span>
+                </div>
+              </div>
+
+
+              <!-- <div class="form-floating form-floating-outline mb-4">
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password"
                   required />
                 <label for="password">Password</label>
                 <div class="invalid-feedback">Please provide a password.</div>
-              </div>
+              </div> -->
 
-              <div class="form-floating form-floating-outline mb-4">
+              <!-- <div class="form-floating form-floating-outline mb-4">
                 <input type="password" class="form-control" id="confirm_password" name="confirm_password"
                   placeholder="Confirm Password" required />
                 <label for="confirm_password">Confirm Password</label>
                 <div class="invalid-feedback" id="passwordMatchFeedback">Passwords do not match.</div>
-              </div>
+              </div> -->
 
               <div class="form-floating form-floating-outline mb-4">
                 <select id="role_id" name="role_id" class="form-select" required>
@@ -236,9 +273,27 @@
 
 <!-- Confirmation Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <x-alert id="alert" title="Delete User" message="Are you sure you want to delete this user?" showCancelButton="true"
-    cancelButtonText="No, Keep User" showConfirmButton="true" confirmButtonText="Yes, Delete"
-    confirmButtonId="deleteUserButton" confirmButtonClass="btn btn-danger" />
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmation </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to perform this action?
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class='btn btn-danger' id='confirmDeleteButton'>
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 

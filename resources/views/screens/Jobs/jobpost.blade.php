@@ -133,7 +133,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="experience-min" name="MinExperience" placeholder="Experience"
               required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
-            <label for="experience-min">Minimum Experience</label>
+            <label for="experience-min">Minimum Experience (in years)</label>
             <div class="invalid-feedback">Please enter a valid Experience</div>
           </div>
         </div>
@@ -141,7 +141,7 @@
           <div class="form-floating form-floating-outline mb-4 w-100">
             <input type="text" class="form-control" id="experience-max" name="MaxExperience" placeholder="Experience"
               required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
-            <label for="experience-max">Maximum Experience</label>
+            <label for="experience-max">Maximum Experience (in years)</label>
             <div class="invalid-feedback">Please enter a valid Experience</div>
           </div>
         </div>

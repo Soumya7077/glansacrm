@@ -192,7 +192,7 @@
 
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="text" class="form-control" id="experience" placeholder="Experience" />
-                        <label for="experience">Work Experience</label>
+                        <label for="experience">Work Experience (in years)</label>
                     </div>
                 </div>
                 <div class="col-md-6">
