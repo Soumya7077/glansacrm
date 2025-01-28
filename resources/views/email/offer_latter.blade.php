@@ -4,7 +4,7 @@
     <title>Offer Letter</title>
 </head>
 <body>
-    <h1>Dear {{ $name }},</h1>
+    <h3>Dear {{ $name }},</h3>
     <p>Congratulations! We are excited to offer you the position of {{ $designation }} at {{ $organization }}.</p>
     <p>Your salary will be <strong>Rs.{{ $salary }}</strong>, and your joining date is set for {{ $joining_date }}.</p>
     <p>Shift: {{ $shift }}</p>
