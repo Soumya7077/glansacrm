@@ -97,12 +97,6 @@
       "slug": "Formatted Applicants List"
     },
     {
-      "url": "/schedule",
-      "name": "Candidate Interview",
-      "icon": "menu-icon tf-icons mdi mdi-calendar",
-      "slug": "Interview"
-    },
-    {
       "url": "/offerletter",
       "name": "Offer Letter",
       "icon": "menu-icon tf-icons mdi mdi-clipboard-text",

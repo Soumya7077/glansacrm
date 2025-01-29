@@ -380,7 +380,6 @@
                 SecondContactDesignation: $('#contact-person-2-designation').val(),
             };
 
-
             const employerId = $('#empId').val();
 
             const method = employerId ? 'PUT' : 'POST';
@@ -415,13 +414,11 @@
             });
         });
 
-
-
-
         $(document).on('click', '.edit-btn', function () {
             const employerId = $(this).data('id');
             $('#edit-loading').show();
             $('#empId').val(employerId);
+            $('.offcanvas-title').text('Edit Employer');
             $.ajax({
                 url: `/api/getEmployer/${employerId}`,
                 method: 'GET',
@@ -480,11 +477,6 @@
 
             });
         });
-
-
-
-
-
 
         $(document).on('click', '.btn-close', function () {
             $('#offcanvasBackdrop').offcanvas('hide');

@@ -34,9 +34,9 @@
     <script>
         $(document).ready(function () {
             function fetchInterviews() {
-                const loadingRow = '<tr><td colspan="9" class="text-center text-muted py-3">Loading data, please wait...</td></tr>';
-                const noDataRow = '<tr><td colspan="9" class="text-center text-muted py-3">No interview schedules found.</td></tr>';
-                const errorRow = '<tr><td colspan="9" class="text-center text-danger py-3">Error loading data! Please try again.</td></tr>';
+                const loadingRow = '<tr><td colspan="9" class="text-primary text-muted py-3">Loading...</td></tr>';
+                const noDataRow = '<tr><td colspan="9" class="text-danger text-muted py-3">No interview schedules found.</td></tr>';
+                const errorRow = '<tr><td colspan="9" class="text-secondary py-3">Error loading data! Please try again.</td></tr>';
 
                 $("#interviewTableBody").html(loadingRow);
 
@@ -90,7 +90,6 @@
             }
 
             fetchInterviews();
-
 
         });
     </script>
