@@ -33,7 +33,6 @@
                     <th>Benefits</th>
                     <th>Gender</th>
                     <th>Remarks</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -55,7 +54,7 @@
                 url: userData?.RoleId == 1 ? '/api/getJob' : `/api/assignedrecruiter/${userData?.id}`,
                 type: 'GET',
                 dataType: 'json',
-                success: function (response) {                   
+                success: function (response) {
                     tableBody.empty();
                     if (response) {
                         response.data.forEach((job) => {
@@ -80,14 +79,7 @@
                   <td>${job.Shift || 'N/A'}</td>
                   <td>${job.Benefits || 'N/A'}</td>
                   <td>${job.Gender || 'N/A'}</td>
-                  <td>${job.Remarks && job.Remarks.length > 30 ? job.Remarks.substring(0, 30) + '...' : job.Remarks || 'N/A'}</td>
-                  <td>
-                    <div class="d-inline-flex gap-2">
-                      <a href="/applicantlist?job_id=${userData?.RoleId == 1 ? job.id : job.assignedId}" class="btn btn-primary btn-xs">View</a>
-                      <a href="/jobpost?job_id=${userData?.RoleId == 1 ? job.id : job.assignedId}" class="btn btn-info btn-xs">Edit</a>
-                      <button class="btn btn-danger btn-xs delete-btn" data-id="${userData?.RoleId == 1 ? job.id : job.assignedId}">Delete</button>
-                    </div>
-                  </td>
+                  <td>${job.Remarks && job.Remarks.length > 30 ? job.Remarks.substring(0, 30) + '...' : job.Remarks || 'N/A'}</td>                
                 </tr>
               `;
                             tableBody.append(rows);
