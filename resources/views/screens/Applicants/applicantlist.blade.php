@@ -149,7 +149,8 @@
       if (jobId) {
         // $("#loading").show();
         // Fetch the applicants for this job
-        tableBody.html('<tr><td colspan="14" class="text-bold text-primary">Loading...</td></tr>');
+        var tableBody = $('#tbody');
+        tableBody.html('<tr><td colspan="14" class="text-primary">Loading...</td></tr>'); 
         $.ajax({
           url: `/api/getapplicantbyjob/${jobId}`,
           type: 'GET',
@@ -178,7 +179,7 @@
       var table = $('#table').DataTable();
       var tableBody = $('#tbody');
       tableBody.empty();
-
+      // tableBody.html('<tr><td colspan="14" class="text-bold text-primary">Loading...</td></tr>');
       $.each(applicants, function (index, applicant) {
         let statusText = applicant.StatusId === "1" ? "Pending" : "Shortlisted";
         let statusColor = applicant.StatusId === "1" ? "color: orange; " : "color: green; ";
