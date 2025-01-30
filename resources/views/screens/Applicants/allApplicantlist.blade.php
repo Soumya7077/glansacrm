@@ -85,30 +85,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="text-center small align-middle">
-          <td><input type="checkbox" /></td>
-          <td>Naveen Nagam</td>
-          <td>5 years</td>
-          <td>9133913522</td>
-          <td>M.Tech</td>
-          <td>Hyderabad</td>
-          <td>Bangalore</td>
-          <td>30 days</td>
-          <td>Glansa</td>
-          <td>12 LPA</td>
-          <td>15 LPA</td>
-          <td><a href="#">View Resume</a></td>
-          <td class="text-success">Shortlisted</td>
-          <td><button type="button" class="btn btn-primary" data-bs-toggle="modal"
-              data-bs-target="#applicantDetailsModal">View</button></td>
-        </tr>
+
       </tbody>
     </table>
   </div>
 
   <div class="d-flex justify-content-end mt-3">
-    <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Format details </button>
+    <button id="clearForm" class="btn btn-primary" type="button"> Format details </button>
   </div>
 </div>
 
@@ -232,6 +215,8 @@
 </div>
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
+
+  let selectedApplicants = [];
   var applicantsData;
   var filterApplicantsData;
   $(document).ready(function () {
@@ -249,6 +234,7 @@
       type: "GET",
       dataType: "json",
       success: function (response) {
+        console.log(response.data);
         if (response.status === "success") {
           let applicants = response.data.filter((e) => e.Source !== 'sm');
           applicantsData = response.data.filter((e) => e.Source !== 'sm');
@@ -263,7 +249,7 @@
           filterApplicantsData.forEach(applicant => {
             let rows = `
                             <tr class="text-center small align-middle">
-                                <td><input type="checkbox" /></td>
+                                <td><input type="checkbox" class="applicant-checkbox" data-id="${applicant.id}" /></td>
                                 <td>${applicant.FirstName} ${applicant.LastName}</td>
                                 <td>${applicant.Experience || 'N/A'}</td>
                                 <td>${applicant.PhoneNumber || 'N/A'}</td>
@@ -272,7 +258,7 @@
                                 <td>${applicant.PreferredLocation || 'N/A'}</td>
                                 <td>${applicant.NoticePeriod || 'N/A'}</td>
                                 <td>${applicant.CurrentOrganization || 'N/A'}</td>
-                                <td>${applicant.CurrentSalary ? applicant.CurrentSalary  : 'N/A'}</td>
+                                <td>${applicant.CurrentSalary ? applicant.CurrentSalary : 'N/A'}</td>
                                 <td>${applicant.ExpectedSalary ? applicant.ExpectedSalary : 'N/A'}</td>
                                 <td>
                                     ${applicant.Resume ? `<a href="${applicant.Resume}" target="_blank">View Resume</a>` : 'N/A'}
@@ -286,7 +272,7 @@
                                         data-phone="${applicant.PhoneNumber || 'N/A'}"
                                         data-email="${applicant.Email || 'N/A'}"
                                         data-linkedin="${applicant.LinkedIn || '#'}"
-                                        data-applying="${applicant.ApplyingFor || 'N/A'}"
+                                        data-applying="${applicant.Title || 'N/A'}"
                                         data-qualification="${applicant.Qualification || 'N/A'}"
                                         data-current-location="${applicant.CurrentLocation || 'N/A'}"
                                         data-preferred-location="${applicant.PreferredLocation || 'N/A'}"
@@ -375,6 +361,35 @@
   //   var successModal = new bootstrap.Modal(document.getElementById('successModal'));
   //   successModal.show();
   // });
+
+  $("#clearForm").click(function () {
+     selectedApplicants = $(".applicant-checkbox:checked").map(function () {
+      return $(this).data("id");
+    }).get();
+
+    if (selectedApplicants.length === 0) {
+      alert("Please select at least one applicant.");
+      return;
+    }
+
+    // Send AJAX request to update status for selected applicants
+    let requests = selectedApplicants.map(applicantId => {
+      return $.ajax({
+        url: `/api/applicantStatusUpdate/${applicantId}`,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({ status: 2 }),
+      });
+    });
+
+    // Execute all AJAX calls and show the modal when complete
+    $.when.apply($, requests).done(function () {
+      $("#successModal").modal("show"); // Show success modal after completion
+      getJob();
+    }).fail(function () {
+      alert("Error updating applicants. Please try again.");
+    });
+  });
 
   $('#emailForm').on('submit', function (e) {
     e.preventDefault();

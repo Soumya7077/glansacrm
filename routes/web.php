@@ -9,6 +9,8 @@ use App\Http\Controllers\Enquiry\EnquiryController;
 use App\Http\Controllers\FormattedDetails\FormatController;
 use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\OfferLetter\OfferController;
+// use App\Http\Controllers\ReportController\ReportController;
+use App\Http\Controllers\ReportController\ReportController;
 use App\Http\Controllers\role;
 use App\Http\Controllers\ScheduleInterview\ScheduleInterview;
 use App\Http\Controllers\SmConttroller;
@@ -73,3 +75,12 @@ Route::get('/roles', [role::class, 'index']);
 
 Route::get('/schedule', [ScheduleInterview::class, 'scheduleInterview'])->name('Interview');
 Route::get('/schedule-interview-candidate', [ScheduleInterview::class, 'scheduleInterviewCandidate']);
+
+
+//Reports
+Route::get('/joblistreport', [ReportController::class, 'joblistreport'])->name('Reports');
+Route::get('/applicantlistreport', [ReportController::class, 'applicantlistreport'])->name('Applicants Reports');
+Route::get('/offerletterreport', [ReportController::class, 'offerletterreport'])->name('Offer Letter Reports');
+Route::get('/socialmediareport', [ReportController::class, 'socialmediareport'])->name('Social Media Reports');
+Route::get('/selectedreport', [ReportController::class, 'selectedreport'])->name('Selected Reports');
+Route::get('/rejectedreport', [ReportController::class, 'rejectedreport'])->name('Rejected Reports');

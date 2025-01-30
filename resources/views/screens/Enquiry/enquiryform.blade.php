@@ -70,7 +70,7 @@
             <div class="col-md-6">
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control" id="experience" placeholder="Work Experience" required />
-                <label for="experience">Work Experience</label>
+                <label for="experience">Work Experience (in years)</label>
                 <div class="invalid-feedback">Please enter your work experience.</div>
               </div>
             </div>
