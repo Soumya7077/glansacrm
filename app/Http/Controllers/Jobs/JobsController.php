@@ -101,7 +101,8 @@ class JobsController extends Controller
       $jobs = DB::table('job_post')
         ->join('employees', 'employees.id', '=', 'job_post.EmployerId')
         ->join('departments', 'departments.id', "=", 'job_post.Department')
-        ->select('job_post.*', 'employees.OrganizationName', 'departments.Name as DepartmentName')->orderBy('job_post.id', 'desc')
+        ->join('applicant', 'applicant.jobpost_id', '=', 'job_post.id')
+        ->select('job_post.*', 'applicant.Count(*) as applicantCount', 'employees.OrganizationName', 'departments.Name as DepartmentName')->orderBy('job_post.id', 'desc')
         ->get();
 
       if ($jobs) {
