@@ -169,7 +169,7 @@
         },
         error: function () {
           // $('#loading-spinner').hide();
-          tableBody.html('<tr><td colspan="20" class="text-center text-danger">Error fetching job data</td></tr>');
+          tableBody.html('<tr><td colspan="20" class="text-danger">Error fetching job data</td></tr>');
           showErrorModal('Failed to fetch job data. Please try again later.');
         }
       });
