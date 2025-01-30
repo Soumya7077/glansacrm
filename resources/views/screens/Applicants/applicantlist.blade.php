@@ -64,12 +64,12 @@
 </div>
 
 <!-- Loader -->
-<div class="text-center mt-3" id="loading" style="display: none;">
+<!-- <div class="text-center mt-3" id="loading" style="display: none;">
   <div class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
   <p>Fetching Applicants...</p>
-</div>
+</div> -->
 
 <div class="container-fluid mt-3 px-0">
   <div class="table-responsive">
@@ -147,15 +147,17 @@
     getJob();
     function getJob() {
       if (jobId) {
-        $("#loading").show();
+        // $("#loading").show();
         // Fetch the applicants for this job
+        var tableBody = $('#tbody');
+        tableBody.html('<tr><td colspan="14" class="text-primary">Loading...</td></tr>'); 
         $.ajax({
           url: `/api/getapplicantbyjob/${jobId}`,
           type: 'GET',
           dataType: 'json',
           success: function (response) {
             console.log(response, 'erge');
-            $("#loading").hide();
+            // $("#loading").hide();
             if (response.status === 'success') {
               applicantsData = response.data;
               filterApplicantsData = response.data;
@@ -165,7 +167,7 @@
             }
           },
           error: function (xhr, status, error) {
-            $("#loading").hide();
+            // $("#loading").hide();
             console.error('AJAX Error:', error);
           }
         });
@@ -177,7 +179,7 @@
       var table = $('#table').DataTable();
       var tableBody = $('#tbody');
       tableBody.empty();
-
+      // tableBody.html('<tr><td colspan="14" class="text-bold text-primary">Loading...</td></tr>');
       $.each(applicants, function (index, applicant) {
         let statusText = applicant.StatusId === "1" ? "Pending" : "Shortlisted";
         let statusColor = applicant.StatusId === "1" ? "color: orange; " : "color: green; ";
