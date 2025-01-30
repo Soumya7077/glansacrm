@@ -8,8 +8,87 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">Applicants Report</h3>
     </div>
+    <div class="card">
+        <div class="card-header">
+            <h4>Applicants Filter</h4>
+            <div class="card-body">
+                <form id="applicantForm" novalidate>
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" class="form-control" id="experience" placeholder="Experience"
+                                    required />
+                                <label for="experience">Experience</label>
+                                <div class="invalid-feedback">Please provide experience details.</div>
+                            </div>
+                        </div>
 
-    <div class="table-responsive">
+                        <div class="col-md-6">
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" class="form-control" id="qualifications" placeholder="Qualifications"
+                                    required />
+                                <label for="qualifications">Qualifications</label>
+                                <div class="invalid-feedback">Please provide your qualifications.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" class="form-control" id="preferredLocation"
+                                    placeholder="Preferred Location" required />
+                                <label for="preferredLocation">Preferred Location</label>
+                                <div class="invalid-feedback">Please provide your preferred location.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" class="form-control" id="noticePeriod" placeholder="Notice Period"
+                                    required />
+                                <label for="noticePeriod">Notice Period</label>
+                                <div class="invalid-feedback">Please provide your notice period.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating form-floating-outline mb-4">
+                                <input type="text" class="form-control" id="expectedSalary"
+                                    placeholder="Expected Salary" required />
+                                <label for="expectedSalary">Expected Salary</label>
+                                <div class="invalid-feedback">Please provide your expected salary.</div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating form-floating-outline mb-4">
+                                <select class="form-control" id="status" placeholder="Status" required>
+                                    <option value="0" hidden>Select Status</option>
+                                    <option value="1">Pending</option>
+                                    <option value="2">Formatted</option>
+                                    <option value="3">Mail Sent to Employer</option>
+                                    <option value="4">Shortlisted</option>
+                                    <option value="5">Not Shortlisted</option>
+                                    <option value="6">Mail Sent to Candidate for Interview</option>
+                                    <option value="7">Selected</option>
+                                    <option value="8">Not Selected</option>
+                                </select>
+                                <label for="status">Status</label>
+                                <div class="invalid-feedback">Please provide valid status</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary w-25">Filter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="table-responsive mt-4">
+        <h4>Applicant Table</h4>
         <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
                 <tr class="text-center align-middle">
@@ -45,7 +124,7 @@
 
         var table = $('#table').DataTable();
         let tableBody = $("#table tbody");
-        tableBody.html(`<tr><td colspan="14" class="text-primary">Loading...</td></tr>`); // Show loading message
+        tableBody.html(`<tr><td colspan="14" class="text-primary">Loading...</td></tr>`);
 
         $.ajax({
             url: "/api/getapplicant",
