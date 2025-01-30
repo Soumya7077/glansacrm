@@ -2,10 +2,20 @@
 @section('title', 'Applicant - Applicant List')
 
 @section('content')
-<h4><span class="text-muted fw-light">Home /</span>All Applicant List</h4>
 
 
-<div class="offcanvas-body mx-0 flex-grow-0">
+<div class="d-flex justify-content-between align-items-center">
+  <div>
+    <h4><span class="text-muted fw-light">Home /</span>All Applicant List</h4>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button id="filterBtn" class="btn btn-primary mb-3">
+      <i class="mdi mdi-filter-variant me-2"></i> Filter
+    </button>
+  </div>
+</div>
+
+<div id="applicantFormContainer" class="form-container">
   <div class="card">
     <div class="card-header">
       <h5 class="card-title">Applicant Details</h5>
@@ -213,8 +223,29 @@
     </div>
   </div>
 </div>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<style>
+  .form-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+  }
+
+  .form-container.show {
+    max-height: 1000px;
+    opacity: 1;
+  }
+</style>
 <script>
+
+  // filter open and close start=============
+  document.getElementById("filterBtn").addEventListener("click", function () {
+    var formContainer = document.getElementById("applicantFormContainer");
+    formContainer.classList.toggle("show");
+  });
+  // filter open and close end============== 
+
+
 
   let selectedApplicants = [];
   var applicantsData;
@@ -363,7 +394,7 @@
   // });
 
   $("#clearForm").click(function () {
-     selectedApplicants = $(".applicant-checkbox:checked").map(function () {
+    selectedApplicants = $(".applicant-checkbox:checked").map(function () {
       return $(this).data("id");
     }).get();
 
