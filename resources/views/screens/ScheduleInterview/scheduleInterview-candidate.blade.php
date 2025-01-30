@@ -8,7 +8,7 @@
         <h3 class="mb-0">Schedule Interview Candidate</h3>
     </div>
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="interviewsTable">
+        <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
             <thead class="table-dark text-center small">
                 <tr>
                     <th>Applicant First Name</th>
@@ -66,23 +66,23 @@
                 interviews.forEach(interview => {
                     const data = encodeURIComponent(JSON.stringify(interview));
                     const row = `
-                                        <tr class="text-center small align-middle">
-                                            <td>${interview.applicantFirstName || 'N/A'}</td>
-                                            <td>${interview.applicantLastName || 'N/A'}</td>
-                                            <td>${interview.OrganizationName || 'N/A'}</td>
-                                            <td>${interview.Title && interview.Title.length > 30 ? interview.Title.substring(0, 30) + '...' : interview.Title || 'N/A'}</td>
-                                            <td>${interview.Description && interview.Description.length > 30 ? interview.Description.substring(0, 30) + '...' : interview.Description || 'N/A'}</td>
-                                            <td>${interview.Type || 'N/A'}</td>
-                                            <td>${interview['Link/Location'] || 'N/A'}</td>
-                                            <td>${interview.InterviewDate || 'N/A'}</td>
-                                            <td>${interview.FirstTimeSlot || 'N/A'}</td>
-                                            <td>
-                                                <div class="">
-                                                    <a href=/schedule?interview=${data} class="btn btn-primary btn-sm p-2" data-id="${interview.id}" data-status="${interview.sid}" style="width: 120px;">Re Schedule</a>
-                                                    <a href=/offerletter?interview=${data} class="btn btn-primary btn-sm p-2" data-id="${interview.id}" data-status="${interview.sid}" style="width: 120px;">Send-offerletter</a>
-                                                </div>
-                                                </td>
-                                            </tr>`;
+                                            <tr class="text-center small align-middle">
+                                                <td>${interview.applicantFirstName || 'N/A'}</td>
+                                                <td>${interview.applicantLastName || 'N/A'}</td>
+                                                <td>${interview.OrganizationName || 'N/A'}</td>
+                                                <td>${interview.Title && interview.Title.length > 30 ? interview.Title.substring(0, 30) + '...' : interview.Title || 'N/A'}</td>
+                                                <td>${interview.Description && interview.Description.length > 30 ? interview.Description.substring(0, 30) + '...' : interview.Description || 'N/A'}</td>
+                                                <td>${interview.Type || 'N/A'}</td>
+                                                <td>${interview['Link/Location'] || 'N/A'}</td>
+                                                <td>${interview.InterviewDate || 'N/A'}</td>
+                                                <td>${interview.FirstTimeSlot || 'N/A'}</td>
+                                                <td>
+                                                    <div class="">
+                                                        <a href=/schedule?interview=${data} class="btn btn-primary btn-sm p-2 mb-2" data-id="${interview.id}" data-status="${interview.sid}" style="width: 120px;">Re-Schedule</a>
+                                                        <a href=/offerletter?interview=${data} class="btn btn-success btn-sm p-2" data-id="${interview.id}" data-status="${interview.sid}" style="width: 120px;">Send Offerletter</a>
+                                                    </div>
+                                                    </td>
+                                                </tr>`;
                     tbody.append(row);
                     table.clear();
                     table.rows.add(tbody.find('tr')).draw();
