@@ -191,14 +191,14 @@
                                 <td>${applicant.CurrentSalary ? applicant.CurrentSalary : 'N/A'}</td>
                                 <td>${applicant.ExpectedSalary ? applicant.ExpectedSalary : 'N/A'}</td>
                                 
-                                <td class="${applicant.StatusId === "1" ? 'text-warning' : 'text-success'}">
+                                <td class="${applicant.sid == "1" ? 'text-warning' : 'text-success'}">
                                     ${applicant.sname}
                                 </td>
                                 
                             </tr>
                         `;
                         tableBody.append(rows);
-                        table.clear(); // Clear any previous DataTable data
+                        table.clear(); 
                         table.rows.add(tableBody.find('tr')).draw();
                     });
                 } else {
@@ -210,6 +210,72 @@
             }
         });
     }
+
+    $('#applicantForm').on('submit', function (e) {
+        e.preventDefault();
+
+        let experience = $('#experience').val().trim();
+        let qualification = $('#qualifications').val().trim().toLowerCase();
+        let preferredLocation = $('#preferredLocation').val().trim().toLowerCase();
+        let noticePeriod = $('#noticePeriod').val().trim();
+        let expectedSalary = $('#expectedSalary').val().trim();
+        let status = $('#status').val();
+
+        let filteredApplicant = filterApplicantsData.filter((applicant) => {
+            return (
+                (experience === '' || applicant.Experience == experience) &&
+                (qualification === '' || (applicant.Qualification && applicant.Qualification.toLowerCase() === qualification)) &&
+                (preferredLocation === '' || (applicant.PreferredLocation && applicant.PreferredLocation.toLowerCase() === preferredLocation)) &&
+                (noticePeriod === '' || (applicant.NoticePeriod && applicant.NoticePeriod.toLowerCase() == noticePeriod)) &&
+                (expectedSalary === '' || (Number(applicant.ExpectedSalary) <= Number(expectedSalary))) &&
+                (status === '0' || applicant.StatusId == status)
+            );
+        });
+        let table = $('#table').DataTable(); // Access DataTable instance
+        let tableBody = $("#table tbody");
+
+        if (filteredApplicant.length === 0) {
+            tableBody.html(`<tr><td colspan="12" class="     text-danger">No applicants found</td></tr>`);
+            table.clear().draw(); 
+            return;
+        }
+
+        // Clear table body and DataTable
+        tableBody.empty();
+        table.clear();
+
+        // Append filtered rows to the table
+        filteredApplicant.forEach(applicant => {
+            let row = `
+            <tr class="text-center small align-middle">
+                <td>${applicant.FirstName} ${applicant.LastName}</td>
+                <td>${applicant.Experience || 'N/A'}</td>
+                <td>${applicant.PhoneNumber || 'N/A'}</td>
+                <td>${applicant.Qualification || 'N/A'}</td>
+                <td>${applicant.CurrentLocation || 'N/A'}</td>
+                <td>${applicant.PreferredLocation || 'N/A'}</td>
+                <td>${applicant.NoticePeriod || 'N/A'}</td>
+                <td>${applicant.CurrentOrganization || 'N/A'}</td>
+                <td>${applicant.CurrentSalary ? applicant.CurrentSalary : 'N/A'}</td>
+                <td>${applicant.ExpectedSalary ? applicant.ExpectedSalary : 'N/A'}</td>
+            
+                <td class="${applicant.sid == "1" ? 'text-warning' : 'text-success'}">
+                    ${applicant.sname}
+                </td>
+                
+            </tr>
+        `;
+            tableBody.append(row);
+        });
+
+        // Redraw the DataTable with the new data
+        table.rows.add(tableBody.find('tr')).draw();
+
+        console.log(filteredApplicant,'filteredApplicant');
+    });
+
+
+
 
 </script>
 
