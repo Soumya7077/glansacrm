@@ -76,7 +76,7 @@
 
       <button type="submit" id="sendMail" class="btn btn-primary mt-3">Send Mail</button>
 
-      <button type="submit" id="updateApplicant" class="btn btn-primary mt-3">Re-schedule
+      <button type="submit" id="updateApplicant" class="btn btn-primary mt-3 ">Re-schedule
         Interview</button>
 
     </form>
