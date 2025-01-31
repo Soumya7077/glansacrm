@@ -93,39 +93,46 @@ class JobsController extends Controller
 
   // Get all Jobs list
 
-  public function getAllJobs()
-  {
+public function getAllJobs()
+{
     try {
-      // $jobs = JobPostModel::all();
-
       $jobs = DB::table('job_post')
-        ->join('employees', 'employees.id', '=', 'job_post.EmployerId')
-        ->join('departments', 'departments.id', "=", 'job_post.Department')
-        ->select('job_post.*', 'employees.OrganizationName', 'departments.Name as DepartmentName')->orderBy('job_post.id', 'desc')
-        ->get();
+      ->leftJoin('employees', 'employees.id', '=', 'job_post.EmployerId')
+      ->leftJoin('departments', 'departments.id', '=', 'job_post.Department')
+      ->leftJoin(DB::raw('(SELECT jobpost_id, COUNT(id) as applicant_count FROM applicant GROUP BY jobpost_id) as a'), 'a.jobpost_id', '=', 'job_post.id')
+      ->select(
+          'job_post.*',
+          'employees.OrganizationName',
+          'departments.Name as DepartmentName',
+          DB::raw('COALESCE(a.applicant_count, 0) as applicant_count')
+      )
+      ->orderBy('job_post.id', 'desc')
+      ->get();
+  
+  
 
-      if ($jobs) {
-        return response()->json([
-          'status' => 'success',
-          'message' => 'Jobs List Fetch successfully!',
-          'data' => $jobs
-        ], 200);
-      } else {
-        return response()->json([
-          'status' => 'error',
-          'message' => 'No data found!',
-          'data' => $jobs
-        ], 400);
-      }
-
+        if ($jobs->isNotEmpty()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Jobs List Fetch successfully!',
+                'data' => $jobs
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No data found!',
+                'data' => []
+            ], 400);
+        }
     } catch (Exception $e) {
-      return response()->json([
-        'status' => 'error',
-        'message' => 'Something went wrong! Please try again.',
-        'error' => $e->getMessage()
-      ], 500);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Something went wrong! Please try again.',
+            'error' => $e->getMessage()
+        ], 500);
     }
-  }
+}
+
 
 
   // Get Employer list by id

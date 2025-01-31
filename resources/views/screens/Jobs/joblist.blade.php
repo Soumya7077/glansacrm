@@ -127,7 +127,7 @@
                 <tr class="text-center small" data-id="${job.id}">
                   <td>${job.OrganizationName || 'N/A'}</td>
                   <td>${job.Title || 'N/A'}</td>
-                  <td>${job.Opening || 'N/A'}</td>
+                  <td>${job.applicant_count || 'N/A'}</td>
                   <td>${job.Description && job.Description.length > 30 ? job.Description.substring(0, 30) + '...' : job.Description || 'N/A'}</td>
                   <td>${job.Opening || 'N/A'}</td>
                   <td>${job.JobsLocation || 'N/A'}</td>
