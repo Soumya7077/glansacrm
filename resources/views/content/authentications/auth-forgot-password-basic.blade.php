@@ -26,11 +26,12 @@
         <div class="card-body mt-2">
           <h4 class="mb-2">Forgot Password? 🔒</h4>
           <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
-          <form id="formAuthentication" class="mb-3">
+          <form id="formAuthentication" class="mb-3 needs-validation" novalidate>
             <div class="form-floating form-floating-outline mb-3">
               <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required
                 autofocus>
               <label for="email">Email</label>
+              <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
             <button type="button" class="btn btn-primary d-grid w-100" id="sendResetLink">Send Reset Link</button>
           </form>
@@ -92,14 +93,37 @@
 
 
 <script>
+  (function () {
+    'use strict';
+    // Bootstrap form validation
+    var forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+
   document.getElementById('sendResetLink').addEventListener('click', function () {
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('email');
+
+    if (!email.checkValidity()) {
+      email.classList.add("is-invalid");
+      return;
+    }
+
+    email.classList.remove("is-invalid");
 
     $.ajax({
       url: '{{ url("/api/forgotPassword") }}',
       type: 'POST',
       data: {
-        Email: email
+        Email: email.value
       },
       success: function (response) {
         console.log(response);
@@ -114,7 +138,6 @@
       }
     });
   });
-
 </script>
 
 @endsection
