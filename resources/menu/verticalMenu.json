@@ -112,45 +112,10 @@
       "menuHeader": "Reports"
     },
     {
-      "url": "/joblistreport",
-      "name": "Job List Report",
-      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
-      "slug": "Reports",
-      "role": 1
-    },
-    {
       "url": "/applicantlistreport",
       "name": "Applicants Report",
       "icon": "menu-icon tf-icons mdi mdi-account-multiple",
       "slug": "Applicants Reports",
-      "role": 1
-    },
-    {
-      "url": "/offerletterreport",
-      "name": "Offer Letter Report",
-      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
-      "slug": "Offer Letter Reports",
-      "role": 1
-    },
-    {
-      "url": "/socialmediareport",
-      "name": "Social Media Report",
-      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
-      "slug": "Social Media Reports",
-      "role": 1
-    },
-    {
-      "url": "/selectedreport",
-      "name": "Selected Applicants Report",
-      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
-      "slug": "Selected Reports",
-      "role": 1
-    },
-    {
-      "url": "/rejectedreport",
-      "name": "Rejected Applicants Report",
-      "icon": "menu-icon tf-icons mdi mdi-account-multiple",
-      "slug": "Rejected Reports",
       "role": 1
     }
   ]
