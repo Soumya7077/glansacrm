@@ -27,29 +27,26 @@
         <div class="card-body mt-2 text-center">
           <h4 class="mb-2">Welcome to Glansa Health Care! 👋</h4>
           <p class="mb-4">Please sign-in to your account and start the adventure</p>
-          <form id="loginForm" class="mb-3 needs-validation" novalidate>
-            @csrf
+          <form id="loginForm" class="mb-3">
+            @csrf {{-- CSRF token for security --}}
 
             <div class="form-floating form-floating-outline mb-3">
-              <input type="email" class="form-control" id="email" name="Email" placeholder="Enter your email" required>
+              <input type="text" class="form-control" id="email" name="Email" placeholder="Enter your email">
               <label for="email">Email</label>
-              <div class=" invalid-feedback text-align-start d-flex  justify-content-start">Please enter a valid email.
-              </div>
+              <small class="text-danger d-none" id="email-error">Please enter a valid email</small>
             </div>
 
             <div class="mb-3">
               <div class="form-password-toggle">
                 <div class="input-group input-group-merge">
                   <div class="form-floating form-floating-outline">
-                    <input type="password" id="password" class="form-control" name="Password" placeholder="**********"
-                      minlength="6" required>
+                    <input type="password" id="password" class="form-control" name="Password" placeholder="**********">
                     <label for="password">Password</label>
                   </div>
                   <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
-                  <div class="invalid-feedback text-align-start d-flex  justify-content-start">Password must be at least
-                    6 characters.</div>
                 </div>
               </div>
+              <small class="text-danger d-none" id="password-error">Password must be at least 6 characters</small>
             </div>
 
             <div class="mb-3 d-flex justify-content-between">
@@ -95,10 +92,6 @@
 </div>
 
 <script>
-
-
-
-
   $(document).ready(function () {
 
 
