@@ -84,13 +84,6 @@
       "role": 1
     },
     {
-      "url": "/formatdetails",
-      "name": "Format Details",
-      "icon": "menu-icon tf-icons mdi mdi-account-box-outline",
-      "slug": "Formatted Details",
-      "role": 1
-    },
-    {
       "url": "/formattedapplicantslist",
       "name": "Formatted applicant list",
       "icon": "menu-icon tf-icons mdi mdi-account-multiple",
