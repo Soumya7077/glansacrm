@@ -32,7 +32,7 @@
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
                                         <input type="password" id="currentPassword" class="form-control"
-                                            name="currentPassword" placeholder="Enter Current Password" required>
+                                            name="currentPassword" placeholder="Enter Current Password">
                                         <label for="currentPassword">Current Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i
@@ -46,7 +46,7 @@
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
                                         <input type="password" id="newPassword" class="form-control" name="newPassword"
-                                            placeholder="Enter New Password" required>
+                                            placeholder="Enter New Password" >
                                         <label for="newPassword">New Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i
@@ -60,7 +60,7 @@
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
                                         <input type="password" id="confirmPassword" class="form-control"
-                                            name="confirmPassword" placeholder="Confirm New Password" required>
+                                            name="confirmPassword" placeholder="Confirm New Password" >
                                         <label for="confirmPassword">Confirm New Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i
@@ -134,7 +134,7 @@
         }
 
         if (newPassword !== confirmPassword) {
-            showError('New password and confirmation do not match.');
+            showError('New password and Confirm password do not match.');
             return;
         }
 
@@ -142,6 +142,7 @@
             showError('New password cannot be the same as the current password.');
             return;
         }
+        
 
         console.log(userData.Email, 'fdfddffd');
 
@@ -191,7 +192,7 @@
                 console.log('Error:', error);  // Logging the actual error
                 document.getElementById('btnText').classList.remove('d-none');
                 document.getElementById('btnLoader').classList.add('d-none');
-                showError('An error occurred. Please try again later.');
+                showError('Current Password is incorrect. Please try again.');
             }
         });
 

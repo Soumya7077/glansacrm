@@ -29,8 +29,8 @@
       <thead class="table-dark text-center small">
         <tr class="text-center align-middle">
           <th>S No.</th>
-          <th>First Name</th>
-          <th>Last Name</th>
+          <th>User Name</th>
+          <!-- <th>Last Name</th> -->
           <th>Email</th>
           <th>Role</th>
           <th>Actions</th>
@@ -65,14 +65,14 @@
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
                   required />
                 <label for="first_name">First Name</label>
-                <div class="invalid-feedback">Please provide a First Name.</div>
+                <div class="invalid-feedback">Please provide a valid first name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
                   required />
                 <label for="last_name">Last Name</label>
-                <div class="invalid-feedback">Please provide a Last Name.</div>
+                <div class="invalid-feedback">Please provide a valid last name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
@@ -87,7 +87,7 @@
                     <input type="password" id="password" class="form-control" name="password" placeholder="Password"
                       required>
                     <label for="password">Password</label>
-                    <div class="invalid-feedback">Please provide a password.</div>
+                    <div class="invalid-feedback">Please provide a valid password.</div>
                   </div>
                   <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
                 </div>
@@ -96,7 +96,7 @@
               <div class="form-password-toggle mb-4">
                 <div class="input-group input-group-merge">
                   <div class="form-floating form-floating-outline">
-                    <input type="password" id="confirm_password" class="form-control" name="password"
+                    <input type="password" id="confirm_password" class="form-control" name="confirm_password"
                       placeholder="Confirm Password" required>
                     <label for="confirm_password">Password</label>
                     <div class="invalid-feedback" id="passwordMatchFeedback">Password do not match.</div>
@@ -161,20 +161,20 @@
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="firstname" name="first_name" placeholder="First Name"
                   required />
-                <label for="first_name">First Name</label>
+                <label for="firstname">First Name</label>
                 <div class="invalid-feedback">Please provide a First Name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="lastname" name="last_name" placeholder="Last Name"
                   required />
-                <label for="last_name">Last Name</label>
+                <label for="lastname">Last Name</label>
                 <div class="invalid-feedback">Please provide a Last Name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="email" class="form-control" id="Email" name="email" placeholder="Email" required />
-                <label for="email">Email</label>
+                <label for="Email">Email</label>
                 <div class="invalid-feedback">Please provide a valid email.</div>
               </div>
 
@@ -302,37 +302,6 @@
 @push('scripts')
   <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-    const addUserForm = document.getElementById("addUserForm");
-    const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirm_password");
-    const passwordMatchFeedback = document.getElementById("passwordMatchFeedback");
-
-    addUserForm.addEventListener("submit", function (event) {
-      if (password.value !== confirmPassword.value) {
-      event.preventDefault();
-      passwordMatchFeedback.textContent = "Passwords do not match.";
-      confirmPassword.setCustomValidity("Passwords do not match.");
-      confirmPassword.classList.add("is-invalid");
-      } else {
-      confirmPassword.setCustomValidity("");
-      confirmPassword.classList.remove("is-invalid");
-      }
-    });
-
-    confirmPassword.addEventListener("input", function () {
-      if (password.value === confirmPassword.value) {
-      confirmPassword.setCustomValidity("");
-      confirmPassword.classList.remove("is-invalid");
-      } else {
-      confirmPassword.setCustomValidity("Passwords do not match.");
-      confirmPassword.classList.add("is-invalid");
-      }
-    });
-    });
-
-
-
     $(document).ready(function () {
     function fetchUsers() {
       var table = $('#table').DataTable();
@@ -351,8 +320,7 @@
         $.each(response.data, function (index, user) {
           rows += `<tr class="text-center align-middle">
       <td>${index + 1}</td>
-      <td>${user.FirstName}</td>
-      <td>${user.LastName}</td>
+      <td>${user.FirstName} ${user.LastName}</td>
       <td>${user.Email}</td>
       <td>${user.RoleId == 1 ? "Admin" : "Recruiter"}</td>
       <td class="text-center">
@@ -378,6 +346,181 @@
     }
 
     fetchUsers();
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const addUserForm = document.getElementById("addUserForm");
+      const updateUserForm = document.getElementById("updateUserForm");
+      const offcanvasAdd = document.getElementById("offcanvasBackdrop");
+      const offcanvasEdit = document.getElementById("offcanvasEditBackdrop");
+
+      const firstName = document.getElementById("first_name");
+      const lastName = document.getElementById("last_name");
+      const updateFirstName = document.getElementById("firstname");
+      const updateLastName = document.getElementById("lastname");
+
+      const password = document.getElementById("password");
+      const confirmPassword = document.getElementById("confirm_password");
+      const passwordMatchFeedback = document.getElementById("passwordMatchFeedback");
+
+      function validateName(input) {
+      const nameRegex = /^[A-Za-z\s]+$/; // Allows only alphabets and spaces
+      return nameRegex.test(input.value);
+      }
+
+      function validatePassword(input) {
+      return input.value.length >= 6;
+      }
+
+      function validateConfirmPassword() {
+      if (password.value !== confirmPassword.value) {
+        confirmPassword.setCustomValidity("Passwords do not match.");
+        confirmPassword.classList.add("is-invalid");
+      } else {
+        confirmPassword.setCustomValidity("");
+        confirmPassword.classList.remove("is-invalid");
+      }
+      }
+
+      function validateForm(event, formType) {
+      let isValid = true;
+
+      // Name validations
+      if (!validateName(formType.firstName)) {
+        formType.firstName.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        formType.firstName.classList.remove("is-invalid");
+      }
+
+      if (!validateName(formType.lastName)) {
+        formType.lastName.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        formType.lastName.classList.remove("is-invalid");
+      }
+
+      // Password validations (only for Add User Form)
+      if (formType.password && !validatePassword(formType.password)) {
+        formType.password.classList.add("is-invalid");
+        formType.password.nextElementSibling.textContent = "Password must be at least 6 characters.";
+        isValid = false;
+      } else if (formType.password) {
+        formType.password.classList.remove("is-invalid");
+      }
+
+      if (formType.confirmPassword) {
+        validateConfirmPassword();
+        if (password.value !== confirmPassword.value) {
+        isValid = false;
+        }
+      }
+
+      if (!isValid) {
+        event.preventDefault();
+      }
+      }
+
+      addUserForm.addEventListener("submit", function (event) {
+      validateForm(event, {
+        firstName,
+        lastName,
+        password,
+        confirmPassword
+      });
+      });
+
+      updateUserForm.addEventListener("submit", function (event) {
+      validateForm(event, {
+        firstName: updateFirstName,
+        lastName: updateLastName
+      });
+      });
+
+      // Live validation for input fields
+      firstName.addEventListener("input", function () {
+      if (validateName(firstName)) {
+        firstName.classList.remove("is-invalid");
+      } else {
+        firstName.classList.add("is-invalid");
+      }
+      });
+
+      lastName.addEventListener("input", function () {
+      if (validateName(lastName)) {
+        lastName.classList.remove("is-invalid");
+      } else {
+        lastName.classList.add("is-invalid");
+      }
+      });
+
+      updateFirstName.addEventListener("input", function () {
+      if (validateName(updateFirstName)) {
+        updateFirstName.classList.remove("is-invalid");
+      } else {
+        updateFirstName.classList.add("is-invalid");
+      }
+      });
+
+      updateLastName.addEventListener("input", function () {
+      if (validateName(updateLastName)) {
+        updateLastName.classList.remove("is-invalid");
+      } else {
+        updateLastName.classList.add("is-invalid");
+      }
+      });
+
+      password.addEventListener("input", function () {
+      if (validatePassword(password)) {
+        password.classList.remove("is-invalid");
+      } else {
+        password.classList.add("is-invalid");
+        password.nextElementSibling.textContent = "Password must be at least 6 characters.";
+      }
+      });
+
+      confirmPassword.addEventListener("input", validateConfirmPassword);
+
+      function resetForm(form) {
+      form.reset(); // Reset form fields
+      form.classList.remove("was-validated"); // Remove validation styles
+      form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+      }
+
+      // Event listener to reset validation when opening Add User form
+      document.querySelector("[data-bs-target='#offcanvasBackdrop']").addEventListener("click", function () {
+      resetForm(addUserForm);
+      });
+
+      // Event listener to reset validation when opening Edit User form
+      document.querySelector("[data-bs-target='#offcanvasEditBackdrop']").addEventListener("click", function () {
+      resetForm(updateUserForm);
+      });
+
+      // Event listener for the Add User form submission
+      addUserForm.addEventListener("submit", function (event) {
+      if (!addUserForm.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      addUserForm.classList.add("was-validated");
+      });
+
+      // Event listener for the Edit User form submission
+      updateUserForm.addEventListener("submit", function (event) {
+      if (!updateUserForm.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        event.preventDefault(); // Prevent actual submission (for testing)
+
+        // Close the Edit Form after submission
+        let editOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEdit);
+        if (editOffcanvas) editOffcanvas.hide();
+      }
+      updateUserForm.classList.add("was-validated");
+      });
+
+    });
 
     let userIdToDelete;
 
@@ -431,17 +574,20 @@
       }
       });
     });
+
     $(document).ready(function () {
 
       $('#addUserForm').on('submit', function (e) {
       e.preventDefault();
 
       var form = $(this);
+      var submitButton = form.find('button[type="submit"]');
       form.addClass('was-validated');
 
       if (form[0].checkValidity() === false) {
         e.stopPropagation();
       } else {
+        submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Adding...');
         $.ajax({
         url: `/api/users`,
         type: 'POST',
@@ -454,6 +600,10 @@
         },
         error: function (error) {
           console.error('Error:', error.responseJSON);
+        },
+        complete: function () {
+          // Re-enable button and reset text
+          submitButton.prop('disabled', false).html('Add');
         }
         });
       }
@@ -468,13 +618,15 @@
       e.preventDefault();
 
       var form = $(this);
+
+      const userId = $('#userId').val();
+      var submitButton = form.find('button[type="submit"]');
       form.addClass('was-validated');
 
       if (form[0].checkValidity() === false) {
         e.stopPropagation();
       } else {
-        const userId = $('#userId').val();
-
+        submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Updating...');
         $.ajax({
         url: `/api/update/${userId}`,
         type: 'PUT',
@@ -487,6 +639,10 @@
         },
         error: function (error) {
           console.error('Error:', error.responseJSON);
+        },
+        complete: function () {
+          // Re-enable button and reset text
+          submitButton.prop('disabled', false).html('Update');
         }
         });
       }
