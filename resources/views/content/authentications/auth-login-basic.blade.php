@@ -31,7 +31,7 @@
             @csrf {{-- CSRF token for security --}}
 
             <div class="form-floating form-floating-outline mb-3">
-              <input type="text" class="form-control" id="email" name="Email" placeholder="Enter your email" required>
+              <input type="text" class="form-control" id="email" name="Email" placeholder="Enter your email">
               <label for="email">Email</label>
               <small class="text-danger d-none" id="email-error">Please enter a valid email</small>
             </div>
@@ -40,8 +40,7 @@
               <div class="form-password-toggle">
                 <div class="input-group input-group-merge">
                   <div class="form-floating form-floating-outline">
-                    <input type="password" id="password" class="form-control" name="Password" placeholder="**********"
-                      required>
+                    <input type="password" id="password" class="form-control" name="Password" placeholder="**********">
                     <label for="password">Password</label>
                   </div>
                   <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
