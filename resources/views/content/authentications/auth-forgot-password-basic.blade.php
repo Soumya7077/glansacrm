@@ -5,6 +5,14 @@
 @section('page-style')
 <!-- Page -->
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-auth.css')}}">
+<style>
+  .invalid-feedback {
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    font-size: 14px;
+  }
+  </style>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
 
@@ -30,6 +38,8 @@
             <div class="form-floating form-floating-outline mb-3">
               <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required
                 autofocus>
+                <div class="invalid-feedback">Please provide a Last Name.</div>
+
               <label for="email">Email</label>
               <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
@@ -110,14 +120,20 @@
   })();
 
   document.getElementById('sendResetLink').addEventListener('click', function () {
-    const email = document.getElementById('email');
+    const emailInput = document.getElementById('email');
+    const email = emailInput.value.trim();
+    const emailError = emailInput.nextElementSibling; // Get the invalid-feedback div
 
-    if (!email.checkValidity()) {
-      email.classList.add("is-invalid");
-      return;
+    // Reset previous validation messages
+    emailInput.classList.remove('is-invalid');
+    emailError.style.display = 'none';
+
+    if (!email) {
+      emailInput.classList.add('is-invalid');
+      emailError.textContent = 'Please enter your email.';
+      emailError.style.display = 'block';
+      return; // Stop execution if validation fails
     }
-
-    email.classList.remove("is-invalid");
 
     $.ajax({
       url: '{{ url("/api/forgotPassword") }}',
