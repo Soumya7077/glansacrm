@@ -102,7 +102,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Send</button>
             </form>
         </div>
     </div>
@@ -157,12 +157,14 @@
 
         $('#myForm').on('submit', function (e) {
             e.preventDefault();
+            let submitBtn = $('#submitBtn');
 
             if (!this.checkValidity()) {
                 e.stopPropagation();
                 $(this).addClass('was-validated');
             } else {
                 const formData = new FormData(this);
+                submitBtn.prop('disabled', true).text('Sending...');
 
                 $.ajax({
                     url: '/api/send-offer-letter',
@@ -184,6 +186,10 @@
                         alert('Failed to send the offer letter. Please try again.');
                         console.error('Error:', error);
                         console.error('XHR:', xhr.responseText);
+                    },
+                    complete: function () {
+                        // Re-enable button and restore text
+                        submitBtn.prop('disabled', false).text('Send');
                     }
                 });
             }

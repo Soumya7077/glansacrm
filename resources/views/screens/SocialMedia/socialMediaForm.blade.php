@@ -72,7 +72,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="text-start">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
             </div>
           </div>
           <div class="col-md-6">
@@ -124,11 +124,14 @@
 
     $('#socialMediaForm').on('submit', function (e) {
       e.preventDefault();
+      let submitBtn = $('#submitBtn');
       const form = this;
       if (!form.checkValidity()) {
         $(form).addClass('was-validated');
         return;
       }
+      submitBtn.prop('disabled', true).text('Submitting...');
+
       $.ajax({
         url: '/api/applicant',
         method: 'POST',
@@ -139,6 +142,10 @@
         error: function (xhr) {
           $('#errorMessage').text(xhr.responseJSON.message);
           $('#errorModal').modal('show');
+        },
+        complete: function () {
+          // Re-enable button and restore text
+          submitBtn.prop('disabled', false).text('Submit');
         }
       });
     });
