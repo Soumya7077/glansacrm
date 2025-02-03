@@ -538,7 +538,7 @@
         $('#confirmModal').modal('hide');
         $('#successMessage').text('User deleted successfully.');
         $('#successModaldelete').modal('show');
-        $('#successModal').on('hidden.bs.modal', function () {
+        $('#successModaldelete').on('hidden.bs.modal', function () {
         fetchUsers();
         });
       },
@@ -596,6 +596,7 @@
           $('#offcanvasBackdrop').offcanvas('hide');
           $('#successModal').modal('show');
           $('#addUserForm')[0].reset();
+          form.removeClass('was-validated');
           fetchUsers();
         },
         error: function (error) {
@@ -632,7 +633,7 @@
         type: 'PUT',
         data: form.serialize(),
         success: function (response) {
-          $('#offcanvasBackdrop').offcanvas('hide');
+          $('#offcanvasEditBackdrop').offcanvas('hide');
           $('#successModalupdate').modal('show');
           $('#updateUserForm')[0].reset();
           fetchUsers();

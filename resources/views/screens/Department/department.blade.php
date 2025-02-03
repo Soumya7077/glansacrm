@@ -45,6 +45,30 @@
     </div>
 </div>
 
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmation </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to perform this action?
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class='btn btn-danger' id='confirmDeleteButton'>
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <div class="col-lg-4 col-md-6">
     <div class="mt-3">
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasBackdrop"
@@ -63,9 +87,10 @@
                                 <input type="text" class="form-control" id="deptName" name="name" placeholder="Name"
                                     required />
                                 <label for="deptName">Name</label>
-                                <div class="invalid-feedback">Please enter a valid Name.</div>
+                                <div class="invalid-feedback">Departname Name is required. Please enter a valid name.
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 mb-2">Save</button>
+                            <button type="submit" id="submitBtn" class="btn btn-primary w-100 mb-2">Submit</button>
                         </div>
                     </div>
                     <button type="button" class="btn btn-outline-secondary d-grid w-100"
@@ -94,13 +119,13 @@
                             tableBody.empty();
                             $.each(response.data, function (index, department) {
                                 rows += `<tr class="text-center align-middle">
-                                                <td>${index + 1}</td>
-                                                <td>${department.Name}</td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
-                                                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
-                                                </td>
-                                            </tr>`;
+                                                        <td>${index + 1}</td>
+                                                        <td>${department.Name}</td>
+                                                        <td>
+                                                            <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
+                                                            <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
+                                                        </td>
+                                                    </tr>`;
                             });
                             tableBody.append(rows);
                             table.clear(); // Clear any previous DataTable data
@@ -136,6 +161,7 @@
                 e.preventDefault();
                 let id = $('#deptId').val();
                 let name = $('#deptName').val().trim();
+                let submitBtn = $('#submitBtn');
 
                 if (!name) {
                     $('#deptName').addClass('is-invalid');
@@ -147,6 +173,8 @@
                 let url = id ? `/api/updateDepartment/${id}` : "/api/department";
                 let method = id ? "PUT" : "POST";
                 let successMessage = id ? "Department updated successfully." : "Department added successfully.";
+
+                submitBtn.prop('disabled', true).text('Submitting...');
 
                 $.ajax({
                     url: url,
@@ -165,6 +193,10 @@
                     },
                     error: function (xhr) {
                         showMessageModal("Error: " + xhr.responseText);
+                    },
+                    complete: function () {
+                        // Re-enable button and restore text
+                        submitBtn.prop('disabled', false).text('Submit');
                     }
                 });
             });
@@ -174,27 +206,61 @@
                 }
             });
 
+            let deleteId = null;
+
             $(document).on('click', '.deleteBtn', function () {
-                let id = $(this).data('id');
-                if (confirm('Are you sure you want to delete this department?')) {
-                    $.ajax({
-                        url: `/api/deleteDepartment/${id}`,
-                        type: 'DELETE',
-                        headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
-                        success: function (response) {
-                            if (response) {
-                                fetchDepartments();
-                                showMessageModal("Department deleted successfully.");
-                            } else {
-                                showMessageModal("Failed to delete department.");
-                            }
-                        },
-                        error: function (xhr) {
-                            showMessageModal("Error: " + xhr.responseText);
-                        }
-                    });
-                }
+                deleteId = $(this).data('id');
+                new bootstrap.Modal(document.getElementById('confirmModal')).show();
             });
+
+            $('#confirmDeleteButton').click(function () {
+                let confirmBtn = $(this);
+                confirmBtn.prop('disabled', true).text('Deleting...');
+
+                $.ajax({
+                    url: `/api/deleteDepartment/${deleteId}`,
+                    type: 'DELETE',
+                    headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
+                    success: function (response) {
+                        if (response) {
+                            fetchDepartments();
+                            showMessageModal("Department deleted successfully.");
+                        } else {
+                            showMessageModal("Failed to delete department.");
+                        }
+                    },
+                    error: function (xhr) {
+                        showMessageModal("Error: " + xhr.responseText);
+                    },
+                    complete: function () {
+                        // Re-enable button and restore text
+                        confirmBtn.prop('disabled', false).text('Confirm');
+                        bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
+                    }
+                });
+            });
+
+            // $(document).on('click', '.deleteBtn', function () {
+            //     let id = $(this).data('id');
+            //     if (confirm('Are you sure you want to delete this department?')) {
+            //         $.ajax({
+            //             url: `/api/deleteDepartment/${id}`,
+            //             type: 'DELETE',
+            //             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') },
+            //             success: function (response) {
+            //                 if (response) {
+            //                     fetchDepartments();
+            //                     showMessageModal("Department deleted successfully.");
+            //                 } else {
+            //                     showMessageModal("Failed to delete department.");
+            //                 }
+            //             },
+            //             error: function (xhr) {
+            //                 showMessageModal("Error: " + xhr.responseText);
+            //             }
+            //         });
+            //     }
+            // });
 
             // When the Cancel button is clicked, clear the form and hide the offcanvas
             $('#cancelButton').click(function () {
