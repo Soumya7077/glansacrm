@@ -58,7 +58,7 @@
                             <input type="hidden" id="empId">
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="organization-name"
-                                    placeholder="Organization Name" required />
+                                    placeholder="Organization Name" />
                                 <label for="organization-name">Organization Name</label>
                                 <div class="invalid-feedback">Please provide the organization name.</div>
                             </div>
@@ -68,31 +68,31 @@
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-1-name"
-                                    placeholder="Contact Person Name" required />
+                                    placeholder="Contact Person Name" />
                                 <label for="contact-person-1-name">Contact Person Name</label>
                                 <div class="invalid-feedback">Please provide contact person 1's name.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="tel" class="form-control" id="contact-person-1-phone"
-                                    placeholder="Phone Number" required pattern="^\d{10}$" maxlength="10" />
+                                    placeholder="Phone Number" pattern="^\d{10}$" maxlength="10" />
                                 <label for="contact-person-1-phone">Phone Number</label>
                                 <div class="invalid-feedback">Please provide a valid 10-digit phone number.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
-                                <input type="email" class="form-control" id="contact-person-1-email" placeholder="Email"
-                                    required />
+                                <input type="email" class="form-control" id="contact-person-1-email"
+                                    placeholder="Email" />
                                 <label for="contact-person-1-email">Email</label>
                                 <div class="invalid-feedback">Please provide a valid email address.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-1-location"
-                                    placeholder="Location" required />
+                                    placeholder="Location" />
                                 <label for="contact-person-1-location">Location</label>
                                 <div class="invalid-feedback">Please provide a location.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="contact-person-1-designation"
-                                    placeholder="Designation" required />
+                                    placeholder="Designation" />
                                 <label for="contact-person-1-location">Designation</label>
                                 <div class="invalid-feedback">Please provide a Designation.</div>
                             </div>
@@ -126,7 +126,7 @@
                                 <label for="contact-person-2-location">Designation</label>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -154,22 +154,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="successModalupdate" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Success</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                The Employer has been updated successfully
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="modal fade" id="deletemodalsuccess" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -178,7 +163,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Employer deleteed successfully.
+                Employer deleted successfully.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
@@ -306,6 +291,9 @@
         $('#clearForm').on('click', function () {
             $('#addUserForm')[0].reset();
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
+            $('#empId').val(''); // Clear employer ID to indicate "Add" mode
+            $('.offcanvas-title').text('Add Employer'); // Update modal title
+            $('#offcanvasBackdrop').offcanvas('show'); // Open modal
         });
 
         $('#offcanvasBackdrop').on('hidden.bs.offcanvas', function () {
@@ -322,11 +310,11 @@
             $('.form-control').removeClass('is-invalid');
             $('.invalid-feedback').text('');
 
-
+            let submitBtn = $('#submitBtn');
             // Required field validation
             const requiredFields = [
-                { id: 'organization-name', message: 'Please provide the Organization name.' },
-                { id: 'contact-person-1-name', message: "Please provide Contact person 1's name." },
+                { id: 'organization-name', message: 'Please provide a valid Organization name (letters only).', pattern: /^[A-Za-z\s]+$/ },
+                { id: 'contact-person-1-name', message: "Please provide a valid name for Contact person 1.", pattern: /^[A-Za-z\s]+$/ },
                 { id: 'contact-person-1-phone', message: 'Please provide a valid 10-digit phone number.', pattern: /^\d{10}$/ },
                 { id: 'contact-person-1-email', message: 'Please provide a valid email address.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
                 { id: 'contact-person-1-location', message: 'Please provide a location.' },
@@ -341,6 +329,7 @@
                     input.addClass('is-invalid');
                     input.siblings('.invalid-feedback').text(field.message);
                     isValid = false;
+                    if (!firstErrorField) firstErrorField = input;
                 }
             });
 
@@ -358,13 +347,20 @@
                     input.addClass('is-invalid');
                     input.siblings('.invalid-feedback').text(field.message);
                     isValid = false;
+                    if (!firstErrorField) firstErrorField = input;
                 }
             });
 
             if (!isValid) {
                 $('#addUserForm').addClass('was-validated'); // Apply Bootstrap validation style
+                // Scroll to first error
+                if (firstErrorField) {
+                    $('html, body').animate({ scrollTop: firstErrorField.offset().top - 100 }, 'fast');
+                }
                 return;
             }
+
+            submitBtn.prop('disabled', true).text('Submitting...');
 
             const formData = {
                 OrganizationName: $('#organization-name').val(),
@@ -381,9 +377,9 @@
             };
 
             const employerId = $('#empId').val();
-
-            const method = employerId ? 'PUT' : 'POST';
-            const url = employerId ? `/api/updateEmployer/${employerId}` : '/api/createEmployer';
+            const isUpdate = !!employerId;
+            const method = isUpdate ? 'PUT' : 'POST';
+            const url = isUpdate ? `/api/updateEmployer/${employerId}` : '/api/createEmployer';
 
             $.ajax({
                 url: url,
@@ -393,6 +389,11 @@
                     console.log("Response:", response);
                     if (response) {
                         $('#offcanvasBackdrop').offcanvas('hide');
+                        // Update modal message dynamically
+                        $('#successModal .modal-body').text(isUpdate
+                            ? "The Employer has been successfully updated!"
+                            : "The Employer has been successfully added!"
+                        );
                         var successModal = new bootstrap.Modal(document.getElementById('successModal'));
                         successModal.show();
                         fetchEmployer();
@@ -411,6 +412,10 @@
                         alert('An error occurred. Please try again.');
                     }
                 },
+                complete: function () {
+                    // Re-enable button and restore text
+                    submitBtn.prop('disabled', false).text('Submit');
+                }
             });
         });
 
