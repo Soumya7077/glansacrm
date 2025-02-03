@@ -148,7 +148,6 @@
             $('#salaryoffered').val(data.SalaryOffer);
             $('#benefits').val(data.Benefits);
             $('#remarks').val(data.Remark);
-
             $('#JobId').val(data.JobId);
             $('#InterviewId').val(data.id);
             $('#EmployerId').val(data.EmployerId);
@@ -174,6 +173,7 @@
                     processData: false,
                     contentType: false,
                     success: function (response) {
+                        console.log(response);
                         const successModal = new bootstrap.Modal(document.getElementById('successModal'));
                         successModal.show();
 
@@ -182,6 +182,7 @@
                         console.log('Response:', response);
                     },
                     error: function (xhr, status, error) {
+                        console.log(xhr);
                         alert('Failed to send the offer letter. Please try again.');
                         console.error('Error:', error);
                         console.error('XHR:', xhr.responseText);
