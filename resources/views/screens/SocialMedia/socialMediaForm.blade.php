@@ -151,6 +151,21 @@
         $(this).removeClass('is-valid').addClass('is-invalid');
       }
     });
+    function validateNameInput(input) {
+      const nameRegex = /^[A-Za-z]+$/;
+      if (nameRegex.test($(input).val())) {
+        $(input).removeClass('is-invalid').addClass('is-valid');
+        $(input).siblings('.invalid-feedback').text('');
+      } else {
+        $(input).removeClass('is-valid').addClass('is-invalid');
+        $(input).siblings('.invalid-feedback').text('This field only accepts letters. Numbers and special characters are not allowed.');
+      }
+    }
+
+    $('#applicantFirstName, #applicantLastName').on('input', function () {
+      validateNameInput(this);
+    });
+
   });
 
 </script>

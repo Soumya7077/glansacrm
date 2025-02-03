@@ -154,11 +154,11 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="successModalLabel">Success</h5>
+            <h5 class="modal-title" id="successModalLabel"></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            Enquiry Form Submitted Successfully
+          <div class="modal-body message">
+            {{-- Enquiry Form Submitted Successfully --}}
           </div>
           <div class="modal-footer">
             <a href="/enquiry" class="btn btn-primary">OK</a>
@@ -175,40 +175,6 @@
         const applicantId = urlParams.get('applicant_id'); // Still fetching but not using it
 
         console.log("Applicant ID:", applicantId);
-
-        // if (applicantId) {
-        //   $.ajax({
-        //     url: '/api/getapplicant/' + applicantId,
-        //     type: 'GET',
-        //     success: function (response) {
-        //       console.log("Response Data:", response);
-        //       if (response) {
-        //         const data = response.data;
-
-        //         $('#firstname').val(data.FirstName);
-        //         $('#lastname').val(data.LastName);
-        //         $('#phone').val(data.PhoneNumber);
-        //         $('#email').val(data.Email);
-        //         $('#qualification').val(data.Qualification);
-        //         $('#experience').val(data.Experience);
-        //         $('#current-salary').val(data.CurrentSalary);
-        //         $('#expected-salary').val(data.ExpectedSalary);
-        //         $('#remarks').val(data.Remarks);
-        //         $('#noticeperiod').val(data.NoticePeriod);
-        //         $('#job-post').val(data.JobPostId);
-
-        //         if (data.Resume) {
-        //           $('#uploadResume').val(data.Resume);
-        //         }
-        //       } else {
-        //         console.error('Error fetching applicant data:', response.message);
-        //       }
-        //     },
-        //     error: function (xhr) {
-        //       console.error('Failed to fetch applicant data:', xhr.responseText);
-        //     }
-        //   });
-        // } else {
           $('#enquiryForm').on('submit', function (e) {
             e.preventDefault();
             let isValid = true;
@@ -285,39 +251,54 @@
             formData.append('StatusId', 1);
 
             $.ajax({
-              url: '/api/applicant',
-              type: 'POST',
-              data: formData,
-              processData: false,
-              contentType: false,
-              headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              },
-              beforeSend: function () {
-                $('button[type="submit"]').prop('disabled', true);
-              },
-              success: function (response) {
-                if (response.status === 'success') {
-                  var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                  successModal.show();
-                  $('#enquiryForm')[0].reset();
-                } else {
-                  console.error('Error submitting form:', response.message);
-                }
-              },
-              error: function (xhr) {
-                var errors = xhr.responseJSON;
-                if (errors && errors.message) {
-                  console.error(errors.message);
-                } else {
-                  console.error('Something went wrong. Please try again.');
-                }
-              },
-              complete: function () {
-                $('button[type="submit"]').prop('disabled', false);
+            url: '/api/applicant',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function () {
+              $('button[type="submit"]').prop('disabled', true);
+            },
+            success: function (response) {
+              if (response.status === 'success') {
+                let modal = new bootstrap.Modal(document.getElementById('successModal')).show();
+                $('.modal-title').text('Success');
+                $('.message').text(response.message);
+                $('.btn-primary').removeClass('btn-danger').addClass('btn-success'); // Set green button
+                modal.show();
+
+                
+              } else {
+                let modal = new bootstrap.Modal(document.getElementById('successModal'));
+                $('.modal-title').text('Error');
+                $('.message').text(response.message);
+               
               }
-            });
+            },
+            error: function (xhr, error) {
+                         
+              console.log(xhr);
+              let modal = new bootstrap.Modal(document.getElementById('successModal'));
+              $('.modal-title').text('Error').css('color', 'red');
+              
+              if (xhr.status == 400) {
+                $('.message').text(xhr.responseJSON.message);
+              } else {
+                $('.message').text('Something went wrong. Please try again.');
+              }
+
+              $('.btn-primary').removeClass('btn-success').addClass('btn-danger'); // Set red button
+              modal.show();
+            },
+            complete: function () {
+              $('button[type="submit"]').prop('disabled', false);
+            }
           });
+        });
+
         // }
 
         $.ajax({
