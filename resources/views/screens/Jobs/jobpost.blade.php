@@ -231,7 +231,7 @@
       </div>
 
       <button type="submit" id="jobPostButton" class="btn btn-primary">
-
+        Submit
       </button>
 
 
@@ -372,7 +372,7 @@
   if (jobId) {
 
     $('#heading').text('Job Update');
-    $('#jobPostButton').text('Update Job');
+    // $('#jobPostButton').text('Update Job');
 
     $.ajax({
       url: `/api/getJob/${jobId}`,
@@ -414,7 +414,7 @@
     });
   } else {
     $('#heading').text('Job Post');
-    $('#jobPostButton').text('Post Job');
+    // $('#jobPostButton').text('Post Job');
   }
 
   $(document).ready(function () {
@@ -434,6 +434,10 @@
 
       if (isValid) {
         var formData = $('#jobPostForm').serialize();
+
+        $('#jobPostButton').prop('disabled', true).text('Submitting...');
+
+
         // var jobId = $('#jobId').val();
 
         var requestConfig = {
@@ -457,6 +461,10 @@
             $('#deleteErrorModal').modal('show');
             console.error('Error:', error);
             console.error('Response:', xhr.responseText);
+          },
+          complete: function () {
+            // Re-enable button and restore text
+            $('#jobPostButton').prop('disabled', false).text('Submit');
           }
         };
 
