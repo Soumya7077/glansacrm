@@ -25,8 +25,7 @@
                     <p class="mb-4 text-center">Change Password</p>
 
                     <form id="changePasswordForm" class="mb-3">
-                        @csrf {{-- CSRF token for security --}}
-
+                        @csrf
                         <div class="mb-3">
                             <div class="form-password-toggle">
                                 <div class="input-group input-group-merge">
@@ -46,7 +45,7 @@
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
                                         <input type="password" id="newPassword" class="form-control" name="newPassword"
-                                            placeholder="Enter New Password" >
+                                            placeholder="Enter New Password">
                                         <label for="newPassword">New Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i
@@ -60,7 +59,7 @@
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
                                         <input type="password" id="confirmPassword" class="form-control"
-                                            name="confirmPassword" placeholder="Confirm New Password" >
+                                            name="confirmPassword" placeholder="Confirm New Password">
                                         <label for="confirmPassword">Confirm New Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i
@@ -142,7 +141,7 @@
             showError('New password cannot be the same as the current password.');
             return;
         }
-        
+
 
         console.log(userData.Email, 'fdfddffd');
 
