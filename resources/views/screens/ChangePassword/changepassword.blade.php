@@ -25,8 +25,7 @@
                     <p class="mb-4 text-center">Change Password</p>
 
                     <form id="changePasswordForm" class="mb-3">
-                        @csrf {{-- CSRF token for security --}}
-
+                        @csrf
                         <div class="mb-3">
                             <div class="form-password-toggle">
                                 <div class="input-group input-group-merge">
@@ -191,7 +190,9 @@
                 console.log('Error:', error);  // Logging the actual error
                 document.getElementById('btnText').classList.remove('d-none');
                 document.getElementById('btnLoader').classList.add('d-none');
-                showError('An error occurred. Please try again later.');
+                // showError('An error occurred. Please try again later.');
+                showError('Incorrect current password. Please try again.');
+
             }
         });
 
