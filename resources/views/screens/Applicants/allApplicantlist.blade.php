@@ -51,7 +51,13 @@
 
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" class="form-control" id="noticePeriod" placeholder="Notice Period" required />
+              <select type="text" class="form-control" id="noticePeriod" placeholder="Notice Period" required>
+                <option value="">Select Notice Period</option>
+                <option value="Immediate">Immediate</option>
+                <option value="15 days">15 days</option>
+                <option value="1 month">1 month</option>
+                <option value="more than 1 month">more than 1 month</option>
+              </select>
               <label for="noticePeriod">Notice Period</label>
               <div class="invalid-feedback">Please provide your notice period.</div>
             </div>
@@ -65,8 +71,11 @@
             </div>
           </div>
           <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
             <button type="submit" class="btn btn-primary w-25 mb-3">Filter</button>
           </div>
+          <div id="error-message" class="text-danger"></div>
         </div>
       </form>
     </div>
@@ -118,7 +127,7 @@
 
       </div>
       <div class="modal-footer">
-        <a href="/formattedapplicantslist" class="btn btn-primary">OK</a>
+        <a href="/formattedapplicantslist" class="btn btnSuc btn-primary">OK</a>
       </div>
     </div>
   </div>
@@ -139,78 +148,7 @@
           <div class="col-xl">
             <div class="card-body">
               <div class="row">
-                <!-- <div class="col-md-6">
-                  <p><strong>Name:</strong> Anita Seth </p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Phone Number:</strong> 9658741235 </p>
-                </div>
 
-                <div class="col-md-6">
-                  <p><strong>Email:</strong> anita@gmail.com </p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Portfolio/LinkedIn Profile:</strong> <a href="#"> linkedin.com/anita </a>
-                  </p>
-                </div>
-
-                <div class="col-md-6">
-                  <p><strong>Applying For:</strong> Medical </p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Highest Qualification:</strong> MBBS </p>
-                </div>
-
-                <div class="col-md-6">
-                  <p><strong>Current Location:</strong> Hyderabad </p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Preferred Location:</strong> Hyderabad </p>
-                </div>
-
-                <div class="col-md-6">
-                  <p><strong>Height:</strong> 5.4 ft </p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Weight:</strong> 58 kg </p>
-                </div>
-
-                <div class="col-md-6">
-                  <p><strong>Blood Group:</strong> O+ </p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Hemoglobin:</strong> 14.5% </p>
-                </div>
-
-                <div class="col-md-6">
-                  <p><strong>Notice Period:</strong> 1 month </p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Work Experience:</strong> 5 years </p>
-                </div>
-
-                <div class="col-md-6">
-                  <p><strong>Current Salary:</strong> 3,00,000 </p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Expected Salary:</strong> 6,20,000 </p>
-                </div>
-
-                <div class="col-md-6">
-                  <p><strong>Current Organisation:</strong> Glansa </p>
-                </div>
-
-                <div class="col-md-6">
-                  <p><strong>Resume:</strong> <a href="#"> Download Resume </a></p>
-                </div>
-                <div class="col-md-6">
-                  <p><strong>Certificates:</strong> <a href="#"> Download Certificates </a></p>
-                </div>
-
-                <div class="col-md-12">
-                  <p><strong>Remarks:</strong> Demonstrates exceptional dedication and compassion
-                    towards patients, providing holistic care and support.</p>
-                </div> -->
               </div>
             </div>
           </div>
@@ -394,14 +332,19 @@
   // });
 
   $("#clearForm").click(function () {
-    selectedApplicants = $(".applicant-checkbox:checked").map(function () {
+    const selectedApplicants = $(".applicant-checkbox:checked").map(function () {
       return $(this).data("id");
     }).get();
 
     if (selectedApplicants.length === 0) {
-      alert("Please select at least one applicant.");
+      $("#successModal .modal-title").text("ERROR");
+      $("#successModal .modal-body").text("Please select at least one applicant.");
+      $("#successModal .btnSuc").addClass("d-none");
+      $("#successModal").modal("show");
       return;
     }
+
+    $("#clearForm").prop('disabled', true).text('Formatting...');
 
     // Send AJAX request to update status for selected applicants
     let requests = selectedApplicants.map(applicantId => {
@@ -413,12 +356,19 @@
       });
     });
 
-    // Execute all AJAX calls and show the modal when complete
     $.when.apply($, requests).done(function () {
+      $("#successModal .modal-title").text("Success");
+      $("#successModal .modal-body").text("Applicant Formatted Successfully!");
+      $("#successModal .btnSuc").addClass('d-block');
       $("#successModal").modal("show"); // Show success modal after completion
       getJob();
+      $("#clearForm").prop('disabled', false).text('Format details');
     }).fail(function () {
-      alert("Error updating applicants. Please try again.");
+      $("#successModal .modal-title").text("ERROR");  // Change modal title to ERROR
+      $("#successModal .modal-body").text("Error updating applicants. Please try again.");
+      $("#successModal .btnSuc").addClass('d-none');  // Hide the "OK" button if there's an error
+      $("#successModal").modal("show");
+      $("#clearForm").prop('disabled', false).text('Format details');
     });
   });
 
@@ -435,6 +385,8 @@
   $('#applicantForm').on('submit', function (e) {
     e.preventDefault();
 
+    $('#error-message').hide().text("");
+
     // Retrieve form values
     let experience = $('#experience').val();
     let qualification = $('#qualifications').val();
@@ -442,113 +394,20 @@
     let noticePeriod = $('#noticePeriod').val();
     let expectedSalary = $('#expectedSalary').val();
 
-    // console.log(filterApplicantsData);
-
-    let filteredApplicant;
-
-    switch (filterApplicantsData.length > 0) {
-      case experience !== '' && qualification == '' && preferredLocation == '' && noticePeriod == '' && expectedSalary == '':
-        filteredApplicant = filterApplicantsData.filter((e) => e.Experience == experience);
-
-        console.log(filteredApplicant);
-        break;
-      case qualification !== '' && experience == '' && preferredLocation == '' && noticePeriod == '' && expectedSalary == '':
-        filteredApplicant = filterApplicantsData.filter((e) => e.Qualification && e.Qualification.toLowerCase() == qualification.toLowerCase());
-        console.log(filteredApplicant);
-        break;
-      case preferredLocation !== '' && qualification == '' && experience == '' && noticePeriod == '' && expectedSalary == '':
-        filteredApplicant = filterApplicantsData.filter((e) => e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase());
-        console.log(filteredApplicant);
-        break;
-      case noticePeriod !== '' && qualification == '' && experience == '' && preferredLocation == '' && expectedSalary == '':
-        filteredApplicant = filterApplicantsData.filter((e) => e.NoticePeriod <= noticePeriod);
-        console.log(filteredApplicant);
-        break;
-      case expectedSalary !== '' && qualification == '' && experience == '' && preferredLocation == '' && noticePeriod == '':
-        filteredApplicant = filterApplicantsData.filter((e) => parseFloat(e.ExpectedSalary) <= parseFloat(expectedSalary));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && qualification !== '' && preferredLocation == '' && noticePeriod == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (e.Qualification && e.Qualification.toLowerCase() == qualification.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && preferredLocation !== '' && qualification == '' && noticePeriod == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && noticePeriod !== '' && qualification == '' && preferredLocation == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (e.NoticePeriod == noticePeriod));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && expectedSalary !== '' && qualification == '' && preferredLocation == '' && noticePeriod == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (parseFloat(e.ExpectedSalary) <= parseFloat(expectedSalary)));
-        console.log(filteredApplicant);
-        break;
-      case (qualification !== '' && preferredLocation !== '' && experience == '' && noticePeriod == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Qualification && e.Qualification.toLowerCase() == qualification.toLowerCase()) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (qualification !== '' && noticePeriod !== '' && experience == '' && preferredLocation == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Qualification && e.Qualification.toLowerCase() == qualification.toLowerCase()) && (e.NoticePeriod == noticePeriod));
-        console.log(filteredApplicant);
-        break;
-      case (qualification !== '' && expectedSalary !== '' && experience == '' && preferredLocation == '' && noticePeriod == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Qualification == qualification) && (e.ExpectedSalary <= expectedSalary));
-        console.log(filteredApplicant);
-        break;
-      case (preferredLocation !== '' && noticePeriod !== '' && experience == '' && qualification == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()) && (e.NoticePeriod == noticePeriod));
-        console.log(filteredApplicant);
-        break;
-      case (preferredLocation !== '' && expectedSalary !== '' && experience == '' && qualification == '' && noticePeriod == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()) && (parseFloat(e.ExpectedSalary) <= parseFloat(expectedSalary)));
-        console.log(filteredApplicant);
-        break;
-      case (noticePeriod !== '' && expectedSalary !== '' && experience == '' && qualification == '' && preferredLocation == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.NoticePeriod == noticePeriod) && (parseFloat(e.ExpectedSalary) <= parseFloat(expectedSalary)));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && qualification !== '' && preferredLocation !== '' && noticePeriod == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && qualification !== '' && noticePeriod !== '' && preferredLocation == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.NoticePeriod == noticePeriod));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && qualification !== '' && expectedSalary !== '' && preferredLocation == '' && noticePeriod == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (parseFloat(e.ExpectedSalary) <= parseFloat(expectedSalary)));
-        console.log(filteredApplicant);
-        break;
-      case (preferredLocation !== '' && qualification !== '' && noticePeriod !== '' && qualification == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.NoticePeriod == noticePeriod) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (preferredLocation !== '' && qualification !== '' && expectedSalary !== '' && qualification == '' && noticePeriod == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (parseFloat(e.ExpectedSalary) <= expectedSalary) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (preferredLocation !== '' && noticePeriod !== '' && expectedSalary !== '' && qualification == '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.NoticePeriod == noticePeriod) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && qualification !== '' && preferredLocation !== '' && noticePeriod !== '' && expectedSalary == ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (e.NoticePeriod == noticePeriod) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && qualification !== '' && preferredLocation !== '' && noticePeriod == '' && expectedSalary !== ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (parseFloat(e.ExpectedSalary) == parseFloat(expectedSalary)) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (experience == '' && qualification !== '' && preferredLocation !== '' && noticePeriod !== '' && expectedSalary !== ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.NoticePeriod == noticePeriod) && (parseFloat(e.ExpectedSalary) <= parseFloat(expectedSalary)) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
-      case (experience !== '' && qualification !== '' && preferredLocation !== '' && noticePeriod !== '' && expectedSalary !== ''):
-        filteredApplicant = filterApplicantsData.filter((e) => (e.Experience == experience) && (e.NoticePeriod == noticePeriod) && (parseFloat(e.ExpectedSalary) <= parseFloat(expectedSalary)) && (e.Qualification && e.Qualification.toLowerCase() == qualification) && (e.PreferredLocation && e.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase()));
-        console.log(filteredApplicant);
-        break;
+    if (!experience && !qualification && !preferredLocation && !noticePeriod && !expectedSalary) {
+      $('#error-message').text("Fill at least one field to filter.").show();
+      return;
     }
+
+    let filteredApplicant = filterApplicantsData.filter(applicant => {
+      return (!experience || applicant.Experience == experience) &&
+        (!qualification || (applicant.Qualification && applicant.Qualification.toLowerCase() == qualification.toLowerCase())) &&
+        (!preferredLocation || (applicant.PreferredLocation && applicant.PreferredLocation.toLowerCase() == preferredLocation.toLowerCase())) &&
+        (!noticePeriod || applicant.NoticePeriod == noticePeriod) &&
+        (!expectedSalary || parseFloat(applicant.ExpectedSalary) <= parseFloat(expectedSalary));
+    });
+
+    console.log(filteredApplicant, 'filterrrrrrr');
 
 
     let table = $('#table').DataTable(); // Access DataTable instance
@@ -578,8 +437,8 @@
                 <td>${applicant.PreferredLocation || 'N/A'}</td>
                 <td>${applicant.NoticePeriod || 'N/A'}</td>
                 <td>${applicant.CurrentOrganization || 'N/A'}</td>
-                <td>${applicant.CurrentSalary ? applicant.CurrentSalary + ' LPA' : 'N/A'}</td>
-                <td>${applicant.ExpectedSalary ? applicant.ExpectedSalary + ' LPA' : 'N/A'}</td>
+                <td>${applicant.CurrentSalary ? applicant.CurrentSalary : 'N/A'}</td>
+                <td>${applicant.ExpectedSalary ? applicant.ExpectedSalary : 'N/A'}</td>
                 <td>
                     ${applicant.Resume ? `<a href="${applicant.Resume}" target="_blank">View Resume</a>` : 'N/A'}
                 </td>

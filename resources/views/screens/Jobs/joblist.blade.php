@@ -190,6 +190,7 @@
 
             if (response) {
               showSuccessModal('Job deleted successfully');
+              fetchJobs();
               $(`#jobList tr[data-id="${jobId}"]`).remove();
             } else {
               showErrorModal('Failed to delete the job. Please try again.');

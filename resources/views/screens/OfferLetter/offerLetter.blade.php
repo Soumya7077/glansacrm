@@ -102,7 +102,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Send</button>
             </form>
         </div>
     </div>
@@ -148,7 +148,6 @@
             $('#salaryoffered').val(data.SalaryOffer);
             $('#benefits').val(data.Benefits);
             $('#remarks').val(data.Remark);
-
             $('#JobId').val(data.JobId);
             $('#InterviewId').val(data.id);
             $('#EmployerId').val(data.EmployerId);
@@ -158,12 +157,14 @@
 
         $('#myForm').on('submit', function (e) {
             e.preventDefault();
+            let submitBtn = $('#submitBtn');
 
             if (!this.checkValidity()) {
                 e.stopPropagation();
                 $(this).addClass('was-validated');
             } else {
                 const formData = new FormData(this);
+                submitBtn.prop('disabled', true).text('Sending...');
 
                 $.ajax({
                     url: '/api/send-offer-letter',
@@ -172,6 +173,7 @@
                     processData: false,
                     contentType: false,
                     success: function (response) {
+                        console.log(response);
                         const successModal = new bootstrap.Modal(document.getElementById('successModal'));
                         successModal.show();
 
@@ -180,9 +182,14 @@
                         console.log('Response:', response);
                     },
                     error: function (xhr, status, error) {
+                        console.log(xhr);
                         alert('Failed to send the offer letter. Please try again.');
                         console.error('Error:', error);
                         console.error('XHR:', xhr.responseText);
+                    },
+                    complete: function () {
+                        // Re-enable button and restore text
+                        submitBtn.prop('disabled', false).text('Send');
                     }
                 });
             }
