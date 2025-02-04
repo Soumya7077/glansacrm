@@ -172,85 +172,110 @@
       $(document).ready(function () {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const applicantId = urlParams.get('applicant_id'); // Still fetching but not using it
+        const applicantData = urlParams.get('applicant'); // Still fetching but not using it
 
-        console.log("Applicant ID:", applicantId);
-          $('#enquiryForm').on('submit', function (e) {
-            e.preventDefault();
-            let isValid = true;
+        if (applicantData) {
+          try {
+            // Decode and parse the JSON data
+            const applicant = JSON.parse(applicantData);
 
-            let firstName = $('#firstname').val().trim();
-            if (!/^[A-Za-z\s]+$/.test(firstName)) {
-              $('#firstname').addClass('is-invalid');
-              isValid = false;
-            } else {
-              $('#firstname').removeClass('is-invalid');
-            }
+            // Populate form fields with the retrieved data
+            $('#firstname').val(applicant.FirstName || '');
+            $('#lastname').val(applicant.LastName || '');
+            $('#email').val(applicant.Email || '');
+            $('#phone').val(applicant.PhoneNumber || '');
 
-            let lastName = $('#lastname').val().trim();
-            if (!/^[A-Za-z\s]+$/.test(lastName)) {
-              $('#lastname').addClass('is-invalid');
-              isValid = false;
-            } else {
-              $('#lastname').removeClass('is-invalid');
-            }
+            console.log("Retrieved Applicant Data:", applicant);
+          } catch (error) {
+            console.error("Error parsing applicant data:", error);
+          }
+        }
+        // const applicantfirstName = urlParams.get('firstname');
+        // const applicantlastName = urlParams.get('lastname');
+        // const applicantEmail = urlParams.get('email');
+        // const applicantPhone = urlParams.get('phone');
 
-            let phoneNumber = $('#phone').val().trim();
-            if (!/^\d{10}$/.test(phoneNumber)) {
-              $('#phone').addClass('is-invalid');
-              isValid = false;
-            } else {
-              $('#phone').removeClass('is-invalid');
-            }
+        // $('#firstname').val(applicantfirstName);
+        // $('#lastname').val(applicantlastName);
+        // $('#email').val(applicantEmail);
+        // $('#phone').val(applicantPhone);
 
-            let email = $('#email').val().trim();
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-              $('#email').addClass('is-invalid');
-              isValid = false;
-            } else {
-              $('#email').removeClass('is-invalid');
-            }
+        $('#enquiryForm').on('submit', function (e) {
+          e.preventDefault();
+          let isValid = true;
 
-            if ($('#job-post').val() === '') {
-              $('#job-post').addClass('is-invalid');
-              isValid = false;
-            } else {
-              $('#job-post').removeClass('is-invalid');
-            }
+          let firstName = $('#firstname').val().trim();
+          if (!/^[A-Za-z\s]+$/.test(firstName)) {
+            $('#firstname').addClass('is-invalid');
+            isValid = false;
+          } else {
+            $('#firstname').removeClass('is-invalid');
+          }
 
-            if ($('#qualification').val().trim() === '') {
-              $('#qualification').addClass('is-invalid');
-              isValid = false;
-            } else {
-              $('#qualification').removeClass('is-invalid');
-            }
+          let lastName = $('#lastname').val().trim();
+          if (!/^[A-Za-z\s]+$/.test(lastName)) {
+            $('#lastname').addClass('is-invalid');
+            isValid = false;
+          } else {
+            $('#lastname').removeClass('is-invalid');
+          }
 
-            let currentSalary = $('#current-salary').val().trim();
-            let expectedSalary = $('#expected-salary').val().trim();
-            let remarks = $('#remarks').val().trim();
-            let noticePeriod = $('#noticeperiod').val();
-            let jobPost = $('#job-post').val();
+          let phoneNumber = $('#phone').val().trim();
+          if (!/^\d{10}$/.test(phoneNumber)) {
+            $('#phone').addClass('is-invalid');
+            isValid = false;
+          } else {
+            $('#phone').removeClass('is-invalid');
+          }
 
-            if (!isValid) return;
+          let email = $('#email').val().trim();
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            $('#email').addClass('is-invalid');
+            isValid = false;
+          } else {
+            $('#email').removeClass('is-invalid');
+          }
 
-            // Prepare form data for submission
-            var formData = new FormData(this);
-            formData.append('jobpost_id', jobPost);
-            formData.append('Source', 'Enquiry');
-            formData.append('FirstName', firstName);
-            formData.append('LastName', lastName);
-            formData.append('email', email);
-            formData.append('phone', phoneNumber);
-            formData.append('Qualification', $('#qualification').val().trim());
-            formData.append('Experience', $('#experience').val().trim());
-            formData.append('CurrentSalary', currentSalary);
-            formData.append('ExpectedSalary', expectedSalary);
-            formData.append('Resume', $('#uploadResume')[0].files[0]);
-            formData.append('NoticePeriod', noticePeriod);
-            formData.append('Remarks', remarks);
-            formData.append('StatusId', 1);
+          if ($('#job-post').val() === '') {
+            $('#job-post').addClass('is-invalid');
+            isValid = false;
+          } else {
+            $('#job-post').removeClass('is-invalid');
+          }
 
-            $.ajax({
+          if ($('#qualification').val().trim() === '') {
+            $('#qualification').addClass('is-invalid');
+            isValid = false;
+          } else {
+            $('#qualification').removeClass('is-invalid');
+          }
+
+          let currentSalary = $('#current-salary').val().trim();
+          let expectedSalary = $('#expected-salary').val().trim();
+          let remarks = $('#remarks').val().trim();
+          let noticePeriod = $('#noticeperiod').val();
+          let jobPost = $('#job-post').val();
+
+          if (!isValid) return;
+
+          // Prepare form data for submission
+          var formData = new FormData(this);
+          formData.append('jobpost_id', jobPost);
+          formData.append('Source', 'Enquiry');
+          formData.append('FirstName', firstName);
+          formData.append('LastName', lastName);
+          formData.append('email', email);
+          formData.append('phone', phoneNumber);
+          formData.append('Qualification', $('#qualification').val().trim());
+          formData.append('Experience', $('#experience').val().trim());
+          formData.append('CurrentSalary', currentSalary);
+          formData.append('ExpectedSalary', expectedSalary);
+          formData.append('Resume', $('#uploadResume')[0].files[0]);
+          formData.append('NoticePeriod', noticePeriod);
+          formData.append('Remarks', remarks);
+          formData.append('StatusId', 1);
+
+          $.ajax({
             url: '/api/applicant',
             type: 'POST',
             data: formData,
@@ -270,20 +295,20 @@
                 $('.btn-primary').removeClass('btn-danger').addClass('btn-success'); // Set green button
                 modal.show();
 
-                
+
               } else {
                 let modal = new bootstrap.Modal(document.getElementById('successModal'));
                 $('.modal-title').text('Error');
                 $('.message').text(response.message);
-               
+
               }
             },
             error: function (xhr, error) {
-                         
+
               console.log(xhr);
               let modal = new bootstrap.Modal(document.getElementById('successModal'));
               $('.modal-title').text('Error').css('color', 'red');
-              
+
               if (xhr.status == 400) {
                 $('.message').text(xhr.responseJSON.message);
               } else {

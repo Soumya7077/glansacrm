@@ -85,6 +85,30 @@
   </div>
 </div>
 
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmation </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to perform this action?
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class='btn btn-danger' id='confirmDeleteButton'>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 @endsection
 
 @push('scripts')
@@ -128,18 +152,18 @@
         if (assignedRecruiters.length > 0) {
         assignedRecruiters.forEach((recruiter, index) => {
           let rows = `
-                  <tr class="text-center align-middle">
-                    <td>${index + 1}</td>
-                    <td>${recruiter.FirstName} ${recruiter.LastName}</td>
-                    <td>${recruiter.Title}</td>
-                    <td>
-                    <button class="btn btn-primary btn-sm editAssignment"  data-id="${recruiter.assignedId}">
-                                  Edit
-                                  </button>
-                    <button class="btn btn-danger btn-sm deleteAssignment"  data-id="${recruiter.assignedId}">
-                                  Delete
-                    </td>
-                  </tr>`;
+      <tr class="text-center align-middle">
+      <td>${index + 1}</td>
+      <td>${recruiter.FirstName} ${recruiter.LastName}</td>
+      <td>${recruiter.Title}</td>
+      <td>
+      <button class="btn btn-primary btn-sm editAssignment"  data-id="${recruiter.assignedId}">
+        Edit
+        </button>
+      <button class="btn btn-danger btn-sm deleteAssignment"  data-id="${recruiter.assignedId}">
+        Delete
+      </td>
+      </tr>`;
           tbody.append(rows);
 
         });
@@ -344,24 +368,21 @@
     const id = $(this).data('id');
     console.log("Delete clicked for ID:", id);  // Debugging
 
+    // Show the confirmation modal
+    $('#confirmModal').modal('show');
 
-    $('.modal-title').text("Success");
-          $('.modal-body').text(data.message);
-          var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-          successModal.show();
-
-    if (!confirm('Are you sure you want to delete this assignment?')) return;
-
-    $.ajax({
+    // When user clicks Confirm on the confirmation modal
+    $('#confirmDeleteButton').off('click').on('click', function () {
+      // Perform the delete request
+      $.ajax({
       url: `/api/deleteassignuser/${id}`,
       method: "DELETE",
       headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       success: function (response) {
-      console.log(response, 'delete response');
-
-      if (response) {
+        console.log(response, 'delete response');
+        // Show the success modal
         $('#successModalLabel').text("Success");
         $('.modal-body').text("Assigned Data deleted successfully.");
         var successModal = new bootstrap.Modal(document.getElementById('successModal'));
@@ -371,23 +392,22 @@
         $('#successModal').on('hidden.bs.modal', function () {
         fetchAssignedRecruiter();
         });
-      } else {
+        // Close the confirmation modal
+        $('#confirmModal').modal('hide');
+      },
+      error: function (xhr, status, error) {
+        console.error("Error deleting assignment:", xhr.responseText);
+        // Show the error modal
         $('#successModalLabel').text("Error");
         $('.modal-body').text("Failed to delete data.");
         var errorModal = new bootstrap.Modal(document.getElementById('successModal'));
         errorModal.show();
+        // Close the confirmation modal
+        $('#confirmModal').modal('hide');
       }
-      },
-      error: function (xhr, status, error) {
-      console.error("Error deleting assignment:", xhr.responseText);
-      $('#successModalLabel').text("Error");
-      $('.modal-body').text("Failed to delete data.");
-      var errorModal = new bootstrap.Modal(document.getElementById('successModal'));
-      errorModal.show();
-      }
+      });
     });
     });
-
 
   </script>
 @endpush
