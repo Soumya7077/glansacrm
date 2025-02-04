@@ -16,10 +16,6 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-// if (file_exists($maintenance = __DIR__ . '/../storage/framework/maintenance.php')) {
-//   require $maintenance;
-// }
-
 if (file_exists($maintenance = __DIR__ . '/../laravel/storage/framework/maintenance.php')) {
   require $maintenance;
 }
@@ -35,7 +31,7 @@ if (file_exists($maintenance = __DIR__ . '/../laravel/storage/framework/maintena
 |
 */
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../laravel/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -48,10 +44,9 @@ require __DIR__ . '/../vendor/autoload.php';
 |
 */
 
-// $app = require_once __DIR__.'/../bootstrap/app.php';
-
 $app = require_once __DIR__ . '/../laravel/bootstrap/app.php';
 
+//--- binding your app ---//
 $app->bind('path.public', function () {
   return base_path('/../public_html/demo/');
 });
