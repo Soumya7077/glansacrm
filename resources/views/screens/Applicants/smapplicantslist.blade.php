@@ -32,8 +32,7 @@
     </table>
   </div>
   <div class="d-flex justify-content-end mt-3">
-    <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Assign </button>
+    <button id="clearForm" class="btn btn-primary" type="button"> Assign </button>
   </div>
 </div>
 
@@ -108,17 +107,34 @@
 @push('scripts')
   <script>
     $(document).ready(function () {
+
+    // function showSuccessModal(message) {
+    //   $('#successModal .modal-body').text(message);
+    //   $('#successModal').modal('show');
+    // }
+
+    // function errorModal(message) {
+    //   $('#errorModal .modal-body').text(message);
+    //   $('#errorModal').modal('show');
+    // }
     // Handle the "Update" button click
     $(document).on('click', '.update-btn', function (e) {
       e.preventDefault();  // Prevent default link behavior
 
       var applicantId = $(this).data('id');  // Get applicant ID from data-id attribute
+      var applicantFirstName = $(this).data('FirstName');  // Get applicant name (First and Last name)
+      var applicantLastName = $(this).data('LastName');
+      var applicantEmail = $(this).data('email');  // Get applicant email
+      var applicantPhone = $(this).data('phone');  // Get applicant phone number
+
+      console.log(applicantId, applicantFirstName, applicantLastName, applicantEmail, applicantPhone);
+
 
       // Dynamically set the href to include the applicant_id in the query string
-      var href = '/enquiryForm?applicant_id=' + applicantId;
+      var href = '/enquiryForm?applicant_id=' + applicantId + '&firstname=' + applicantFapplicantFirstName + '&lastname=' + applicantLastName + '&email=' + applicantEmail + '&phone=' + applicantPhone;
 
       // Redirect the user to the enquiry form page
-      window.location.href = href;
+      // window.location.href = href;
     });
     });
 
@@ -134,8 +150,8 @@
 
     var table = $('#table').DataTable();
     function fetchApplicants() {
-      var tableBody = $('#tbody');
-      tableBody.html('<tr><td colspan="6" class="text-primary">Loading...</td></tr>');
+    var tableBody = $('#tbody');
+    tableBody.html('<tr><td colspan="6" class="text-primary">Loading...</td></tr>');
     // $('#loading-spinner').show();
 
     $.ajax({
@@ -148,14 +164,16 @@
       tableBody.empty();
       if (response.status === 'success' && response.data.length > 0) {
         response.data.forEach((applicant) => {
+        const applicantdata = JSON.stringify(applicant);
+        const encodedApplicantData = encodeURIComponent(applicantdata);
         const rows = `
-      <tr class="text-center small" data-id="${applicant.id}">
+      <tr class="text-center small" data-id="${applicant.id}" data-firstname="${applicant.FirstName || ''}" data-lastname="${applicant.LastName || ''}" data-email="${applicant.Email || ''}" data-phone="${applicant.PhoneNumber || ''}">
       <td><input type="checkbox" class="select-applicant" data-id="${applicant.id}"></td>
       <td>${applicant.FirstName} ${applicant.LastName || ''}</td>
       <td>${applicant.Email || 'N/A'}</td>
       <td>${applicant.PhoneNumber || 'N/A'}</td>
       <td>${applicant.isAssigned == true ? "Assigned" : "Not Assigned" || 'N/A'}</td>
-      <td><a href="/enquiryForm?applicant_id=${applicant.id}" class="btn btn-info btn-xs">Update</a></td>
+      <td><a href="/enquiryForm?applicant=${encodedApplicantData}" class="btn btn-info btn-xs">Update</a></td>
       </tr>
       `;
         tableBody.append(rows);
@@ -168,11 +186,31 @@
       },
       error: function () {
       $('#loading-spinner').hide();
-      showErrorModal('Failed to fetch applicants. Please try again later.');
+      $('#errorModal .modal-body').text('Failed to fetch applicants. Please try again later.');
+      $('#errorModal').modal('show');
+      // errorModal('Failed to fetch applicants. Please try again later.');
       }
 
     });
     }
+
+    $('#clearForm').on('click', function (e) {
+    e.preventDefault(); // Prevent any unintended behavior
+
+    // Get selected applicants
+    let selectedApplicants = $('.select-applicant:checked').map(function () {
+      return $(this).data('id');
+    }).get();
+
+    if (selectedApplicants.length === 0) {
+      $('#errorModal .modal-body').text('Please select at least one applicant.');
+      $('#errorModal').modal('show');
+      return;
+    }
+
+    // If at least one applicant is selected, show the offcanvas
+    $('#offcanvasBackdrop').offcanvas('show');
+    });
 
     function fetchRecruiters() {
     $.ajax({
@@ -194,7 +232,8 @@
       }
       },
       error: function () {
-      showErrorModal('Failed to fetch recruiters. Please try again later.');
+      $('#errorModal .modal-body').text('Failed to fetch Recruiter. Please try again later.');
+      $('#errorModal').modal('show');
       }
     });
     }
@@ -225,15 +264,19 @@
     let assignedBy = userData.id;
 
     if (selectedApplicants.length === 0) {
-      showErrorModal('Please select at least one applicant.');
+      console.log('no applicant');
+
+      // errorModal('Please select at least one applicant.');
       return;
     }
     if (!recruiterId) {
-      showErrorModal('Please select a recruiter.');
+      // errorModal('Please select a recruiter.');
       return;
     }
     if (!assignedBy) {
-      showErrorModal('Invalid session. Please refresh and try again.');
+      $('#errorModal .modal-body').text('Invalid Session');
+      $('#errorModal').modal('show');
+      // errorModal('Invalid session. Please refresh and try again.');
       return;
     }
 
@@ -255,19 +298,31 @@
       _token: $('meta[name="csrf-token"]').attr('content')
       }),
       success: function (response) {
-        fetchApplicants();
-      showSuccessModal(response.message);
+      fetchApplicants();
+      $('#successModal .modal-body').text(response.message);
+      $('#successModal').modal('show');
       // $('#table').DataTable().ajax.reload();
 
       // Uncheck all selected checkboxes after submission
       $('.select-applicant:checked').prop('checked', false);
+
+      // Close the offcanvas after submission
+      let offcanvasElement = document.getElementById('offcanvasBackdrop');
+      let offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+      if (offcanvasInstance) {
+        offcanvasInstance.hide();
+      }
       },
       error: function (xhr) {
       if (xhr.status === 400) {
         let errorMessage = xhr.responseJSON.message;
-        showErrorModal(errorMessage);  // Show applicants who were already assigned
+        $('#errorModal .modal-body').text(errorMessage);
+        $('#errorModal').modal('show');
+        // errorModal(errorMessage);  // Show applicants who were already assigned
       } else {
-        showErrorModal('Something went wrong. Please try again.');
+        $('#errorModal .modal-body').text('Something went wrong. Please try again.');
+        $('#errorModal').modal('show');
+        // errorModal('Something went wrong. Please try again.');
       }
       }
     });
@@ -289,15 +344,7 @@
       $('#select-all').prop('checked', allChecked);
     });
 
-    function showSuccessModal(message) {
-      $('#successModal .modal-body').text(message);
-      $('#successModal').modal('show');
-    }
 
-    function showErrorModal(message) {
-      $('#errorModal .modal-body').text(message);
-      $('#errorModal').modal('show');
-    }
     });
   </script>
 @endpush
