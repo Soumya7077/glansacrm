@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: laravel-app
+    runtime: docker
+    repo: https://github.com/Soumya7077/glansacrm
+    region: oregon
+    plan: free
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        value: base64:mln1keRjYJYz06TPXJg8SZhJ7JN+oToy08vrPQhoq78=
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://crm.onrender.com
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: 151.106.103.73
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: glansah7_ats_healthcare
+      - key: DB_USERNAME
+        value: glansah7_ats_healthcare
+      - key: DB_PASSWORD
+        value: glansah7_ats_healthcare
+    buildCommand: composer install --no-dev --optimize-autoloader
+    startCommand: php artisan serve --host=0.0.0.0 --port=10000
