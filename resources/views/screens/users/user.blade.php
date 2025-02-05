@@ -105,21 +105,6 @@
                 </div>
               </div>
 
-
-              <!-- <div class="form-floating form-floating-outline mb-4">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
-                  required />
-                <label for="password">Password</label>
-                <div class="invalid-feedback">Please provide a password.</div>
-              </div> -->
-
-              <!-- <div class="form-floating form-floating-outline mb-4">
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password"
-                  placeholder="Confirm Password" required />
-                <label for="confirm_password">Confirm Password</label>
-                <div class="invalid-feedback" id="passwordMatchFeedback">Passwords do not match.</div>
-              </div> -->
-
               <div class="form-floating form-floating-outline mb-4">
                 <select id="role_id" name="role_id" class="form-select" required>
                   <option hidden value="">Select Role</option>
@@ -162,14 +147,14 @@
                 <input type="text" class="form-control" id="firstname" name="first_name" placeholder="First Name"
                   required />
                 <label for="firstname">First Name</label>
-                <div class="invalid-feedback">Please provide a First Name.</div>
+                <div class="invalid-feedback">Please provide a valid first name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="lastname" name="last_name" placeholder="Last Name"
                   required />
                 <label for="lastname">Last Name</label>
-                <div class="invalid-feedback">Please provide a Last Name.</div>
+                <div class="invalid-feedback">Please provide a valid last name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
@@ -301,7 +286,6 @@
 
 @push('scripts')
   <script>
-
     $(document).ready(function () {
     function fetchUsers() {
       var table = $('#table').DataTable();
@@ -346,181 +330,6 @@
     }
 
     fetchUsers();
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const addUserForm = document.getElementById("addUserForm");
-      const updateUserForm = document.getElementById("updateUserForm");
-      const offcanvasAdd = document.getElementById("offcanvasBackdrop");
-      const offcanvasEdit = document.getElementById("offcanvasEditBackdrop");
-
-      const firstName = document.getElementById("first_name");
-      const lastName = document.getElementById("last_name");
-      const updateFirstName = document.getElementById("firstname");
-      const updateLastName = document.getElementById("lastname");
-
-      const password = document.getElementById("password");
-      const confirmPassword = document.getElementById("confirm_password");
-      const passwordMatchFeedback = document.getElementById("passwordMatchFeedback");
-
-      function validateName(input) {
-      const nameRegex = /^[A-Za-z\s]+$/; // Allows only alphabets and spaces
-      return nameRegex.test(input.value);
-      }
-
-      function validatePassword(input) {
-      return input.value.length >= 6;
-      }
-
-      function validateConfirmPassword() {
-      if (password.value !== confirmPassword.value) {
-        confirmPassword.setCustomValidity("Passwords do not match.");
-        confirmPassword.classList.add("is-invalid");
-      } else {
-        confirmPassword.setCustomValidity("");
-        confirmPassword.classList.remove("is-invalid");
-      }
-      }
-
-      function validateForm(event, formType) {
-      let isValid = true;
-
-      // Name validations
-      if (!validateName(formType.firstName)) {
-        formType.firstName.classList.add("is-invalid");
-        isValid = false;
-      } else {
-        formType.firstName.classList.remove("is-invalid");
-      }
-
-      if (!validateName(formType.lastName)) {
-        formType.lastName.classList.add("is-invalid");
-        isValid = false;
-      } else {
-        formType.lastName.classList.remove("is-invalid");
-      }
-
-      // Password validations (only for Add User Form)
-      if (formType.password && !validatePassword(formType.password)) {
-        formType.password.classList.add("is-invalid");
-        formType.password.nextElementSibling.textContent = "Password must be at least 6 characters.";
-        isValid = false;
-      } else if (formType.password) {
-        formType.password.classList.remove("is-invalid");
-      }
-
-      if (formType.confirmPassword) {
-        validateConfirmPassword();
-        if (password.value !== confirmPassword.value) {
-        isValid = false;
-        }
-      }
-
-      if (!isValid) {
-        event.preventDefault();
-      }
-      }
-
-      addUserForm.addEventListener("submit", function (event) {
-      validateForm(event, {
-        firstName,
-        lastName,
-        password,
-        confirmPassword
-      });
-      });
-
-      updateUserForm.addEventListener("submit", function (event) {
-      validateForm(event, {
-        firstName: updateFirstName,
-        lastName: updateLastName
-      });
-      });
-
-      // Live validation for input fields
-      firstName.addEventListener("input", function () {
-      if (validateName(firstName)) {
-        firstName.classList.remove("is-invalid");
-      } else {
-        firstName.classList.add("is-invalid");
-      }
-      });
-
-      lastName.addEventListener("input", function () {
-      if (validateName(lastName)) {
-        lastName.classList.remove("is-invalid");
-      } else {
-        lastName.classList.add("is-invalid");
-      }
-      });
-
-      updateFirstName.addEventListener("input", function () {
-      if (validateName(updateFirstName)) {
-        updateFirstName.classList.remove("is-invalid");
-      } else {
-        updateFirstName.classList.add("is-invalid");
-      }
-      });
-
-      updateLastName.addEventListener("input", function () {
-      if (validateName(updateLastName)) {
-        updateLastName.classList.remove("is-invalid");
-      } else {
-        updateLastName.classList.add("is-invalid");
-      }
-      });
-
-      password.addEventListener("input", function () {
-      if (validatePassword(password)) {
-        password.classList.remove("is-invalid");
-      } else {
-        password.classList.add("is-invalid");
-        password.nextElementSibling.textContent = "Password must be at least 6 characters.";
-      }
-      });
-
-      confirmPassword.addEventListener("input", validateConfirmPassword);
-
-      function resetForm(form) {
-      form.reset(); // Reset form fields
-      form.classList.remove("was-validated"); // Remove validation styles
-      form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
-      }
-
-      // Event listener to reset validation when opening Add User form
-      document.querySelector("[data-bs-target='#offcanvasBackdrop']").addEventListener("click", function () {
-      resetForm(addUserForm);
-      });
-
-      // Event listener to reset validation when opening Edit User form
-      document.querySelector("[data-bs-target='#offcanvasEditBackdrop']").addEventListener("click", function () {
-      resetForm(updateUserForm);
-      });
-
-      // Event listener for the Add User form submission
-      addUserForm.addEventListener("submit", function (event) {
-      if (!addUserForm.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      addUserForm.classList.add("was-validated");
-      });
-
-      // Event listener for the Edit User form submission
-      updateUserForm.addEventListener("submit", function (event) {
-      if (!updateUserForm.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      } else {
-        event.preventDefault(); // Prevent actual submission (for testing)
-
-        // Close the Edit Form after submission
-        let editOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEdit);
-        if (editOffcanvas) editOffcanvas.hide();
-      }
-      updateUserForm.classList.add("was-validated");
-      });
-
-    });
 
     let userIdToDelete;
 
@@ -575,81 +384,149 @@
       });
     });
 
-    $(document).ready(function () {
+    function validateNameInput(input) {
+      const nameRegex = /^[A-Za-z\s]+$/;
+      return nameRegex.test(input);
+    }
 
-      $('#addUserForm').on('submit', function (e) {
-      e.preventDefault();
+    // Function to validate password length (Minimum 6 characters)
+    function validatePassword(password) {
+      return password.length >= 6;
+    }
 
-      var form = $(this);
-      var submitButton = form.find('button[type="submit"]');
+    // Function to check if passwords match
+    function checkPasswordMatch() {
+      const password = $("#password").val();
+      const confirmPassword = $("#confirm_password").val();
+      if (password !== confirmPassword) {
+      $("#passwordMatchFeedback").text("Passwords do not match.").show();
+      $("#confirm_password").addClass("is-invalid").removeClass("is-valid");
+      return false;
+      } else {
+      $("#passwordMatchFeedback").hide();
+      $("#confirm_password").addClass("is-valid").removeClass("is-invalid");
+      return true;
+      }
+    }
+
+    function capitalizeFirstLetter(string) {
+      return string
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+    }
+
+    // Real-time validation for name fields
+    $("#first_name, #last_name, #firstname, #lastname").on("input", function () {
+      let value = $(this).val();
+      let capitalizedValue = capitalizeFirstLetter(value);
+
+      // Automatically update the input with the capitalized text
+      $(this).val(capitalizedValue);
+
+      if (!validateNameInput(value)) {
+      $(this).addClass("is-invalid").removeClass("is-valid");
+      } else {
+      $(this).addClass("is-valid").removeClass("is-invalid");
+      }
+    });
+
+    // Real-time validation for password length
+    $("#password").on("input", function () {
+      if (!validatePassword($(this).val())) {
+      $(this).addClass("is-invalid").removeClass("is-valid");
+      $("#password").siblings(".invalid-feedback").text("Password must be at least 6 characters.");
+      } else {
+      $(this).addClass("is-valid").removeClass("is-invalid");
+      }
+    });
+
+    // Real-time validation for confirm password matching
+    $("#confirm_password").on("input", function () {
+      checkPasswordMatch();
+    });
+
+    function isFormValid(form) {
       form.addClass('was-validated');
 
-      if (form[0].checkValidity() === false) {
-        e.stopPropagation();
-      } else {
-        submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Adding...');
-        $.ajax({
-        url: `/api/users`,
-        type: 'POST',
-        data: form.serialize(),
-        success: function (response) {
-          $('#offcanvasBackdrop').offcanvas('hide');
-          $('#successModal').modal('show');
-          $('#addUserForm')[0].reset();
-          form.removeClass('was-validated');
-          fetchUsers();
-        },
-        error: function (error) {
-          console.error('Error:', error.responseJSON);
-        },
-        complete: function () {
-          // Re-enable button and reset text
-          submitButton.prop('disabled', false).html('Add');
-        }
-        });
+      let isValid = form[0].checkValidity(); // Check native HTML5 validity
+      let isPasswordMatch = checkPasswordMatch(); // Check password match manually
+
+      let hasInvalidFields = form.find(".is-invalid").length > 0;
+
+      return isValid && isPasswordMatch && !hasInvalidFields;
+    }
+
+    $('#addUserForm').on('submit', function (e) {
+      e.preventDefault();
+
+      const form = $(this);
+      const submitButton = form.find('button[type="submit"]');
+
+      if (!isFormValid(form)) {
+      e.stopPropagation();
+      return; // Stop submission if invalid
+      }
+
+      // Show loading only if validation passed
+      submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Adding...');
+
+      $.ajax({
+      url: `/api/users`,
+      type: 'POST',
+      data: form.serialize(),
+      success: function (response) {
+        $('#offcanvasBackdrop').offcanvas('hide');
+        $('#successModal').modal('show');
+        form[0].reset();
+        form.removeClass('was-validated');
+        $(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+        fetchUsers();
+      },
+      error: function (error) {
+        console.error('Error:', error.responseJSON);
+      },
+      complete: function () {
+        submitButton.prop('disabled', false).html('Add');
       }
       });
-
     });
 
 
-    $(document).ready(function () {
-
-      $('#updateUserForm').on('submit', function (e) {
+    $('#updateUserForm').on('submit', function (e) {
       e.preventDefault();
 
-      var form = $(this);
-
+      const form = $(this);
       const userId = $('#userId').val();
-      var submitButton = form.find('button[type="submit"]');
-      form.addClass('was-validated');
+      const submitButton = form.find('button[type="submit"]');
 
-      if (form[0].checkValidity() === false) {
-        e.stopPropagation();
-      } else {
-        submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Updating...');
-        $.ajax({
-        url: `/api/update/${userId}`,
-        type: 'PUT',
-        data: form.serialize(),
-        success: function (response) {
-          $('#offcanvasEditBackdrop').offcanvas('hide');
-          $('#successModalupdate').modal('show');
-          $('#updateUserForm')[0].reset();
-          fetchUsers();
-        },
-        error: function (error) {
-          console.error('Error:', error.responseJSON);
-        },
-        complete: function () {
-          // Re-enable button and reset text
-          submitButton.prop('disabled', false).html('Update');
-        }
-        });
+      if (!isFormValid(form)) {
+      e.stopPropagation();
+      return; // Stop submission if invalid
+      }
+
+      submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Updating...');
+
+      $.ajax({
+      url: `/api/update/${userId}`,
+      type: 'PUT',
+      data: form.serialize(),
+      success: function (response) {
+        $('#offcanvasEditBackdrop').offcanvas('hide');
+        $('#successModalupdate').modal('show');
+        form[0].reset();
+        form.removeClass('was-validated');
+        $(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+        fetchUsers();
+      },
+      error: function (error) {
+        console.error('Error:', error.responseJSON);
+      },
+      complete: function () {
+        submitButton.prop('disabled', false).html('Update');
       }
       });
-
     });
+
 
 
     $('.cancelButton, .btn-close').on('click', function () {
