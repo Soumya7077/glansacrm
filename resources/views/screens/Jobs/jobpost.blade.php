@@ -454,6 +454,8 @@
               console.log('Job posted successfully:', response);
             }
 
+            $('#jobPostForm')[0].reset();
+
             // $('#successModal').modal('show');
             // console.log('Job updated successfully:', response);
           },
