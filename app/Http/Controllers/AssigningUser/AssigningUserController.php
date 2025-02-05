@@ -12,7 +12,7 @@ class AssigningUserController extends Controller
 {
   public function assigninguser()
   {
-    return view('screens.assigninguser.assigninguser');
+    return view('screens.AssigningUser.assigninguser');
   }
 
 
