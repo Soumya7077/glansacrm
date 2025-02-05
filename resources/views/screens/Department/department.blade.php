@@ -87,8 +87,10 @@
                                 <input type="text" class="form-control" id="deptName" name="name" placeholder="Name"
                                     required />
                                 <label for="deptName">Name</label>
-                                <div class="invalid-feedback">Departname Name is required. Please enter a valid name.
-                                </div>
+                                <!-- <div class="invalid-feedback">Departname Name is required. Please enter a valid name.
+                                </div> -->
+                                <div class="invalid-feedback">Department Name is required. Please enter a valid name
+                                    (letters only).</div>
                             </div>
                             <button type="submit" id="submitBtn" class="btn btn-primary w-100 mb-2">Submit</button>
                         </div>
@@ -103,6 +105,7 @@
 
 @push('scripts')
     <script>
+
         $(document).ready(function () {
             fetchDepartments();
             var table = $('#table').DataTable();
@@ -119,13 +122,13 @@
                             tableBody.empty();
                             $.each(response.data, function (index, department) {
                                 rows += `<tr class="text-center align-middle">
-                                                        <td>${index + 1}</td>
-                                                        <td>${department.Name}</td>
-                                                        <td>
-                                                            <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
-                                                            <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
-                                                        </td>
-                                                    </tr>`;
+                                                                                    <td>${index + 1}</td>
+                                                                                    <td>${department.Name}</td>
+                                                                                    <td>
+                                                                                        <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
+                                                                                        <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
+                                                                                    </td>
+                                                                                </tr>`;
                             });
                             tableBody.append(rows);
                             table.clear(); // Clear any previous DataTable data
@@ -200,11 +203,24 @@
                     }
                 });
             });
+            // $('#deptName').on('input', function () {
+            //     if ($(this).val().trim()) {
+            //         $(this).removeClass('is-invalid');
+            //     }
+            // });
+
             $('#deptName').on('input', function () {
+                let inputVal = $(this).val();
+
+                inputVal = inputVal.replace(/[^A-Za-z\s]/g, '');
+
+                $(this).val(inputVal.charAt(0).toUpperCase() + inputVal.slice(1));
+
                 if ($(this).val().trim()) {
                     $(this).removeClass('is-invalid');
                 }
             });
+
 
             let deleteId = null;
 
