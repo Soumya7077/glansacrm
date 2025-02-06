@@ -31,12 +31,13 @@
 
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" id="Subject-description" class="form-control" placeholder="Subject" required />
+            <input type="text" id="Subject-description" class="form-control capitalized" placeholder="Subject"
+              required />
             <label for="Subject-description">Subject </label>
             <div class="invalid-feedback">Please provide a subject description.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" id="Message" class="form-control" placeholder="Message" required />
+            <input type="text" id="Message" class="form-control capitalized" placeholder="Message" required />
             <label for="Message">Message </label>
             <div class="invalid-feedback">Please provide a Message.</div>
           </div>
@@ -85,6 +86,15 @@
 <script>
 
   $(document).ready(function () {
+
+
+    let inputs = document.getElementsByClassName("capitalized");
+
+    for (let input of inputs) {
+      input.addEventListener("input", function () {
+        this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+      });
+    }
     // Get the URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     let applicants = urlParams.get('applicants');

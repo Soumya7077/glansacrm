@@ -15,7 +15,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="first-name" placeholder="First Name" required
+            <input type="text" class="form-control capitalized" id="first-name" placeholder="First Name" required
               pattern="[A-Za-z\s]+" />
             <label for="first-name">First Name *</label>
             <div class="invalid-feedback">Please enter your First name.</div>
@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="last-name" placeholder="Last Name" required />
+            <input type="text" class="form-control capitalized" id="last-name" placeholder="Last Name" required />
             <label for="last-name">Last Name *</label>
             <div class="invalid-feedback">Please enter your Last name.</div>
           </div>
@@ -144,7 +144,8 @@
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="current-organisation" placeholder="Current Organisation" />
+            <input type="text" class="form-control capitalized" id="current-organisation"
+              placeholder="Current Organisation" />
             <label for="current-organisation">Current Organisation</label>
           </div>
         </div>
@@ -186,19 +187,20 @@
         <div class="col-md-6">
 
           <div class="form-floating form-floating-outline mb-4">
-            <input type="number" class="form-control" id="experience" placeholder="Experience" />
+            <input type="number" class="form-control" id="experience" placeholder="Experience" pattern="^\d{1,2}$"
+              min="0" max="99" oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
             <label for="experience">Work Experience (in years)</label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <textarea class="form-control" id="remarks" placeholder="Remarks"></textarea>
+            <textarea class="form-control capitalized" id="remarks" placeholder="Remarks"></textarea>
             <label for="remarks">Remarks</label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="KeySkills" placeholder="Skills" />
+            <input type="text" class="form-control capitalized" id="KeySkills" placeholder="Skills" />
             <label for="KeySkills">Key Skills</label>
           </div>
 
@@ -238,6 +240,14 @@
   <script>
     $(document).ready(function () {
 
+    let inputs = document.getElementsByClassName("capitalized");
+
+    for (let input of inputs) {
+      input.addEventListener("input", function () {
+      this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+      });
+    }
+
     $.ajax({
       url: '/api/getJob',
       type: 'GET',
@@ -269,50 +279,50 @@
 
 
       function validateField(selector, condition) {
-        let field = $(selector);
-        if (!condition) {
-            field.addClass('is-invalid');
-            isValid = false;
-            if (!firstInvalidField) {
-                firstInvalidField = field; // Store the first invalid field
-            }
-        } else {
-            field.removeClass('is-invalid');
+      let field = $(selector);
+      if (!condition) {
+        field.addClass('is-invalid');
+        isValid = false;
+        if (!firstInvalidField) {
+        firstInvalidField = field; // Store the first invalid field
         }
-    }
+      } else {
+        field.removeClass('is-invalid');
+      }
+      }
 
       // First Name Validation (Only alphabets and spaces allowed)
       validateField('#first-name', /^[A-Za-z\s]+$/.test($('#first-name').val().trim()));
 
-    // Last Name Validation
-    validateField('#last-name', /^[A-Za-z\s]+$/.test($('#last-name').val().trim()));
+      // Last Name Validation
+      validateField('#last-name', /^[A-Za-z\s]+$/.test($('#last-name').val().trim()));
 
-    // Phone Number Validation (Exactly 10 digits)
-    validateField('#phone-number', /^\d{10}$/.test($('#phone-number').val().trim()));
+      // Phone Number Validation (Exactly 10 digits)
+      validateField('#phone-number', /^\d{10}$/.test($('#phone-number').val().trim()));
 
-    // Email Validation
-    validateField('#email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#email').val().trim()));
+      // Email Validation
+      validateField('#email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#email').val().trim()));
 
-    // Job Post Selection Validation
-    validateField('#applyingfor', $('#applyingfor').val() !== '');
+      // Job Post Selection Validation
+      validateField('#applyingfor', $('#applyingfor').val() !== '');
 
-    // Type Validation
-    validateField('#type', $('#type').val().trim() !== '' && $('#type').val() !== '0');
+      // Type Validation
+      validateField('#type', $('#type').val().trim() !== '' && $('#type').val() !== '0');
 
-    // Qualification Validation
-    validateField('#highest-qualification', $('#highest-qualification').val().trim() !== '');
+      // Qualification Validation
+      validateField('#highest-qualification', $('#highest-qualification').val().trim() !== '');
 
-    // Current Salary Validation
-    validateField('#current-salary', /^\d+(\.\d{1,2})?$/.test($('#current-salary').val().trim()) && $('#current-salary').val().trim() > 0);
+      // Current Salary Validation
+      validateField('#current-salary', /^\d+(\.\d{1,2})?$/.test($('#current-salary').val().trim()) && $('#current-salary').val().trim() > 0);
 
-    // Expected Salary Validation
-    validateField('#expected-salary', /^\d+(\.\d{1,2})?$/.test($('#expected-salary').val().trim()) && $('#expected-salary').val().trim() > 0);
+      // Expected Salary Validation
+      validateField('#expected-salary', /^\d+(\.\d{1,2})?$/.test($('#expected-salary').val().trim()) && $('#expected-salary').val().trim() > 0);
 
-    // Notice Period Validation
-    validateField('#noticeperiod', $('#noticeperiod').val().trim() !== '');
+      // Notice Period Validation
+      validateField('#noticeperiod', $('#noticeperiod').val().trim() !== '');
 
-    // Resume Upload Validation
-    validateField('#resume', $('#resume')[0].files.length > 0);
+      // Resume Upload Validation
+      validateField('#resume', $('#resume')[0].files.length > 0);
 
       if (!isValid && firstInvalidField) {
       $('html, body').animate({

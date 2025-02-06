@@ -19,7 +19,7 @@
           <div class="row mb-3">
             <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
-                <input type="text" class="form-control" id="firstname" placeholder="First Name" required />
+                <input type="text" class="form-control capitalized" id="firstname" placeholder="First Name" required />
                 <label for="name">First Name</label>
                 <div class="invalid-feedback">Please enter a valid first name.</div>
               </div>
@@ -27,7 +27,7 @@
 
             <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
-                <input type="text" class="form-control" id="lastname" placeholder="Last Name" required />
+                <input type="text" class="form-control capitalized" id="lastname" placeholder="Last Name" required />
                 <label for="name">Last Name</label>
                 <div class="invalid-feedback">Please enter a valid last name.</div>
               </div>
@@ -61,7 +61,8 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <div class="form-floating form-floating-outline">
-                <input type="text" class="form-control" id="qualification" placeholder="Qualification" required />
+                <input type="text" class="form-control capitalized" id="qualification" placeholder="Qualification"
+                  required />
                 <label for="qualification">Qualification</label>
                 <div class="invalid-feedback">Please enter your qualification.</div>
               </div>
@@ -69,7 +70,7 @@
 
             <div class="col-md-6">
               <div class="form-floating form-floating-outline">
-                <input type="text" class="form-control" id="experience" placeholder="Work Experience" required />
+                <input type="number" class="form-control" id="experience" placeholder="Work Experience" required />
                 <label for="experience">Work Experience (in years)</label>
                 <div class="invalid-feedback">Please enter your work experience.</div>
               </div>
@@ -132,7 +133,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-floating form-floating-outline">
-                <input type="text" class="form-control" id="remarks" placeholder="Remark" required />
+                <input type="text" class="form-control capitalized" id="remarks" placeholder="Remark" required />
                 <label for="qualification">Remark</label>
                 <div class="invalid-feedback">Please enter your Remark.</div>
               </div>
@@ -170,6 +171,14 @@
 
     <script>
       $(document).ready(function () {
+
+        let inputs = document.getElementsByClassName("capitalized");
+
+        for (let input of inputs) {
+          input.addEventListener("input", function () {
+            this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+          });
+        }
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const applicantData = urlParams.get('applicant'); // Still fetching but not using it

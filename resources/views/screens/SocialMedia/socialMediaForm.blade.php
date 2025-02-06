@@ -13,16 +13,16 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" class="form-control" id="applicantFirstName" name="FirstName" placeholder="First Name"
-                required />
+              <input type="text" class="form-control capitalized" id="applicantFirstName" name="FirstName"
+                placeholder="First Name" required />
               <label for="applicantFirstName">Applicant First Name</label>
               <div class="invalid-feedback">Please enter the applicant's first name.</div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" class="form-control" id="applicantLastName" name="LastName" placeholder="Last Name"
-                required />
+              <input type="text" class="form-control capitalized" id="applicantLastName" name="LastName"
+                placeholder="Last Name" required />
               <label for="applicantLastName">Applicant Last Name</label>
               <div class="invalid-feedback">Please enter the applicant's last name.</div>
             </div>
@@ -64,7 +64,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
-              <input type="text" id="remark" name="Remarks" class="form-control" placeholder="Remark" />
+              <input type="text" id="remark" name="Remarks" class="form-control capitalized" placeholder="Remark" />
               <label for="remark">Remark</label>
             </div>
           </div>
@@ -121,6 +121,15 @@
 
 <script>
   $(document).ready(function () {
+
+
+    let inputs = document.getElementsByClassName("capitalized");
+
+    for (let input of inputs) {
+      input.addEventListener("input", function () {
+        this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+      });
+    }
 
     $('#socialMediaForm').on('submit', function (e) {
       e.preventDefault();

@@ -55,8 +55,8 @@
             <div class="invalid-feedback">Please choose BCC </div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <textarea id="description" name="description" class="form-control" placeholder="Subject Description"
-              style="height: 122px;" required></textarea>
+            <textarea id="description" name="description" class="form-control capitalized"
+              placeholder="Subject Description" style="height: 122px;" required></textarea>
             <label for="description">Interview Description</label>
             <div class="invalid-feedback">Please provide a description.</div>
           </div>
@@ -122,11 +122,18 @@
 
 <script>
   $(document).ready(function () {
+
+    let inputs = document.getElementsByClassName("capitalized");
+
+    for (let input of inputs) {
+      input.addEventListener("input", function () {
+        this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+      });
+    }
+
     let applicants;
     const urlParams = new URLSearchParams(window.location.search);
     applicants = urlParams.get('applicants');
-
-
 
     if (applicants) {
       $('#updateApplicant').addClass('d-none');
@@ -233,13 +240,6 @@
     });
   }
 
-
-
-
-
-
-
-
   $(document).ready(function () {
     let data;
     const urlParams = new URLSearchParams(window.location.search);
@@ -247,12 +247,9 @@
     data = JSON.parse(interview);
     console.log(data)
 
-
-
     if (interview) {
       $('#updateApplicant').addClass('d-block');
       $('#sendMail').addClass('d-none');
-
       $('#toField').val(data.ApplicantEmail);
       $('#cc').val(data.CC);
       $('#interviewDate').val(data.InterviewDate);
@@ -264,9 +261,6 @@
       $('#description').val(data.Description);
       $('#location').val(data['Link/Location']);
     }
-
-
-
 
     // function updateApplicantData() {
     // const interviewId = urlParams.get('interview_id');
@@ -318,12 +312,9 @@
       });
     });
 
-
-
     // }
   });
 
 </script>
-
 
 @endsection

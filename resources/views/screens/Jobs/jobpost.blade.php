@@ -31,8 +31,8 @@
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="job-title" name="Title" placeholder="Job Title" required
-              minlength="3" />
+            <input type="text" class="form-control capitalized" id="job-title" name="Title" placeholder="Job Title"
+              required minlength="3" />
             <label for="job-title">Job Title</label>
             <div class="invalid-feedback">Please enter a valid job title (at least 3 characters).</div>
           </div>
@@ -42,8 +42,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <textarea id="job-description" class="form-control" name="Description" placeholder="Job Description"
-              required minlength="10"></textarea>
+            <textarea id="job-description" class="form-control capitalized" name="Description"
+              placeholder="Job Description" required minlength="10"></textarea>
             <label for="job-description">Description</label>
             <div class="invalid-feedback">Please enter a job description (at least 10 characters).</div>
           </div>
@@ -85,8 +85,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="key-skills" name="KeySkills" placeholder="Key Skills" required
-              minlength="3" />
+            <input type="text" class="form-control capitalized" id="key-skills" name="KeySkills"
+              placeholder="Key Skills" required minlength="3" />
             <label for="key-skills">Key Skills</label>
             <div class="invalid-feedback">Please enter the key skills (at least 3 characters).</div>
           </div>
@@ -105,7 +105,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="salary-min" name="MinSalary" placeholder="Salary" required
+            <input type="number" class="form-control" id="salary-min" name="MinSalary" placeholder="Salary" required
               pattern="^[0-9]+(\.[0-9]{1,2})?$" />
             <label for="salary-min">Minimum Salary</label>
             <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
@@ -113,7 +113,7 @@
         </div>
         <div class="col-md-6 d-flex">
           <div class="form-floating form-floating-outline mb-4 w-75">
-            <input type="text" class="form-control" id="salary-max" name="MaxSalary" placeholder="Salary" required
+            <input type="number" class="form-control" id="salary-max" name="MaxSalary" placeholder="Salary" required
               pattern="^[0-9]+(\.[0-9]{1,2})?$" />
             <label for="salary-max">Maximum Salary</label>
             <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
@@ -131,16 +131,18 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="experience-min" name="MinExperience" placeholder="Experience"
-              required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+            <input type="number" class="form-control" id="experience-min" name="MinExperience" placeholder="Experience"
+              required pattern="^\d{1,2}$" min="0" max="99"
+              oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
             <label for="experience-min">Minimum Experience (in years)</label>
             <div class="invalid-feedback">Please enter a valid Experience</div>
           </div>
         </div>
         <div class="col-md-6 d-flex">
           <div class="form-floating form-floating-outline mb-4 w-100">
-            <input type="text" class="form-control" id="experience-max" name="MaxExperience" placeholder="Experience"
-              required pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+            <input type="number" class="form-control" id="experience-max" name="MaxExperience" placeholder="Experience"
+              required pattern="^\d{1,2}$" min="0" max="99"
+              oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
             <label for="experience-max">Maximum Experience (in years)</label>
             <div class="invalid-feedback">Please enter a valid Experience</div>
           </div>
@@ -162,8 +164,8 @@
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="timeline" name="Timeline" placeholder="Timeline" required
-              minlength="3" />
+            <input type="text" class="form-control capitalized" id="timeline" name="Timeline" placeholder="Timeline"
+              required minlength="3" />
             <label for="Timeline">Timeline</label>
             <div class="invalid-feedback">Please enter the Timeline.</div>
           </div>
@@ -173,8 +175,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="location" name="Location" placeholder="Job Location" required
-              minlength="3" />
+            <input type="text" class="form-control capitalized" id="location" name="Location" placeholder="Job Location"
+              required minlength="3" />
             <label for="job-location">Location</label>
             <div class="invalid-feedback">Please enter the job location (at least 3 characters).</div>
           </div>
@@ -220,7 +222,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="remarks" name="Remarks" placeholder="Remarks" required />
+            <input type="text" class="form-control capitalized" id="remarks" name="Remarks" placeholder="Remarks"
+              required />
             <label for="Remarks">Remarks</label>
             <div class="invalid-feedback">Please enter the Remarks</div>
           </div>
@@ -313,6 +316,15 @@
 
 
 <script>
+
+  let inputs = document.getElementsByClassName("capitalized");
+
+  for (let input of inputs) {
+    input.addEventListener("input", function () {
+      this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+    });
+  }
+
   function fetchEmployers() {
     $.ajax({
       url: '/api/getEmployer',
