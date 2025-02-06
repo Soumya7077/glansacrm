@@ -190,7 +190,8 @@
                             bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasBackdrop')).hide();
                             fetchDepartments();
                             showMessageModal(successMessage);
-                        } else {
+                        }
+                         else {
                             showMessageModal("Operation failed.");
                         }
                     },

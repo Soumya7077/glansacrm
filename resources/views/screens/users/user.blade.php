@@ -475,7 +475,11 @@
       type: 'POST',
       data: form.serialize(),
       success: function (response) {
+        console.log(response);
+        
         $('#offcanvasBackdrop').offcanvas('hide');
+        $('#successModal .modal-title').text('Success');
+    $('#successModal .modal-body').html(response.message);
         $('#successModal').modal('show');
         form[0].reset();
         form.removeClass('was-validated');
@@ -484,9 +488,10 @@
       },
       error: function (error) {
         console.error('Error:', error.responseJSON);
-
+        $('#successModal .modal-title').text('ERROR');
+    $('#successModal .modal-body').html(error.responseJSON.message);
         $('#successModal').modal('show');
-        $('#successModal').text('show').
+       
       },
       complete: function () {
         submitButton.prop('disabled', false).html('Add');
