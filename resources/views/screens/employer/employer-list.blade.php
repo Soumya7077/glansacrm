@@ -57,7 +57,7 @@
                             </div>
                             <input type="hidden" id="empId">
                             <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="organization-name"
+                                <input type="text" class="form-control capitalize-input" id="organization-name"
                                     placeholder="Organization Name" />
                                 <label for="organization-name">Organization Name</label>
                                 <div class="invalid-feedback">Please provide the organization name.</div>
@@ -67,7 +67,7 @@
                                 <h6 class="text-primary mb-0">Contact Person 1 Details</h6>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
-                                <input type="text" class="form-control" id="contact-person-1-name"
+                                <input type="text" class="form-control capitalize-input" id="contact-person-1-name"
                                     placeholder="Contact Person Name" />
                                 <label for="contact-person-1-name">Contact Person Name</label>
                                 <div class="invalid-feedback">Please provide contact person 1's name.</div>
@@ -91,7 +91,7 @@
                                 <div class="invalid-feedback">Please provide a location.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="contact-person-1-designation"
+                                <input type="text" class="form-control capitalize-input" id="contact-person-1-designation"
                                     placeholder="Designation" />
                                 <label for="contact-person-1-location">Designation</label>
                                 <div class="invalid-feedback">Please provide a Designation.</div>
@@ -101,7 +101,7 @@
                                 <h6 class="text-primary mb-0">Contact Person 2 Details</h6>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
-                                <input type="text" class="form-control" id="contact-person-2-name"
+                                <input type="text" class="form-control capitalize-input" id="contact-person-2-name"
                                     placeholder="Contact Person Name" />
                                 <label for="contact-person-2-name">Contact Person Name</label>
                             </div>
@@ -121,7 +121,7 @@
                                 <label for="contact-person-2-location">Location</label>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
-                                <input type="text" class="form-control" id="contact-person-2-designation"
+                                <input type="text" class="form-control capitalize-input" id="contact-person-2-designation"
                                     placeholder="Designation" />
                                 <label for="contact-person-2-location">Designation</label>
                             </div>
@@ -301,16 +301,29 @@
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
         });
 
+        $('.capitalize-input').on('input', function () {
+                let value = $(this).val();
+                if (value.length > 0) {
+                    $(this).val(value.charAt(0).toUpperCase() + value.slice(1));
+                }
+            });
 
         $('#addUserForm').on('submit', function (e) {
             e.preventDefault();
 
             let isValid = true;
+            let firstErrorField = null;
+
             $(this).removeClass('was-validated'); // Reset previous validation styles
             $('.form-control').removeClass('is-invalid');
             $('.invalid-feedback').text('');
 
             let submitBtn = $('#submitBtn');
+
+            function capitalizeFirstLetter(value) {
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+
             // Required field validation
             const requiredFields = [
                 { id: 'organization-name', message: 'Please provide a valid Organization name (letters only).', pattern: /^[A-Za-z\s]+$/ },
@@ -318,12 +331,17 @@
                 { id: 'contact-person-1-phone', message: 'Please provide a valid 10-digit phone number.', pattern: /^\d{10}$/ },
                 { id: 'contact-person-1-email', message: 'Please provide a valid email address.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
                 { id: 'contact-person-1-location', message: 'Please provide a location.' },
-                { id: 'contact-person-1-designation', message: 'Please provide a designation.' }
+                { id: 'contact-person-1-designation', message: 'Please provide a designation.', pattern: /^[A-Za-z\s]+$/ }
             ];
 
             requiredFields.forEach(field => {
                 const input = $(`#${field.id}`);
-                const value = input.val().trim();
+                let value = input.val().trim();
+
+                if (field.pattern && /^[A-Za-z\s]+$/.test(value)) {
+                    value = capitalizeFirstLetter(value);
+                    input.val(value);
+                }
 
                 if (!value || (field.pattern && !field.pattern.test(value))) {
                     input.addClass('is-invalid');
