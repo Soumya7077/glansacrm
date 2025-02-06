@@ -15,7 +15,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-  
+
             <select class="form-control" id="organisation-name" name="EmployerId" required>
               <option value="" hidden>Select Organisation</option>
             </select>
@@ -101,7 +101,7 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="salary-min" name="MinSalary" placeholder="Salary" required
-              pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+              pattern="^\d{4,}$" min="1000" oninput="validateSalary()" />
             <label for="salary-min">Minimum Salary</label>
             <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
           </div>
@@ -109,7 +109,7 @@
         <div class="col-md-6 d-flex">
           <div class="form-floating form-floating-outline mb-4 w-75">
             <input type="number" class="form-control" id="salary-max" name="MaxSalary" placeholder="Salary" required
-              pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+              pattern="^\d{4,}$" min="1000" oninput="validateSalary()" />
             <label for="salary-max">Maximum Salary</label>
             <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
           </div>

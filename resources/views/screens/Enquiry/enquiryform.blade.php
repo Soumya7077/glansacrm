@@ -70,7 +70,9 @@
 
             <div class="col-md-6">
               <div class="form-floating form-floating-outline">
-                <input type="number" class="form-control" id="experience" placeholder="Work Experience" required />
+                <input type="number" class="form-control" id="experience" placeholder="Work Experience" required
+                  pattern="^\d{1,2}$" min="0" max="99"
+                  oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
                 <label for="experience">Work Experience (in years)</label>
                 <div class="invalid-feedback">Please enter your work experience.</div>
               </div>

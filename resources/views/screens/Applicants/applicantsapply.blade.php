@@ -156,14 +156,14 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="current-salary" placeholder="Current Salary" required />
             <label for="current-salary">Current Salary</label>
-            <div class="invalid-feedback">Please enter your current salary.</div>
+            <div class="invalid-feedback">Please enter your current salary at least 4 digits.</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="expected-salary" placeholder="Expected Salary" required />
             <label for="expected-salary">Expected Salary</label>
-            <div class="invalid-feedback">Please enter your expected salary.</div>
+            <div class="invalid-feedback">Please enter your expected salary at least 4 digits.</div>
           </div>
         </div>
       </div>
@@ -313,10 +313,13 @@
       validateField('#highest-qualification', $('#highest-qualification').val().trim() !== '');
 
       // Current Salary Validation
-      validateField('#current-salary', /^\d+(\.\d{1,2})?$/.test($('#current-salary').val().trim()) && $('#current-salary').val().trim() > 0);
+      // validateField('#current-salary', /^\d+(\.\d{4,})?$/.test($('#current-salary').val().trim()) && $('#current-salary').val().trim() > 0);
 
-      // Expected Salary Validation
-      validateField('#expected-salary', /^\d+(\.\d{1,2})?$/.test($('#expected-salary').val().trim()) && $('#expected-salary').val().trim() > 0);
+      // // Expected Salary Validation
+      // validateField('#expected-salary', /^\d+(\.\d{4,})?$/.test($('#expected-salary').val().trim()) && $('#expected-salary').val().trim() > 0);
+
+      validateField('#current-salary', /^\d{4,}$/.test($('#current-salary').val().trim()));
+      validateField('#expected-salary', /^\d{4,}$/.test($('#expected-salary').val().trim()));
 
       // Notice Period Validation
       validateField('#noticeperiod', $('#noticeperiod').val().trim() !== '');
