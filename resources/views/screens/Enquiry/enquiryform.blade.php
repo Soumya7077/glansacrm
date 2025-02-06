@@ -21,7 +21,7 @@
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control" id="firstname" placeholder="First Name" required />
                 <label for="name">First Name</label>
-                <div class="invalid-feedback">Please enter your First Name.</div>
+                <div class="invalid-feedback">Please enter a valid first name.</div>
               </div>
             </div>
 
@@ -29,7 +29,7 @@
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control" id="lastname" placeholder="Last Name" required />
                 <label for="name">Last Name</label>
-                <div class="invalid-feedback">Please enter your Last Name.</div>
+                <div class="invalid-feedback">Please enter a valid last name.</div>
               </div>
             </div>
 
