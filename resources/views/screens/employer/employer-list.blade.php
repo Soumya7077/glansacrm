@@ -91,8 +91,8 @@
                                 <div class="invalid-feedback">Please provide a location.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control capitalize-input" id="contact-person-1-designation"
-                                    placeholder="Designation" />
+                                <input type="text" class="form-control capitalize-input"
+                                    id="contact-person-1-designation" placeholder="Designation" />
                                 <label for="contact-person-1-location">Designation</label>
                                 <div class="invalid-feedback">Please provide a Designation.</div>
                             </div>
@@ -104,16 +104,19 @@
                                 <input type="text" class="form-control capitalize-input" id="contact-person-2-name"
                                     placeholder="Contact Person Name" />
                                 <label for="contact-person-2-name">Contact Person Name</label>
+                                <div class="invalid-feedback"></div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="tel" class="form-control" id="contact-person-2-phone"
                                     placeholder="Phone Number" pattern="^\d{10}$" maxlength="10" />
                                 <label for="contact-person-2-phone">Phone Number</label>
+                                <div class="invalid-feedback"></div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="email" class="form-control" id="contact-person-2-email"
                                     placeholder="Email" />
                                 <label for="contact-person-2-email">Email</label>
+                                <div class="invalid-feedback"></div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-2-location"
@@ -121,9 +124,10 @@
                                 <label for="contact-person-2-location">Location</label>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
-                                <input type="text" class="form-control capitalize-input" id="contact-person-2-designation"
-                                    placeholder="Designation" />
+                                <input type="text" class="form-control capitalize-input"
+                                    id="contact-person-2-designation" placeholder="Designation" />
                                 <label for="contact-person-2-location">Designation</label>
+                                <div class="invalid-feedback"></div>
                             </div>
 
                             <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
@@ -301,77 +305,101 @@
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
         });
 
-        $('.capitalize-input').on('input', function () {
-                let value = $(this).val();
-                if (value.length > 0) {
-                    $(this).val(value.charAt(0).toUpperCase() + value.slice(1));
-                }
+        // $('.capitalize-input').on('input', function () {
+        //     let value = $(this).val();
+        //     if (value.length > 0) {
+        //         $(this).val(value.charAt(0).toUpperCase() + value.slice(1));
+        //     }
+        // });
+
+        function capitalizeFirstLetter(value) {
+            return value.charAt(0).toUpperCase() + value.slice(1);
+        }
+
+        // Validation rules for required fields
+        const requiredFields = [
+            { id: 'organization-name', message: 'Please provide a valid Organization name (letters only).', pattern: /^[A-Za-z\s]+$/ },
+            { id: 'contact-person-1-name', message: "Please provide a valid name (letters only). ", pattern: /^[A-Za-z\s]+$/ },
+            { id: 'contact-person-1-phone', message: 'Please provide a valid 10-digit phone number.', pattern: /^\d{10}$/ },
+            { id: 'contact-person-1-email', message: 'Please provide a valid email address.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+            { id: 'contact-person-1-location', message: 'Please provide a location.' },
+            { id: 'contact-person-1-designation', message: 'Please provide a designation.', pattern: /^[A-Za-z\s]+$/ }
+        ];
+
+        // Validation rules for optional fields (only if entered)
+        const optionalFields = [
+            { id: 'contact-person-2-name', message: "Please enter a valid name (letters only).", pattern: /^[A-Za-z\s]+$/ },
+            { id: 'contact-person-2-phone', message: 'Please enter a valid 10-digit phone number.', pattern: /^\d{10}$/ },
+            { id: 'contact-person-2-email', message: 'Please enter a valid email address.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+            { id: 'contact-person-2-location', message: 'Please enter a valid location.' },
+            { id: 'contact-person-2-designation', message: 'Please enter a valid designation.', pattern: /^[A-Za-z\s]+$/ }
+        ];
+
+        function validateField(input, field) {
+            let value = input.val().trim();
+
+            // Capitalize only name fields, NOT email
+            if (field.pattern && /^[A-Za-z\s]+$/.test(value) && !field.id.includes('email')) {
+                value = capitalizeFirstLetter(value);
+                input.val(value);
+            }
+
+            // If field is optional and empty, no validation required
+            if (!value && optionalFields.some(optField => optField.id === field.id)) {
+                input.removeClass('is-invalid');
+                input.siblings('.invalid-feedback').text('');
+                return true;
+            }
+
+            if (!value || (field.pattern && !field.pattern.test(value))) {
+                input.addClass('is-invalid');
+                input.siblings('.invalid-feedback').text(field.message);
+                return false;
+            } else {
+                input.removeClass('is-invalid');
+                input.siblings('.invalid-feedback').text('');
+                return true;
+            }
+        }
+
+        // Apply validation in real-time
+        requiredFields.concat(optionalFields).forEach(field => {
+            $(`#${field.id}`).on('input', function () {
+                validateField($(this), field);
             });
+        });
 
         $('#addUserForm').on('submit', function (e) {
             e.preventDefault();
 
             let isValid = true;
             let firstErrorField = null;
-
-            $(this).removeClass('was-validated'); // Reset previous validation styles
+            $(this).removeClass('was-validated');
             $('.form-control').removeClass('is-invalid');
             $('.invalid-feedback').text('');
 
             let submitBtn = $('#submitBtn');
 
-            function capitalizeFirstLetter(value) {
-                return value.charAt(0).toUpperCase() + value.slice(1);
-            }
-
-            // Required field validation
-            const requiredFields = [
-                { id: 'organization-name', message: 'Please provide a valid Organization name (letters only).', pattern: /^[A-Za-z\s]+$/ },
-                { id: 'contact-person-1-name', message: "Please provide a valid name for Contact person 1.", pattern: /^[A-Za-z\s]+$/ },
-                { id: 'contact-person-1-phone', message: 'Please provide a valid 10-digit phone number.', pattern: /^\d{10}$/ },
-                { id: 'contact-person-1-email', message: 'Please provide a valid email address.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
-                { id: 'contact-person-1-location', message: 'Please provide a location.' },
-                { id: 'contact-person-1-designation', message: 'Please provide a designation.', pattern: /^[A-Za-z\s]+$/ }
-            ];
-
+            // Validate required fields
             requiredFields.forEach(field => {
                 const input = $(`#${field.id}`);
-                let value = input.val().trim();
-
-                if (field.pattern && /^[A-Za-z\s]+$/.test(value)) {
-                    value = capitalizeFirstLetter(value);
-                    input.val(value);
-                }
-
-                if (!value || (field.pattern && !field.pattern.test(value))) {
-                    input.addClass('is-invalid');
-                    input.siblings('.invalid-feedback').text(field.message);
+                if (!validateField(input, field)) {
                     isValid = false;
                     if (!firstErrorField) firstErrorField = input;
                 }
             });
 
-            // Validate optional fields if they have values
-            const optionalFields = [
-                { id: 'contact-person-2-phone', message: 'Please provide a valid 10-digit phone number.', pattern: /^\d{10}$/ },
-                { id: 'contact-person-2-email', message: 'Please provide a valid email address.', pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ }
-            ];
-
+            // Validate optional fields (only if filled)
             optionalFields.forEach(field => {
                 const input = $(`#${field.id}`);
-                const value = input.val().trim();
-
-                if (value && field.pattern && !field.pattern.test(value)) {
-                    input.addClass('is-invalid');
-                    input.siblings('.invalid-feedback').text(field.message);
+                if (input.val().trim() && !validateField(input, field)) {
                     isValid = false;
                     if (!firstErrorField) firstErrorField = input;
                 }
             });
 
             if (!isValid) {
-                $('#addUserForm').addClass('was-validated'); // Apply Bootstrap validation style
-                // Scroll to first error
+                $('#addUserForm').addClass('was-validated');
                 if (firstErrorField) {
                     $('html, body').animate({ scrollTop: firstErrorField.offset().top - 100 }, 'fast');
                 }
@@ -407,7 +435,6 @@
                     console.log("Response:", response);
                     if (response) {
                         $('#offcanvasBackdrop').offcanvas('hide');
-                        // Update modal message dynamically
                         $('#successModal .modal-body').text(isUpdate
                             ? "The Employer has been successfully updated!"
                             : "The Employer has been successfully added!"
@@ -431,11 +458,11 @@
                     }
                 },
                 complete: function () {
-                    // Re-enable button and restore text
                     submitBtn.prop('disabled', false).text('Submit');
                 }
             });
         });
+
 
         $(document).on('click', '.edit-btn', function () {
             const employerId = $(this).data('id');

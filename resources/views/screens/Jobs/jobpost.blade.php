@@ -15,12 +15,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <!-- <select class="form-control" id="organisation-name" name="EmployerId" required>
-              <option value="" hidden>Select Organisation</option>
-              <option value="">Select 1</option>
-              <option value="">Select 2</option>
-            </select> -->
-
+  
             <select class="form-control" id="organisation-name" name="EmployerId" required>
               <option value="" hidden>Select Organisation</option>
             </select>
