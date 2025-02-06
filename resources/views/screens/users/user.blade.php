@@ -228,7 +228,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        The user has been successfully deleted!
+       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
@@ -484,6 +484,9 @@
       },
       error: function (error) {
         console.error('Error:', error.responseJSON);
+
+        $('#successModal').modal('show');
+        $('#successModal').text('show').
       },
       complete: function () {
         submitButton.prop('disabled', false).html('Add');

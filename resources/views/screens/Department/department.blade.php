@@ -195,7 +195,8 @@
                         }
                     },
                     error: function (xhr) {
-                        showMessageModal("Error: " + xhr.responseText);
+                        console.log(xhr);
+                        showMessageModal("Error: " + xhr.responseJSON.message);
                     },
                     complete: function () {
                         // Re-enable button and restore text
