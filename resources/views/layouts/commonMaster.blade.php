@@ -41,7 +41,7 @@
 
   <!-- Include Scripts -->
   @include('layouts/sections/scripts')
-  {{-- @stack('scripts') --}}
+  @stack('scripts')
 
 </body>
 
