@@ -190,12 +190,14 @@
                             bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasBackdrop')).hide();
                             fetchDepartments();
                             showMessageModal(successMessage);
-                        } else {
+                        }
+                         else {
                             showMessageModal("Operation failed.");
                         }
                     },
                     error: function (xhr) {
-                        showMessageModal("Error: " + xhr.responseText);
+                        console.log(xhr);
+                        showMessageModal("Error: " + xhr.responseJSON.message);
                     },
                     complete: function () {
                         // Re-enable button and restore text

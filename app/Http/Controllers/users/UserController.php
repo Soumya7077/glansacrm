@@ -267,28 +267,40 @@ class UserController extends Controller
 
 
   public function store(Request $request)
-  {
+{
+    // Check if the email already exists
+    $email = UserModel::where('Email', $request->email)->first();
+    
+    if ($email) {
+        // If the email exists, return a response indicating the user already exists
+        return response()->json([
+            'status' => 409,  // Conflict status code for already existing resource
+            'message' => 'Email already exists',
+        ], 409);
+    }
+    
+    // If the email does not exist, create the new user
     $user = UserModel::create([
-      'FirstName' => $request->first_name,
-      'LastName' => $request->last_name,
-      'RoleId' => $request->role_id,
-      'Email' => $request->email,
-      'Password' => bcrypt($request->password),
+        'FirstName' => $request->first_name,
+        'LastName' => $request->last_name,
+        'RoleId' => $request->role_id,
+        'Email' => $request->email,
+        'Password' => bcrypt($request->password),  // Always hash the password before saving
     ]);
 
     if ($user) {
-      return response()->json([
-        'status' => 200,
-        'message' => 'User added successfully',
-        'user' => $user,
-      ], 200);
+        return response()->json([
+            'status' => 201,  // Created status code
+            'message' => 'User added successfully',
+            'user' => $user,
+        ], 201);
     } else {
-      return response()->json([
-        'status' => 404,
-        'message' => 'Already Exist',
-      ], 404);
+        return response()->json([
+            'status' => 500,  // Internal server error in case of failure
+            'message' => 'Error while creating user',
+        ], 500);
     }
-  }
+}
 
 
   public function show($id)
