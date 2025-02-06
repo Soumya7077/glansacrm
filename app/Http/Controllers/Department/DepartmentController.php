@@ -71,7 +71,7 @@ class DepartmentController extends Controller
                 'status' => 200, // HTTP status code 201 for resource creation
                 'message' => 'Department created successfully',
                 'data' => $department,
-            ], 201);
+            ], 200);
         } else {
             return response()->json([
                 'status' => 500,
