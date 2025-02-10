@@ -98,7 +98,7 @@
                             </div>
 
                             <div class="card-header  p-0 mb-3">
-                                <h6 class="text-primary mb-0">Contact Person 2 Details</h6>
+                                <h6 class="text-primary mb-0">Contact Person 2 Details (optional)</h6>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control capitalize-input" id="contact-person-2-name"
