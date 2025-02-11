@@ -161,11 +161,6 @@
             // sendMail(email);
           }
         });
-
-        // Extract only emails from the applicants array
-
-        // Set the 'To' field with the emails
-
       } catch (error) {
         console.error("Error parsing applicants:", error);
       }
@@ -191,7 +186,6 @@
     validateField($("#option").val(), "#option");
     validateField($("#location").val(), "#location");
 
-    // $("#sendMail").prop("disabled", !isValid); // Disable button if form is invalid
     return isValid;
   }
 
