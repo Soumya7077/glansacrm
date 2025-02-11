@@ -269,7 +269,31 @@
     });
   }
 
+  function validateUpdateForm() {
+    let isValid = true;
+
+    function validateField(field, selector) {
+      if (!field.trim()) {
+        $(selector).addClass("is-invalid");
+        isValid = false;
+      } else {
+        $(selector).removeClass("is-invalid");
+      }
+    }
+
+    validateField($("#toField").val(), "#toField");
+    validateField($("#interviewDate").val(), "#interviewDate");
+    validateField($("#timeslotone").val(), "#timeslotone");
+    validateField($("#description").val(), "#description");
+    validateField($("#option").val(), "#option");
+    validateField($("#location").val(), "#location");
+
+    return isValid;
+  }
+
   $(document).ready(function () {
+    $(".form-control").on("input", validateUpdateForm);
+
     let data;
     const urlParams = new URLSearchParams(window.location.search);
     const interview = urlParams.get('interview');
@@ -287,7 +311,7 @@
       $('#timeslotthree').val(data.ThirdTimeSlot);
       $('#option').val(data.Type);
       $('#bcc').val(data.BCC);
-      $('#description').val(data.Description);
+      // $('#description').val(data.Description);
       $('#location').val(data['Link/Location']);
     }
 
@@ -301,6 +325,7 @@
 
     $('#updateApplicant').on('click', function (e) {
       e.preventDefault();
+      if (!validateUpdateForm()) return;
       const userData = JSON.parse(localStorage.getItem('userData'));
 
       const requestData = {
@@ -322,6 +347,7 @@
       };
 
       console.log("Request Data:", requestData);
+      $("#updateApplicant").prop("disabled", true).html('Re-Scheduling...<span class="spinner-border spinner-border-sm"></span> ');
 
       $.ajax({
         url: `/api/interview/update/${data.id}`,
@@ -337,6 +363,10 @@
           console.error("Error updating interview:", error);
           $("#errorMessage").text("An error occurred while updating the interview details. Please try again.");
           $("#errorModal").modal("show");
+        },
+        complete: function () {
+          // Hide loading state
+          $('#updateApplicant').prop('disabled', false).html('Reschedule Interview');
         }
       });
     });
