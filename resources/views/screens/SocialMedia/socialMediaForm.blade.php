@@ -147,6 +147,8 @@
         data: $(this).serialize(),
         success: function () {
           $('#successModal').modal('show');
+          form.reset(); // Reset the form
+          $(form).removeClass('was-validated');
         },
         error: function (xhr) {
           $('#errorMessage').text(xhr.responseJSON.message);
