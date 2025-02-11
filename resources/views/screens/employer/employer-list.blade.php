@@ -59,7 +59,8 @@
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control capitalize-input" id="organization-name"
                                     placeholder="Organization Name" />
-                                <label for="organization-name">Organization Name</label>
+                                <label for="organization-name">Organization Name <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide the organization name.</div>
                             </div>
 
@@ -69,31 +70,35 @@
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control capitalize-input" id="contact-person-1-name"
                                     placeholder="Contact Person Name" />
-                                <label for="contact-person-1-name">Contact Person Name</label>
+                                <label for="contact-person-1-name">Contact Person Name <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide contact person 1's name.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="tel" class="form-control" id="contact-person-1-phone"
                                     placeholder="Phone Number" pattern="^\d{10}$" maxlength="10" />
-                                <label for="contact-person-1-phone">Phone Number</label>
+                                <label for="contact-person-1-phone">Phone Number <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide a valid 10-digit phone number.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="email" class="form-control" id="contact-person-1-email"
                                     placeholder="Email" />
-                                <label for="contact-person-1-email">Email</label>
+                                <label for="contact-person-1-email">Email <span style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide a valid email address.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-1-location"
                                     placeholder="Location" />
-                                <label for="contact-person-1-location">Location</label>
+                                <label for="contact-person-1-location">Location <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide a location.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control capitalize-input"
                                     id="contact-person-1-designation" placeholder="Designation" />
-                                <label for="contact-person-1-location">Designation</label>
+                                <label for="contact-person-1-location">Designation <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide a Designation.</div>
                             </div>
 

@@ -20,7 +20,7 @@
             <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control capitalized" id="firstname" placeholder="First Name" required />
-                <label for="name">First Name</label>
+                <label for="name">First Name <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please enter a valid first name.</div>
               </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control capitalized" id="lastname" placeholder="Last Name" required />
-                <label for="name">Last Name</label>
+                <label for="name">Last Name <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please enter a valid last name.</div>
               </div>
             </div>
@@ -41,7 +41,7 @@
               <div class="form-floating form-floating-outline">
                 <input type="tel" maxlength="10" class="form-control phone-mask" id="phone" placeholder="1234567890"
                   pattern="^\d{10}$" required />
-                <label for="phone">Phone No</label>
+                <label for="phone">Phone No <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
               </div>
             </div>
@@ -49,7 +49,7 @@
               <div class="input-group input-group-merge">
                 <div class="form-floating form-floating-outline">
                   <input type="email" class="form-control" id="email" placeholder="Email" required />
-                  <label for="email">Email</label>
+                  <label for="email">Email <span style="color: red;">*</span></label>
                   <div class="invalid-feedback">Please enter a valid email address.</div>
                 </div>
               </div>
@@ -63,7 +63,7 @@
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control capitalized" id="qualification" placeholder="Qualification"
                   required />
-                <label for="qualification">Qualification</label>
+                <label for="qualification">Qualification <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please enter your qualification.</div>
               </div>
             </div>
@@ -73,7 +73,7 @@
                 <input type="number" class="form-control" id="experience" placeholder="Work Experience" required
                   pattern="^\d{1,2}$" min="0" max="99"
                   oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
-                <label for="experience">Work Experience (in years)</label>
+                <label for="experience">Work Experience (in years) <span style="color: gray;">(optional)</span></label>
                 <div class="invalid-feedback">Please enter your work experience.</div>
               </div>
             </div>
@@ -84,14 +84,14 @@
             <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
                 <input type="number" class="form-control" id="current-salary" placeholder="Current Salary" required />
-                <label for="current-salary">Current Salary</label>
+                <label for="current-salary">Current Salary <span style="color: gray;">(optional)</span></label>
                 <div class="invalid-feedback">Please enter your current salary.</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-floating form-floating-outline">
                 <input type="number" class="form-control" id="expected-salary" placeholder="Expected Salary" required />
-                <label for="expected-salary">Expected Salary</label>
+                <label for="expected-salary">Expected Salary <span style="color: gray;">(optional)</span></label>
                 <div class="invalid-feedback">Please enter your expected salary.</div>
               </div>
             </div>
@@ -105,14 +105,14 @@
                   <option value="" hidden>Select Job Post</option>
 
                 </select>
-                <label for="job-post">Job Post</label>
+                <label for="job-post">Job Post <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please select a job post.</div>
               </div>
             </div>
             <div class="col-md-6 mb-3">
               <div class="form-floating form-floating-outline">
                 <input type="file" class="form-control" id="uploadResume" required />
-                <label for="uploadResume">Upload Resume</label>
+                <label for="uploadResume">Upload Resume <span style="color: gray;">(optional)</span></label>
                 <div class="invalid-feedback">Please upload your resume.</div>
               </div>
             </div>
@@ -129,14 +129,14 @@
                   <option value="60">45-60 days</option>
                   <option value="60+">More than 60 days</option>
                 </select>
-                <label for="qualification">Notice Period</label>
+                <label for="qualification">Notice Period <span style="color: gray;">(optional)</span></label>
                 <div class="invalid-feedback">Please enter your Remark.</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-floating form-floating-outline">
                 <input type="text" class="form-control capitalized" id="remarks" placeholder="Remark" required />
-                <label for="qualification">Remark</label>
+                <label for="qualification">Remark <span style="color: gray;">(optional)</span></label>
                 <div class="invalid-feedback">Please enter your Remark.</div>
               </div>
             </div>
