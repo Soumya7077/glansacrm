@@ -142,8 +142,18 @@
         applicants = JSON.parse(decodeURIComponent(applicants)); // Convert back to array
         console.log("Received Applicants:", applicants);
 
+        let emails = applicants.map(applicant => applicant.email);
+        console.log("Extracted Emails:", emails);
+        $("#toField").val(emails.join(", "));
+
         $('#emailForm').on('submit', function (e) {
           e.preventDefault();
+
+          if (!validateForm()) {
+            console.log("Form validation failed. Submission prevented.");
+            return; // Stop if validation fails
+          }
+
           for (let i = 0; i < applicants.length; i++) {
             sendMail(applicants[i]);
             // let email = applicants[i].email;
@@ -153,22 +163,41 @@
         });
 
         // Extract only emails from the applicants array
-        let emails = applicants.map(applicant => applicant.email);
-        console.log("Extracted Emails:", emails);
 
         // Set the 'To' field with the emails
-        $("#toField").val(emails.join(", "));
+
       } catch (error) {
         console.error("Error parsing applicants:", error);
       }
     }
   });
 
+  function validateForm() {
+    let isValid = true;
+
+    function validateField(field, selector) {
+      if (!field.trim()) {
+        $(selector).addClass("is-invalid");
+        isValid = false;
+      } else {
+        $(selector).removeClass("is-invalid");
+      }
+    }
+
+    validateField($("#toField").val(), "#toField");
+    validateField($("#interviewDate").val(), "#interviewDate");
+    validateField($("#timeslotone").val(), "#timeslotone");
+    validateField($("#description").val(), "#description");
+    validateField($("#option").val(), "#option");
+    validateField($("#location").val(), "#location");
+
+    // $("#sendMail").prop("disabled", !isValid); // Disable button if form is invalid
+    return isValid;
+  }
+
   function sendMail(e) {
 
-    if (e && e.preventDefault) {
-      e.preventDefault();
-    }
+    if (!validateForm()) return;
 
     const userData = JSON.parse(localStorage.getItem('userData'));
 
@@ -185,7 +214,6 @@
     const createdBy = userData?.id;
 
     $("#sendMail").prop("disabled", true).addClass("btn-primary").html('Sending...<span class="spinner-border spinner-border-sm"></span> ');
-
     $.ajax({
       url: '/api/send-interview-mail',
       type: 'POST',
@@ -208,6 +236,7 @@
       },
       success: function (response) {
         // console.log(`Email sent to: ${email}`);
+
         updateApplicantStatus(e.id);
       },
       error: function (xhr, status, error) {
@@ -225,59 +254,7 @@
     });
   }
 
-  $("#emailForm").on("submit", function (e) {
-    e.preventDefault(); // Prevent form submission
-    let isValid = true;
-
-    // Get input values
-    const toField = $("#toField").val().trim();
-    const date = $("#interviewDate").val().trim();
-    const timeslotone = $("#timeslotone").val().trim();
-    const description = $("#description").val().trim();
-    const type = $("#option").val().trim();
-    const location = $("#location").val().trim();
-
-    // Validate required fields
-    function validateField(field, selector) {
-      if (!field) {
-        $(selector).addClass("is-invalid");
-        isValid = false;
-      } else {
-        $(selector).removeClass("is-invalid");
-      }
-    }
-
-    validateField(toField, "#toField");
-    validateField(date, "#interviewDate");
-    validateField(timeslotone, "#timeslotone");
-    validateField(description, "#description");
-    validateField(type, "#option");
-    validateField(location, "#location");
-
-    // If form is invalid, do not proceed
-    if (!isValid) {
-      $("#sendMail").prop("disabled", true); // Ensure button is disabled if form is invalid
-      return;
-    }
-
-    // Enable the button only if form is valid
-    $("#sendMail").prop("disabled", false);
-
-    // Call sendMail only when all fields are valid
-    sendMail();
-  });
-
-  // Enable the button when all fields are filled
-  $(".form-control").on("input", function () {
-    let allFilled = true;
-    $(".form-control").each(function () {
-      if ($(this).hasClass("is-invalid") || $(this).val().trim() === "") {
-        allFilled = false;
-      }
-    });
-
-    $("#sendMail").prop("disabled", !allFilled);
-  });
+  $(".form-control").on("input", validateForm);
 
   function updateApplicantStatus(applicantId) {
     $.ajax({
