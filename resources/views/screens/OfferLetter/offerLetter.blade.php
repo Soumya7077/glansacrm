@@ -23,40 +23,40 @@
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="toField" name="email" placeholder="To"
                                 required />
-                            <label for="toField">To</label>
+                            <label for="toField">To <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please enter a recipient email address.</div>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="salaryoffered" name="SalaryOffer"
                                 placeholder="Salary offered" required />
-                            <label for="salaryoffered">Salary Offered</label>
+                            <label for="salaryoffered">Salary Offered <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please provide the salary offered.</div>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="applicantfirstname" name="applicantfirstname"
                                 placeholder="Name" required />
-                            <label for="applicantfirstname">Name</label>
+                            <label for="applicantfirstname">Name <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please provide the applicant's name.</div>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="organizationname" name="OrganisationName"
                                 placeholder="Organization Name" required />
-                            <label for="organizationname">Organization Name</label>
+                            <label for="organizationname">Organization Name <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please provide the organization name.</div>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="description" name="description"
                                 placeholder="Designation" required />
-                            <label for="description">Designation</label>
+                            <label for="description">Designation <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please provide the designation.</div>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="file" class="form-control" id="file" name="offer_letters" required />
-                            <label for="file">File</label>
+                            <label for="file">File <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please upload a file.</div>
                         </div>
                     </div>
@@ -65,14 +65,14 @@
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="subject" name="Subject" placeholder="Subject"
                                 required />
-                            <label for="subject">Subject</label>
+                            <label for="subject">Subject <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please provide the subject.</div>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="date" class="form-control" id="joiningdate" name="JoiningDate"
                                 placeholder="Joining Date" required />
-                            <label for="joiningdate">Joining Date</label>
+                            <label for="joiningdate">Joining Date <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please provide the joining date.</div>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
@@ -82,21 +82,21 @@
                                 <option value="12 Hrs">12 Hrs</option>
                                 <option value="24 Hrs">24 Hrs</option>
                             </select>
-                            <label for="shift">Shift</label>
+                            <label for="shift">Shift <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please select a shift.</div>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="benefits" name="Benefits" placeholder="Benefits"
                                 required />
-                            <label for="benefits">Benefits</label>
+                            <label for="benefits">Benefits <span style="color: red;">*</span></label>
                             <div class="invalid-feedback">Please provide the benefits.</div>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-4">
                             <textarea id="remarks" name="Remarks" class="form-control" placeholder="Remark"
                                 style="height: 122px;"></textarea>
-                            <label for="remarks">Remarks</label>
+                            <label for="remarks">Remarks <span style="color: gray;">(optional)</span></label>
                             <div class="invalid-feedback">Please provide remarks.</div>
                         </div>
                     </div>

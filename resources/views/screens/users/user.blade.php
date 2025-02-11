@@ -64,20 +64,20 @@
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
                   required />
-                <label for="first_name">First Name</label>
+                <label for="first_name">First Name <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please provide a valid first name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
                   required />
-                <label for="last_name">Last Name</label>
+                <label for="last_name">Last Name <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please provide a valid last name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" required />
-                <label for="email">Email</label>
+                <label for="email">Email <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please provide a valid email.</div>
               </div>
 
@@ -86,7 +86,7 @@
                   <div class="form-floating form-floating-outline">
                     <input type="password" id="password" class="form-control" name="password" placeholder="Password"
                       required>
-                    <label for="password">Password</label>
+                    <label for="password">Password <span style="color: red;">*</span></label>
                     <div class="invalid-feedback">Please provide a valid password.</div>
                   </div>
                   <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
@@ -98,7 +98,7 @@
                   <div class="form-floating form-floating-outline">
                     <input type="password" id="confirm_password" class="form-control" name="confirm_password"
                       placeholder="Confirm Password" required>
-                    <label for="confirm_password">Password</label>
+                    <label for="confirm_password">Password <span style="color: red;">*</span></label>
                     <div class="invalid-feedback" id="passwordMatchFeedback">Password do not match.</div>
                   </div>
                   <span class="input-group-text cursor-pointer" style><i class="mdi mdi-eye-off-outline"></i></span>
@@ -111,7 +111,7 @@
                   <option value="1">Admin</option>
                   <option value="2">Recruiter</option>
                 </select>
-                <label for="role_id">Role</label>
+                <label for="role_id">Role <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please select a role.</div>
               </div>
             </div>
@@ -146,20 +146,20 @@
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="firstname" name="first_name" placeholder="First Name"
                   required />
-                <label for="firstname">First Name</label>
+                <label for="firstname">First Name <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please provide a valid first name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="text" class="form-control" id="lastname" name="last_name" placeholder="Last Name"
                   required />
-                <label for="lastname">Last Name</label>
+                <label for="lastname">Last Name <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please provide a valid last name.</div>
               </div>
 
               <div class="form-floating form-floating-outline mb-4">
                 <input type="email" class="form-control" id="Email" name="email" placeholder="Email" required />
-                <label for="Email">Email</label>
+                <label for="Email">Email <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please provide a valid email.</div>
               </div>
 
@@ -169,7 +169,7 @@
                   <option value="1">Admin</option>
                   <option value="2">Recruiter</option>
                 </select>
-                <label for="roleid">Role</label>
+                <label for="roleid">Role <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please select a role.</div>
               </div>
             </div>
@@ -228,7 +228,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
@@ -476,10 +476,10 @@
       data: form.serialize(),
       success: function (response) {
         console.log(response);
-        
+
         $('#offcanvasBackdrop').offcanvas('hide');
         $('#successModal .modal-title').text('Success');
-    $('#successModal .modal-body').html(response.message);
+        $('#successModal .modal-body').html(response.message);
         $('#successModal').modal('show');
         form[0].reset();
         form.removeClass('was-validated');
@@ -489,9 +489,9 @@
       error: function (error) {
         console.error('Error:', error.responseJSON);
         $('#successModal .modal-title').text('ERROR');
-    $('#successModal .modal-body').html(error.responseJSON.message);
+        $('#successModal .modal-body').html(error.responseJSON.message);
         $('#successModal').modal('show');
-       
+
       },
       complete: function () {
         submitButton.prop('disabled', false).html('Add');

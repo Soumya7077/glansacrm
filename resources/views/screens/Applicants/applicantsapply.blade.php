@@ -17,14 +17,14 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="first-name" placeholder="First Name" required
               pattern="[A-Za-z\s]+" />
-            <label for="first-name">First Name *</label>
+            <label for="first-name">First Name <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter your First name.</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="last-name" placeholder="Last Name" required />
-            <label for="last-name">Last Name *</label>
+            <label for="last-name">Last Name <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter your Last name.</div>
           </div>
         </div>
@@ -34,14 +34,14 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="tel" class="form-control" id="phone-number" placeholder="Phone Number" maxlength="10"
               required />
-            <label for="phone-number">Phone Number *</label>
+            <label for="phone-number">Phone Number <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter a valid phone number.</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="email" class="form-control" id="email" placeholder="Email" required />
-            <label for="email">Email *</label>
+            <label for="email">Email <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter a valid email address.</div>
           </div>
         </div>
@@ -51,7 +51,7 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="url" class="form-control" id="portfolio" placeholder="Portfolio/LinkedIn Profile" />
-            <label for="portfolio">Portfolio/LinkedIn Profile</label>
+            <label for="portfolio">Portfolio/LinkedIn Profile <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
         <div class="col-md-6">
@@ -60,7 +60,7 @@
             <select name="" id="applyingfor" class="form-select">
               <option value="">Select Job Post</option>
             </select>
-            <label for="applyingfor">Applying For *</label>
+            <label for="applyingfor">Applying For <span style="color: red;">*</span></label>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="highest-qualification" placeholder="Highest Qualification"
               required />
-            <label for="highest-qualification">Highest Qualification *</label>
+            <label for="highest-qualification">Highest Qualification <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter your highest qualification.</div>
           </div>
         </div>
@@ -80,7 +80,7 @@
               <option value="Fresher">Fresher</option>
               <option value="Experience">Experience</option>
             </select>
-            <label for="type">Type</label>
+            <label for="type">Type <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
       </div>
@@ -89,13 +89,13 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="current-location" placeholder="Current Location" />
-            <label for="current-location">Current Location</label>
+            <label for="current-location">Current Location <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="preferred-location" placeholder="Preferred Location" />
-            <label for="preferred-location">Preferred Location</label>
+            <label for="preferred-location">Preferred Location <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
       </div>
@@ -104,13 +104,13 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="height" placeholder="Height" />
-            <label for="height">Height</label>
+            <label for="height">Height <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="weight" placeholder="Weight" />
-            <label for="weight">Weight</label>
+            <label for="weight">Weight <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
       </div>
@@ -128,14 +128,14 @@
               <option value="O+">O+</option>
               <option value="O-">O-</option>
             </select>
-            <label for="blood-group">Blood Group</label>
+            <label for="blood-group">Blood Group <span style="color: gray;">(optional)</span></label>
           </div>
 
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="hemoglobin" placeholder="Hemoglobin %" />
-            <label for="hemoglobin">Hemoglobin %</label>
+            <label for="hemoglobin">Hemoglobin % <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
       </div>
@@ -149,7 +149,7 @@
               <option value="1 month">1 month</option>
               <option value="more than one month">more than one month</option>
             </select>
-            <label for="noticeperiod">Notice Period *</label>
+            <label for="noticeperiod">Notice Period <span style="color: red;">*</span></label>
           </div>
 
         </div>
@@ -157,7 +157,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="current-organisation"
               placeholder="Current Organisation" />
-            <label for="current-organisation">Current Organisation</label>
+            <label for="current-organisation">Current Organisation <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
 
@@ -166,14 +166,14 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="current-salary" placeholder="Current Salary" required />
-            <label for="current-salary">Current Salary*</label>
+            <label for="current-salary">Current Salary <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter your current salary.</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="expected-salary" placeholder="Expected Salary" required />
-            <label for="expected-salary">Expected Salary *</label>
+            <label for="expected-salary">Expected Salary <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter your expected salary.</div>
           </div>
         </div>
@@ -183,14 +183,14 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="file" class="form-control" id="resume" required />
-            <label for="resume">Resume *</label>
+            <label for="resume">Resume <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please upload your resume.</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="file" class="form-control" id="certificates" />
-            <label for="certificates">Certificates</label>
+            <label for="certificates">Certificates <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
       </div>
@@ -200,19 +200,19 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="experience" placeholder="Experience" pattern="^\d{1,2}$"
               min="0" max="99" oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
-            <label for="experience">Work Experience (in years)</label>
+            <label for="experience">Work Experience (in years) <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <textarea class="form-control capitalized" id="remarks" placeholder="Remarks"></textarea>
-            <label for="remarks">Remarks</label>
+            <label for="remarks">Remarks <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="KeySkills" placeholder="Skills" />
-            <label for="KeySkills">Key Skills</label>
+            <label for="KeySkills">Key Skills <span style="color: gray;">(optional)</span></label>
           </div>
 
         </div>

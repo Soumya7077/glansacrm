@@ -86,7 +86,7 @@
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="deptName" name="name" placeholder="Name"
                                     required />
-                                <label for="deptName">Name</label>
+                                <label for="deptName">Name <span style="color: red;">*</span></label>
                                 <!-- <div class="invalid-feedback">Departname Name is required. Please enter a valid name.
                                 </div> -->
                                 <div class="invalid-feedback">Department Name is required. Please enter a valid name
@@ -122,13 +122,13 @@
                             tableBody.empty();
                             $.each(response.data, function (index, department) {
                                 rows += `<tr class="text-center align-middle">
-                                                                                        <td>${index + 1}</td>
-                                                                                        <td>${department.Name}</td>
-                                                                                        <td>
-                                                                                            <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
-                                                                                            <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
-                                                                                        </td>
-                                                                                    </tr>`;
+                                                                                            <td>${index + 1}</td>
+                                                                                            <td>${department.Name}</td>
+                                                                                            <td>
+                                                                                                <button class="btn btn-primary btn-sm editBtn" data-id="${department.id}" data-name="${department.Name}">Edit</button>
+                                                                                                <button class="btn btn-danger btn-sm deleteBtn" data-id="${department.id}">Delete</button>
+                                                                                            </td>
+                                                                                        </tr>`;
                             });
                             tableBody.append(rows);
                             table.clear(); // Clear any previous DataTable data
@@ -191,7 +191,7 @@
                             fetchDepartments();
                             showMessageModal(successMessage);
                         }
-                         else {
+                        else {
                             showMessageModal("Operation failed.");
                         }
                     },
