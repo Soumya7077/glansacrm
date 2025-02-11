@@ -8,7 +8,7 @@
     <h5 class="mb-0">Candidate Interview</h5>
   </div>
   <div class="card-body">
-    <form id="emailForm" class="needs-validation" novalidate>
+    <form id="emailForm" class="needs-validation">
       <div class="row">
         <div class="col-md-6">
           <input type="text" hidden id="EmployerId">
@@ -18,22 +18,22 @@
             <div class="invalid-feedback">Please select an email address.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="cc" name="interviewDate" placeholder="CC" required />
+            <input type="text" class="form-control" id="cc" name="interviewDate" placeholder="CC" />
             <label for="interviewDate">CC</label>
             <div class="invalid-feedback">Please choose CC </div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="date" class="form-control" id="interviewDate" name="interviewDate" required />
+            <input type="date" class="form-control" id="interviewDate" name="interviewDate" />
             <label for="interviewDate">Interview Date</label>
             <div class="invalid-feedback">Please choose a valid interview date.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="timeslotone" name="timeslotone" required />
+            <input type="time" class="form-control" id="timeslotone" name="timeslotone" />
             <label for="timeslotone">Select 1st time slot</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="timeslottwo" name="timeslottwo" required />
+            <input type="time" class="form-control" id="timeslottwo" name="timeslottwo" />
             <label for="timeslottwo">Select 2nd time slot</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
@@ -50,26 +50,26 @@
 
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="bcc" name="bcc" placeholder="BCC" required />
+            <input type="text" class="form-control" id="bcc" name="bcc" placeholder="BCC" />
             <label for="bcc">BCC</label>
             <div class="invalid-feedback">Please choose BCC </div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
             <textarea id="description" name="description" class="form-control capitalized"
-              placeholder="Subject Description" style="height: 122px;" required></textarea>
+              placeholder="Subject Description" style="height: 122px;"></textarea>
             <label for="description">Interview Description</label>
             <div class="invalid-feedback">Please provide a description.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="timeslotthree" name="timeslotthree" required />
+            <input type="time" class="form-control" id="timeslotthree" name="timeslotthree" />
             <label for="timeslotthree">Select 3rd time slot</label>
             <div class="invalid-feedback">Please choose a valid interview time.</div>
           </div>
           <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="location" name="location" placeholder="Location / Virtual Link"
-              required />
+            <input type="text" class="form-control" id="location" name="location"
+              placeholder="Location / Virtual Link" />
             <label for="location">Location / Virtual Link</label>
-            <div class="invalid-feedback">Please choose a valid interview time.</div>
+            <div class="invalid-feedback">Please choose interview type.</div>
           </div>
         </div>
       </div>
@@ -166,6 +166,10 @@
 
   function sendMail(e) {
 
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+
     const userData = JSON.parse(localStorage.getItem('userData'));
 
     const type = $('#option').val();
@@ -220,6 +224,60 @@
       }
     });
   }
+
+  $("#emailForm").on("submit", function (e) {
+    e.preventDefault(); // Prevent form submission
+    let isValid = true;
+
+    // Get input values
+    const toField = $("#toField").val().trim();
+    const date = $("#interviewDate").val().trim();
+    const timeslotone = $("#timeslotone").val().trim();
+    const description = $("#description").val().trim();
+    const type = $("#option").val().trim();
+    const location = $("#location").val().trim();
+
+    // Validate required fields
+    function validateField(field, selector) {
+      if (!field) {
+        $(selector).addClass("is-invalid");
+        isValid = false;
+      } else {
+        $(selector).removeClass("is-invalid");
+      }
+    }
+
+    validateField(toField, "#toField");
+    validateField(date, "#interviewDate");
+    validateField(timeslotone, "#timeslotone");
+    validateField(description, "#description");
+    validateField(type, "#option");
+    validateField(location, "#location");
+
+    // If form is invalid, do not proceed
+    if (!isValid) {
+      $("#sendMail").prop("disabled", true); // Ensure button is disabled if form is invalid
+      return;
+    }
+
+    // Enable the button only if form is valid
+    $("#sendMail").prop("disabled", false);
+
+    // Call sendMail only when all fields are valid
+    sendMail();
+  });
+
+  // Enable the button when all fields are filled
+  $(".form-control").on("input", function () {
+    let allFilled = true;
+    $(".form-control").each(function () {
+      if ($(this).hasClass("is-invalid") || $(this).val().trim() === "") {
+        allFilled = false;
+      }
+    });
+
+    $("#sendMail").prop("disabled", !allFilled);
+  });
 
   function updateApplicantStatus(applicantId) {
     $.ajax({
