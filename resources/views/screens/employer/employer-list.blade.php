@@ -297,6 +297,35 @@
         fetchEmployer();
 
 
+        function validateDuplicates() {
+            let phone1 = $('#contact-person-1-phone').val().trim();
+            let phone2 = $('#contact-person-2-phone').val().trim();
+            let email1 = $('#contact-person-1-email').val().trim();
+            let email2 = $('#contact-person-2-email').val().trim();
+
+            let isValid = true;
+
+            if (phone1 && phone2 && phone1 === phone2) {
+                $('#contact-person-2-phone').addClass('is-invalid');
+                $('#contact-person-2-phone').siblings('.invalid-feedback').text('Second contact phone number must be different from the first.');
+                isValid = false;
+            } else {
+                $('#contact-person-2-phone').removeClass('is-invalid');
+                $('#contact-person-2-phone').siblings('.invalid-feedback').text('');
+            }
+
+            if (email1 && email2 && email1.toLowerCase() === email2.toLowerCase()) {
+                $('#contact-person-2-email').addClass('is-invalid');
+                $('#contact-person-2-email').siblings('.invalid-feedback').text('Second contact email must be different from the first.');
+                isValid = false;
+            } else {
+                $('#contact-person-2-email').removeClass('is-invalid');
+                $('#contact-person-2-email').siblings('.invalid-feedback').text('');
+            }
+
+            return isValid;
+        }
+
         $('#clearForm').on('click', function () {
             $('#addUserForm')[0].reset();
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
@@ -374,6 +403,10 @@
             });
         });
 
+        $('#contact-person-1-phone, #contact-person-2-phone, #contact-person-1-email, #contact-person-2-email').on('input', function () {
+            validateDuplicates();
+        });
+
         $('#addUserForm').on('submit', function (e) {
             e.preventDefault();
 
@@ -402,7 +435,10 @@
                     if (!firstErrorField) firstErrorField = input;
                 }
             });
-
+            // Validate duplicate contact and email
+            if (!validateDuplicates()) {
+                isValid = false;
+            }
             if (!isValid) {
                 $('#addUserForm').addClass('was-validated');
                 if (firstErrorField) {
