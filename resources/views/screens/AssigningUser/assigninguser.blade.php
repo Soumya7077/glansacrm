@@ -295,6 +295,7 @@
 
           // Reset form and close offcanvas
           $('#assignUserForm')[0].reset();
+          $('#userId').val('');
           $('#recruiter, #Job-Title').removeClass('is-valid');
           $('#offcanvasBackdrop').offcanvas('hide');
           fetchAssignedRecruiter();
