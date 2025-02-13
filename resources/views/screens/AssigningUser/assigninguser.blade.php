@@ -369,12 +369,14 @@
     const id = $(this).data('id');
     console.log("Delete clicked for ID:", id);  // Debugging
 
-    // Show the confirmation modal
+    $('#confirmDeleteButton').data('id', id);
+
     $('#confirmModal').modal('show');
 
     // When user clicks Confirm on the confirmation modal
     $('#confirmDeleteButton').off('click').on('click', function () {
-      // Perform the delete request
+      const id = $(this).data('id');
+
       $.ajax({
       url: `/api/deleteassignuser/${id}`,
       method: "DELETE",

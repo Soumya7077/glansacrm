@@ -108,15 +108,6 @@
   <script>
     $(document).ready(function () {
 
-    // function showSuccessModal(message) {
-    //   $('#successModal .modal-body').text(message);
-    //   $('#successModal').modal('show');
-    // }
-
-    // function errorModal(message) {
-    //   $('#errorModal .modal-body').text(message);
-    //   $('#errorModal').modal('show');
-    // }
     // Handle the "Update" button click
     $(document).on('click', '.update-btn', function (e) {
       e.preventDefault();  // Prevent default link behavior

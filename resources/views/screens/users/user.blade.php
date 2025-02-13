@@ -345,7 +345,7 @@
       dataType: 'json',
       success: function (response) {
         $('#confirmModal').modal('hide');
-        $('#successMessage').text('User deleted successfully.');
+        $('#successModaldelete .modal-body').text('User deleted successfully.');
         $('#successModaldelete').modal('show');
         $('#successModaldelete').on('hidden.bs.modal', function () {
         fetchUsers();
