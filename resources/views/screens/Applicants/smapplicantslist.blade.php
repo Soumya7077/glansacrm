@@ -2,105 +2,105 @@
 @section('title', 'Applicants - Social Media applicants list')
 
 @section('content')
-<div class="container-fluid mt-3 px-0">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="container-fluid mt-3 px-0">
+    <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 class="mb-0">Social Media Applicants list</h3>
-  </div>
-  <div id="loading-spinner" style="display: none;">
+    </div>
+    <div id="loading-spinner" style="display: none;">
     <span>
       <h4 class="text-primary">Loading...</h4>
     </span>
-  </div>
-  <div class="d-flex align-items-center">
+    </div>
+    <!-- <div class="d-flex align-items-center">
     <input type="checkbox" id="select-all" class="select-all-checkbox m-2">
     <h4 class="m-0">Select All Applicant's</h4>
-  </div>
-  <div class="table-responsive">
+    </div> -->
+    <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover shadow-sm text-sm" id="table">
       <thead class="table-dark text-center small">
-        <tr class="text-center align-middle">
-          <th>Select Applicant's</th>
-          <th>Applicant's Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Status</th>
-          <th>Update</th>
-        </tr>
+      <tr class="text-center align-middle">
+        <th>Select Applicant's</th>
+        <th>Applicant's Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Update</th>
+      </tr>
       </thead>
       <tbody id="tbody">
       </tbody>
     </table>
-  </div>
-  <div class="d-flex justify-content-end mt-3">
+    </div>
+    <div class="d-flex justify-content-end mt-3">
     <button id="clearForm" class="btn btn-primary" type="button"> Assign </button>
+    </div>
   </div>
-</div>
 
-<div class="col-lg-4 col-md-6">
-  <div class="mt-3">
+  <div class="col-lg-4 col-md-6">
+    <div class="mt-3">
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasBackdrop" aria-labelledby="offcanvasBackdropLabel">
       <div class="offcanvas-header">
-        <h5 id="offcanvasBackdropLabel" class="offcanvas-title">Assigning User</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <h5 id="offcanvasBackdropLabel" class="offcanvas-title">Assigning User</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <hr>
       <div class="offcanvas-body mx-0 flex-grow-0">
-        <form id="assignUserForm" novalidate>
-          @csrf
-          <input type="hidden" id="userId">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-floating form-floating-outline mb-4">
-                <select class="form-control" id="recruiter" required>
-                  <option value="" hidden>Select Recruiter</option>
-                </select>
-                <label for="recruiter">Recruiter</label>
-                <div class="invalid-feedback">Please select a recruiter.</div>
-              </div>
-            </div>
+      <form id="assignUserForm" novalidate>
+        @csrf
+        <input type="hidden" id="userId">
+        <div class="row">
+        <div class="col-md-12">
+          <div class="form-floating form-floating-outline mb-4">
+          <select class="form-control" id="recruiter" required>
+            <option value="" hidden>Select Recruiter</option>
+          </select>
+          <label for="recruiter">Recruiter</label>
+          <div class="invalid-feedback">Please select a recruiter.</div>
           </div>
-          <button type="submit" class="btn btn-primary w-100 mb-2">Submit</button>
-        </form>
-        <button type="button" class="btn btn-outline-secondary d-grid w-100" id="cancelButton">Cancel</button>
+        </div>
+        </div>
+        <button type="submit" id="submitBtn" class="btn btn-primary w-100 mb-2">Submit</button>
+      </form>
+      <button type="button" class="btn btn-outline-secondary d-grid w-100" id="cancelButton">Cancel</button>
       </div>
     </div>
+    </div>
   </div>
-</div>
 
-<!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="successModalLabel">Success</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <h5 class="modal-title" id="successModalLabel">Success</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Your data has been successfully assigned!
+      Your data has been successfully assigned!
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
       </div>
     </div>
+    </div>
   </div>
-</div>
 
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="errorModallLabel">Error</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <h5 class="modal-title" id="errorModallLabel">Error</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- Your data has been successfully assigned! -->
+      <!-- Your data has been successfully assigned! -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
       </div>
     </div>
+    </div>
   </div>
-</div>
 
 @endsection
 
@@ -276,6 +276,7 @@
     // let failedRequests = 0;
     console.log(selectedApplicants, 'ggsdgsgd');
 
+    $('#submitBtn').prop('disabled', true).text('Submitting...');
 
     $.ajax({
       url: '/api/assignsmapplicant',
@@ -289,11 +290,12 @@
       _token: $('meta[name="csrf-token"]').attr('content')
       }),
       success: function (response) {
-      fetchApplicants();
+
       $('#successModal .modal-body').text(response.message);
       $('#successModal').modal('show');
+      window.location.reload();
       // $('#table').DataTable().ajax.reload();
-
+      // fetchApplicants();
       // Uncheck all selected checkboxes after submission
       $('.select-applicant:checked').prop('checked', false);
 
@@ -315,6 +317,10 @@
         $('#errorModal').modal('show');
         // errorModal('Something went wrong. Please try again.');
       }
+      },
+      complete: function () {
+      // Re-enable button and restore text
+      $('#submitBtn').prop('disabled', false).text('Submit');
       }
     });
 
