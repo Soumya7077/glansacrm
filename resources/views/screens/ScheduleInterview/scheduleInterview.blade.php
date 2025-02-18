@@ -3,131 +3,131 @@
 
 @section('content')
 
-<div class="card mb-4">
-  <div class="card-header d-flex justify-content-between align-items-center">
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">Candidate Interview</h5>
-  </div>
-  <div class="card-body">
+    </div>
+    <div class="card-body">
     <form id="emailForm" class="needs-validation">
       <div class="row">
-        <div class="col-md-6">
-          <input type="text" hidden id="EmployerId">
-          <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" name="" id="toField" value="">
-            <label for="to">To</label>
-            <div class="invalid-feedback">Please select an email address.</div>
-          </div>
-          <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="cc" name="interviewDate" placeholder="CC" />
-            <label for="interviewDate">CC</label>
-            <div class="invalid-feedback">Please choose CC </div>
-          </div>
-          <div class="form-floating form-floating-outline mb-4">
-            <input type="date" class="form-control" id="interviewDate" name="interviewDate" />
-            <label for="interviewDate">Interview Date</label>
-            <div class="invalid-feedback">Please choose a valid interview date.</div>
-          </div>
-          <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="timeslotone" name="timeslotone" />
-            <label for="timeslotone">Select 1st time slot</label>
-            <div class="invalid-feedback">Please choose a valid interview time.</div>
-          </div>
-          <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="timeslottwo" name="timeslottwo" />
-            <label for="timeslottwo">Select 2nd time slot</label>
-            <div class="invalid-feedback">Please choose a valid interview time.</div>
-          </div>
-          <div class="form-floating form-floating-outline mb-4">
-            <select name="" id="option" class="form-select">
-              <option value="Online">Virtual</option>
-              <option value="Walkin">Walk-in</option>
-            </select>
-            <label for="interviewDate">Select mode of interview</label>
-            <div class="invalid-feedback">Please choose a valid interview time.</div>
-          </div>
-
+      <div class="col-md-6">
+        <input type="text" hidden id="EmployerId">
+        <div class="form-floating form-floating-outline mb-4">
+        <input type="text" class="form-control" name="" id="toField" value="">
+        <label for="to">To</label>
+        <div class="invalid-feedback">Please select an email address.</div>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+        <input type="text" class="form-control" id="cc" name="interviewDate" placeholder="CC" />
+        <label for="interviewDate">CC</label>
+        <div class="invalid-feedback">Please choose CC </div>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+        <input type="date" class="form-control" id="interviewDate" name="interviewDate" />
+        <label for="interviewDate">Interview Date</label>
+        <div class="invalid-feedback">Please choose a valid interview date.</div>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+        <input type="time" class="form-control" id="timeslotone" name="timeslotone" step="60" />
+        <label for="timeslotone">Select 1st time slot</label>
+        <div class="invalid-feedback">Please choose a valid interview time.</div>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+        <input type="time" class="form-control" id="timeslottwo" name="timeslottwo" />
+        <label for="timeslottwo">Select 2nd time slot</label>
+        <div class="invalid-feedback">Please choose a valid interview time.</div>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+        <select name="" id="option" class="form-select">
+          <option value="Online">Virtual</option>
+          <option value="Walkin">Walk-in</option>
+        </select>
+        <label for="interviewDate">Select mode of interview</label>
+        <div class="invalid-feedback">Please choose a valid interview time.</div>
         </div>
 
-        <div class="col-md-6">
-          <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="bcc" name="bcc" placeholder="BCC" />
-            <label for="bcc">BCC</label>
-            <div class="invalid-feedback">Please choose BCC </div>
-          </div>
-          <div class="form-floating form-floating-outline mb-4">
-            <textarea id="description" name="description" class="form-control capitalized"
-              placeholder="Subject Description" style="height: 122px;"></textarea>
-            <label for="description">Interview Description</label>
-            <div class="invalid-feedback">Please provide a description.</div>
-          </div>
-          <div class="form-floating form-floating-outline mb-4">
-            <input type="time" class="form-control" id="timeslotthree" name="timeslotthree" />
-            <label for="timeslotthree">Select 3rd time slot</label>
-            <div class="invalid-feedback">Please choose a valid interview time.</div>
-          </div>
-          <div class="form-floating form-floating-outline mb-4">
-            <input type="text" class="form-control" id="location" name="location"
-              placeholder="Location / Virtual Link" />
-            <label for="location">Location / Virtual Link</label>
-            <div class="invalid-feedback">Please choose interview type.</div>
-          </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-floating form-floating-outline mb-4">
+        <input type="text" class="form-control" id="bcc" name="bcc" placeholder="BCC" />
+        <label for="bcc">BCC</label>
+        <div class="invalid-feedback">Please choose BCC </div>
         </div>
+        <div class="form-floating form-floating-outline mb-4">
+        <textarea id="description" name="description" class="form-control capitalized"
+          placeholder="Subject Description" style="height: 122px;"></textarea>
+        <label for="description">Interview Description</label>
+        <div class="invalid-feedback">Please provide a description.</div>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+        <input type="time" class="form-control" id="timeslotthree" name="timeslotthree" />
+        <label for="timeslotthree">Select 3rd time slot</label>
+        <div class="invalid-feedback">Please choose a valid interview time.</div>
+        </div>
+        <div class="form-floating form-floating-outline mb-4">
+        <input type="text" class="form-control" id="location" name="location"
+          placeholder="Location / Virtual Link" />
+        <label for="location">Location / Virtual Link</label>
+        <div class="invalid-feedback">Please choose interview type.</div>
+        </div>
+      </div>
       </div>
 
       <button type="submit" id="sendMail" class="btn btn-primary mt-3">Send Mail</button>
 
       <button type="submit" id="updateApplicant" class="btn btn-primary mt-3 ">Re-schedule
-        Interview</button>
+      Interview</button>
 
     </form>
+    </div>
   </div>
-</div>
 
 
-<!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="successModalLabel">Success</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <h5 class="modal-title" id="successModalLabel">Success</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Mail Sent Successfully
+      Mail Sent Successfully
       </div>
       <div class="modal-footer">
-        <a href="/formattedapplicantslist" class="btn btn-primary">OK</a>
+      <a href="/formattedapplicantslist" class="btn btn-primary">OK</a>
       </div>
     </div>
+    </div>
   </div>
-</div>
 
-<!-- Error Modal -->
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <!-- Error Modal -->
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="errorModalLabel">Error</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <h5 class="modal-title" id="errorModalLabel">Error</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="errorMessage">
-        <!-- Error message will be inserted here dynamically -->
+      <!-- Error message will be inserted here dynamically -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
+    </div>
   </div>
-</div>
 
-<script>
-  $(document).ready(function () {
+  <script>
+    $(document).ready(function () {
 
     let inputs = document.getElementsByClassName("capitalized");
 
     for (let input of inputs) {
       input.addEventListener("input", function () {
-        this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+      this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
       });
     }
 
@@ -139,43 +139,45 @@
       $('#updateApplicant').addClass('d-none');
       $('#sendMail').addClass('d-block');
       try {
-        applicants = JSON.parse(decodeURIComponent(applicants)); // Convert back to array
-        console.log("Received Applicants:", applicants);
 
-        let emails = applicants.map(applicant => applicant.email);
-        console.log("Extracted Emails:", emails);
-        $("#toField").val(emails.join(", "));
+      applicants = JSON.parse(decodeURIComponent(applicants)); // Convert back to array
+      console.log("Received Applicants:", applicants);
 
-        $('#emailForm').on('submit', function (e) {
-          e.preventDefault();
+      let emails = applicants.map(applicant => applicant.email);
+      console.log("Extracted Emails:", emails);
+      $("#toField").val(emails.join(", "));
 
-          if (!validateForm()) {
-            console.log("Form validation failed. Submission prevented.");
-            return; // Stop if validation fails
-          }
+      $('#emailForm').on('submit', function (e) {
+        e.preventDefault();
 
-          for (let i = 0; i < applicants.length; i++) {
-            sendMail(applicants[i]);
-            // let email = applicants[i].email;
-            // console.log("Email:", email);
-            // sendMail(email);
-          }
-        });
+        if (!validateForm()) {
+        console.log("Form validation failed. Submission prevented.");
+        return; // Stop if validation fails
+        }
+
+        for (let i = 0; i < applicants.length; i++) {
+        sendMail(applicants[i]);
+        // let email = applicants[i].email;
+        // console.log("Email:", email);
+        // sendMail(email);
+        }
+      });
       } catch (error) {
-        console.error("Error parsing applicants:", error);
+      console.error("Error parsing applicants:", error);
       }
     }
-  });
+    });
 
-  function validateForm() {
+    function validateForm() {
+
     let isValid = true;
 
     function validateField(field, selector) {
       if (!field.trim()) {
-        $(selector).addClass("is-invalid");
-        isValid = false;
+      $(selector).addClass("is-invalid");
+      isValid = false;
       } else {
-        $(selector).removeClass("is-invalid");
+      $(selector).removeClass("is-invalid");
       }
     }
 
@@ -187,10 +189,11 @@
     validateField($("#location").val(), "#location");
 
     return isValid;
-  }
+    }
 
-  function sendMail(e) {
+    function sendMail(e) {
 
+    // console.log( $('#interviewDate').val());
     if (!validateForm()) return;
 
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -198,6 +201,7 @@
     const type = $('#option').val();
     const link = $('#location').val();
     const date = $('#interviewDate').val();
+    const formattedDate = date.split('-').reverse().join('-');
     const bcc = $('#bcc').val();
     const cc = $('#cc').val();
     const description = $('#description').val();
@@ -212,72 +216,72 @@
       url: '/api/send-interview-mail',
       type: 'POST',
       data: {
-        "EmployerId": e.empId,
-        "ApplicantId": e.id,
-        "JobId": e.jobId,
-        "Type": type,
-        "Link/Location": link,
-        "InterviewDate": date,
-        "ApplicantEmail": e.email,
-        "BCC": bcc,
-        "CC": cc,
-        "Description": description,
-        "FirstTimeSlot": timeslotone,
-        "SecondTimeSlot": timeslottwo,
-        "ThirdTimeSlot": timeslotthree,
-        "Status": 1,
-        "CreatedBy": userData?.id
+      "EmployerId": e.empId,
+      "ApplicantId": e.id,
+      "JobId": e.jobId,
+      "Type": type,
+      "Link/Location": link,
+      "InterviewDate": date,
+      "ApplicantEmail": e.email,
+      "BCC": bcc,
+      "CC": cc,
+      "Description": description,
+      "FirstTimeSlot": timeslotone,
+      "SecondTimeSlot": timeslottwo,
+      "ThirdTimeSlot": timeslotthree,
+      "Status": 1,
+      "CreatedBy": userData?.id
       },
       success: function (response) {
-        // console.log(`Email sent to: ${email}`);
+      // console.log(`Email sent to: ${email}`);
 
-        updateApplicantStatus(e.id);
+      updateApplicantStatus(e.id);
       },
       error: function (xhr, status, error) {
-        // On failure
-        console.error("Error sending email:", xhr);
-        if (xhr.status === 400 && xhr.responseJSON?.message) {
-          $("#errorMessage").text(xhr.responseJSON.message);
-          $("#errorModal").modal("show");
-        } else {
-          $("#errorMessage").text("An error occurred while sending the email. Please try again.");
-          $("#errorModal").modal("show");
-        }
-        $("#sendMail").prop("disabled", false).html("Send Mail");
+      // On failure
+      console.error("Error sending email:", xhr);
+      if (xhr.status === 400 && xhr.responseJSON?.message) {
+        $("#errorMessage").text(xhr.responseJSON.message);
+        $("#errorModal").modal("show");
+      } else {
+        $("#errorMessage").text("An error occurred while sending the email. Please try again.");
+        $("#errorModal").modal("show");
+      }
+      $("#sendMail").prop("disabled", false).html("Send Mail");
       }
     });
-  }
+    }
 
-  $(".form-control").on("input", validateForm);
+    $(".form-control").on("input", validateForm);
 
-  function updateApplicantStatus(applicantId) {
+    function updateApplicantStatus(applicantId) {
     $.ajax({
       url: `/api/applicantStatusUpdate/${applicantId}`,
       type: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify({
-        status: 6,
+      status: 6,
       }),
       success: function (response) {
-        console.log("Applicant status updated successfully:", response);
-        $('#successModal').modal('show');
+      console.log("Applicant status updated successfully:", response);
+      $('#successModal').modal('show');
       },
       error: function (xhr, status, error) {
-        console.error("Error updating applicant status:", xhr);
-        console.error("Error updating applicant status:", error);
+      console.error("Error updating applicant status:", xhr);
+      console.error("Error updating applicant status:", error);
       }
     });
-  }
+    }
 
-  function validateUpdateForm() {
+    function validateUpdateForm() {
     let isValid = true;
 
     function validateField(field, selector) {
       if (!field.trim()) {
-        $(selector).addClass("is-invalid");
-        isValid = false;
+      $(selector).addClass("is-invalid");
+      isValid = false;
       } else {
-        $(selector).removeClass("is-invalid");
+      $(selector).removeClass("is-invalid");
       }
     }
 
@@ -289,9 +293,9 @@
     validateField($("#location").val(), "#location");
 
     return isValid;
-  }
+    }
 
-  $(document).ready(function () {
+    $(document).ready(function () {
     $(".form-control").on("input", validateUpdateForm);
 
     let data;
@@ -329,51 +333,51 @@
       const userData = JSON.parse(localStorage.getItem('userData'));
 
       const requestData = {
-        Status: 1,
-        EmployerId: data.EmployerId,
-        ApplicantId: data.ApplicantId,
-        JobId: data.JobId,
-        ApplicantEmail: $('#toField').val(),
-        "BCC": $('#bcc').val(),
-        "CC": $('#cc').val(),
-        InterviewDate: $('#interviewDate').val(),
-        FirstTimeSlot: $('#timeslotone').val(),
-        SecondTimeSlot: $('#timeslottwo').val(),
-        ThirdTimeSlot: $('#timeslotthree').val(),
-        'Link/Location': $('#location').val(),
-        Type: $('#option').val(),
-        Description: $('#description').val(),
-        CreatedBy: userData.id
+      Status: 1,
+      EmployerId: data.EmployerId,
+      ApplicantId: data.ApplicantId,
+      JobId: data.JobId,
+      ApplicantEmail: $('#toField').val(),
+      "BCC": $('#bcc').val(),
+      "CC": $('#cc').val(),
+      InterviewDate: $('#interviewDate').val(),
+      FirstTimeSlot: $('#timeslotone').val(),
+      SecondTimeSlot: $('#timeslottwo').val(),
+      ThirdTimeSlot: $('#timeslotthree').val(),
+      'Link/Location': $('#location').val(),
+      Type: $('#option').val(),
+      Description: $('#description').val(),
+      CreatedBy: userData.id
       };
 
       console.log("Request Data:", requestData);
       $("#updateApplicant").prop("disabled", true).html('Re-Scheduling...<span class="spinner-border spinner-border-sm"></span> ');
 
       $.ajax({
-        url: `/api/interview/update/${data.id}`,
-        type: 'PUT',
-        contentType: 'application/json',
-        data: JSON.stringify(requestData),
-        success: function (response) {
-          console.log("Interview updated successfully:", response);
-          $('#successModal').modal('show');
-        },
-        error: function (xhr, status, error) {
-          console.log(xhr);
-          console.error("Error updating interview:", error);
-          $("#errorMessage").text("An error occurred while updating the interview details. Please try again.");
-          $("#errorModal").modal("show");
-        },
-        complete: function () {
-          // Hide loading state
-          $('#updateApplicant').prop('disabled', false).html('Reschedule Interview');
-        }
+      url: `/api/interview/update/${data.id}`,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(requestData),
+      success: function (response) {
+        console.log("Interview updated successfully:", response);
+        $('#successModal').modal('show');
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr);
+        console.error("Error updating interview:", error);
+        $("#errorMessage").text("An error occurred while updating the interview details. Please try again.");
+        $("#errorModal").modal("show");
+      },
+      complete: function () {
+        // Hide loading state
+        $('#updateApplicant').prop('disabled', false).html('Reschedule Interview');
+      }
       });
     });
 
     // }
-  });
+    });
 
-</script>
+  </script>
 
 @endsection
