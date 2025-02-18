@@ -5,9 +5,9 @@
 <!-- <h4><span class="text-muted fw-light">Home /</span> Assigning User </h4> -->
 
 <div class="d-flex justify-content-between align-items-center py-3">
-  <h3 class="mb-0">Assigning User</h3>
+  <h3 class="mb-0">Assigning Recruiter</h3>
   <button id="clearForm" class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-    data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Assigning User </button>
+    data-bs-target="#offcanvasBackdrop" aria-controls="offcanvasBackdrop"> Assign Recruiter </button>
 </div>
 
 <div>
@@ -32,7 +32,7 @@
   <div class="mt-3">
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasBackdrop" aria-labelledby="offcanvasBackdropLabel">
       <div class="offcanvas-header">
-        <h5 id="offcanvasBackdropLabel" class="offcanvas-title">Assigning User</h5>
+        <h5 id="offcanvasBackdropLabel" class="offcanvas-title">Assign Recruiter</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <hr>

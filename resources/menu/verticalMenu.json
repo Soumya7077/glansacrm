@@ -51,7 +51,7 @@
     },
     {
       "url": "/assigninguser",
-      "name": "Assigning User",
+      "name": "Assigning Recruiter",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Assigning User",
       "role": 1
