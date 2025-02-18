@@ -96,7 +96,8 @@
       "slug": "scheduleInterview-candidate"
     },
     {
-      "menuHeader": "Reports"
+      "menuHeader": "Reports",
+      "role": 1
     },
     {
       "url": "/applicantlistreport",

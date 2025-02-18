@@ -38,12 +38,11 @@
         <div class="form-floating form-floating-outline mb-3">
           <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required
           autofocus>
-          <div class="invalid-feedback">Please provide a Last Name.</div>
+          <div class="invalid-feedback"></div>
 
           <label for="email">Email</label>
-          <div class="invalid-feedback">Please enter a valid email address.</div>
         </div>
-        <button type="button" class="btn btn-primary d-grid w-100" id="sendResetLink">Send Reset Link</button>
+        <button type="button" class="btn btn-primary d-grid w-100 mt-4" id="sendResetLink">Send Reset Link</button>
         </form>
         <div class="text-center">
         <a href="/" class="d-flex align-items-center justify-content-center">
@@ -130,12 +129,13 @@
 
     if (!email) {
       emailInput.classList.add('is-invalid');
-      emailError.textContent = 'Please enter your email.';
+      emailError.textContent = 'Please enter a valid email.';
       emailError.style.display = 'block';
       return; // Stop execution if validation fails
     }
 
     console.log(email);
+    $("#sendResetLink").prop("disabled", true).addClass("btn-primary").html('Sending... ');
 
     $.ajax({
       url: '{{ url("/api/forgotPassword") }}',
@@ -153,6 +153,9 @@
       document.getElementById('errorMessage').textContent = 'An error occurred: ' + error;
       var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
       errorModal.show();
+      },
+      complete: function () {
+      $("#sendResetLink").prop("disabled", false).html('Send Reset Link');
       }
     });
     });
