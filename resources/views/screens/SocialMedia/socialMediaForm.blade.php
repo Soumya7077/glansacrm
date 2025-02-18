@@ -15,7 +15,7 @@
             <div class="form-floating form-floating-outline mb-4">
               <input type="text" class="form-control capitalized" id="applicantFirstName" name="FirstName"
                 placeholder="First Name" required />
-              <label for="applicantFirstName">Applicant First Name</label>
+              <label for="applicantFirstName">Applicant First Name <span style="color: red;">*</span></label>
               <div class="invalid-feedback">Please enter the applicant's first name.</div>
             </div>
           </div>
@@ -23,7 +23,7 @@
             <div class="form-floating form-floating-outline mb-4">
               <input type="text" class="form-control capitalized" id="applicantLastName" name="LastName"
                 placeholder="Last Name" required />
-              <label for="applicantLastName">Applicant Last Name</label>
+              <label for="applicantLastName">Applicant Last Name <span style="color: red;">*</span></label>
               <div class="invalid-feedback">Please enter the applicant's last name.</div>
             </div>
           </div>
@@ -34,7 +34,7 @@
             <div class="form-floating form-floating-outline mb-4">
               <input type="tel" maxlength="10" class="form-control" id="phoneNumber" name="phone"
                 placeholder="Phone Number" pattern="^[6-9]\d{9}$" required />
-              <label for="phoneNumber">Phone Number</label>
+              <label for="phoneNumber">Phone Number <span style="color: red;">*</span></label>
               <div class="invalid-feedback">Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9.
               </div>
             </div>
@@ -42,7 +42,7 @@
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
               <input type="email" id="email" name="email" class="form-control" placeholder="Email" required />
-              <label for="email">Email</label>
+              <label for="email">Email <span style="color: red;">*</span></label>
               <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
           </div>
@@ -58,14 +58,14 @@
                 <option value="sm">X</option>
                 <option value="sm">Others</option>
               </select>
-              <label for="applying">Source</label>
+              <label for="applying">Source <span style="color: gray;">(optional)</span></label>
               <div class="invalid-feedback">Please select a valid source.</div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-floating form-floating-outline mb-4">
               <input type="text" id="remark" name="Remarks" class="form-control capitalized" placeholder="Remark" />
-              <label for="remark">Remark</label>
+              <label for="remark">Remark <span style="color: gray;">(optional)</span></label>
             </div>
           </div>
         </div>
@@ -147,6 +147,8 @@
         data: $(this).serialize(),
         success: function () {
           $('#successModal').modal('show');
+          form.reset(); // Reset the form
+          $(form).removeClass('was-validated');
         },
         error: function (xhr) {
           $('#errorMessage').text(xhr.responseJSON.message);

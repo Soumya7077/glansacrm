@@ -46,14 +46,14 @@
                 <select class="form-control" id="recruiter" required>
                   <option value="" hidden>Select Recruiter</option>
                 </select>
-                <label for="recruiter">Recruiter</label>
+                <label for="recruiter">Recruiter <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please select a recruiter.</div>
               </div>
               <div class="form-floating form-floating-outline mb-4">
                 <select class="form-control" id="Job-Title" required>
                   <option value="" hidden>Select Job Title</option>
                 </select>
-                <label for="Job-Title">Job Title</label>
+                <label for="Job-Title">Job Title <span style="color: red;">*</span></label>
                 <div class="invalid-feedback">Please select a job title.</div>
               </div>
             </div>
@@ -158,10 +158,10 @@
       <td>${recruiter.Title}</td>
       <td>
       <button class="btn btn-primary btn-sm editAssignment"  data-id="${recruiter.assignedId}">
-        Edit
-        </button>
+      Edit
+      </button>
       <button class="btn btn-danger btn-sm deleteAssignment"  data-id="${recruiter.assignedId}">
-        Delete
+      Delete
       </td>
       </tr>`;
           tbody.append(rows);
@@ -295,6 +295,7 @@
 
           // Reset form and close offcanvas
           $('#assignUserForm')[0].reset();
+          $('#userId').val('');
           $('#recruiter, #Job-Title').removeClass('is-valid');
           $('#offcanvasBackdrop').offcanvas('hide');
           fetchAssignedRecruiter();
@@ -368,12 +369,14 @@
     const id = $(this).data('id');
     console.log("Delete clicked for ID:", id);  // Debugging
 
-    // Show the confirmation modal
+    $('#confirmDeleteButton').data('id', id);
+
     $('#confirmModal').modal('show');
 
     // When user clicks Confirm on the confirmation modal
     $('#confirmDeleteButton').off('click').on('click', function () {
-      // Perform the delete request
+      const id = $(this).data('id');
+
       $.ajax({
       url: `/api/deleteassignuser/${id}`,
       method: "DELETE",

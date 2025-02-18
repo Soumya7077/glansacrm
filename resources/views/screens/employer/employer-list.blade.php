@@ -59,7 +59,8 @@
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control capitalize-input" id="organization-name"
                                     placeholder="Organization Name" />
-                                <label for="organization-name">Organization Name</label>
+                                <label for="organization-name">Organization Name <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide the organization name.</div>
                             </div>
 
@@ -69,36 +70,40 @@
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control capitalize-input" id="contact-person-1-name"
                                     placeholder="Contact Person Name" />
-                                <label for="contact-person-1-name">Contact Person Name</label>
+                                <label for="contact-person-1-name">Contact Person Name <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide contact person 1's name.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="tel" class="form-control" id="contact-person-1-phone"
                                     placeholder="Phone Number" pattern="^\d{10}$" maxlength="10" />
-                                <label for="contact-person-1-phone">Phone Number</label>
+                                <label for="contact-person-1-phone">Phone Number <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide a valid 10-digit phone number.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="email" class="form-control" id="contact-person-1-email"
                                     placeholder="Email" />
-                                <label for="contact-person-1-email">Email</label>
+                                <label for="contact-person-1-email">Email <span style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide a valid email address.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="contact-person-1-location"
                                     placeholder="Location" />
-                                <label for="contact-person-1-location">Location</label>
+                                <label for="contact-person-1-location">Location <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide a location.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control capitalize-input"
                                     id="contact-person-1-designation" placeholder="Designation" />
-                                <label for="contact-person-1-location">Designation</label>
+                                <label for="contact-person-1-location">Designation <span
+                                        style="color: red;">*</span></label>
                                 <div class="invalid-feedback">Please provide a Designation.</div>
                             </div>
 
                             <div class="card-header  p-0 mb-3">
-                                <h6 class="text-primary mb-0">Contact Person 2 Details</h6>
+                                <h6 class="text-primary mb-0">Contact Person 2 Details (optional)</h6>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control capitalize-input" id="contact-person-2-name"
@@ -292,6 +297,35 @@
         fetchEmployer();
 
 
+        function validateDuplicates() {
+            let phone1 = $('#contact-person-1-phone').val().trim();
+            let phone2 = $('#contact-person-2-phone').val().trim();
+            let email1 = $('#contact-person-1-email').val().trim();
+            let email2 = $('#contact-person-2-email').val().trim();
+
+            let isValid = true;
+
+            if (phone1 && phone2 && phone1 === phone2) {
+                $('#contact-person-2-phone').addClass('is-invalid');
+                $('#contact-person-2-phone').siblings('.invalid-feedback').text('Second contact phone number must be different from the first.');
+                isValid = false;
+            } else {
+                $('#contact-person-2-phone').removeClass('is-invalid');
+                $('#contact-person-2-phone').siblings('.invalid-feedback').text('');
+            }
+
+            if (email1 && email2 && email1.toLowerCase() === email2.toLowerCase()) {
+                $('#contact-person-2-email').addClass('is-invalid');
+                $('#contact-person-2-email').siblings('.invalid-feedback').text('Second contact email must be different from the first.');
+                isValid = false;
+            } else {
+                $('#contact-person-2-email').removeClass('is-invalid');
+                $('#contact-person-2-email').siblings('.invalid-feedback').text('');
+            }
+
+            return isValid;
+        }
+
         $('#clearForm').on('click', function () {
             $('#addUserForm')[0].reset();
             $('#addUserForm').find('.is-invalid').removeClass('is-invalid');
@@ -369,6 +403,10 @@
             });
         });
 
+        $('#contact-person-1-phone, #contact-person-2-phone, #contact-person-1-email, #contact-person-2-email').on('input', function () {
+            validateDuplicates();
+        });
+
         $('#addUserForm').on('submit', function (e) {
             e.preventDefault();
 
@@ -397,7 +435,10 @@
                     if (!firstErrorField) firstErrorField = input;
                 }
             });
-
+            // Validate duplicate contact and email
+            if (!validateDuplicates()) {
+                isValid = false;
+            }
             if (!isValid) {
                 $('#addUserForm').addClass('was-validated');
                 if (firstErrorField) {

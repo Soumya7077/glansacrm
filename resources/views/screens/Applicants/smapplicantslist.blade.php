@@ -108,15 +108,6 @@
   <script>
     $(document).ready(function () {
 
-    // function showSuccessModal(message) {
-    //   $('#successModal .modal-body').text(message);
-    //   $('#successModal').modal('show');
-    // }
-
-    // function errorModal(message) {
-    //   $('#errorModal .modal-body').text(message);
-    //   $('#errorModal').modal('show');
-    // }
     // Handle the "Update" button click
     $(document).on('click', '.update-btn', function (e) {
       e.preventDefault();  // Prevent default link behavior
@@ -173,7 +164,7 @@
       <td>${applicant.Email || 'N/A'}</td>
       <td>${applicant.PhoneNumber || 'N/A'}</td>
       <td>${applicant.isAssigned == true ? "Assigned" : "Not Assigned" || 'N/A'}</td>
-      <td><a href="/enquiryForm?applicant=${encodedApplicantData}" class="btn btn-info btn-xs">Update</a></td>
+      <td><a href="/enquiryForm?applicant=${encodedApplicantData}"  class="btn btn-primary btn-sm">Update</a></td>
       </tr>
       `;
         tableBody.append(rows);

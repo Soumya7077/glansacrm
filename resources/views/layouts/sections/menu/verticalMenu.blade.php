@@ -16,38 +16,29 @@
   </ul>
 </aside>
 
-<script>
-  // Wait for the document to be fully loaded
+<script defer>
   document.addEventListener('DOMContentLoaded', function () {
-    // Fetch user data from localStorage
     let userData = JSON.parse(localStorage.getItem('userData'));
 
-    // Ensure userData exists before proceeding
     if (!userData || !userData.RoleId) {
       console.log('No valid user data found');
       return;
     }
 
-    // console.log('User Data:', userData);
-
-    // Fetch menu data (replace this with your Blade-provided menu JSON if needed)
-    const menuData = @json($menuData[0]->menu);
+    // Ensure menuData is available
+    const menuData = {!! json_encode($menuData[0]->menu) !!};
 
     // console.log('Menu Data:', menuData);
 
-    // Filter and render menu
     const menuContainer = document.getElementById('menuContainer');
     menuData.forEach((menu) => {
       if (!menu.role || menu.role === userData.RoleId) {
-        // Create menu item
         if (menu.menuHeader) {
-          // Render menu header
           const menuHeader = document.createElement('li');
           menuHeader.className = 'menu-header fw-medium mt-4';
           menuHeader.innerHTML = `<span class="menu-header-text">${menu.menuHeader}</span>`;
           menuContainer.appendChild(menuHeader);
         } else {
-          // Render menu item
           const activeClass = "{{ Route::currentRouteName() }}" === menu.slug ? 'active' : '';
           const menuItem = document.createElement('li');
           menuItem.className = `menu-item ${activeClass}`;
@@ -58,8 +49,6 @@
               <div>${menu.name}</div>
             </a>
           `;
-
-          // Append to container
           menuContainer.appendChild(menuItem);
         }
       }

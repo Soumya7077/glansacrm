@@ -20,7 +20,7 @@
               <option value="" hidden>Select Organisation</option>
             </select>
 
-            <label for="organisation-name">Organisation Name</label>
+            <label for="organisation-name">Organisation Name <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please select an organisation.</div>
           </div>
         </div>
@@ -28,7 +28,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="job-title" name="Title" placeholder="Job Title"
               required minlength="3" />
-            <label for="job-title">Job Title</label>
+            <label for="job-title">Job Title <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter a valid job title (at least 3 characters).</div>
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <textarea id="job-description" class="form-control capitalized" name="Description"
               placeholder="Job Description" required minlength="10"></textarea>
-            <label for="job-description">Description</label>
+            <label for="job-description">Description <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter a job description (at least 10 characters).</div>
           </div>
         </div>
@@ -47,7 +47,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="openings" name="Opening" placeholder="Number of Openings"
               required min="1" />
-            <label for="openings">Number of Openings</label>
+            <label for="openings">Number of Openings <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter the number of openings (minimum 1).</div>
           </div>
         </div>
@@ -61,7 +61,7 @@
               <option value="Day">Remote</option>
               <option value="Night">On-site</option>
             </select>
-            <label for="JobsLocation">Job's Location</label>
+            <label for="JobsLocation">Job's Location <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please select a Job's Location.</div>
           </div>
         </div>
@@ -69,7 +69,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="education" name="Education" placeholder="Education Requirement"
               required minlength="3" />
-            <label for="education">Education</label>
+            <label for="education">Education <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter the education requirement (at least 3
               characters).
             </div>
@@ -82,7 +82,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="key-skills" name="KeySkills"
               placeholder="Key Skills" required minlength="3" />
-            <label for="key-skills">Key Skills</label>
+            <label for="key-skills">Key Skills <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter the key skills (at least 3 characters).</div>
           </div>
         </div>
@@ -91,7 +91,7 @@
             <select class="form-control" id="department" name="DepartmentId" required>
               <option value="" hidden>Select Department</option>
             </select>
-            <label for="department">Department</label>
+            <label for="department">Department <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please select a Department.</div>
           </div>
         </div>
@@ -102,7 +102,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="salary-min" name="MinSalary" placeholder="Salary" required
               pattern="^\d{4,}$" min="1000" oninput="validateSalary()" />
-            <label for="salary-min">Minimum Salary</label>
+            <label for="salary-min">Minimum Salary <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
           </div>
         </div>
@@ -110,7 +110,7 @@
           <div class="form-floating form-floating-outline mb-4 w-75">
             <input type="number" class="form-control" id="salary-max" name="MaxSalary" placeholder="Salary" required
               pattern="^\d{4,}$" min="1000" oninput="validateSalary()" />
-            <label for="salary-max">Maximum Salary</label>
+            <label for="salary-max">Maximum Salary <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter a valid salary (e.g., 50000 or 50000.50).</div>
           </div>
           <div class="form-floating form-floating-outline mb-4 w-25">
@@ -129,7 +129,7 @@
             <input type="number" class="form-control" id="experience-min" name="MinExperience" placeholder="Experience"
               required pattern="^\d{1,2}$" min="0" max="99"
               oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
-            <label for="experience-min">Minimum Experience (in years)</label>
+            <label for="experience-min">Minimum Experience (in years) <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter a valid Experience</div>
           </div>
         </div>
@@ -138,7 +138,7 @@
             <input type="number" class="form-control" id="experience-max" name="MaxExperience" placeholder="Experience"
               required pattern="^\d{1,2}$" min="0" max="99"
               oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
-            <label for="experience-max">Maximum Experience (in years)</label>
+            <label for="experience-max">Maximum Experience (in years) <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter a valid Experience</div>
           </div>
         </div>
@@ -153,7 +153,7 @@
               <option value="Part-Time">Part-Time</option>
               <option value="Contract">Contract</option>
             </select>
-            <label for="employment-type">Employment Type</label>
+            <label for="employment-type">Employment Type <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please select the Employment Type.</div>
           </div>
         </div>
@@ -161,7 +161,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="timeline" name="Timeline" placeholder="Timeline"
               required minlength="3" />
-            <label for="Timeline">Timeline</label>
+            <label for="Timeline">Timeline <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter the Timeline.</div>
           </div>
         </div>
@@ -172,7 +172,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="location" name="Location" placeholder="Job Location"
               required minlength="3" />
-            <label for="job-location">Location</label>
+            <label for="job-location">Location <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter the job location (at least 3 characters).</div>
           </div>
         </div>
@@ -184,7 +184,7 @@
               <option value="Night">12 hours</option>
               <option value="">24 hours</option>
             </select>
-            <label for="shift">Shift</label>
+            <label for="shift">Shift <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please select the shift.</div>
           </div>
         </div>
@@ -198,7 +198,7 @@
               <option value="Health-Insurance">Health Insurance</option>
               <option value="Parental-Leave">Parental Leave</option>
             </select>
-            <label for="Benefits">Benefits</label>
+            <label for="Benefits">Benefits <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please select the Benefits.</div>
           </div>
         </div>
@@ -210,7 +210,7 @@
               <option value="Female">Female</option>
               <option value="Others">Others</option>
             </select>
-            <label for="Gender">Gender</label>
+            <label for="Gender">Gender <span style="color: gray;">(optional)</span></label>
           </div>
         </div>
       </div>
@@ -220,7 +220,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="remarks" name="Remarks" placeholder="Remarks"
               required />
-            <label for="Remarks">Remarks</label>
+            <label for="Remarks">Remarks <span style="color: red;">*</span></label>
             <div class="invalid-feedback">Please enter the Remarks</div>
           </div>
         </div>

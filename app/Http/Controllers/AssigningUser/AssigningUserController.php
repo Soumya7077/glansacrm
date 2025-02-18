@@ -69,6 +69,7 @@ class AssigningUserController extends Controller
         ->join('user', 'user.id', '=', 'recruiter_assign.UserId')
         ->join('employees', 'job_post.EmployerId', '=', 'employees.id') // Fixed this line
         ->join('departments', 'departments.id', '=', 'job_post.Department')
+        
         ->select(
           'recruiter_assign.id as assignedId',
           'job_post.*',
