@@ -66,17 +66,20 @@ class AssigningUserController extends Controller
     try {
       $query = DB::table('recruiter_assign')
         ->join('job_post', 'job_post.id', '=', 'recruiter_assign.JobId')
+        ->join(DB::raw('(SELECT jobpost_id, COUNT(id) as applicant_count FROM applicant GROUP BY jobpost_id) as a'), 'a.jobpost_id', '=', 'job_post.id')
         ->join('user', 'user.id', '=', 'recruiter_assign.UserId')
-        ->join('employees', 'job_post.EmployerId', '=', 'employees.id') // Fixed this line
+        ->join('employees', 'job_post.EmployerId', '=', 'employees.id')
         ->join('departments', 'departments.id', '=', 'job_post.Department')
         
         ->select(
-          'recruiter_assign.id as assignedId',
+          'recruiter_assign.JobId as assignedId',
           'job_post.*',
           'user.*',
           'employees.OrganizationName',
-          'departments.Name as DepartmentName'
+          'departments.Name as DepartmentName',
+          DB::raw('COALESCE(a.applicant_count, 0) as applicant_count')
         );
+
 
       // Add where condition only if $id is not null
       if ($id !== null) {

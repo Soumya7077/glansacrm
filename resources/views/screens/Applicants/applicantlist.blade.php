@@ -150,7 +150,7 @@
         // $("#loading").show();
         // Fetch the applicants for this job
         var tableBody = $('#tbody');
-        tableBody.html('<tr><td colspan="14" class="text-primary">Loading...</td></tr>'); 
+        tableBody.html('<tr><td colspan="14" class="text-primary">Loading...</td></tr>');
         $.ajax({
           url: `/api/getapplicantbyjob/${jobId}`,
           type: 'GET',

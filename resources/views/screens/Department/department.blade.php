@@ -131,7 +131,7 @@
 
       });
       tbody.append(rows);
-      table.clear(); // Clear any previous DataTable data
+      table.clear();
       table.rows.add(tbody.find('tr')).draw();
       } else {
       rows = '<tr><td colspan="3" class="text-danger">No Data Found</td></tr>';
@@ -200,7 +200,7 @@
       showMessageModal("Error: " + xhr.responseJSON.message);
       },
       complete: function () {
-      // Re-enable button and restore text
+
       submitBtn.prop('disabled', false).text('Submit');
       }
       });
@@ -251,7 +251,7 @@
       showMessageModal("Error: " + xhr.responseText);
       },
       complete: function () {
-      // Re-enable button and restore text
+
       confirmBtn.prop('disabled', false).text('Confirm');
       bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
       }
@@ -280,14 +280,14 @@
     //     }
     // });
 
-    // When the Cancel button is clicked, clear the form and hide the offcanvas
+
     $('#cancelButton').click(function () {
       $('#departmentForm')[0].reset();
-      $('#deptName').removeClass('is-invalid'); // Remove error class if any
+      $('#deptName').removeClass('is-invalid'); 
       bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasBackdrop')).hide();
     });
 
-    // When the cross button (close) is clicked, just close the offcanvas
+
     $('.btn-close').click(function () {
       bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasBackdrop')).hide();
     });
