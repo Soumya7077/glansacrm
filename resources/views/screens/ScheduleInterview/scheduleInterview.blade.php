@@ -201,7 +201,7 @@
     const type = $('#option').val();
     const link = $('#location').val();
     const date = $('#interviewDate').val();
-    const formattedDate = date.split('-').reverse().join('-');
+    // const formattedDate = date.split('-').reverse().join('-');
     const bcc = $('#bcc').val();
     const cc = $('#cc').val();
     const description = $('#description').val();
@@ -221,7 +221,7 @@
       "JobId": e.jobId,
       "Type": type,
       "Link/Location": link,
-      "InterviewDate": formattedDate,
+      "InterviewDate": date,
       "ApplicantEmail": e.email,
       "BCC": bcc,
       "CC": cc,
