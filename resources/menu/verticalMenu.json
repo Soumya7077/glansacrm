@@ -51,7 +51,7 @@
     },
     {
       "url": "/assigninguser",
-      "name": "Assigning User",
+      "name": "Assigning Recruiter",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "Assigning User",
       "role": 1
@@ -96,7 +96,8 @@
       "slug": "scheduleInterview-candidate"
     },
     {
-      "menuHeader": "Reports"
+      "menuHeader": "Reports",
+      "role": 1
     },
     {
       "url": "/applicantlistreport",
