@@ -10,12 +10,12 @@
 
     <p>Available Time Slots:</p>
     <ul>
-        <li>{{ $TimeSlots['FirstTimeSlot'] }}</li>
-        @if ($TimeSlots['SecondTimeSlot'])
-            <li>{{ $TimeSlots['SecondTimeSlot'] }}</li>
+        <li>{{ date('h:i A', strtotime($TimeSlots['FirstTimeSlot'])) }}</li>
+        @if (!empty($TimeSlots['SecondTimeSlot']))
+            <li>{{ date('h:i A', strtotime($TimeSlots['SecondTimeSlot'])) }}</li>
         @endif
-        @if ($TimeSlots['ThirdTimeSlot'])
-            <li>{{ $TimeSlots['ThirdTimeSlot'] }}</li>
+        @if (!empty($TimeSlots['ThirdTimeSlot']))
+            <li>{{ date('h:i A', strtotime($TimeSlots['ThirdTimeSlot'])) }}</li>
         @endif
     </ul>
 
