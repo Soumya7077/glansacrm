@@ -29,20 +29,20 @@ class EmployerController extends Controller
   {
     try {
 
-      // $existingMobile = EmployeesModel::where('FirstContactPhoneNumber', $request->phone)->first();
-      // $existingEmail = EmployeesModel::where('FirstContactEmail', $request->email)->first();
+      $existingMobile = EmployeesModel::where('FirstContactPhoneNumber', $request->phone)->first();
+      $existingEmail = EmployeesModel::where('FirstContactEmail', $request->email)->first();
 
-      // if ($existingMobile) {
-      //   return response()->json([
-      //     'status' => 'error',
-      //     'message' => 'Phone Number already exists!'
-      //   ], 400);
-      // } else if ($existingEmail) {
-      //   return response()->json([
-      //     'status' => 'error',
-      //     'message' => 'Email already exists!'
-      //   ], 400);
-      // } else {
+      if ($existingMobile) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Phone Number already exists!'
+        ], 400);
+      } else if ($existingEmail) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Email already exists!'
+        ], 400);
+      } else {
       $employer = EmployeesModel::create(attributes: [
         'OrganizationName' => $request->OrganizationName,
         'FirstContactPersonName' => $request->FirstContactPersonName,
@@ -64,7 +64,7 @@ class EmployerController extends Controller
         'message' => 'Employer created successfully!',
         'data' => $employer
       ], 201);
-      // }
+      }
 
 
     } catch (Exception $e) {

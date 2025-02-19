@@ -6,16 +6,16 @@
 <body>
     <p>Dear {{ $ApplicantName }},</p>
     <p>We are pleased to invite you to an interview for the position of {{ $JobTitle }}.</p>
-    <p>Interview Date: {{ $InterviewDate }}</p>
+    <p>Interview Date: {{ date('d-m-Y', strtotime($InterviewDate)) }}</p>
 
     <p>Available Time Slots:</p>
     <ul>
-        <li>{{ $TimeSlots['FirstTimeSlot'] }}</li>
-        @if ($TimeSlots['SecondTimeSlot'])
-            <li>{{ $TimeSlots['SecondTimeSlot'] }}</li>
+        <li>{{ date('h:i A', strtotime($TimeSlots['FirstTimeSlot'])) }}</li>
+        @if (!empty($TimeSlots['SecondTimeSlot']))
+            <li>{{ date('h:i A', strtotime($TimeSlots['SecondTimeSlot'])) }}</li>
         @endif
-        @if ($TimeSlots['ThirdTimeSlot'])
-            <li>{{ $TimeSlots['ThirdTimeSlot'] }}</li>
+        @if (!empty($TimeSlots['ThirdTimeSlot']))
+            <li>{{ date('h:i A', strtotime($TimeSlots['ThirdTimeSlot'])) }}</li>
         @endif
     </ul>
 

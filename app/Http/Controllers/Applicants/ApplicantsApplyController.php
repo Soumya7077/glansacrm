@@ -35,99 +35,174 @@ class ApplicantsApplyController extends Controller
   /**==============================New Applicant create======================= */
 
   public function createApplicant(Request $request)
-  {
+{
     try {
-      // Check if phone or email already exists
-      $existingMobile = ApplicantModel::where('PhoneNumber', $request->phone)
-        ->where('jobpost_id', $request->jobpost_id)
-        ->exists();
+        // Check if the phone number or email already exists for the given job post
+        $existingApplicant = ApplicantModel::where('jobpost_id', $request->jobpost_id)
+            ->where(function ($query) use ($request) {
+                $query->where('PhoneNumber', $request->phone)
+                      ->orWhere('Email', $request->email);
+            })->first();
 
-      $existingEmail = ApplicantModel::where('Email', $request->email)
-        ->where('jobpost_id', $request->jobpost_id)
-        ->exists();
-      // $existingJob = ApplicantModel::where('jobpost_id', $request->jobpost_id)->first();
-
-
-
-      if ($existingMobile) {
-        return response()->json([
-          'status' => 'error',
-          'message' => 'Phone Number already exists!'
-        ], 400);
-      } elseif ($existingEmail) {
-        return response()->json([
-          'status' => 'error',
-          'message' => 'Email already exists!'
-        ], 400);
-      }
-
-      if ($existingMobile) {
-        return response()->json([
-          'status' => 'error',
-          'message' => 'Phone Number already exists!'
-        ], 400);
-      } else if ($existingEmail) {
-        return response()->json([
-          'status' => 'error',
-          'message' => 'Email already exists!'
-        ], 400);
-      } else {
-
-        $resumePath = $request->Resume; // Preserve current resume
-        if ($request->hasFile('Resume')) {
-          // Create a folder with the applicant's name (sanitize the name to avoid invalid characters)
-          $applicantName = preg_replace('/[^A-Za-z0-9]/', '_', $request->Name);
-          $folderPath = "resumes/{$applicantName}";
-
-          // Store the new resume file in the specific folder
-          $resumePath = $request->file('Resume')->store($folderPath, 'public');
+        if ($existingApplicant) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'You have already applied with this phone number or email!'
+            ], 400);
         }
-        $applicants = ApplicantModel::create([
-          // 'job'
-          'jobpost_id' => $request->jobpost_id,
-          'Source' => $request->Source,
-          'FirstName' => $request->FirstName,
-          'LastName' => $request->LastName,
-          'Email' => $request->email,
-          'PhoneNumber' => $request->phone,
-          'Experience' => $request->Experience,
-          'CurrentSalary' => $request->CurrentSalary,
-          'ExpectedSalary' => $request->ExpectedSalary,
-          'Resume' => $resumePath,
-          'KeySkills' => $request->KeySkills,
-          'Qualification' => $request->Qualification,
-          'StatusId' => $request->StatusId,
-          'Portfolio' => $request->Portfolio,
-          'Type' => $request->Type,
-          'CurrentLocation' => $request->CurrentLocation,
-          'PreferredLocation' => $request->PreferredLocation,
-          'Height' => $request->Height,
-          'Weight' => $request->Weight,
-          'BloodGroup' => $request->BloodGroup,
-          'Hemoglobin%' => $request->Hemoglobin,
-          'NoticePeriod' => $request->NoticePeriod,
-          'CurrentOrganization' => $request->CurrentOrganization,
-          'Certificates' => $request->Certificates,
-          'Remarks' => $request->Remarks,
-          'Feedback' => $request->Feedback,
-          'CreatedOn' => now(),
+
+        // Handle resume upload
+        $resumePath = $request->Resume; // Preserve existing resume path
+        if ($request->hasFile('Resume')) {
+            // Create a folder with the applicant's sanitized name
+            $applicantName = preg_replace('/[^A-Za-z0-9]/', '_', $request->Name);
+            $folderPath = "resumes/{$applicantName}";
+
+            // Store the new resume file in the specific folder
+            $resumePath = $request->file('Resume')->store($folderPath, 'public');
+        }
+
+        // Create applicant
+        $applicant = ApplicantModel::create([
+            'jobpost_id' => $request->jobpost_id,
+            'Source' => $request->Source,
+            'FirstName' => $request->FirstName,
+            'LastName' => $request->LastName,
+            'Email' => $request->email,
+            'PhoneNumber' => $request->phone,
+            'Experience' => $request->Experience,
+            'CurrentSalary' => $request->CurrentSalary,
+            'ExpectedSalary' => $request->ExpectedSalary,
+            'Resume' => $resumePath,
+            'KeySkills' => $request->KeySkills,
+            'Qualification' => $request->Qualification,
+            'StatusId' => $request->StatusId,
+            'Portfolio' => $request->Portfolio,
+            'Type' => $request->Type,
+            'CurrentLocation' => $request->CurrentLocation,
+            'PreferredLocation' => $request->PreferredLocation,
+            'Height' => $request->Height,
+            'Weight' => $request->Weight,
+            'BloodGroup' => $request->BloodGroup,
+            'Hemoglobin%' => $request->Hemoglobin,
+            'NoticePeriod' => $request->NoticePeriod,
+            'CurrentOrganization' => $request->CurrentOrganization,
+            'Certificates' => $request->Certificates,
+            'Remarks' => $request->Remarks,
+            'Feedback' => $request->Feedback,
+            'CreatedOn' => now(),
         ]);
 
         return response()->json([
-          'status' => 'success',
-          'message' => 'Applicant created successfully!',
-          'data' => $applicants
+            'status' => 'success',
+            'message' => 'Applicant created successfully!',
+            'data' => $applicant
         ], 201);
 
-      }
     } catch (Exception $e) {
-      return response()->json([
-        'status' => 'error',
-        'message' => 'Something went wrong! Please try again.',
-        'error' => $e->getMessage()
-      ], 500); // Internal Server Error status code
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Something went wrong! Please try again.',
+            'error' => $e->getMessage()
+        ], 500); // Internal Server Error status code
     }
-  }
+}
+
+
+  // public function createApplicant(Request $request)
+  // {
+  //   try {
+  //     // Check if phone or email already exists
+  //     $existingMobile = ApplicantModel::where('PhoneNumber', $request->phone)
+  //       ->where('jobpost_id', $request->jobpost_id)
+  //       ->exists();
+
+  //     $existingEmail = ApplicantModel::where('Email', $request->email)
+  //       ->where('jobpost_id', $request->jobpost_id)
+  //       ->exists();
+  //     // $existingJob = ApplicantModel::where('jobpost_id', $request->jobpost_id)->first();
+
+
+
+  //     if ($existingMobile) {
+  //       return response()->json([
+  //         'status' => 'error',
+  //         'message' => 'You have already aplied for this job!'
+  //       ], 400);
+  //     } elseif ($existingEmail) {
+  //       return response()->json([
+  //         'status' => 'error',
+  //         'message' => 'Email already exists!'
+  //       ], 400);
+  //     }
+
+  //     if ($existingMobile) {
+  //       return response()->json([
+  //         'status' => 'error',
+  //         'message' => 'Phone Number already exists!'
+  //       ], 400);
+  //     } else if ($existingEmail) {
+  //       return response()->json([
+  //         'status' => 'error',
+  //         'message' => 'Email already exists!'
+  //       ], 400);
+  //     } else {
+
+  //       $resumePath = $request->Resume; // Preserve current resume
+  //       if ($request->hasFile('Resume')) {
+  //         // Create a folder with the applicant's name (sanitize the name to avoid invalid characters)
+  //         $applicantName = preg_replace('/[^A-Za-z0-9]/', '_', $request->Name);
+  //         $folderPath = "resumes/{$applicantName}";
+
+  //         // Store the new resume file in the specific folder
+  //         $resumePath = $request->file('Resume')->store($folderPath, 'public');
+  //       }
+  //       $applicants = ApplicantModel::create([
+  //         // 'job'
+  //         'jobpost_id' => $request->jobpost_id,
+  //         'Source' => $request->Source,
+  //         'FirstName' => $request->FirstName,
+  //         'LastName' => $request->LastName,
+  //         'Email' => $request->email,
+  //         'PhoneNumber' => $request->phone,
+  //         'Experience' => $request->Experience,
+  //         'CurrentSalary' => $request->CurrentSalary,
+  //         'ExpectedSalary' => $request->ExpectedSalary,
+  //         'Resume' => $resumePath,
+  //         'KeySkills' => $request->KeySkills,
+  //         'Qualification' => $request->Qualification,
+  //         'StatusId' => $request->StatusId,
+  //         'Portfolio' => $request->Portfolio,
+  //         'Type' => $request->Type,
+  //         'CurrentLocation' => $request->CurrentLocation,
+  //         'PreferredLocation' => $request->PreferredLocation,
+  //         'Height' => $request->Height,
+  //         'Weight' => $request->Weight,
+  //         'BloodGroup' => $request->BloodGroup,
+  //         'Hemoglobin%' => $request->Hemoglobin,
+  //         'NoticePeriod' => $request->NoticePeriod,
+  //         'CurrentOrganization' => $request->CurrentOrganization,
+  //         'Certificates' => $request->Certificates,
+  //         'Remarks' => $request->Remarks,
+  //         'Feedback' => $request->Feedback,
+  //         'CreatedOn' => now(),
+  //       ]);
+
+  //       return response()->json([
+  //         'status' => 'success',
+  //         'message' => 'Applicant created successfully!',
+  //         'data' => $applicants
+  //       ], 201);
+
+  //     }
+  //   } catch (Exception $e) {
+  //     return response()->json([
+  //       'status' => 'error',
+  //       'message' => 'Something went wrong! Please try again.',
+  //       'error' => $e->getMessage()
+  //     ], 500); // Internal Server Error status code
+  //   }
+  // }
 
   /**==============================New Applicant create======================= */
 
