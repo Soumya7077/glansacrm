@@ -51,7 +51,7 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="url" class="form-control" id="portfolio" placeholder="Portfolio/LinkedIn Profile" />
-            <label for="portfolio">Portfolio/LinkedIn Profile <span style="color: gray;">(optional)</span></label>
+            <label for="portfolio">Portfolio/LinkedIn Profile </label>
           </div>
         </div>
         <div class="col-md-6">
@@ -80,7 +80,7 @@
               <option value="Fresher">Fresher</option>
               <option value="Experience">Experience</option>
             </select>
-            <label for="type">Type <span style="color: gray;">(optional)</span></label>
+            <label for="type">Type </label>
           </div>
         </div>
       </div>
@@ -89,13 +89,13 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="current-location" placeholder="Current Location" />
-            <label for="current-location">Current Location <span style="color: gray;">(optional)</span></label>
+            <label for="current-location">Current Location </label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control" id="preferred-location" placeholder="Preferred Location" />
-            <label for="preferred-location">Preferred Location <span style="color: gray;">(optional)</span></label>
+            <label for="preferred-location">Preferred Location </label>
           </div>
         </div>
       </div>
@@ -104,13 +104,13 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="height" placeholder="Height" />
-            <label for="height">Height <span style="color: gray;">(optional)</span></label>
+            <label for="height">Height </label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="weight" placeholder="Weight" />
-            <label for="weight">Weight <span style="color: gray;">(optional)</span></label>
+            <label for="weight">Weight </label>
           </div>
         </div>
       </div>
@@ -128,14 +128,14 @@
               <option value="O+">O+</option>
               <option value="O-">O-</option>
             </select>
-            <label for="blood-group">Blood Group <span style="color: gray;">(optional)</span></label>
+            <label for="blood-group">Blood Group </label>
           </div>
 
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="hemoglobin" placeholder="Hemoglobin %" />
-            <label for="hemoglobin">Hemoglobin % <span style="color: gray;">(optional)</span></label>
+            <label for="hemoglobin">Hemoglobin % </label>
           </div>
         </div>
       </div>
@@ -157,7 +157,7 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="current-organisation"
               placeholder="Current Organisation" />
-            <label for="current-organisation">Current Organisation <span style="color: gray;">(optional)</span></label>
+            <label for="current-organisation">Current Organisation </label>
           </div>
         </div>
 
@@ -190,7 +190,7 @@
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="file" class="form-control" id="certificates" />
-            <label for="certificates">Certificates <span style="color: gray;">(optional)</span></label>
+            <label for="certificates">Certificates </label>
           </div>
         </div>
       </div>
@@ -200,19 +200,19 @@
           <div class="form-floating form-floating-outline mb-4">
             <input type="number" class="form-control" id="experience" placeholder="Experience" pattern="^\d{1,2}$"
               min="0" max="99" oninput="if(this.value.length > 2) this.value = this.value.slice(0,2);" />
-            <label for="experience">Work Experience (in years) <span style="color: gray;">(optional)</span></label>
+            <label for="experience">Work Experience (in years) </label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <textarea class="form-control capitalized" id="remarks" placeholder="Remarks"></textarea>
-            <label for="remarks">Remarks <span style="color: gray;">(optional)</span></label>
+            <label for="remarks">Remarks </label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating form-floating-outline mb-4">
             <input type="text" class="form-control capitalized" id="KeySkills" placeholder="Skills" />
-            <label for="KeySkills">Key Skills <span style="color: gray;">(optional)</span></label>
+            <label for="KeySkills">Key Skills </label>
           </div>
 
         </div>
@@ -245,6 +245,24 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="errorMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @push('scripts')
@@ -405,7 +423,10 @@
         var errors = xhr.responseJSON;
 
         if (errors && errors.message) {
-          console.log(errors.message);
+          console.log(errors.message,'vdvdsvsv');
+         $('#errorMessage').text(errors.message);
+         $('#errorModal').modal('show');
+
         } else {
           console.log('Something went wrong. Please try again.');
         }
