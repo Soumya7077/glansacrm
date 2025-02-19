@@ -221,7 +221,7 @@
       "JobId": e.jobId,
       "Type": type,
       "Link/Location": link,
-      "InterviewDate": date,
+      "InterviewDate": formattedDate,
       "ApplicantEmail": e.email,
       "BCC": bcc,
       "CC": cc,
