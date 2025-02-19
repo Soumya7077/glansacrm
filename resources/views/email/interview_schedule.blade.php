@@ -6,7 +6,7 @@
 <body>
     <p>Dear {{ $ApplicantName }},</p>
     <p>We are pleased to invite you to an interview for the position of {{ $JobTitle }}.</p>
-    <p>Interview Date: {{ $InterviewDate }}</p>
+    <p>Interview Date: {{ date('d-m-Y', strtotime($InterviewDate)) }}</p>
 
     <p>Available Time Slots:</p>
     <ul>
